@@ -13,7 +13,8 @@ export class DataHeaderComponent implements AfterViewInit, OnInit, IDataComponen
   @Output() output = new EventEmitter();
 
   option = {
-    text: '我是标题'
+    text: '我是标题',
+    backgroundColor: undefined
   };
 
   private _differ: KeyValueDiffer<any, any>;

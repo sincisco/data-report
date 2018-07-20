@@ -56,7 +56,7 @@ interface IDimension {
   height: number;
 }
 
-export class RegionText extends Region {
+export class RegionText {
   _report: Report;
   _coordinates: JQuery.Coordinates;
   dimensions: Dimensions;
@@ -81,7 +81,6 @@ export class RegionText extends Region {
   _content: IContent;
 
   constructor() {
-    super();
     this.$element = $(this.template);
     this.$mover = this.$element.find('.u-mover');
     this.$frame = this.$element.find('.graphic');

@@ -1,3 +1,19 @@
+.node-wrapper{
+  transition-property: width,height,background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-in-out;
+  box-sizing: border-box;
+  position: absolute;
+}
+
+.no-transition{
+  transition: none;
+}
+
+.node-wrapper.no-transition{
+  opacity: .5;
+}
+
 .u-resize {
   border: 1px solid rgba(57, 155, 252, 0.6);
   box-sizing: border-box;
@@ -19,7 +35,7 @@
       box-shadow: 0 0 6px #58bee9;
     }
   }
-  &.activated {
+  &.activated,&.selected {
     & > .u-resize {
       opacity: 1;
       display: block;
@@ -27,35 +43,20 @@
   }
 }
 
-.node-wrapper{
-  transition-property: width,height,background-color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in-out;
-  box-sizing: border-box;
-  position: absolute;
-}
-
-.no-transition{
-  transition: none;
-}
-
-.node-wrapper.no-transition{
-  opacity: .5;
-}
-
-.u-resize [class^=resize] {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  z-index: 10;
-  box-sizing: border-box;
-  border: 3px solid #999;
+.u-resize {
+  [class^=resize] {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    z-index: 10;
+    box-sizing: border-box;
+    border: 3px solid #999;
+  }
 }
 
 .u-resize [class^=resize] {
   border-color: #09f;
 }
-
 
 .u-resize {
   .resize-topLeft {
@@ -145,6 +146,8 @@
   display: none;
 }
 
-.node-wrapper.activated>.u-resize>[class^=resize] {
-  display: block;
+.node-wrapper.activated,.node-wrapper.selected{
+  &>.u-resize>[class^=resize] {
+    display: block;
+  }
 }

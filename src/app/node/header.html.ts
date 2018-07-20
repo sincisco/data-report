@@ -5,12 +5,14 @@ import {siderLeftComponent} from '../layout/sider/sider.left.component';
 
 interface HeaderOption {
   tag?: string,
-  text?: string
+  text?: string,
+  backgroundColor?: string
 }
 
 const HeaderOptionDefault: HeaderOption = {
   tag: '<h1></h1>',
-  text: '标题1'
+  text: '标题1',
+  backgroundColor: 'transparent'
 };
 
 
@@ -18,7 +20,7 @@ export class HeaderHtml extends HtmlNode {
   private _option: HeaderOption;
   private _$host: JQuery;
   private _$element: JQuery;
-  dataProperty=DataHeaderComponent;
+  dataProperty = DataHeaderComponent;
 
   constructor(private _host: HTMLElement) {
     super();
@@ -45,10 +47,13 @@ export class HeaderHtml extends HtmlNode {
     this._$element = $(option.tag);
     this._$host.empty().append(this._$element);
     this._$element.text(option.text);
+    this._$element.css({
+      'background-color': option.backgroundColor
+    });
 
   }
 
-  activate(){
-    siderLeftComponent.createDataProperty(this.dataProperty)
+  activate() {
+    siderLeftComponent.createDataProperty(this.dataProperty);
   }
 }

@@ -1,5 +1,4 @@
 export interface INode {
-  template: string;
 }
 
 export interface IDimensions {

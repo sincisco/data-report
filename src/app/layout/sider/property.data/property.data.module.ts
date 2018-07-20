@@ -9,6 +9,7 @@ import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {HttpClientModule} from '@angular/common/http';
 import {DataPieComponent} from './data.pie.component';
 import {DataHeaderComponent} from './html/header.component';
+import {ColorPickerModule} from "@shared/color-picker/color-picker.module";
 
 const COMPONENTS = [
   DataPieComponent,
@@ -24,6 +25,7 @@ const COMPONENTS = [
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    ColorPickerModule,
     NgZorroAntdModule
   ],
   entryComponents:[
