@@ -1,7 +1,7 @@
 import {Region, reportGlobal} from "./region";
 import {Report} from "./report";
 import {ChartBarNode} from "./chart.bar";
-import {HeaderHtml} from "./header.html";
+import {HeaderHtml} from "./html/header.html";
 import {closestNum} from "../utils/common";
 import {ContextMenuHelper} from "../utils/contextMenu";
 import {fromEvent} from "rxjs";

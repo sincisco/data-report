@@ -1,12 +1,12 @@
 import {HtmlNode} from './html';
 import * as _ from 'lodash';
-import {DataHeaderComponent} from '../layout/sider/property.data/html/header.component';
-import {siderLeftComponent} from '../layout/sider/sider.left.component';
+import {DataHeaderComponent} from '../../layout/sider/property.data/html/header.component';
+import {siderLeftComponent} from '../../layout/sider/sider.left.component';
 
 interface HeaderOption {
-  tag?: string,
-  text?: string,
-  backgroundColor?: string
+  tag?: string;
+  text?: string;
+  backgroundColor?: string;
 }
 
 const HeaderOptionDefault: HeaderOption = {

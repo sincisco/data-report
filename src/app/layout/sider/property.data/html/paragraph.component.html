@@ -1,0 +1,18 @@
+<div ngForm>
+  <div nz-row nzType="flex">
+    <div nz-col nzSpan="8">文本</div>
+    <div nz-col nzSpan="16"><input nz-input placeholder="文本" name="text" [(ngModel)]="option.text"></div>
+    <div nz-col [nzSpan]="4">
+      <div name="backgroundColor"
+           style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
+           colorPicker [(ngModel)]="option.backgroundColor"
+           [style.background]="option.backgroundColor"
+           [cpOutputFormat]="'rgba'"
+           [cpOKButton]="true"
+           cpOKButtonClass="ant-btn ant-btn-default"
+           [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,11 +1,13 @@
-import {Region, reportGlobal} from "./region";
-import {Report} from "./report";
-import {ChartBarNode} from "./chart.bar";
-import {HeaderHtml} from "./header.html";
-import {closestNum} from "../utils/common";
-import {ContextMenuHelper} from "../utils/contextMenu";
-import {fromEvent} from "rxjs";
-import {filter, throttleTime} from "rxjs/internal/operators";
+import {Region, reportGlobal} from './region';
+import {Report} from './report';
+import {ChartBarNode} from './chart.bar';
+import {HeaderHtml} from './html/header.html';
+import {closestNum} from '../utils/common';
+import {ContextMenuHelper} from '../utils/contextMenu';
+import {fromEvent} from 'rxjs';
+import {filter, throttleTime} from 'rxjs/internal/operators';
+import {HtmlParagraph} from './html/paragraph.html';
+import {HtmlImage} from './html/image.html';
 
 
 const resizeHelper = `
@@ -79,7 +81,7 @@ export class ExplicitRegion extends Region {
         count = 0;
         this.$element.addClass('no-transition');
         this.offset = this.$element.offset();
-        this.snapshot = Object.assign({}, this._dimensions,this._coordinates);
+        this.snapshot = Object.assign({}, this._dimensions, this._coordinates);
 
         this._which = (<HTMLElement>$event.currentTarget).dataset.which;
 
@@ -155,6 +157,30 @@ export class ExplicitRegion extends Region {
           displayName: '创建Header',
           callback: () => {
             var content = this._content = new HeaderHtml(this.$frame[0]);
+            console.log(content);
+            var option = {
+              text: '英特尔 Xeon(至强)'
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            content.init(option);
+          }
+        }, {
+          displayName: '创建Paragraph',
+          callback: () => {
+            var content = this._content = new HtmlParagraph(this.$frame[0]);
+            console.log(content);
+            var option = {
+              text: '英特尔 Xeon(至强)'
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            content.init(option);
+          }
+        }, {
+          displayName: '创建Image',
+          callback: () => {
+            var content = this._content = new HtmlImage(this.$frame[0]);
             console.log(content);
             var option = {
               text: '英特尔 Xeon(至强)'
