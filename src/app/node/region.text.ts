@@ -221,6 +221,7 @@ export class RegionText extends Region {
       return false;
     });
 
+
     var moverDrag = fromEvent(this.$mover[0], 'drag');
 
     moverDrag.pipe(filter(ev => count++ > 2), throttleTime(100)).subscribe(($event: DragEvent) => {
