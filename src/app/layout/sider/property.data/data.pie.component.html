@@ -1,0 +1,19 @@
+<div class="setting-content" ngForm>
+  <ul class="mark-list">
+    <li class="item">
+      <div class="droppable-area" id="q123">
+        <div class="item-key">
+          <span>角度</span>
+        </div>
+        <div class="item-value">
+          <div class="empty" *ngIf="!angle">
+            拖入字段
+          </div>
+          <div class="pill" *ngIf="!!angle">
+            <div class="text"><span>{{angle}}</span></div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

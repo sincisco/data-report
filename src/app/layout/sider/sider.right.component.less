@@ -1,0 +1,140 @@
+.m-report-dataModel {
+  background-color: #f5f5f5;
+  height: 100%;
+  .title {
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    font-size: 14px;
+    color: #282828;
+    font-weight: 500;
+    .u-icn {
+      position: absolute;
+      top: 10px;
+      cursor: pointer;
+      height: 16px;
+      line-height: 16px;
+      color: #8f8f8f;
+    }
+    .u-icn-panel-close {
+      left: 8px;
+    }
+    .u-icn-search {
+      right: 32px;
+    }
+    .u-icn-toolbar-more {
+      right: 8px;
+    }
+  }
+
+  .list {
+    .u-btn-menu {
+      display: block;
+      width: auto;
+      margin: 10px 16px;
+      font-size: 12px;
+      overflow: hidden;
+      word-wrap: normal;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      &:before {
+        position: absolute;
+        top: 50%;
+        margin-top: -6px;
+        right: 10px;
+        display: block;
+        width: 7px;
+        height: 7px;
+        border: 1px solid #525252;
+        border-top: 0;
+        border-right: 0;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        content: "";
+      }
+    }
+  }
+}
+
+.u-btn {
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 2px;
+  padding: 0 8px;
+  user-select: none;
+  text-align: center;
+  cursor: pointer;
+  border: 0;
+  background-color: #f9fafb;
+  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.07), 0 1px 3px 0 rgba(63, 63, 68, 0.12);
+}
+
+.u-btn-menu, a.u-btn-menu {
+  padding-right: 16px;
+  position: relative;
+}
+
+:host /deep/  .m-schema-pills {
+  height: calc(100% - 84px);
+}
+
+:host /deep/  .m-schema-pills {
+  .dimension-area, .measure-area {
+    position: relative;
+    padding-bottom: 8px;
+    border-top: 1px solid #ccc;
+    height: 50%;
+    overflow: hidden;
+  }
+  .head {
+    position: relative;
+    h4 {
+      height: 36px;
+      line-height: 36px;
+      text-indent: 16px;
+      font-weight: 500;
+
+      font-size: 12px;
+      color: #282828;
+    }
+    .u-icn {
+      position: absolute;
+      cursor: pointer;
+      font-size: 12px;
+      color: #8f8f8f;
+      width: 12px;
+      height: 12px;
+      top: 50%;
+      margin-top: -6px;
+      right: 16px;
+    }
+    .u-icn-geography {
+      right: 45px;
+    }
+    .u-icn-caret-down {
+      right: -13px;
+    }
+  }
+  .body {
+    height: calc(100% - 36px);
+    & > .dropable, .group {
+      height: 100%;
+    }
+    .group {
+      overflow: auto;
+    }
+  }
+}
+
+:host /deep/  .m-schema-pills .body .group {
+  overflow: auto;
+}
+
+

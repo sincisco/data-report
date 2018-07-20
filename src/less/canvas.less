@@ -1,0 +1,35 @@
+.report-region {
+  position: relative;
+  padding: 15px 25px;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.report-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: transparent;
+}
+
+.report-box {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 4px 0px;
+  overflow: visible;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  // overflow: hidden;
+  backface-visibility: hidden !important;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+.report-grid{
+  background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(-90deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.04) 1px, transparent 1px, transparent 20px);
+  background-size: 10px 10px;
+  background-position: 1px 1px;
+  background-color: rgb(242, 242, 242);
+}

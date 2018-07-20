@@ -1,0 +1,113 @@
+<h2 class="title">报告设置
+  <i class="u-icn u-icn-back" style="display: none;"></i>
+  <i class="u-icn u-icn-panel-open" style="display: none;"></i>
+</h2>
+<nz-tabset>
+  <nz-tab nzTitle="数据">
+    <ng-template #dataComponent></ng-template>
+  </nz-tab>
+  <nz-tab nzTitle="样式">
+    <nz-collapse [nzBordered]="false" class="zijin-form" ngForm>
+      <nz-collapse-panel nzHeader="标题">
+        <div nz-row nzType="flex" ngModelGroup="title">
+          <div nz-col class="flex-start" [nzSpan]="12">
+            <span>标题文字</span>
+          </div>
+          <div nz-col class="flex-end" [nzSpan]="12">
+            <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.title.show">显示</label>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <input nz-input placeholder="标题文本" name="text" [(ngModel)]="option.title.text" nzSize="small">
+          </div>
+          <div nz-col [nzSpan]="12" class="padding-right">
+            <input nz-input
+                   placeholder="left"
+                   name="left"
+                   [(ngModel)]="option.title.left"
+                   nzTitle="top:{{option.title.left}}" nzPlacement="topCenter" nz-tooltip
+                   nzSize="small">
+          </div>
+          <div nz-col [nzSpan]="12" class="padding-left">
+            <input nz-input
+                   placeholder="top"
+                   name="top"
+                   [(ngModel)]="option.title.top"
+                   nzTitle="left:{{option.title.top}}" nzPlacement="topCenter" nz-tooltip
+                   nzSize="small">
+          </div>
+          <div nz-col [nzSpan]="12" class="padding-right">
+            <input nz-input
+                   placeholder="right"
+                   name="right"
+                   [(ngModel)]="option.title.right"
+                   nzTitle="top:{{option.title.right}}" nzPlacement="topCenter" nz-tooltip
+                   nzSize="small">
+          </div>
+          <div nz-col [nzSpan]="12" class="padding-left">
+            <input nz-input
+                   placeholder="bottom"
+                   name="bottom"
+                   [(ngModel)]="option.title.bottom"
+                   nzTitle="left:{{option.title.bottom}}" nzPlacement="topCenter" nz-tooltip
+                   nzSize="small">
+          </div>
+          <div nz-col [nzSpan]="24">
+            <input nz-input placeholder="标题文本" nzSize="small">
+          </div>
+          <div nz-col [nzSpan]="24">
+            <nz-switch nzSize="small"></nz-switch>
+          </div>
+          <div nz-col [nzSpan]="24" ngModelGroup="textStyle">
+            <div nz-row class="back-white" nzType="flex">
+              <div nz-col class="flex-start" [nzSpan]="8">
+                <span>align</span>
+              </div>
+              <div nz-col class="flex-end" [nzSpan]="16">
+                <nz-radio-group [nzSize]="'small'" name="align" [(ngModel)]="option.title.textStyle.align">
+                  <label nz-radio-button nzValue="left"><i class="u-icn u-icn-align-left"></i></label>
+                  <label nz-radio-button nzValue="center"><i class="u-icn u-icn-align-center"></i></label>
+                  <label nz-radio-button nzValue="right"><i class="u-icn u-icn-align-right"></i></label>
+                </nz-radio-group>
+              </div>
+            </div>
+          </div>
+          <div nz-col [nzSpan]="24">
+            <div nz-row class="multi-item-row" nzGutter="8">
+              <div nz-col [nzSpan]="4">
+                <div name="backgroundColor"
+                     style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
+                     colorPicker [(ngModel)]="option.title.backgroundColor"
+                     [cpOutputFormat]="'rgba'"
+                     [cpOKButton]="true"
+                     cpOKButtonClass="ant-btn ant-btn-default"
+                     [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+                     [style.background]="option.title.backgroundColor">
+
+                </div>
+              </div>
+              <div nz-col [nzSpan]="8">
+
+              </div>
+              <div nz-col [nzSpan]="12">
+                <nz-select nzTitle="字体" nzPlacement="topCenter" nz-tooltip style="width: 100%" nzShowSearch nzAllowClear
+                           nzPlaceHolder="字体" nzSize="small">
+                  <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+                  <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+                  <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                </nz-select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="标题">
+        <nz-switch nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+</nz-tabset>
+
+
+

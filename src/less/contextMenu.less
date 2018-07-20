@@ -1,0 +1,92 @@
+.m-ctxMenu {
+  background: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16);
+  border-radius: 2px;
+}
+
+
+.m-ctxMenu li {
+  cursor: default;
+  position: relative;
+  font-size: 12px;
+  box-sizing: border-box;
+  padding-left: 24px;
+  padding-right: 18px;
+  height: 32px;
+  line-height: 32px;
+  min-width: 180px;
+  background-color: #fff;
+}
+
+.m-ctxMenu li:hover {
+  background-color: #e0e0e0;
+}
+
+.m-ctxMenu .shortcut {
+  float: right;
+  color: #8f8f8f;
+}
+
+.m-ctxMenu li.u-split {
+  height: 1px;
+  border-top: 1px solid #ccc;
+}
+
+.m-ctxMenu .z-disabled {
+  color: #ccc;
+}
+
+.m-window {
+  position: absolute;
+  z-index: 304;
+  top: 0;
+  display: table;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+}
+.m-window.mask-transparent {
+  background: rgba(0,0,0,0);
+}
+
+.m-window >.wrap {
+  display: table-cell;
+  padding-top: 5%;
+  text-align: center;
+}
+
+.m-ctxMenu li .u-icn {
+  position: absolute;
+  left: 8px;
+  top: 10px;
+  font-size: 12px;
+}
+
+.m-ctxMenu li .u-icn-angle-right {
+  left: auto;
+  right: 8px;
+}
+
+
+
+
+
+
+.m-ctxMenu li >ul {
+  display: none;
+  position: absolute;
+  border: 1px solid #ccc;
+}
+
+.m-ctxMenu li >ul.right {
+  left: 100%;
+}
+
+.m-ctxMenu li >ul.bottom {
+  top: 0;
+}
+
+.m-ctxMenu li:hover >ul {
+  display: block;
+}

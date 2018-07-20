@@ -1,0 +1,56 @@
+.node-wrapper .u-mover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.node-wrapper{
+  &.deep-activated{
+    .u-mover{
+      display: none;
+    }
+  }
+}
+
+.node-wrapper .u-mover {
+  background: rgba(255, 255, 255, 0);
+}
+
+.node-wrapper .u-mover {
+  cursor: move;
+  z-index: 5;
+}
+
+.node-wrapper .graphic-wrapper{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(255,255,255,0);
+}
+
+.node-wrapper .frame {
+  transition: background 0.3s ease-in-out;
+}
+.node-wrapper .frame {
+  border: 0px solid rgb(204, 204, 204);
+  background-color: rgb(255, 255, 255);
+  border-radius: 0px;
+  opacity: 1;
+}
+.node-wrapper .frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.graphic{
+  width: 100%;
+  height: 100%;
+}

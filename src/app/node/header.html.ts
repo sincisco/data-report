@@ -1,0 +1,54 @@
+import {HtmlNode} from './html';
+import * as _ from 'lodash';
+import {DataHeaderComponent} from '../layout/sider/property.data/html/header.component';
+import {siderLeftComponent} from '../layout/sider/sider.left.component';
+
+interface HeaderOption {
+  tag?: string,
+  text?: string
+}
+
+const HeaderOptionDefault: HeaderOption = {
+  tag: '<h1></h1>',
+  text: '标题1'
+};
+
+
+export class HeaderHtml extends HtmlNode {
+  private _option: HeaderOption;
+  private _$host: JQuery;
+  private _$element: JQuery;
+  dataProperty=DataHeaderComponent;
+
+  constructor(private _host: HTMLElement) {
+    super();
+    this._$host = $(_host);
+    console.log(123);
+  }
+
+  init(option: HeaderOption) {
+    this._option = _.defaultsDeep(option, HeaderOptionDefault);
+    this._refresh();
+  }
+
+  resize() {
+
+  }
+
+  update(option: any) {
+    this._option = _.defaultsDeep(option, this._option);
+    this._refresh();
+  }
+
+  private _refresh() {
+    const option = this._option;
+    this._$element = $(option.tag);
+    this._$host.empty().append(this._$element);
+    this._$element.text(option.text);
+
+  }
+
+  activate(){
+    siderLeftComponent.createDataProperty(this.dataProperty)
+  }
+}

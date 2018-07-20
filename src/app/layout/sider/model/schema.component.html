@@ -1,0 +1,91 @@
+<div class="dimension-area" style="top: 0px; height: 450px;">
+  <div class="head">
+    <h4>维度</h4>
+    <i class="u-icn u-icn-geography">
+      <span class="u-icn u-icn-caret-down"></span>
+    </i>
+    <i class="u-icn u-icn-add"></i>
+    <div class="m-overlay m-overlay-customMap top"
+         style="z-index: 404; position: absolute; top: -9999px; left: -9999px;">
+      <ul class="u-menu u-menu-map" style="display: block;">
+        <li>地理地图</li>
+        <li>自定义背景地图</li>
+      </ul>
+    </div>
+  </div>
+  <div class="body">
+    <div class=" dropable">
+      <div class="group group-dimensions group-">
+        <div class="m-schemaList">
+          <ul class="list list-item">
+            <li class="u-bitem u-bitem-table" title="Sheet1">
+              <i class="u-icn u-icn-angle-down"></i>Sheet1
+            </li>
+            <li *ngFor="let item of dimensions"
+                class="u-bitem j-pill-item j-item u-bitem-1 dragable" draggable="true" (dragstart)="doDragStart($event)"
+                [attr.fieldid]="item.name">
+                <span class="txt handle">
+                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item.displayName}}</b>
+                </span>
+              <div class="menu">
+                <i></i>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="u-dragBar u-dragBar-v">
+    <div class="icon">
+      <div class="line"></div>
+    </div>
+  </div>
+</div>
+<div class="measure-area" style="height: 498px;">
+  <div class="head">
+    <h4>度量</h4>
+    <i class="u-icn u-icn-add"></i>
+  </div>
+  <div class="body">
+    <div class=" dropable">
+      <div class="group group-measures group-">
+        <div class="m-schemaList">
+          <ul class="list list-item">
+            <li class="u-bitem u-bitem-table" title="Sheet1">
+              <i class="u-icn u-icn-angle-down"></i>Sheet1
+            </li>
+            <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" draggable="true" data-fieldid="567096">
+                    <span class="txt handle">
+                      <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">序号</b>
+                    </span>
+              <div class="menu">
+                <i></i>
+              </div>
+            </li>
+            <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" draggable="true" id="dragImg"
+                data-field-name="平均分" data-fieldid="567097">
+                        <span class="txt handle">
+                          <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">批准时间</b>
+                        </span>
+              <div class="menu">
+                <i></i>
+              </div>
+            </li>
+            <li class="u-bitem u-bitem-table" title="自定义度量">
+              <i class="u-icn u-icn-angle-down"></i>自定义度量
+            </li>
+            <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" data-fieldid="567098">
+                    <span class="txt handle">
+                      <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-whole"></i><b class="j-text">记录数</b>
+                    </span>
+              <div class="menu">
+                <i></i>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
