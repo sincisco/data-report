@@ -62,7 +62,10 @@ export abstract class Region implements INode {
   abstract refresh();
 
   protected _bindEventForMover() {
-    var count = 0, originPageX, originPageY, snapshot: JQuery.Coordinates;
+    var count = 0,
+      originPageX,
+      originPageY,
+      snapshot: JQuery.Coordinates;
     this.$mover
       .on('dragstart', ($event: JQuery.Event) => {
         count = 0;
@@ -73,7 +76,7 @@ export abstract class Region implements INode {
         snapshot = Object.assign({}, this._coordinates);
         console.log('mover dragstart:', 'pageX', $event.pageX, 'pageY', $event.pageY);
         $event.stopPropagation();
-      }).on('click', ($event) => {
+      }).on('click', ($event: JQuery.Event) => {
       this.$element.addClass('selected');
       if (this._content) {
         reportGlobal.instance = this._content;

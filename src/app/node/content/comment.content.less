@@ -1,0 +1,37 @@
+.m-rect {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+
+.m-rect-comment {
+  .icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    margin: 3px;
+    border-radius: 50%;
+    line-height: 20px;
+    color: #fff;
+    font-size: 14px;
+    border: 2px solid #fff;
+    box-shadow: 0 0 3px rgba(0,0,0,.24);
+    font-weight: 700;
+    user-select: none;
+  }
+  .tooltip {
+    position: relative;
+    word-wrap: break-word;
+    word-break: break-all;
+    overflow-y: auto;
+    width: 100%;
+    height: calc(100% - 37px);
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 0 3px rgba(0,0,0,.24);
+    &.top {
+      top: 37px;
+    }
+  }
+}

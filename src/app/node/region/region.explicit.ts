@@ -1,13 +1,13 @@
 import {Region, reportGlobal} from './region';
 import {Report} from '../report';
-import {ChartBarNode} from '../chart.bar';
-import {HeaderHtml} from '../html/header.html';
+import {ChartBarNode} from '../content/chart/chart.bar';
+import {HeaderHtml} from '../content/html/header.html';
 import {closestNum} from '../../utils/common';
 import {ContextMenuHelper} from '../../utils/contextMenu';
 import {fromEvent} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
-import {HtmlParagraph} from '../html/paragraph.html';
-import {HtmlImage} from '../html/image.html';
+import {HtmlParagraph} from '../content/html/paragraph.html';
+import {HtmlImage} from '../content/html/image.html';
 
 
 const resizeHelper = `

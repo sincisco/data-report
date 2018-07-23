@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import {HtmlNode} from './html';
-import {siderLeftComponent} from '../../layout/sider/sider.left.component';
-import {DataImageComponent} from '../../layout/sider/property.data/html/image.component';
+import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
+import {DataImageComponent} from '../../../layout/sider/property.data/html/image.component';
 
 interface ImageOption {
   text?: string;
