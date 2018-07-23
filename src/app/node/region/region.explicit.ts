@@ -8,6 +8,8 @@ import {fromEvent} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
 import {HtmlParagraph} from '../content/html/paragraph.html';
 import {HtmlImage} from '../content/html/image.html';
+import {CommentContent} from '../content/comment.content';
+import {TextContent} from '../content/text.content';
 
 
 const resizeHelper = `
@@ -189,6 +191,30 @@ export class ExplicitRegion extends Region {
             // 使用刚指定的配置项和数据显示图表。
             content.init(option);
           }
+        }, {
+          displayName: '创建Comment',
+          callback: () => {
+            var content = this._content = new CommentContent(this.$frame[0]);
+            console.log(content);
+            var option = {
+              text: '英特尔 Xeon(至强)'
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            content.init(option);
+          }
+        }, {
+          displayName: '创建Text',
+          callback: () => {
+            var content = this._content = new TextContent(this.$frame[0]);
+            console.log(content);
+            var option = {
+              text: '英特尔 Xeon(至强)'
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            content.init(option);
+          }
         }
       ], $event);
       return false;
@@ -198,7 +224,7 @@ export class ExplicitRegion extends Region {
   }
 
   private _handleResize(pageX, pageY) {
-    var region: ExplicitRegion = this,
+    let region: ExplicitRegion = this,
       offset = this.offset,
       dimensions = this._dimensions,
       coordinates = this._coordinates,

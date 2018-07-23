@@ -1,7 +1,7 @@
 import {INode} from '../interface';
-import {Report} from "../report";
-import {fromEvent} from "rxjs";
-import {filter, throttleTime} from "rxjs/internal/operators";
+import {Report} from '../report';
+import {fromEvent} from 'rxjs';
+import {filter, throttleTime} from 'rxjs/internal/operators';
 
 export const reportGlobal: {
   instance: IContent
@@ -12,7 +12,7 @@ export const reportGlobal: {
 export function getRegionTemplate(contentArray: Array<string>): string {
   return `
   <div class="node-wrapper">
-  ${contentArray.join(" ")}
+  ${contentArray.join(' ')}
   <div class="u-mover"  draggable="true"></div>
   </div>
   `;
@@ -82,7 +82,7 @@ export abstract class Region implements INode {
         reportGlobal.instance = this._content;
         this._content.activate();
       }
-    }).on('dblclick',($event: JQuery.Event)=>{
+    }).on('dblclick', ($event: JQuery.Event) => {
       this.report.activateRegion(this);
     }).on('dragend', ($event: JQuery.Event) => {
       this.$element.removeClass('no-transition');
