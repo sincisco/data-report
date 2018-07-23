@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AppBodyComponent} from '../app.body.component';
-import {reportGlobal} from '../../node/region';
+import {reportGlobal} from '../../node/region/region';
 import {DataHeaderComponent, IDataComponent} from './property.data/html/header.component';
 
 export var siderLeftComponent: SiderLeftComponent;

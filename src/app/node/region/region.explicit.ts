@@ -1,11 +1,13 @@
-import {Region, reportGlobal} from "./region";
-import {Report} from "./report";
-import {ChartBarNode} from "./chart.bar";
-import {HeaderHtml} from "./html/header.html";
-import {closestNum} from "../utils/common";
-import {ContextMenuHelper} from "../utils/contextMenu";
-import {fromEvent} from "rxjs";
-import {filter, throttleTime} from "rxjs/internal/operators";
+import {Region, reportGlobal} from './region';
+import {Report} from '../report';
+import {ChartBarNode} from '../chart.bar';
+import {HeaderHtml} from '../html/header.html';
+import {closestNum} from '../../utils/common';
+import {ContextMenuHelper} from '../../utils/contextMenu';
+import {fromEvent} from 'rxjs';
+import {filter, throttleTime} from 'rxjs/internal/operators';
+import {HtmlParagraph} from '../html/paragraph.html';
+import {HtmlImage} from '../html/image.html';
 
 
 const resizeHelper = `
@@ -24,25 +26,9 @@ const graphic = `
 <div class="graphic-wrapper">
   <div class="frame">
     <div class="graphic">
-    <div class="m-rect m-rect-text" style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, &quot;Microsoft YaHei&quot;, Arial, &quot;Hiragino Sans GB&quot;, sans-serif; background: rgb(175, 191, 255); border-radius: 0px; overflow-y: visible;">
-  <div class="editor-wrap">
-    <div class="editor medium-editor-element" 
-    contenteditable="true" spellcheck="false" 
-    data-medium-editor-element="true" role="textbox" 
-    aria-multiline="true" data-medium-editor-editor-index="3" 
-    medium-editor-index="a2ab70cd-432b-0ab5-91cb-a8ed9031c9f9" 
-    data-placeholder="请输入文本" style="vertical-align: middle;">
-      <p class="" style="text-align: center;">
-      <font size="4" face="Microsoft YaHei, sans-serif" color="#0a8f08">vv而是这是顶顶顶顶</font>
-      </p>
-    </div>
-  </div>
-</div>
     </div>
   </div>
 </div>`;
-const mover = `<div class="u-mover"  draggable="true"></div>`;
-
 
 interface Dimensions {
   width: number;
@@ -56,40 +42,29 @@ interface IDimension {
   height: number;
 }
 
-export class RegionText {
-  _report: Report;
-  _coordinates: JQuery.Coordinates;
-  dimensions: Dimensions;
-  template: string = `
-  <div class="node-wrapper">
-  ${resizeHelper}
-  ${graphic}
-  ${mover}
-  </div>
-  `;
-  dimension: IDimension = {
-    left: 100,
-    top: 100,
+export class ExplicitRegion extends Region {
+  private _dimensions: Dimensions = {
     width: 300,
     height: 200
   };
+
+  $frame: JQuery;
+
   offset: JQuery.Coordinates;
   snapshot: IDimension;
-  $element: JQuery;
-  $mover: JQuery;
-  $frame: JQuery;
-  _content: IContent;
+
 
   constructor() {
-    this.$element = $(this.template);
-    this.$mover = this.$element.find('.u-mover');
+    super([resizeHelper, graphic]);
+    this._coordinates = {
+      left: 100,
+      top: 100
+    };
     this.$frame = this.$element.find('.graphic');
     this.refresh();
     setTimeout(() => {
       this._bindEvent();
-
-    }, 1000);
-
+    }, 10);
   }
 
   setContent(content: IContent) {
@@ -99,60 +74,35 @@ export class RegionText {
   private _which;
 
   private _bindEvent() {
-    var originPageX, originPageY;
     var count = 0;
-
 
     this.$element.find('div.u-resize>.draggable')
       .on('dragstart', ($event: JQuery.Event) => {
         count = 0;
         this.$element.addClass('no-transition');
         this.offset = this.$element.offset();
-        this.snapshot = Object.assign({}, this.dimension);
+        this.snapshot = Object.assign({}, this._dimensions, this._coordinates);
 
-        var event: DragEvent = <DragEvent>$event.originalEvent;
-        console.log('dragstart', event.pageX, event.pageY);
-        event.dataTransfer.setData('text/plain', '123');
-        var $targetResizer = $(event.currentTarget);
-        this._which = $targetResizer.data('which');
+        this._which = (<HTMLElement>$event.currentTarget).dataset.which;
+
+        console.log('u-resize dragstart', $event.pageX, $event.pageY);
       }).on('dragend', ($event: JQuery.Event) => {
       var event: DragEvent = <DragEvent>$event.originalEvent;
-      console.log('dragend', event.pageX, event.pageY);
+      console.log('u-resize dragend', event.pageX, event.pageY);
       this.$element.removeClass('no-transition');
+      this._handleResize(event.pageX, event.pageY);
       this._content && this._content.resize();
-      this.handleResize(event.pageX, event.pageY);
     });
 
     var draggableDrag = fromEvent(this.$element.find('div.u-resize>.draggable'), 'drag');
-
 
     draggableDrag.pipe(filter(ev => count++ > 2), throttleTime(200)).subscribe((event: DragEvent) => {
       console.log('drag', event.pageX, event.pageY);
       if (event.pageX === 0 && event.pageY === 0)
         return;
-      this.handleResize(event.pageX, event.pageY);
+      this._handleResize(event.pageX, event.pageY);
     }); // 事件对象
 
-
-    this.$mover.on('dragstart', ($event: JQuery.Event) => {
-      const event: DragEvent = <DragEvent>$event.originalEvent;
-      event.dataTransfer.effectAllowed = 'move';
-      originPageX = $event.pageX;
-      originPageY = $event.pageY;
-      const position = this.$element.position();
-      this.snapshot = Object.assign({}, this.dimension);
-      console.log('pageX', originPageX, 'pageY', originPageY);
-      console.log('*******************************');
-      count = 0;
-    }).on('click', ($event) => {
-      this.$element.toggleClass('activated');
-      if (this.$element.hasClass('activated') && this._content) {
-        reportGlobal.instance = this._content;
-        this._content.activate();
-      }
-    }).dblclick(()=>{
-      this.$element.toggleClass('deep-activated');
-    });
 
     this.$mover.contextmenu(($event: JQuery.Event) => {
       ContextMenuHelper.open([
@@ -215,86 +165,82 @@ export class RegionText {
             // 使用刚指定的配置项和数据显示图表。
             content.init(option);
           }
+        }, {
+          displayName: '创建Paragraph',
+          callback: () => {
+            var content = this._content = new HtmlParagraph(this.$frame[0]);
+            console.log(content);
+            var option = {
+              text: '英特尔 Xeon(至强)'
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            content.init(option);
+          }
+        }, {
+          displayName: '创建Image',
+          callback: () => {
+            var content = this._content = new HtmlImage(this.$frame[0]);
+            console.log(content);
+            var option = {
+              text: '英特尔 Xeon(至强)'
+            };
+
+            // 使用刚指定的配置项和数据显示图表。
+            content.init(option);
+          }
         }
       ], $event);
       return false;
     });
 
-
-    var moverDrag = fromEvent(this.$mover[0], 'drag');
-
-    moverDrag.pipe(filter(ev => count++ > 2), throttleTime(100)).subscribe(($event: DragEvent) => {
-      if ($event.pageX === 0 && $event.pageY === 0)
-        return;
-      var offsetLeft = $event.pageX - originPageX,
-        offsetTop = $event.pageY - originPageY;
-      console.log('pageX', $event.pageX, 'pageY', $event.pageY);
-      console.log(offsetLeft, offsetTop);
-      this.dimension.left = this.snapshot.left + Math.round(offsetLeft / this._report.scale);
-      this.dimension.top = this.snapshot.top + Math.round(offsetTop / this._report.scale);
-      console.log();
-      this.refresh();
-
-    }); // 事件对象
-
-
-    this.$mover[0].addEventListener('dragend', function (event) {
-      // store a ref. on the dragged elem
-      console.log('dragend', event);
-    }, false);
+    super._bindEventForMover();
   }
 
-  unselect() {
-    this.$element.removeClass('activated');
-  }
-
-  set report(param: Report) {
-    this._report = param;
-  }
-
-  public handleResize(pageX, pageY) {
-    var region: RegionText = this,
+  private _handleResize(pageX, pageY) {
+    var region: ExplicitRegion = this,
       offset = this.offset,
-      dimension = this.dimension,
+      dimensions = this._dimensions,
+      coordinates = this._coordinates,
       snapshot = this.snapshot;
     switch (this._which) {
       case 'resize-left':
         if (pageX < (offset.left + snapshot.width)) {
           var offsetX = closestNum(pageX - offset.left);
-          dimension.left = snapshot.left + offsetX;
-          dimension.width = snapshot.width - offsetX;
+          coordinates.left = snapshot.left + offsetX;
+          dimensions.width = snapshot.width - offsetX;
         }
         break;
       case 'resize-top':
         if (pageY < (offset.top + snapshot.height)) {
           var offsetY = pageY - offset.top;
-          dimension.top = snapshot.top + offsetY;
-          dimension.height = snapshot.height - offsetY;
+          coordinates.top = snapshot.top + offsetY;
+          dimensions.height = snapshot.height - offsetY;
         }
         break;
       case 'resize-right':
         if (pageX > offset.left) {
-          dimension.width = closestNum(pageX - offset.left);
+          dimensions.width = closestNum(pageX - offset.left);
         }
         break;
       case 'resize-topLeft':
         if (pageY < (offset.top + snapshot.height) && pageX < (offset.left + snapshot.width)) {
           var offsetX = closestNum(pageX - offset.left),
             offsetY = pageY - offset.top;
-          dimension.left = snapshot.left + offsetX;
-          dimension.width = snapshot.width - offsetX;
-          dimension.top = snapshot.top + offsetY;
-          dimension.height = snapshot.height - offsetY;
+          coordinates.left = snapshot.left + offsetX;
+          dimensions.width = snapshot.width - offsetX;
+          coordinates.top = snapshot.top + offsetY;
+          dimensions.height = snapshot.height - offsetY;
         }
         break;
       case 'resize-topRight':
         if (pageY < (offset.top + snapshot.height)) {
           var offsetY = pageY - offset.top;
-          dimension.top = snapshot.top + offsetY;
-          dimension.height = snapshot.height - offsetY;
+          coordinates.top = snapshot.top + offsetY;
+          dimensions.height = snapshot.height - offsetY;
         }
         if (pageX > offset.left) {
-          dimension.width = closestNum(pageX - offset.left);
+          dimensions.width = closestNum(pageX - offset.left);
         }
         break;
       case 'resize-bottomRight':
@@ -308,16 +254,16 @@ export class RegionText {
       case 'resize-bottomLeft':
         if (pageX < (offset.left + snapshot.width)) {
           var offsetX = pageX - offset.left;
-          dimension.left = snapshot.left + offsetX;
-          dimension.width = snapshot.width - offsetX;
+          coordinates.left = snapshot.left + offsetX;
+          dimensions.width = snapshot.width - offsetX;
         }
         if (pageY > offset.top) {
-          dimension.height = pageY - offset.top;
+          dimensions.height = pageY - offset.top;
         }
         break;
       case 'resize-bottom':
         if (pageY > offset.top) {
-          dimension.height = pageY - offset.top;
+          dimensions.height = pageY - offset.top;
         }
         break;
 
@@ -325,34 +271,58 @@ export class RegionText {
     this.refresh();
   }
 
-  coordinates(left, top) {
-    this.dimension.left = left;
-    this.dimension.top = top;
+
+  select() {
+    this.$element.addClass('activated');
+  }
+
+  unselect() {
+    this.$element.removeClass('selected');
+  }
+
+  activate() {
+
+  }
+
+  deactivate() {
+  }
+
+  set report(param: Report) {
+    this._report = param;
+  }
+
+  get report() {
+    return this._report;
+  }
+
+  setCoordinates(left, top) {
+    this._coordinates.left = left;
+    this._coordinates.top = top;
   }
 
   get width() {
-    return this.dimension.width;
+    return this._dimensions.width;
   }
 
   get height() {
-    return this.dimension.height;
+    return this._dimensions.height;
   }
 
   set width(width) {
-    this.dimension.width = width;
+    this._dimensions.width = width;
   }
 
   set height(height) {
-    this.dimension.height = height;
+    this._dimensions.height = height;
   }
 
 
   refresh() {
     this.$element.css({
-      width: closestNum(this.dimension.width),
-      height: closestNum(this.dimension.height),
-      left: closestNum(this.dimension.left),
-      top: closestNum(this.dimension.top)
+      width: closestNum(this._dimensions.width),
+      height: closestNum(this._dimensions.height),
+      left: closestNum(this._coordinates.left),
+      top: closestNum(this._coordinates.top)
     });
   }
 }

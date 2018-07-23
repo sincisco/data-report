@@ -1,5 +1,5 @@
-import {INode} from './interface';
-import {Report} from "./report";
+import {INode} from '../interface';
+import {Report} from "../report";
 import {fromEvent} from "rxjs";
 import {filter, throttleTime} from "rxjs/internal/operators";
 
@@ -66,6 +66,7 @@ export abstract class Region implements INode {
     this.$mover
       .on('dragstart', ($event: JQuery.Event) => {
         count = 0;
+        this.$element.addClass('no-transition');
         const event: DragEvent = <DragEvent>$event.originalEvent;
         event.dataTransfer.effectAllowed = 'move';
         originPageX = $event.pageX, originPageY = $event.pageY;
@@ -81,6 +82,7 @@ export abstract class Region implements INode {
     }).on('dblclick',($event: JQuery.Event)=>{
       this.report.activateRegion(this);
     }).on('dragend', ($event: JQuery.Event) => {
+      this.$element.removeClass('no-transition');
       console.log('mover dragend:', 'pageX', $event.pageX, 'pageY', $event.pageY);
     });
 

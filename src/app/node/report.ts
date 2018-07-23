@@ -1,8 +1,8 @@
 import {IDimensions, INode} from './interface';
 import {ContextMenuHelper} from '../utils/contextMenu';
-import {ExplicitRegion} from "./region.explicit";
-import {RegionText} from "./region.text";
-import {Region} from "./region";
+import {ExplicitRegion} from "./region/region.explicit";
+import {RegionText} from "./region/region.text";
+import {Region} from "./region/region";
 
 
 export class Report implements INode {
