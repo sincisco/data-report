@@ -1,12 +1,12 @@
 import {
   AfterViewInit,
   Component,
-  ComponentFactory, ComponentFactoryResolver,
+  ComponentFactory, ComponentFactoryResolver, ComponentRef,
   KeyValueDiffer,
   KeyValueDiffers, NgZone,
   OnInit, Type,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef, ViewRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AppBodyComponent} from '../app.body.component';
@@ -39,13 +39,25 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
       textStyle: {
         align: 'left'
       }
-    }
+    },
+    color: []
   };
   private _differ: KeyValueDiffer<any, any>;
   componentRef: any;
 
+
+  listOfOption = [
+    {
+      label: '#61a0a8',
+      value: '#61a0a8'
+    }, {
+      label: '#2f4554',
+      value: '#2f4554'
+    }
+  ];
+
   constructor(private _differs: KeyValueDiffers,
-/*              private appBody: AppBodyComponent,*/
+              /*              private appBody: AppBodyComponent,*/
               private resolver: ComponentFactoryResolver,
               private zone: NgZone) {
   }
@@ -68,12 +80,14 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
     });
   }
 
-  createDataProperty(type: Type<IDataComponent>) {
+  createDataProperty(type: Type<IDataComponent>): ComponentRef<IDataComponent> {
+    let retComponentRef: ComponentRef<IDataComponent>;
     this.zone.run(() => {
+      this.container.detach();
       this.container.clear();
       const factory: ComponentFactory<IDataComponent> =
         this.resolver.resolveComponentFactory(type);
-      this.componentRef = this.container.createComponent(factory);
+      retComponentRef = this.componentRef = this.container.createComponent(factory);
       // this.componentRef.instance.type = type;
       this.componentRef.instance.output.subscribe((msg: string) => {
         console.log('我是', msg);
@@ -81,6 +95,15 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
           reportGlobal.instance.update(msg);
         }
       });
+    });
+    return retComponentRef;
+  }
+
+  attachDataProperty(viewRef: ViewRef) {
+    this.zone.run(() => {
+      this.container.detach();
+      this.container.clear();
+      this.container.insert(viewRef);
     });
   }
 

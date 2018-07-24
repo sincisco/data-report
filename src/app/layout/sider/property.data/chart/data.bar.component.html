@@ -11,9 +11,9 @@
         </nz-select>
       </div>
       <div nz-col class="m-schema-droppable" [nzSpan]="24">
-        <div class="u-item animated">
+        <div class="u-item animated" *ngIf="!!seriesX">
           <div class="text">
-            <span>地区</span>
+            <span>{{seriesX.displayName}}</span>
           </div>
         </div>
         <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropX($event)">拖入字段
@@ -26,7 +26,7 @@
       <div nz-col class="m-schema-droppable" [nzSpan]="24">
         <div class="u-item animated" *ngFor="let item of seriesY">
           <div class="text">
-            <span>{{item.name}}</span>
+            <span>{{item.displayName}}</span>
           </div>
         </div>
         <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropY($event)">拖入字段

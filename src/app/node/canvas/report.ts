@@ -3,7 +3,7 @@ import {ContextMenuHelper} from '../../utils/contextMenu';
 import {ExplicitRegion} from '../region/region.explicit';
 import {Region} from '../region/region';
 
-const ReportTemplate= `
+const ReportTemplate = `
     <div class="report-region">
         <div class="report-canvas">
           <div class="report-box">
@@ -25,7 +25,10 @@ export class Report implements INode {
     width: 960,
     height: 720
   };
-  _scale: number = 1;
+  private _scale = 1;
+  private _regionActivated = false;
+  private _children: Array<Region> = [];
+
 
   $element: JQuery;
   $region: JQuery;
@@ -36,6 +39,7 @@ export class Report implements INode {
   $mask: JQuery;
 
   activateRegion(region: Region) {
+    region.activate();
     const $element: JQuery = region.$element,
       $mask = this.$mask,
       left = $element.position().left,
@@ -57,11 +61,32 @@ export class Report implements INode {
     this.regionActivated = true;
   }
 
-  regionResize(){
-
+  regionResize(region: Region) {
+    const $element: JQuery = region.$element,
+      $mask = this.$mask,
+      left = $element.position().left,
+      top = $element.position().top,
+      width = $element.outerWidth(),
+      height = $element.outerHeight();
+    $mask.find('.mask-left')
+      .width(Math.max(0, left));
+    $mask.find('.mask-right')
+      .css({
+        left: left + width
+      });
+    $mask.find('.mask-bottom')
+      .width(width)
+      .css({
+        left: Math.max(0, left),
+        top: top + height
+      });
+    $mask.find('.mask-top')
+      .width(width)
+      .height(Math.max(top, 0))
+      .css({
+        left: Math.max(0, left)
+      });
   }
-
-  private _regionActivated: boolean = false;
 
   get regionActivated() {
     return this._regionActivated;
@@ -170,16 +195,14 @@ export class Report implements INode {
     $ele.css('width', width).css('height', height);
   }
 
-  private children: Array<Region> = [];
-
   addChild(child: Region) {
     child.report = this;
-    this.children.push(child);
+    this._children.push(child);
     this.$grid.append(child.$element);
   }
 
   select() {
-    this.children.forEach((value) => {
+    this._children.forEach((value) => {
       value.unselect();
     });
   }

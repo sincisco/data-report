@@ -18,9 +18,14 @@ export function getRegionTemplate(contentArray: Array<string>): string {
   `;
 }
 
+export enum RegionState {
+  default, selected, activated
+}
+
 export abstract class Region implements INode {
   protected _report: Report;
   protected _content: IContent;
+  protected _regionState: RegionState = RegionState.default;
   $element: JQuery;
   $mover: JQuery;
 
@@ -51,13 +56,27 @@ export abstract class Region implements INode {
     return this._coordinates;
   }
 
-  abstract select();
+  select() {
+    this._regionState = RegionState.selected;
+    this.$element.addClass('selected');
+    if (this._content) {
+      reportGlobal.instance = this._content;
+      this._content.activate();
+    }
+  }
 
-  abstract unselect();
+  unselect() {
+    this._regionState = RegionState.default;
+    this.$element.removeClass('selected');
+  }
 
-  abstract activate();
+  activate() {
+    this._regionState = RegionState.activated;
+  }
 
-  abstract deactivate();
+  deactivate() {
+    this._regionState = RegionState.default;
+  }
 
   abstract refresh();
 
@@ -77,11 +96,7 @@ export abstract class Region implements INode {
         console.log('mover dragstart:', 'pageX', $event.pageX, 'pageY', $event.pageY);
         $event.stopPropagation();
       }).on('click', ($event: JQuery.Event) => {
-      this.$element.addClass('selected');
-      if (this._content) {
-        reportGlobal.instance = this._content;
-        this._content.activate();
-      }
+      this.select();
     }).on('dblclick', ($event: JQuery.Event) => {
       this.report.activateRegion(this);
     }).on('dragend', ($event: JQuery.Event) => {

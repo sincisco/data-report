@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {IDataComponent} from "../html/header.component";
-import {ChartBarItem} from "../../../../node/content/chart/interface";
-import {draggableHeler} from "../../../../utils/draggable.helper";
-import {ChartBarOption} from "../../../../node/content/chart/chart.bar";
+import {IDataComponent} from '../html/header.component';
+import {ChartBarItem} from '../../../../node/content/chart/interface';
+import {draggableHeler} from '../../../../utils/draggable.helper';
+import {ChartBarOption} from '../../../../node/content/chart/chart.bar';
 
 @Component({
   selector: 'data-bar',
@@ -16,9 +16,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   @Output() output = new EventEmitter();
 
   option: ChartBarOption = {
-    xAxis:{
-
-    },
+    xAxis: {},
     series: [
       {
         type: 'bar',
@@ -31,6 +29,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
     ]
   };
 
+  seriesX: any;
   seriesY: Array<any> = [];
 
   angle: string;
@@ -44,7 +43,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   }
 
   dragenter(event: DragEvent) {
-    event.dataTransfer.dropEffect="move";
+    event.dataTransfer.dropEffect = 'move';
     // 阻止浏览器默认事件
     event.preventDefault();
   }
@@ -64,6 +63,8 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
     event.preventDefault();
     var data = event.dataTransfer.getData('Text');
     console.log(data);
+
+    this.seriesX = draggableHeler.dragInfo;
   }
 
   dropY(event: DragEvent) {
@@ -72,24 +73,23 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
     var data = event.dataTransfer.getData('Text');
     this.seriesY.push(draggableHeler.dragInfo);
-    this._updateSeries();
+    this.seriesX && this._updateSeries();
   }
 
-  private _updateSeries(){
-    this.option.series=[];
-    this.seriesY.forEach((value,index)=>{
+  private _updateSeries() {
+    this.option.series = [];
+    this.seriesY.forEach((value, index) => {
       this.option.series.push({
         type: 'bar',
-        name: 'test'+index,
+        name: 'test' + index,
         encode: {
-          x: 'product',
+          x: this.seriesX.name,
           y: value.name
         }
-      })
-    })
+      });
+    });
     this.output.emit(this.option);
   }
-
 
 
   ngAfterViewInit() {

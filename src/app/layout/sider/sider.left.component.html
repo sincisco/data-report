@@ -104,6 +104,14 @@
       </nz-collapse-panel>
       <nz-collapse-panel nzHeader="标题">
         <nz-switch nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
+        <nz-select [nzMaxMultipleCount]="3" style="width: 100%" name="color"
+                   nzMode="multiple"
+                   nzPlaceHolder="Please select"
+                   [(ngModel)]="option.color">
+          <nz-option nzCustomContent *ngFor="let item of listOfOption" [nzLabel]="item.label"
+                     [nzValue]="item.value"><span [style.backgroundColor]="item.value"> </span>{{item.label}}
+          </nz-option>
+        </nz-select>
       </nz-collapse-panel>
     </nz-collapse>
   </nz-tab>
