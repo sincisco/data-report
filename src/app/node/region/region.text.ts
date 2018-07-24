@@ -1,5 +1,5 @@
 import {Region, reportGlobal} from "./region";
-import {Report} from "../report";
+import {Report} from "../canvas/report";
 import {ChartBarNode} from "../content/chart/chart.bar";
 import {HeaderHtml} from "../content/html/header.html";
 import {closestNum} from "../../utils/common";

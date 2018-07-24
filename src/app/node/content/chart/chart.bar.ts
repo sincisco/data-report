@@ -3,11 +3,11 @@ import {ChartBarItem, IAxis, ITitle} from "./interface";
 import {siderLeftComponent} from "../../../layout/sider/sider.left.component";
 import {DataBarComponent} from "../../../layout/sider/property.data/chart/data.bar.component";
 
-interface ChartBarOption {
+export interface ChartBarOption {
   title?: ITitle;
-  xAxis: IAxis;
-  yAxis: IAxis;
-  series: Array<ChartBarItem>;
+  xAxis?: IAxis;
+  yAxis?: IAxis;
+  series?: Array<ChartBarItem>;
 }
 
 const defaultOption: ChartBarOption = {

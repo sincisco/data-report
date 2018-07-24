@@ -2,6 +2,8 @@ import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers,
 import {NgForm} from '@angular/forms';
 import {IDataComponent} from "../html/header.component";
 import {ChartBarItem} from "../../../../node/content/chart/interface";
+import {draggableHeler} from "../../../../utils/draggable.helper";
+import {ChartBarOption} from "../../../../node/content/chart/chart.bar";
 
 @Component({
   selector: 'data-bar',
@@ -13,19 +15,23 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   @ViewChild(NgForm) ngForm: NgForm;
   @Output() output = new EventEmitter();
 
-  option:{
-    series:Array<ChartBarItem>
-  } = {
-    series:[
+  option: ChartBarOption = {
+    xAxis:{
+
+    },
+    series: [
       {
-        type:'bar',
-        encode:{
-          x:0,
-          y:1
+        type: 'bar',
+        name: 'test1',
+        encode: {
+          x: 'product',
+          y: 1
         }
       }
     ]
   };
+
+  seriesY: Array<any> = [];
 
   angle: string;
   private _differ: KeyValueDiffer<any, any>;
@@ -37,14 +43,21 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
     this._differ = this._differs.find(this.option).create();
   }
 
-  dragenter(event: DragEvent){
+  dragenter(event: DragEvent) {
+    event.dataTransfer.dropEffect="move";
     // 阻止浏览器默认事件
     event.preventDefault();
   }
 
-  dragover(event: DragEvent){
-      // 阻止浏览器默认事件
-      event.preventDefault();
+  /**
+   * 在其它的事件(如ondragover、ondragleave等），是无法获取dataTransfer里面的值了。
+   * 这是由于W3C要求对dataTransfer里的值进行保护[参考]。
+   * 因此，如果需要在这些事件里获取数据，只能通过一个全局变量等其它方式来实现了。
+   * @param {DragEvent} event
+   */
+  dragover(event: DragEvent) {
+    // 阻止浏览器默认事件
+    event.preventDefault();
   }
 
   dropX(event: DragEvent) {
@@ -54,12 +67,29 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   }
 
   dropY(event: DragEvent) {
+    //火狐中取消drop默认行为，阻止打开URL
     event.preventDefault();
+
     var data = event.dataTransfer.getData('Text');
-    this.option.series[0].encode.y=data;
-    this.output.emit(this.option);
-    console.log(data);
+    this.seriesY.push(draggableHeler.dragInfo);
+    this._updateSeries();
   }
+
+  private _updateSeries(){
+    this.option.series=[];
+    this.seriesY.forEach((value,index)=>{
+      this.option.series.push({
+        type: 'bar',
+        name: 'test'+index,
+        encode: {
+          x: 'product',
+          y: value.name
+        }
+      })
+    })
+    this.output.emit(this.option);
+  }
+
 
 
   ngAfterViewInit() {

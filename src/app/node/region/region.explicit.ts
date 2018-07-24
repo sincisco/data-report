@@ -1,5 +1,5 @@
 import {Region, reportGlobal} from './region';
-import {Report} from '../report';
+import {Report} from '../canvas/report';
 import {ChartBarNode} from '../content/chart/chart.bar';
 import {HeaderHtml} from '../content/html/header.html';
 import {closestNum} from '../../utils/common';
@@ -10,6 +10,7 @@ import {HtmlParagraph} from '../content/html/paragraph.html';
 import {HtmlImage} from '../content/html/image.html';
 import {CommentContent} from '../content/comment.content';
 import {TextContent} from '../content/text.content';
+import {Dimensions} from "../interface";
 
 
 const resizeHelper = `
@@ -32,12 +33,7 @@ const graphic = `
   </div>
 </div>`;
 
-interface Dimensions {
-  width: number;
-  height: number;
-}
-
-interface IDimension {
+interface CoordinatesAndDimensions {
   left: number;
   top: number;
   width: number;
@@ -53,7 +49,7 @@ export class ExplicitRegion extends Region {
   $frame: JQuery;
 
   offset: JQuery.Coordinates;
-  snapshot: IDimension;
+  snapshot: CoordinatesAndDimensions;
 
 
   constructor() {
@@ -141,14 +137,14 @@ export class ExplicitRegion extends Region {
                 ]
               },
               tooltip: {},
-/*              legend: {
-                data: ['销量', '销量1']
-              },*/
+              /*              legend: {
+                              data: ['销量', '销量1']
+                            },*/
               xAxis: {
                 type: 'category'
               },
-              yAxis: {},
-              series: [{type: 'bar'}/*{type: 'bar'},
+              yAxis: {type: 'value'},
+              series: [/*{type: 'bar'},
                 {type: 'bar'}*/]
             };
 

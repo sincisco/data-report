@@ -10,6 +10,7 @@ export abstract class ChartNode implements IContent {
   }
 
   update(option: any) {
+    console.log(JSON.stringify(option));
     this._echart.setOption(option);
   }
 

@@ -1,7 +1,7 @@
 export interface INode {
 }
 
-export interface IDimensions {
+export interface Dimensions {
   width: number;
   height: number;
 }

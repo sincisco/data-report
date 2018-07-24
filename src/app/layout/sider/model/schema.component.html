@@ -22,7 +22,8 @@
               <i class="u-icn u-icn-angle-down"></i>Sheet1
             </li>
             <li *ngFor="let item of dimensions"
-                class="u-bitem j-pill-item j-item u-bitem-1 dragable" draggable="true" (dragstart)="doDragStart($event)"
+                class="u-bitem j-pill-item j-item u-bitem-1 dragable" draggable="true"
+                (dragstart)="doDragStart($event,item)"
                 [attr.fieldid]="item.name">
                 <span class="txt handle">
                   <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item.displayName}}</b>
@@ -57,7 +58,8 @@
             </li>
             <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" draggable="true" data-fieldid="567096">
                     <span class="txt handle">
-                      <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">序号</b>
+                      <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b
+                      class="j-text">序号</b>
                     </span>
               <div class="menu">
                 <i></i>
@@ -66,7 +68,8 @@
             <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" draggable="true" id="dragImg"
                 data-field-name="平均分" data-fieldid="567097">
                         <span class="txt handle">
-                          <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">批准时间</b>
+                          <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b
+                          class="j-text">批准时间</b>
                         </span>
               <div class="menu">
                 <i></i>

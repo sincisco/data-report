@@ -1,28 +1,27 @@
-import {IDimensions, INode} from './interface';
-import {ContextMenuHelper} from '../utils/contextMenu';
-import {ExplicitRegion} from './region/region.explicit';
-import {RegionText} from './region/region.text';
-import {Region} from './region/region';
+import {Dimensions, INode} from '../interface';
+import {ContextMenuHelper} from '../../utils/contextMenu';
+import {ExplicitRegion} from '../region/region.explicit';
+import {Region} from '../region/region';
 
+const ReportTemplate= `
+    <div class="report-region">
+        <div class="report-canvas">
+          <div class="report-box">
+             <div class="report-grid">
+             <div class="u-edit-mask">
+                <div class="mask mask-left"></div>
+                <div class="mask mask-right"></div>
+                <div class="mask mask-bottom"></div>
+                <div class="mask mask-top"></div>
+              </div>
+             </div>
+          </div>
+        </div>
+    </div>
+    `;
 
 export class Report implements INode {
-  template = `
-<div class="report-region">
-    <div class="report-canvas">
-      <div class="report-box">
-         <div class="report-grid">
-         <div class="u-edit-mask">
-            <div class="mask mask-left" style="z-index: 8; width: 58px;"></div>
-            <div class="mask mask-right" style="z-index: 8; left: 452px;"></div>
-            <div class="mask mask-bottom" style="z-index: 8; left: 58px; width: 394px; top: 252px;"></div>
-            <div class="mask mask-top" style="z-index: 8; left: 58px; width: 394px; height: 68px;"></div>
-          </div>
-         </div>
-      </div>
-    </div>
-</div>
-    `;
-  dimension: IDimensions = {
+  private _dimensions: Dimensions = {
     width: 960,
     height: 720
   };
@@ -33,27 +32,33 @@ export class Report implements INode {
   $canvas: JQuery;
   $box: JQuery;
   $grid: JQuery;
+
   $mask: JQuery;
 
   activateRegion(region: Region) {
     const $element: JQuery = region.$element,
+      $mask = this.$mask,
       left = $element.position().left,
       top = $element.position().top,
       width = $element.outerWidth(),
       height = $element.outerHeight();
-    this.$mask.find('.mask-left').width(Math.max(0, left));
-    this.$mask.find('.mask-right').css({
+    $mask.find('.mask-left').width(Math.max(0, left));
+    $mask.find('.mask-right').css({
       left: left + width
     });
-    this.$mask.find('.mask-bottom').width(width).css({
+    $mask.find('.mask-bottom').width(width).css({
       left: Math.max(0, left),
       top: top + height
     });
-    this.$mask.find('.mask-top').width(width).height(Math.max(top, 0)).css({
+    $mask.find('.mask-top').width(width).height(Math.max(top, 0)).css({
       left: Math.max(0, left)
     });
 
     this.regionActivated = true;
+  }
+
+  regionResize(){
+
   }
 
   private _regionActivated: boolean = false;
@@ -76,7 +81,7 @@ export class Report implements INode {
 
 
   constructor() {
-    this.$element = this.$region = $(this.template);
+    this.$element = this.$region = $(ReportTemplate);
     this.$canvas = this.$element.find('.report-canvas');
     this.$box = this.$element.find('.report-box');
     this.$grid = this.$element.find('.report-grid');
@@ -136,11 +141,11 @@ export class Report implements INode {
   }
 
   set width(width: number) {
-    this.dimension.width = width;
+    this._dimensions.width = width;
   }
 
   set height(height: number) {
-    this.dimension.height = height;
+    this._dimensions.height = height;
   }
 
   get scale() {
@@ -153,7 +158,7 @@ export class Report implements INode {
   }
 
   refresh() {
-    const width = this.dimension.width, height = this.dimension.height;
+    const width = this._dimensions.width, height = this._dimensions.height;
 
     this._setDim(this.$region, width * this.scale + 50, height * this.scale + 30);
     this._setDim(this.$canvas, width * this.scale, height * this.scale);

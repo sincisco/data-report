@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, KeyValueDiffer, KeyValueDiffers, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {TableSchema} from '../../../model/table.schema';
+import {draggableHeler} from "../../../utils/draggable.helper";
 
 interface Dimension {
   name: string,
@@ -18,21 +19,22 @@ type Dimensions = Array<Dimension>;
 })
 export class SchemaPillsComponent implements AfterViewInit {
   // schema: TableSchema = new TableSchema(demo);
-  dimensions:Dimensions=[
+  dimensions: Dimensions = [
     {
-      name:'product',
-      displayName:'产品'
-    },{
-      name:'2015',
-      displayName:'2015年'
-    },{
-      name:'2016',
-      displayName:'2016年'
-    },{
-      name:'2017',
-      displayName:'2017年'
+      name: 'product',
+      displayName: '产品'
+    }, {
+      name: '2015',
+      displayName: '2015年'
+    }, {
+      name: '2016',
+      displayName: '2016年'
+    }, {
+      name: '2017',
+      displayName: '2017年'
     }
-    ]
+  ];
+
   constructor() {
   }
 
@@ -45,10 +47,11 @@ export class SchemaPillsComponent implements AfterViewInit {
     }, false);
   }
 
-  doDragStart(event:DragEvent) {
+  doDragStart(event: DragEvent, item) {
     console.log(event);
     console.log((<HTMLElement>event.target).getAttribute('fieldid'));
     event.dataTransfer.setData('Text', (<HTMLElement>event.target).getAttribute('fieldid'));
+    draggableHeler.dragInfo = item;
   }
 }
 
