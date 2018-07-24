@@ -1,13 +1,38 @@
 import {ChartNode} from './chart';
+import {ChartBarItem, IAxis, ITitle} from "./interface";
+import {siderLeftComponent} from "../../../layout/sider/sider.left.component";
+import {DataBarComponent} from "../../../layout/sider/property.data/chart/data.bar.component";
 
-export class ChartBarNode extends ChartNode{
+interface ChartBarOption {
+  title?: ITitle;
+  xAxis: IAxis;
+  yAxis: IAxis;
+  series: Array<ChartBarItem>;
+}
 
-    constructor(host:HTMLElement){
-      super(host);
-    }
+const defaultOption: ChartBarOption = {
+  title: {
+    text: '我是标题'
+  },
+  xAxis: {},
+  yAxis: {
+    type: 'value'
+  },
+  series: []
+};
 
-    activate(){
 
-    }
+export class ChartBarNode extends ChartNode {
+
+
+  dataProperty = DataBarComponent;
+
+  constructor(host: HTMLElement) {
+    super(host);
+  }
+
+  activate() {
+    siderLeftComponent.createDataProperty(this.dataProperty);
+  }
 
 }

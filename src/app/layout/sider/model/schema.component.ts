@@ -28,6 +28,9 @@ export class SchemaPillsComponent implements AfterViewInit {
     },{
       name:'2016',
       displayName:'2016年'
+    },{
+      name:'2017',
+      displayName:'2017年'
     }
     ]
   constructor() {

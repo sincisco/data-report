@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, KeyValueDiffer, KeyValueDiffers, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AppBodyComponent} from '../../app.body.component';
+import {AppBodyComponent} from '../../../app.body.component';
 
 @Component({
   selector: 'data-pie',

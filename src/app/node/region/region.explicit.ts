@@ -141,15 +141,15 @@ export class ExplicitRegion extends Region {
                 ]
               },
               tooltip: {},
-              legend: {
+/*              legend: {
                 data: ['销量', '销量1']
-              },
+              },*/
               xAxis: {
                 type: 'category'
               },
               yAxis: {},
-              series: [{type: 'bar'},
-                {type: 'bar'}]
+              series: [{type: 'bar'}/*{type: 'bar'},
+                {type: 'bar'}*/]
             };
 
             // 使用刚指定的配置项和数据显示图表。

@@ -1,0 +1,24 @@
+<nz-collapse [nzBordered]="false" class="zijin-form" ngForm>
+  <nz-collapse-panel nzHeader="X 轴">
+    <div nz-row nzType="flex" ngModelGroup="title">
+      <div nz-col class="m-schema-droppable" [nzSpan]="24">
+        <div class="u-item animated">
+          <div class="text">
+            <span>地区</span>
+          </div>
+        </div>
+        <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropX($event)">拖入字段</div>
+      </div>
+    </div>
+  </nz-collapse-panel>
+  <nz-collapse-panel nzHeader="Y 轴">
+    <div nz-row nzType="flex" ngModelGroup="title">
+      <div nz-col class="m-schema-droppable" [nzSpan]="24">
+        <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropY($event)">拖入字段</div>
+      </div>
+    </div>
+  </nz-collapse-panel>
+  <nz-collapse-panel nzHeader="标题">
+
+  </nz-collapse-panel>
+</nz-collapse>
