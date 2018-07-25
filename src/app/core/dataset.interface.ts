@@ -3,7 +3,7 @@ interface DimensionsItem {
   type: 'number' | 'ordinal' | 'float' | 'int' | 'time';
 }
 
-type Dimensions = Array<string | DimensionsItem>;
+type Dimensions = Array<DimensionsItem>;
 
 /**
  *
@@ -15,13 +15,14 @@ type Dimensions = Array<string | DimensionsItem>;
  * false：第一行/列直接开始是数据。
  */
 export interface Dataset {
-  id?: string,
+  id?: string;
   source?: any;
   dimensions?: Dimensions;
   sourceHeader?: null | undefined | boolean;
 }
 
-export interface DatasetWrapper{
-  displayName:string;
-  dataset:Dataset;
+export interface DatasetWrapper {
+  name: string;
+  displayName: string;
+  dataset: Dataset;
 }

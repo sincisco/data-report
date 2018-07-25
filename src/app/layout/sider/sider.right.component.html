@@ -2,13 +2,12 @@
   <h2 class="title">
     <span>数据模型</span>
     <i class="u-icn u-icn-panel-close"></i>
-    <i class="u-icn u-icn-search" style=""></i>
-    <i class="u-icn u-icn-toolbar-more" style=""></i>
+    <i class="u-icn u-icn-search"></i>
+    <i class="u-icn u-icn-toolbar-more"></i>
   </h2>
   <div class="list">
-    <div class="u-btn u-btn-menu" (click)="doClick($event)">{{modelName}}</div>
+    <div class="u-btn u-btn-menu" (click)="doClick($event)" [title]="modelName">{{modelName}}</div>
   </div>
-  <div class="m-schema-pills">
-    <schema-pills [modelName]="modelName"></schema-pills>
+  <div class="m-schema-pills" schema-pills [modelName]="modelName">
   </div>
 </div>

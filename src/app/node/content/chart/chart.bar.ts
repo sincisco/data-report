@@ -7,6 +7,7 @@ import {IDataComponent} from '../../../layout/sider/property.data/html/header.co
 
 export interface ChartBarOption {
   title?: ITitle;
+  dataset?: any;
   xAxis?: IAxis;
   yAxis?: IAxis;
   series?: Array<ChartBarItem>;

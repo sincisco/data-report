@@ -1,0 +1,98 @@
+h1, h2, h3, h4, h5, h6, em, strong, b {
+  font-weight: normal;
+}
+
+i, cite, em, var, address, dfn {
+  font-style: normal;
+}
+
+.u-btn, a.u-btn,
+.u-input,
+.u-mpill-dropdown,
+.u-bitem,
+.u-list li,
+.u-filter .list li {
+  font-size: 12px;
+  color: #282828;
+}
+
+.u-btn, a.u-btn {
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  border-radius: 2px;
+  padding: 0 8px;
+  user-select: none;
+  text-align: center;
+  cursor: pointer;
+  border: 0;
+  background-color: #f9fafb;
+  box-shadow: 0 0 0 1px rgba(63,63,68,0.07), 0 1px 3px 0 rgba(63,63,68,0.12);
+}
+
+.u-btn-menu, a.u-btn-menu {
+  padding-right: 16px;
+  position: relative;
+}
+
+.u-bitem .menu >i:after,
+.u-item .sel:after,
+.u-color-sel .sel:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-style: solid dashed dashed;
+  border-width: 6px 5px;
+  border-color: #aaa transparent transparent transparent;
+  position: absolute;
+  left: 3px;
+  top: 5px;
+}
+
+.u-bitem .menu >i:after {
+  border-color: #fff transparent transparent transparent;
+}
+
+.u-bitem .menu {
+  position: absolute;
+  top: 50%;
+  margin-top: -8px;
+  right: 8px;
+  width: 16px;
+  height: 16px;
+}
+
+.u-bitem .menu >i,
+.u-item .sel,
+.u-color-sel .sel {
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 9px;
+  margin-top: -8px;
+  cursor: pointer;
+}
+
+.u-bitem .menu >i {
+  position: static;
+  top: auto;
+  right: auto;
+}
+
+.u-bitem:hover .menu>i {
+  display: block;
+  color: #fff;
+}
+
+.u-item:hover .sel {
+  display: block;
+}
+
+.u-item:hover .sel:after {
+  border-color: #fff transparent transparent transparent;
+}
+

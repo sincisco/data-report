@@ -11,11 +11,16 @@ export interface ITitle {
   target?: Target; //default: 'blank'
 }
 
+export interface AxisLabel {
+  rotate: number;
+}
+
 
 export interface IAxis {
   name?: string;
   type?: AxisType;
   silent?: boolean;
+  axisLabel?: AxisLabel;
 }
 
 interface ChartLineItem {

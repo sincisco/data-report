@@ -14,24 +14,26 @@
     </div>
   </div>
   <div class="body">
-    <div class=" dropable">
-      <div class="group group-dimensions group-">
+    <div class="droppable">
+      <div class="group group-dimensions group-auto">
         <div class="m-schemaList">
           <ul class="list list-item">
-            <li class="u-bitem u-bitem-table" title="Sheet1">
+            <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName" (click)="tableClick($event,'dimensions')">
               <i class="u-icn u-icn-angle-down"></i>{{datasetWrapper?.displayName}}
             </li>
-            <li *ngFor="let item of datasetWrapper?.dataset.dimensions"
-                class="u-bitem j-pill-item j-item u-bitem-1 dragable" draggable="true"
-                (dragstart)="doDragStart($event,item)"
-                [attr.fieldid]="item">
+            <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
+              <li *ngIf="item.type==='ordinal'"
+                  class="u-bitem j-pill-item j-item u-bitem-1 draggable" draggable="true"
+                  (dragstart)="doDragStart($event,item)"
+                  [attr.fieldid]="item" [attr.datasetname]="'dimensions'+datasetWrapper.name">
                 <span class="txt handle">
-                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item}}</b>
+                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item.name}}</b>
                 </span>
-              <div class="menu">
-                <i></i>
-              </div>
-            </li>
+                <div class="menu">
+                  <i></i>
+                </div>
+              </li>
+            </ng-container>
           </ul>
         </div>
       </div>
@@ -49,32 +51,26 @@
     <i class="u-icn u-icn-add"></i>
   </div>
   <div class="body">
-    <div class=" dropable">
+    <div class="droppable">
       <div class="group group-measures group-">
         <div class="m-schemaList">
           <ul class="list list-item">
-            <li class="u-bitem u-bitem-table" title="Sheet1">
-              <i class="u-icn u-icn-angle-down"></i>Sheet1
+            <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName" (click)="tableClick($event,'measures')" data-switch="true">
+              <i class="u-icn u-icn-angle-down"></i>{{datasetWrapper?.displayName}}
             </li>
-            <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" draggable="true" data-fieldid="567096">
-                    <span class="txt handle">
-                      <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b
-                      class="j-text">序号</b>
-                    </span>
-              <div class="menu">
-                <i></i>
-              </div>
-            </li>
-            <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" draggable="true" id="dragImg"
-                data-field-name="平均分" data-fieldid="567097">
-                        <span class="txt handle">
-                          <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b
-                          class="j-text">批准时间</b>
-                        </span>
-              <div class="menu">
-                <i></i>
-              </div>
-            </li>
+            <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
+              <li *ngIf="item.type!=='ordinal'"
+                  class="u-bitem j-pill-item j-item u-bitem-2 draggable" draggable="true"
+                  (dragstart)="doDragStart($event,item)"
+                  [attr.fieldid]="item" [attr.datasetname]="'measures'+datasetWrapper.name">
+                <span class="txt handle">
+                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">{{item.name}}</b>
+                </span>
+                <div class="menu">
+                  <i></i>
+                </div>
+              </li>
+            </ng-container>
             <li class="u-bitem u-bitem-table" title="自定义度量">
               <i class="u-icn u-icn-angle-down"></i>自定义度量
             </li>

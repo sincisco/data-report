@@ -1,32 +1,41 @@
 <nz-collapse [nzBordered]="false" class="zijin-form" ngForm>
   <nz-collapse-panel nzHeader="X 轴">
-    <div nz-row nzType="flex" ngModelGroup="xAxis">
-      <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-        <nz-select style="width:100%;" name="type" nzShowSearch nzAllowClear nzPlaceHolder="坐标轴类型"
-                   [(ngModel)]="option.xAxis.type">
-          <nz-option nzLabel="value" nzValue="value"></nz-option>
-          <nz-option nzLabel="category" nzValue="category"></nz-option>
-          <nz-option nzLabel="time" nzValue="time"></nz-option>
-          <nz-option nzLabel="log" nzValue="log"></nz-option>
-        </nz-select>
-      </div>
-      <div nz-col class="m-schema-droppable" [nzSpan]="24">
-        <div class="u-item animated" *ngIf="!!seriesX">
-          <div class="text">
-            <span>{{seriesX.displayName}}</span>
+    <div class="m-schema-droppable">
+      <div class="dropArea">
+        <div nz-row nzType="flex" ngModelGroup="xAxis">
+          <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
+            <nz-select style="width:100%;" name="type" nzShowSearch nzAllowClear nzPlaceHolder="坐标轴类型"
+                       [(ngModel)]="option.xAxis.type">
+              <nz-option nzLabel="value" nzValue="value"></nz-option>
+              <nz-option nzLabel="category" nzValue="category"></nz-option>
+              <nz-option nzLabel="time" nzValue="time"></nz-option>
+              <nz-option nzLabel="log" nzValue="log"></nz-option>
+            </nz-select>
           </div>
-        </div>
-        <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropX($event)">拖入字段
+          <div nz-col [nzSpan]="24">
+            <div class="pills">
+              <div *ngIf="!!seriesX" [title]="seriesX.name" class="m-Pill m-Pill-DimensionPill u-item u-item-1 animated">
+                <div class="text">
+                  <span>{{seriesX.name}}</span>
+                  <span class="u-icn u-icn-"></span>
+                </div>
+                <i class="sel"></i>
+              </div>
+              <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropX($event)">拖入字段
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
   </nz-collapse-panel>
   <nz-collapse-panel nzHeader="Y 轴">
     <div nz-row nzType="flex" ngModelGroup="title">
       <div nz-col class="m-schema-droppable" [nzSpan]="24">
         <div class="u-item animated" *ngFor="let item of seriesY">
           <div class="text">
-            <span>{{item.displayName}}</span>
+            <span>{{item.name}}</span>
           </div>
         </div>
         <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropY($event)">拖入字段

@@ -1,12 +1,14 @@
-import {Dataset, DatasetWrapper} from "@core/dataset.interface";
+import {Dataset, DatasetWrapper} from '@core/dataset.interface';
 
 class DatasetManager {
   private _map: { [key: string]: Dataset } = {};
   private _array: Array<DatasetWrapper> = [];
+  private _currentDatasetWrapper: DatasetWrapper;
 
-  addDataset(name: string, dataset: Dataset) {
+  addDataset(name: string, displayName: string, dataset: Dataset) {
     this._array.push({
-      displayName: name,
+      name,
+      displayName,
       dataset
     });
     return this;
@@ -18,12 +20,20 @@ class DatasetManager {
     });
   }
 
-  getDataset(name: string) {
-    return this._array.find((value: DatasetWrapper) => {
+  getDataset(name: string): DatasetWrapper {
+    return this._currentDatasetWrapper = this._array.find((value: DatasetWrapper) => {
       if (value.displayName === name) {
         return true;
       }
     });
+  }
+
+  get current() {
+    return this._currentDatasetWrapper ? this._currentDatasetWrapper.dataset : null;
+  }
+
+  getDefaultDataset(): DatasetWrapper {
+    return this._array[0];
   }
 }
 
@@ -31,10 +41,10 @@ export const datasetManager = new DatasetManager();
 
 
 datasetManager
-  .addDataset('产品近三年销售额', {
+  .addDataset('table1', '产品近三年销售额', {
     // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
     // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
-    dimensions: ['product', '2015', '2016', '2017'],
+    dimensions: [{name: 'product', type: 'ordinal'}, {name: '2015', type: 'int'}, {name: '2016', type: 'int'}, {name: '2017', type: 'int'}],
     source: [
       {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},
       {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},
@@ -42,8 +52,30 @@ datasetManager
       {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}
     ]
   })
-  .addDataset('985高校17年毕业生统计', {
-    dimensions: ['学校', '省份', '城市', '本科毕业生人数', '硕士毕业生人数', '博士毕业生人数', '毕业生人数'],
+  .addDataset('table2', '985高校17年毕业生统计', {
+    dimensions: [
+      {
+        name: '学校',
+        type: 'ordinal'
+      }, {
+        name: '省份',
+        type: 'ordinal'
+      }, {
+        name: '城市',
+        type: 'ordinal'
+      }, {
+        name: '本科毕业生人数',
+        type: 'int'
+      }, {
+        name: '硕士毕业生人数',
+        type: 'int'
+      }, {
+        name: '博士毕业生人数',
+        type: 'int'
+      }, {
+        name: '毕业生人数',
+        type: 'int'
+      }],
     source: [
       {'学校': '北京大学', '省份': '北京市', '城市': '北京市', '本科毕业生人数': '2645', '硕士毕业生人数': '3604', '博士毕业生人数': '1213', '毕业生人数': '7462'},
       {'学校': '北京航空航天大学', '省份': '北京市', '城市': '北京市', '本科毕业生人数': '3105', '硕士毕业生人数': '2845', '博士毕业生人数': '437', '毕业生人数': '6387'},

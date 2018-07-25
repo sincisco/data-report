@@ -1,10 +1,20 @@
-import {AfterViewInit, Component, Input, KeyValueDiffer, KeyValueDiffers, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  KeyValueDiffer,
+  KeyValueDiffers, OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {TableSchema} from '../../../model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
-import {DataSet} from "../../../adapter/groupBy";
-import {DatasetWrapper} from "@core/dataset.interface";
-import {datasetManager} from "@core/dataset.manager";
+import {DataSet} from '../../../adapter/groupBy';
+import {DatasetWrapper} from '@core/dataset.interface';
+import {datasetManager} from '@core/dataset.manager';
 
 
 interface Dimension {
@@ -17,39 +27,17 @@ type Dimensions = Array<Dimension | string>;
 
 
 @Component({
-  selector: 'schema-pills',
+  selector: '[schema-pills]',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './schema.component.html',
   styleUrls: ['./schema.component.less']
 })
-export class SchemaPillsComponent implements AfterViewInit {
+export class SchemaPillsComponent implements AfterViewInit, OnChanges {
   // schema: TableSchema = new TableSchema(demo);
-  dimensions: Dimensions = [
-    {
-      name: '学校',
-      displayName: '学校'
-    }, {
-      name: '省份',
-      displayName: '省份'
-    }, {
-      name: '城市',
-      displayName: '城市'
-    }, {
-      name: '本科毕业生人数',
-      displayName: '本科毕业生人数'
-    }, {
-      name: '硕士毕业生人数',
-      displayName: '硕士毕业生人数'
-    }, {
-      name: '博士毕业生人数',
-      displayName: '博士毕业生人数'
-    }, {
-      name: '毕业生人数',
-      displayName: '毕业生人数'
-    }
-  ];
   datasetWrapper: DatasetWrapper;
 
   constructor() {
+    this.datasetWrapper = datasetManager.getDefaultDataset();
   }
 
   @Input() modelName: string;
@@ -67,12 +55,12 @@ export class SchemaPillsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    document.getElementById('dragImg').addEventListener('dragstart', function (event: DragEvent) {
-      // 存储拖拽数据和拖拽效果...
-      console.log(event);
-      console.log((<HTMLElement>event.target).getAttribute('fieldid'));
-      event.dataTransfer.setData('Text', (<HTMLElement>event.target).getAttribute('fieldid'));
-    }, false);
+    // document.getElementById('dragImg').addEventListener('dragstart', function (event: DragEvent) {
+    //   // 存储拖拽数据和拖拽效果...
+    //   console.log(event);
+    //   console.log((<HTMLElement>event.target).getAttribute('fieldid'));
+    //   event.dataTransfer.setData('Text', (<HTMLElement>event.target).getAttribute('fieldid'));
+    // }, false);
   }
 
   doDragStart(event: DragEvent, item) {
@@ -80,6 +68,19 @@ export class SchemaPillsComponent implements AfterViewInit {
     console.log((<HTMLElement>event.target).getAttribute('fieldid'));
     event.dataTransfer.setData('Text', (<HTMLElement>event.target).getAttribute('fieldid'));
     draggableHeler.dragInfo = item;
+  }
+
+  tableClick($event: MouseEvent, tableType: string) {
+    console.log($event);
+    const $target = $($event.target);
+    if ($target.data('switch') === 'true') {
+      $target.find('i').addClass('u-icn-angle-right').removeClass('u-icn-angle-right');
+      $target.data('switch', 'false');
+    } else {
+      $target.find('i').removeClass('u-icn-angle-right').addClass('u-icn-angle-right');
+      $target.data('switch', 'true');
+    }
+    $(`li[datasetname='${tableType + this.datasetWrapper.name}']`).toggle();
   }
 }
 

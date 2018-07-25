@@ -4,6 +4,7 @@ import {IDataComponent} from '../html/header.component';
 import {ChartBarItem} from '../../../../node/content/chart/interface';
 import {draggableHeler} from '../../../../utils/draggable.helper';
 import {ChartBarOption} from '../../../../node/content/chart/chart.bar';
+import {datasetManager} from '@core/dataset.manager';
 
 @Component({
   selector: 'data-bar',
@@ -16,7 +17,11 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   @Output() output = new EventEmitter();
 
   option: ChartBarOption = {
-    xAxis: {},
+    xAxis: {
+      axisLabel: {
+        rotate: 90
+      }
+    },
     series: [
       {
         type: 'bar',
@@ -72,12 +77,14 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
     event.preventDefault();
 
     var data = event.dataTransfer.getData('Text');
+    console.log(JSON.stringify(draggableHeler.dragInfo));
     this.seriesY.push(draggableHeler.dragInfo);
     this.seriesX && this._updateSeries();
   }
 
   private _updateSeries() {
     this.option.series = [];
+    this.option.dataset = datasetManager.current;
     this.seriesY.forEach((value, index) => {
       this.option.series.push({
         type: 'bar',
