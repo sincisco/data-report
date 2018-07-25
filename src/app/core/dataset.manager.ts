@@ -17,6 +17,14 @@ class DatasetManager {
       return value.displayName;
     });
   }
+
+  getDataset(name: string) {
+    return this._array.find((value: DatasetWrapper) => {
+      if (value.displayName === name) {
+        return true;
+      }
+    });
+  }
 }
 
 export const datasetManager = new DatasetManager();

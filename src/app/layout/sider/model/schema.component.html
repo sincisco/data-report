@@ -19,14 +19,14 @@
         <div class="m-schemaList">
           <ul class="list list-item">
             <li class="u-bitem u-bitem-table" title="Sheet1">
-              <i class="u-icn u-icn-angle-down"></i>Sheet1
+              <i class="u-icn u-icn-angle-down"></i>{{datasetWrapper?.displayName}}
             </li>
-            <li *ngFor="let item of dimensions"
+            <li *ngFor="let item of datasetWrapper?.dataset.dimensions"
                 class="u-bitem j-pill-item j-item u-bitem-1 dragable" draggable="true"
                 (dragstart)="doDragStart($event,item)"
-                [attr.fieldid]="item.name">
+                [attr.fieldid]="item">
                 <span class="txt handle">
-                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item.displayName}}</b>
+                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item}}</b>
                 </span>
               <div class="menu">
                 <i></i>

@@ -1,7 +1,11 @@
-import {AfterViewInit, Component, KeyValueDiffer, KeyValueDiffers, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, KeyValueDiffer, KeyValueDiffers, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {TableSchema} from '../../../model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
+import {DataSet} from "../../../adapter/groupBy";
+import {DatasetWrapper} from "@core/dataset.interface";
+import {datasetManager} from "@core/dataset.manager";
+
 
 interface Dimension {
   name: string,
@@ -9,7 +13,7 @@ interface Dimension {
   type?: 'number' | 'ordinal'
 }
 
-type Dimensions = Array<Dimension>;
+type Dimensions = Array<Dimension | string>;
 
 
 @Component({
@@ -43,8 +47,23 @@ export class SchemaPillsComponent implements AfterViewInit {
       displayName: '毕业生人数'
     }
   ];
+  datasetWrapper: DatasetWrapper;
 
   constructor() {
+  }
+
+  @Input() modelName: string;
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (let propName in changes) {
+      let chng = changes[propName];
+      let cur = JSON.stringify(chng.currentValue);
+      let prev = JSON.stringify(chng.previousValue);
+      console.log('hhaahahahahhahah', prev, cur);
+      if (datasetManager.getDataset(chng.currentValue)) {
+        this.datasetWrapper = datasetManager.getDataset(chng.currentValue);
+      }
+    }
   }
 
   ngAfterViewInit() {
@@ -64,8 +83,3 @@ export class SchemaPillsComponent implements AfterViewInit {
   }
 }
 
-
-var demo = [['product', '2015', '2016', '2017', '2018'],
-  ['Matcha Latte', 41.1, 30.4, 65.1, 53.3],
-  ['Milk Tea', 86.5, 92.1, 85.7, 83.1],
-  ['Cheese Cocoa', 24.1, 67.2, 79.5, 86.4]];

@@ -29,7 +29,6 @@ function getTemplate() {
       <div class="u-overlay-blank" style="zoom: 1;">
         <button class="add-dataModel"><i class="u-icn u-icn-add"></i>添加新数据模型</button>
         <ul class="model-list">
-            <li class="model-item">默认数据模型<i class="u-icn u-icn-delete"></i><i class="u-icn u-icn-check"></i></li>
             ${result}
         </ul>
       </div>
@@ -62,6 +61,8 @@ class DataModelList {
     this.$menu.on('click', 'li.model-item', ($event) => {
       console.log($event.currentTarget.dataset.modelName);
       callback && callback($event.currentTarget.dataset.modelName);
+      this.close();
+
       return false;
     });
     $('body').append(this.$mask).append(this.$menu);
