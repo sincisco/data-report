@@ -1,0 +1,118 @@
+.m-overlay {
+  z-index: 300;
+  position: fixed;
+  -ms-user-select: none;
+}
+
+.m-overlay-dataModel {
+  padding-bottom: 10px;
+  max-height: calc( 100% - 200px );
+}
+
+.u-overlay-blank {
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.m-overlay-dataModel .u-overlay-blank {
+  height: 100%;
+}
+
+.m-overlay-dataModel button.add-dataModel {
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  cursor: pointer;
+  overflow: hidden;
+  word-wrap: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 0;
+  background: #fff;
+  color: #1881dc;
+  text-align: left;
+  text-indent: 10px;
+  border-bottom: 1px solid #ccc;
+}
+.m-overlay-dataModel button.add-dataModel:hover {
+  background-color: #eee;
+}
+
+.m-overlay-dataModel button.add-dataModel .u-icn {
+  font-size: 12px;
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+  text-indent: 0px;
+}
+
+.m-overlay-dataModel .model-list {
+  height: calc( 100% - 52px );
+  overflow-y: auto;
+}
+
+.m-overlay-dataModel .model-list li {
+  height: 28px;
+  line-height: 28px;
+  cursor: pointer;
+  text-indent: 10px;
+  overflow: hidden;
+  word-wrap: normal;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative;
+  font-size: 12px;
+  &.selected {
+    background-color: #eee;
+    padding-right: 20px;
+  }
+}
+
+.m-overlay-dataModel .model-list li:hover {
+  background-color: #eee;
+}
+
+.m-overlay-dataModel .model-list li.selected .u-icn-check {
+  display: block;
+}
+
+.m-overlay-dataModel .model-list li .u-icn {
+  position: absolute;
+  top: 6px;
+  text-indent: 0;
+  color: #1881dc;
+  display: none;
+  right: 6px;
+}
+
+.m-overlay-dataModel .model-list li .u-icn-delete {
+  font-size: 14px;
+}
+
+.m-overlay-dataModel .model-list li .u-icn-check {
+  font-size: 20px;
+  top: 4px;
+  right: 4px;
+}
+
+.m-window {
+  position: absolute;
+  z-index: 304;
+  top: 0;
+  display: table;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+}
+
+.m-window.mask-transparent {
+  background: rgba(0,0,0,0);
+}
+
+.m-window >.wrap {
+  display: table-cell;
+  padding-top: 5%;
+  text-align: center;
+}
+

@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, KeyValueDiffer, KeyValueDiffers, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AppBodyComponent} from '../app.body.component';
+import {dataModelList} from "../../utils/dataModel";
 
 @Component({
   selector: 'app-sider-right',
@@ -25,6 +26,9 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
       }
     }
   };
+
+  modelName = '未选择任何model';
+
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers, private appBody: AppBodyComponent) {
@@ -37,6 +41,12 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
 
+  }
+
+  doClick($event: MouseEvent) {
+    dataModelList.open($event, (value: string) => {
+      this.modelName = value;
+    });
   }
 
 }
