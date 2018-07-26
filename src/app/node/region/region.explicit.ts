@@ -201,7 +201,7 @@ export class ExplicitRegion extends Region {
             content.init(option);
           }
         }
-      ], $event);
+      ], $event.pageX, $event.pageY, $event);
       return false;
     });
 

@@ -145,7 +145,7 @@ export class Report implements INode {
         {
           displayName: '创建'
         }
-      ], $event);
+      ], $event.pageX, $event.pageY, $event);
       return false;
     });
 

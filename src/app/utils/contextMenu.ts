@@ -8,12 +8,14 @@ const windowMask = `
 `;
 
 interface ContextMenuItem {
-  displayName: string,
-  _callbackNo?: string,
-  callback?: Function,
-  enable?: boolean,
-  shortcut?: string,
-  children?: Array<ContextMenuItem>
+  displayName: string;
+  icon?: string;
+  position?: string;
+  _callbackNo?: string;
+  callback?: Function;
+  enable?: boolean;
+  shortcut?: string;
+  children?: Array<ContextMenuItem>;
 }
 
 function getContextMenu(array: Array<ContextMenuItem | string>, root?: boolean): string {
@@ -30,7 +32,9 @@ function getContextMenuItem(item: ContextMenuItem | string): string {
     if (item.callback) {
       item._callbackNo = _.uniqueId('callback_');
     }
-    return `<li data-callback-no="${item._callbackNo}" class="${item.enable === false ? 'z-disabled' : 'z-clickable'}">${item.displayName}
+    return `<li data-callback-no="${item._callbackNo}" class="${item.enable === false ? 'z-disabled' : 'z-clickable'}">
+            ${item.icon ? '<i class="u-icn ' + item.icon + '"></i>' : ''}
+            ${item.displayName}
             ${item.shortcut ? '<span class="shortcut">' + item.shortcut + '</span>' : ''}
             ${(item.children && item.children.length > 0) ? '<span class="u-icn u-icn-angle-right"></span>' +
       getContextMenu(item.children) : ''}
@@ -50,7 +54,9 @@ function getTemplate(array: Array<ContextMenuItem | string>) {
 `;
 }
 
-function visit(array: Array<ContextMenuItem | string>, callback: (item: ContextMenuItem | string, parentMenum: ContextMenuItem, depth?: number) => void) {
+function visit(array: Array<ContextMenuItem | string>,
+               callback: (item: ContextMenuItem | string,
+                          parentMenum: ContextMenuItem, depth?: number) => void) {
   const inFn = (list: Array<ContextMenuItem | string>, parentMenu: ContextMenuItem, depth: number) => {
     for (const item of list) {
       callback(item, parentMenu, depth);
@@ -81,21 +87,29 @@ class ContextMenu {
     });
   }
 
-  open(array: Array<ContextMenuItem | string>, $event:JQuery.Event) {
+  open(array: Array<ContextMenuItem | string>, pageX: number, pageY: number, $event: JQuery.Event | MouseEvent, demo?: boolean) {
     this.$menu = $(getTemplate(array));
-    this.$menu.css({
-      left: `${$event.pageX}px`,
-      top: `${$event.pageY}px`
-    });
-    this.$menu.on('click', 'li.z-clickable', ($event) => {
-      console.log($event.currentTarget.dataset.callbackNo);
-      var callbackNo=$event.currentTarget.dataset.callbackNo;
-      if(callbackNo==='undefined') return false;
-      visit(array,(item)=>{
-        if(typeof item !=='string'&&item._callbackNo===callbackNo){
+    if (demo) {
+      this.$menu.css({
+        left: `${$event.pageX - 180}px`,
+        top: `${$event.pageY}px`
+      });
+    } else {
+      this.$menu.css({
+        left: `${$event.pageX}px`,
+        top: `${$event.pageY}px`
+      });
+    }
+
+    this.$menu.on('click', 'li.z-clickable', ($itemEvent) => {
+      console.log($itemEvent.currentTarget.dataset.callbackNo);
+      var callbackNo = $itemEvent.currentTarget.dataset.callbackNo;
+      if (callbackNo === 'undefined') return false;
+      visit(array, (item) => {
+        if (typeof item !== 'string' && item._callbackNo === callbackNo) {
           item.callback($event);
         }
-      })
+      });
       return false;
     });
     $('body').append(this.$mask).append(this.$menu);

@@ -2,7 +2,7 @@ import {AfterViewInit, Component, KeyValueDiffer, KeyValueDiffers, OnInit, ViewC
 import {NgForm} from '@angular/forms';
 import {AppBodyComponent} from '../app.body.component';
 import {dataModelList} from '../../utils/dataModel';
-import {datasetManager} from '@core/dataset.manager';
+import {datasetManager} from '@core/dataset/dataset.manager';
 
 @Component({
   selector: 'app-sider-right',

@@ -1,5 +1,5 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {DataSet} from '../adapter/groupBy';
+import {DataSet} from '../core/adapter/groupBy';
 import {Report} from '../node/canvas/report';
 import {ExplicitRegion} from "../node/region/region.explicit";
 

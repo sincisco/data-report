@@ -12,7 +12,7 @@ interface IField {
 }
 
 interface ITable {
-  data: Array<IRow>
+  data: Array<IRow>;
 }
 
 interface IRow {
@@ -51,7 +51,7 @@ export class DataSet {
       });
       retArray.push(obj);
     });
-    this.data=retArray;
+    this.data = retArray;
     return this;
   }
 

@@ -3,8 +3,14 @@ import {NgForm} from '@angular/forms';
 import {IDataComponent} from '../html/header.component';
 import {ChartBarItem} from '../../../../node/content/chart/interface';
 import {draggableHeler} from '../../../../utils/draggable.helper';
-import {ChartBarOption} from '../../../../node/content/chart/chart.bar';
-import {datasetManager} from '@core/dataset.manager';
+import {ChartBarNode, ChartBarOption} from '../../../../node/content/chart/chart.bar';
+import {datasetManager} from '@core/dataset/dataset.manager';
+import {HtmlParagraph} from '../../../../node/content/html/paragraph.html';
+import {HeaderHtml} from '../../../../node/content/html/header.html';
+import {ContextMenuHelper} from '../../../../utils/contextMenu';
+import {TextContent} from '../../../../node/content/text.content';
+import {HtmlImage} from '../../../../node/content/html/image.html';
+import {CommentContent} from '../../../../node/content/comment.content';
 
 @Component({
   selector: 'data-bar',
@@ -98,6 +104,47 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
     this.output.emit(this.option);
   }
 
+  xAxisClick($event: MouseEvent) {
+    ContextMenuHelper.open([
+      {
+        displayName: '修改显示名称',
+        callback: () => {
+          console.log('复制');
+        }
+      }, {
+        displayName: '筛选器',
+        icon: 'u-icn-filter'
+      }, {
+        displayName: '设置数轴',
+        icon: 'u-icn-axis'
+      }, {
+        displayName: '编辑总计'
+      }, {
+        displayName: '取消总计'
+      }, 'split', {
+        displayName: '排序',
+        icon: 'u-icn-sort-amount-asc'
+      }, {
+        displayName: '设置跳转',
+        children: [
+          {
+            displayName: '设置跳转报告页'
+          }, {
+            displayName: '设置跳转报表'
+          }, {
+            displayName: '设置跳转链接'
+          }
+        ]
+      }, 'split', {
+        displayName: '移除',
+        icon: 'u-icn-delete',
+        callback: () => {
+
+        }
+      }
+    ], $event.pageX, $event.pageY, $event, true);
+  }
+
 
   ngAfterViewInit() {
     console.log(this.ngForm);
@@ -111,8 +158,6 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
       }
 
     });
-
-    var that = this;
 
   }
 

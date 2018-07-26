@@ -19,7 +19,7 @@
                   <span>{{seriesX.name}}</span>
                   <span class="u-icn u-icn-"></span>
                 </div>
-                <i class="sel"></i>
+                <i class="sel" (click)="xAxisClick($event)"></i>
               </div>
               <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropX($event)">拖入字段
               </div>
@@ -31,14 +31,21 @@
 
   </nz-collapse-panel>
   <nz-collapse-panel nzHeader="Y 轴">
-    <div nz-row nzType="flex" ngModelGroup="title">
-      <div nz-col class="m-schema-droppable" [nzSpan]="24">
-        <div class="u-item animated" *ngFor="let item of seriesY">
-          <div class="text">
-            <span>{{item.name}}</span>
+    <div class="m-schema-droppable">
+      <div class="dropArea">
+        <div nz-row nzType="flex" ngModelGroup="title">
+          <div nz-col  [nzSpan]="24">
+            <div class="pills">
+              <div class="m-Pill m-Pill-DimensionPill u-item u-item-1 animated" *ngFor="let item of seriesY" [title]="item.name">
+                <div class="text">
+                  <span>{{item.name}}</span>
+                </div>
+                <i class="sel"></i>
+              </div>
+              <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropY($event)">拖入字段
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropY($event)">拖入字段
         </div>
       </div>
     </div>

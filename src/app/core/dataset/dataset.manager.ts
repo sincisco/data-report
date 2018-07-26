@@ -1,4 +1,4 @@
-import {Dataset, DatasetWrapper} from '@core/dataset.interface';
+import {Dataset, DatasetWrapper} from '@core/dataset/dataset.interface';
 
 class DatasetManager {
   private _map: { [key: string]: Dataset } = {};

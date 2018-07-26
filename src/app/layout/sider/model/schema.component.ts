@@ -12,9 +12,9 @@ import {
 import {NgForm} from '@angular/forms';
 import {TableSchema} from '../../../model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
-import {DataSet} from '../../../adapter/groupBy';
-import {DatasetWrapper} from '@core/dataset.interface';
-import {datasetManager} from '@core/dataset.manager';
+import {DataSet} from '../../../core/adapter/groupBy';
+import {DatasetWrapper} from '@core/dataset/dataset.interface';
+import {datasetManager} from '@core/dataset/dataset.manager';
 
 
 interface Dimension {

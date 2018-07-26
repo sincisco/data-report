@@ -1,11 +1,11 @@
-import {Region, reportGlobal} from "./region";
-import {Report} from "../canvas/report";
-import {ChartBarNode} from "../content/chart/chart.bar";
-import {HeaderHtml} from "../content/html/header.html";
-import {closestNum} from "../../utils/common";
-import {ContextMenuHelper} from "../../utils/contextMenu";
-import {fromEvent} from "rxjs";
-import {filter, throttleTime} from "rxjs/internal/operators";
+import {Region, reportGlobal} from './region';
+import {Report} from '../canvas/report';
+import {ChartBarNode} from '../content/chart/chart.bar';
+import {HeaderHtml} from '../content/html/header.html';
+import {closestNum} from '../../utils/common';
+import {ContextMenuHelper} from '../../utils/contextMenu';
+import {fromEvent} from 'rxjs';
+import {filter, throttleTime} from 'rxjs/internal/operators';
 
 
 const resizeHelper = `
@@ -150,7 +150,7 @@ export class RegionText {
         reportGlobal.instance = this._content;
         this._content.activate();
       }
-    }).dblclick(()=>{
+    }).dblclick(() => {
       this.$element.toggleClass('deep-activated');
     });
 
@@ -216,10 +216,9 @@ export class RegionText {
             content.init(option);
           }
         }
-      ], $event);
+      ], $event.pageX, $event.pageY, $event);
       return false;
     });
-
 
     var moverDrag = fromEvent(this.$mover[0], 'drag');
 
