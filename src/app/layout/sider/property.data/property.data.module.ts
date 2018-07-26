@@ -12,14 +12,15 @@ import {DataHeaderComponent} from './html/header.component';
 import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
 import {DataParagraphComponent} from './html/paragraph.component';
 import {DataImageComponent} from './html/image.component';
-import {DataBarComponent} from "./chart/data.bar.component";
+import {DataBarComponent, NzModalCustomComponent} from './chart/data.bar.component';
 
 const COMPONENTS = [
   DataPieComponent,
   DataBarComponent,
   DataHeaderComponent,
   DataParagraphComponent,
-  DataImageComponent
+  DataImageComponent,
+  NzModalCustomComponent,
 ];
 
 @NgModule({

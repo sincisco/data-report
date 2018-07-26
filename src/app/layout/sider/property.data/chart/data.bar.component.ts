@@ -1,4 +1,15 @@
-import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  KeyValueDiffer,
+  KeyValueDiffers,
+  OnInit,
+  Output,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {IDataComponent} from '../html/header.component';
 import {ChartBarItem} from '../../../../node/content/chart/interface';
@@ -11,6 +22,7 @@ import {ContextMenuHelper} from '../../../../utils/contextMenu';
 import {TextContent} from '../../../../node/content/text.content';
 import {HtmlImage} from '../../../../node/content/html/image.html';
 import {CommentContent} from '../../../../node/content/comment.content';
+import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 
 @Component({
   selector: 'data-bar',
@@ -20,6 +32,7 @@ import {CommentContent} from '../../../../node/content/comment.content';
 export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
   @ViewChild(NgForm) ngForm: NgForm;
+  @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
   @Output() output = new EventEmitter();
 
   option: ChartBarOption = {
@@ -46,7 +59,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   angle: string;
   private _differ: KeyValueDiffer<any, any>;
 
-  constructor(private _differs: KeyValueDiffers) {
+  constructor(private modalService: NzModalService, private _differs: KeyValueDiffers) {
   }
 
   ngOnInit() {
@@ -88,6 +101,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
     this.seriesX && this._updateSeries();
   }
 
+
   private _updateSeries() {
     this.option.series = [];
     this.option.dataset = datasetManager.current;
@@ -113,7 +127,10 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
         }
       }, {
         displayName: '筛选器',
-        icon: 'u-icn-filter'
+        icon: 'u-icn-filter',
+        callback: () => {
+          this.createComponentModal();
+        }
       }, {
         displayName: '设置数轴',
         icon: 'u-icn-axis'
@@ -146,6 +163,37 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   }
 
 
+  createComponentModal(): void {
+    const modal = this.modalService.create({
+      nzTitle: this.tplTitle,
+      nzContent: NzModalCustomComponent,
+      nzWidth: '870px',
+      nzWrapClassName: 'filter-window',
+      nzComponentParams: {
+        title: 'title in component',
+        subtitle: 'component sub title，will be changed after 2 sec'
+      },
+      nzFooter: [{
+        label: 'change component tilte from outside',
+        onClick: (componentInstance) => {
+          componentInstance.title = 'title in inner component is changed';
+        }
+      }]
+    });
+
+    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
+
+    // Return a result when closed
+    modal.afterClose.subscribe((result) => console.log('[afterClose] The result is:', result));
+
+    // delay until modal instance created
+    window.setTimeout(() => {
+      const instance = modal.getContentComponent();
+      instance.subtitle = 'sub title is changed';
+    }, 2000);
+  }
+
+
   ngAfterViewInit() {
     console.log(this.ngForm);
     this.ngForm.valueChanges.subscribe((value) => {
@@ -161,4 +209,184 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
   }
 
+}
+
+@Component({
+  selector: 'nz-modal-custom-component',
+  template: `
+    <div class="m-mfilter-discrete" style="margin-top: -8px;margin-bottom: -8px;">
+      <div class="part1">
+        <nz-tabset [nzTabPosition]="'top'" nzType="card" nzSize="small">
+          <nz-tab nzTitle="列表筛选">
+            <div class="m-tsearch">
+              <div class="switch">
+                <label><input type="radio" name="mode" value="list"> 列表</label>
+                <label><input type="radio" name="mode" value="manual"> 手动</label></div>
+
+              <div class="list sec" style="">
+
+                <div class="affectMenu">
+                  <div class="m-tgmenu m-tgmenu-" title="显示完整列表">
+                    <div class="piece"></div>
+                    <div class="piece"></div>
+                    <div class="piece"></div>
+                  </div>
+                  <div class="m-tgmenu" title="升序(点击切换为降序)">
+                    <span class="u-icn u-icn-asc"></span>
+                  </div>
+                </div>
+                <div class="m-search entire">
+                  <button class="u-btn btn-search">搜索</button>
+                  <div class="search">
+                    <span class="u-icn-search u-icn"></span>
+                    <input placeholder="输入关键词搜索" class="u-ipt-search">
+                    <i class="u-icn u-icn-close" style="display: none;"></i>
+                  </div>
+                  <!--Regular if331-->
+                </div>
+
+
+                <!--Regular if332-->
+                <ul class="result u-list" style="height: 280px;">
+                  <li class="placeholder" style="height: 0px;"></li>
+                  <!--Regular list-->
+                  <li class=""><label><input type="checkbox"><b>
+                    北京市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    长春市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    长沙市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    成都市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    大连市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    广州市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    哈尔滨市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    杭州市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    合肥市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    济南市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    兰州市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    南京市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    青岛市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    厦门市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    上海市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    沈阳市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    天津市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    武汉市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    西安市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    咸阳市 </b></label></li>
+
+                  <li class=""><label><input type="checkbox"><b>
+                    重庆市 </b></label></li>
+
+                  <li class="placeholder" style="height: 0px;"></li>
+                </ul>
+                <div class="binfo">
+                  <label><input type="radio" value="1"><b>包含</b></label>
+                  <label><input type="radio" value="2"><b>排除</b></label>
+                  <label><input type="radio" value="3"><b>使用全部</b></label>
+                  <div class="needContext f-fr"></div>
+                </div>
+                <p class="binfo2">共21个结果</p>
+              </div>
+
+              <div class="sec manual" style="display: none;">
+                <div class="m-search m-search-manual">
+                  <div class="search">
+                    <input placeholder="输入您要添加的项, 并回车确认">
+                    <span class="icns" style="display: none;">
+        <i class="u-icn u-icn-add"></i>
+        <i class="u-icn u-icn-close"></i>
+      </span>
+                  </div>
+                </div>
+                <ul class="result u-list" style="height: 280px;">
+                  <!--Regular list-->
+                </ul>
+                <p class="binfo">
+                  <label><input type="checkbox" disabled="disabled"><b>排除</b></label>
+                </p>
+              </div>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle="文本筛选">
+            Content of Tab Pane
+          </nz-tab>
+          <nz-tab nzTitle="条件筛选">
+            Content of Tab Pane
+          </nz-tab>
+          <nz-tab nzTitle="高级筛选">
+            Content of Tab Pane
+            <h2>{{ title }}</h2>
+            <h4>{{ subtitle }}</h4>
+            Content of Tab Pane
+            <button nz-button [nzType]="'primary'" (click)="destroyModal()">destroy modal</button>
+          </nz-tab>
+        </nz-tabset>
+      </div>
+      <div class="part2 m-finfo">
+        <h3>筛选汇总</h3>
+        <div class="finfo_content">
+          <ul>
+            <li><span class="finfo_left">所选字段:</span>
+              <p class="finfo_right">省份</p></li>
+            <li class="z-active"><span class="finfo_left">列表筛选:</span>
+              <p class="finfo_right">无</p></li>
+            <li class=""><span class="finfo_left">文本筛选:</span>
+              <p class="finfo_right">无</p></li>
+            <li class=""><span class="finfo_left">条件筛选:</span>
+              <p class="finfo_right">无</p></li>
+            <li class=""><span class="finfo_left">高级筛选:</span>
+              <p class="finfo_right">无</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  `,
+  styleUrls: ['./filter.modal.less']
+})
+export class NzModalCustomComponent {
+  @Input() title: string;
+  @Input() subtitle: string;
+
+  constructor(private modal: NzModalRef) {
+  }
+
+  destroyModal(): void {
+    this.modal.destroy({data: 'this the result data'});
+  }
 }
