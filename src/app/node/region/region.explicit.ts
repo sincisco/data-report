@@ -139,6 +139,8 @@ export class ExplicitRegion extends Region {
 
             // 使用刚指定的配置项和数据显示图表。
             content.init(option);
+
+            ContextMenuHelper.close();
           }
         }, {
           displayName: '创建Header',

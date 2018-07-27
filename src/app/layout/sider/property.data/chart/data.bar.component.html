@@ -19,7 +19,7 @@
                   <span>{{seriesX.name}}</span>
                   <span class="u-icn u-icn-"></span>
                 </div>
-                <i class="sel" (click)="xAxisClick($event)"></i>
+                <i class="sel" (click)="xAxisClick($event)" [attr.fieldName]="seriesX.name"></i>
               </div>
               <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropX($event)">拖入字段
               </div>
@@ -50,7 +50,7 @@
       </div>
     </div>
   </nz-collapse-panel>
-  <nz-collapse-panel nzHeader="标题">
+  <nz-collapse-panel nzHeader="全部属性">
 
   </nz-collapse-panel>
 </nz-collapse>

@@ -1,0 +1,39 @@
+<div class="m-mfilter-discrete" style="margin-top: -8px;margin-bottom: -8px;">
+  <div class="part1">
+    <nz-tabset [nzTabPosition]="'top'" nzType="card" nzSize="small">
+      <nz-tab nzTitle="列表筛选">
+        <filter-list [fieldValueList]="list"></filter-list>
+      </nz-tab>
+      <nz-tab nzTitle="文本筛选">
+        Content of Tab Pane
+      </nz-tab>
+      <nz-tab nzTitle="条件筛选">
+        Content of Tab Pane
+      </nz-tab>
+      <nz-tab nzTitle="高级筛选">
+        Content of Tab Pane
+        <h2>{{ title }}</h2>
+        <h4>{{ subtitle }}</h4>
+        Content of Tab Pane
+        <button nz-button [nzType]="'primary'" (click)="destroyModal()">destroy modal</button>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+  <div class="part2 m-finfo">
+    <h3>筛选汇总</h3>
+    <div class="finfo_content">
+      <ul>
+        <li><span class="finfo_left">所选字段:</span>
+          <p class="finfo_right">省份</p></li>
+        <li class="z-active"><span class="finfo_left">列表筛选:</span>
+          <p class="finfo_right">{{listStr?listStr:'无'}}</p></li>
+        <li class=""><span class="finfo_left">文本筛选:</span>
+          <p class="finfo_right">无</p></li>
+        <li class=""><span class="finfo_left">条件筛选:</span>
+          <p class="finfo_right">无</p></li>
+        <li class=""><span class="finfo_left">高级筛选:</span>
+          <p class="finfo_right">无</p></li>
+      </ul>
+    </div>
+  </div>
+</div>

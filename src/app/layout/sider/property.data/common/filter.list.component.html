@@ -1,0 +1,56 @@
+<div class="m-tsearch">
+  <div class="switch">
+    <label><input type="radio" name="mode" value="list" [(ngModel)]="listMode"> 列表</label>
+    <label><input type="radio" name="mode" value="manual" [(ngModel)]="listMode"> 手动</label></div>
+  <div class="sec list" *ngIf="listMode==='list'">
+    <div class="affectMenu">
+      <div class="m-tgmenu m-tgmenu-" title="显示完整列表">
+        <div class="piece"></div>
+        <div class="piece"></div>
+        <div class="piece"></div>
+      </div>
+      <div class="m-tgmenu" title="升序(点击切换为降序)">
+        <span class="u-icn u-icn-asc"></span>
+      </div>
+    </div>
+    <div class="m-search entire">
+      <button class="u-btn btn-search">搜索</button>
+      <div class="search">
+        <span class="u-icn-search u-icn"></span>
+        <input placeholder="输入关键词搜索" class="u-ipt-search">
+        <i class="u-icn u-icn-close" style="display: none;"></i>
+      </div>
+    </div>
+    <ul class="result u-list" style="height: 280px;">
+      <li class="placeholder" style="height: 0px;"></li>
+      <li class="" *ngFor="let fieldValue of fieldValueList">
+        <label><input type="checkbox" [value]="fieldValue" [(ngModel)]="fieldValue.checked"><b>{{fieldValue.value}} </b></label></li>
+      <li class="placeholder" style="height: 0px;"></li>
+    </ul>
+    <div class="binfo">
+      <label><input type="radio" value="1"><b>包含</b></label>
+      <label><input type="radio" value="2"><b>排除</b></label>
+      <label><input type="radio" value="3"><b>使用全部</b></label>
+      <div class="needContext f-fr"></div>
+    </div>
+    <p class="binfo2">共{{fieldValueList?.length}}个结果</p>
+  </div>
+
+  <div class="sec manual" *ngIf="listMode==='manual'">
+    <div class="m-search m-search-manual">
+      <div class="search">
+        <input placeholder="输入您要添加的项, 并回车确认">
+        <span class="icns" style="display: none;">
+          <i class="u-icn u-icn-add"></i>
+          <i class="u-icn u-icn-close"></i>
+        </span>
+      </div>
+    </div>
+    <ul class="result u-list" style="height: 280px;">
+
+    </ul>
+    <p class="binfo">
+      <label><input type="checkbox" disabled="disabled"><b>排除</b></label>
+    </p>
+  </div>
+</div>

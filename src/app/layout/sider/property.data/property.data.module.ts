@@ -12,7 +12,9 @@ import {DataHeaderComponent} from './html/header.component';
 import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
 import {DataParagraphComponent} from './html/paragraph.component';
 import {DataImageComponent} from './html/image.component';
-import {DataBarComponent, NzModalCustomComponent} from './chart/data.bar.component';
+import {DataBarComponent} from './chart/data.bar.component';
+import {NzModalFilterComponent} from './common/filter.modal.component';
+import {FilterListComponent} from './common/filter.list.component';
 
 const COMPONENTS = [
   DataPieComponent,
@@ -20,7 +22,8 @@ const COMPONENTS = [
   DataHeaderComponent,
   DataParagraphComponent,
   DataImageComponent,
-  NzModalCustomComponent,
+  NzModalFilterComponent,
+  FilterListComponent
 ];
 
 @NgModule({
