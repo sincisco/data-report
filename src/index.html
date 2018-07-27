@@ -8,10 +8,277 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts.js" integrity="sha256-5oGDDQdB95LVt6XQcCR1rIRWUIoDC9vtM/TmZFmmvHc=" crossorigin="anonymous"></script>
-  --><script src="http://echarts.baidu.com/examples/vendors/echarts/echarts.min.js?_v_=1526486305040"></script>
+  <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts.js" integrity="sha256-5oGDDQdB95LVt6XQcCR1rIRWUIoDC9vtM/TmZFmmvHc=" crossorigin="anonymous"></script>
+ -->
+  <script src="http://echarts.baidu.com/examples/vendors/echarts/echarts.min.js?_v_=1526486305040"></script>
 </head>
 <body>
-  <app-root></app-root>
+<app-root></app-root>
+<div class="m-overlay  bottom" id="helperTools"
+     style="display:none;z-index: 405; position: absolute; top: 68px; left: 455px;">
+  <div class="m-classMenu " style="zoom: 1;">
+    <div class="placeholder" style="height: 68px;"></div>
+    <ul class="btns-box">
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-rect"></i>
+          <span class="text">矩形</span>
+        </div>
+      </li>
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-text"></i>
+          <span class="text">文本</span>
+        </div>
+      </li>
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-tab"></i>
+          <span class="text">Tab</span>
+        </div>
+      </li>
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-comment"></i>
+          <span class="text">注释框</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="m-overlay  bottom" id="filterTools"
+     style="display:none; z-index: 406; position: absolute; top: 68px; left: 564px;">
+  <div class="m-classMenu " style="zoom: 1;">
+    <div class="placeholder" style="height: 68px;"></div>
+    <ul class="btns-box">
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-list"></i>
+          <span class="text">列表筛选</span>
+        </div>
+      </li>
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-range"></i>
+          <span class="text">范围筛选</span>
+        </div>
+      </li>
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-date"></i>
+          <span class="text">日期筛选</span>
+        </div>
+      </li>
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-treeFilter"></i>
+          <span class="text">树状筛选</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="m-overlay  bottom" id="moreTools" style="display:none; z-index: 406; position: absolute; top: 68px; left: 342px;">
+  <!--inlcude-->
+  <div class="m-classMenu m-classMenu-more" style="zoom: 1;">
+    <div class="placeholder" style="height: 68px;"></div>
+    <ul class="btns-box">
+      <!--Regular list-->
+      <!--inlcude-->
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-meter"></i>
+          <span class="text">仪表图</span>
+        </div>
+      </li>
+
+
+      <!--inlcude-->
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-indicator"></i>
+          <span class="text">指标卡</span>
+        </div>
+      </li>
+
+
+      <!--inlcude-->
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-funnel"></i>
+          <span class="text">漏斗图</span>
+        </div>
+      </li>
+
+
+      <!--inlcude-->
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-radar"></i>
+          <span class="text">雷达图</span>
+        </div>
+      </li>
+
+
+      <!--inlcude-->
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-sankey"></i>
+          <span class="text">桑基图</span>
+        </div>
+      </li>
+
+
+      <!--inlcude-->
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-heatmap"></i>
+          <span class="text">热力地图</span>
+        </div>
+      </li>
+
+
+      <!--inlcude-->
+      <li class="btn-item dragable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-menubar-sunburst"></i>
+          <span class="text">旭日图</span>
+        </div>
+      </li>
+
+
+    </ul>
+  </div>
+
+</div>
+
+<div class="m-overlay  bottom" style="display:none; z-index: 406; position: absolute; top: 68px; left: 632px;">
+  <!--inlcude-->
+  <div class="container" style="zoom: 1;">
+    <!--Regular if635-->
+
+    <div class="m-ctxMenu-placeholder" style="top: -68px; width: 52px; height: 68px; left: 65px;"></div>
+
+    <div class="m-ctxMenu">
+      <ul>
+        <!--Regular list-->
+        <!--Regular if636-->
+        <li class="z-clickable z-disabled"><!--Regular if637--><!--inlcude-->置于顶层
+          <!--Regular if638-->
+          <!--Regular if639-->
+          <!--Regular if640-->
+        </li>
+
+        <!--Regular if641-->
+        <li class="z-clickable z-disabled"><!--Regular if642--><!--inlcude-->置于底层
+          <!--Regular if643-->
+          <!--Regular if644-->
+          <!--Regular if645-->
+        </li>
+
+        <!--Regular if646-->
+        <li class="z-clickable z-disabled"><!--Regular if647--><!--inlcude-->上移一层
+          <!--Regular if648-->
+          <!--Regular if649-->
+          <!--Regular if650-->
+        </li>
+
+        <!--Regular if651-->
+        <li class="z-clickable z-disabled"><!--Regular if652--><!--inlcude-->下移一层
+          <!--Regular if653-->
+          <!--Regular if654-->
+          <!--Regular if655-->
+        </li>
+
+        <!--Regular if656-->
+        <li class="u-split"></li>
+        <li class="z-clickable z-disabled"><!--Regular if657--><!--inlcude-->组合
+          <!--Regular if658-->
+          <!--Regular if659-->
+          <!--Regular if660-->
+          <span class="shortcut"><!--inlcude-->Ctrl+G</span>
+
+        </li>
+
+        <!--Regular if661-->
+        <li class="z-clickable z-disabled"><!--Regular if662--><!--inlcude-->取消组合
+          <!--Regular if663-->
+          <!--Regular if664-->
+          <!--Regular if665-->
+          <span class="shortcut"><!--inlcude-->Ctrl+Shift+G</span>
+
+        </li>
+
+        <!--Regular if666-->
+        <li class="u-split"></li>
+        <li class="z-disabled"><!--Regular if667--><!--inlcude-->对齐
+          <!--Regular if668-->
+          <!--Regular if669-->
+          <span class="u-icn u-icn-angle-right"></span>
+          <ul class="subMenu right bottom" style="display: none;">
+            <!--Regular list-->
+            <!--Regular if670-->
+            <li class="clickable">
+              <i class="u-icn u-icn-"></i><!--inlcude-->左对齐
+              <!--Regular if671-->
+              <!--Regular if672-->
+              <!--Regular if673-->
+            </li>
+
+            <!--Regular if674-->
+            <li class="clickable">
+              <i class="u-icn u-icn-"></i><!--inlcude-->水平居中
+              <!--Regular if675-->
+              <!--Regular if676-->
+              <!--Regular if677-->
+            </li>
+
+            <!--Regular if678-->
+            <li class="clickable">
+              <i class="u-icn u-icn-"></i><!--inlcude-->右对齐
+              <!--Regular if679-->
+              <!--Regular if680-->
+              <!--Regular if681-->
+            </li>
+
+            <!--Regular if682-->
+            <li class="u-split"></li>
+
+            <li class="clickable">
+              <i class="u-icn u-icn-"></i><!--inlcude-->顶部对齐
+              <!--Regular if683-->
+              <!--Regular if684-->
+              <!--Regular if685-->
+            </li>
+
+            <!--Regular if686-->
+            <li class="clickable">
+              <i class="u-icn u-icn-"></i><!--inlcude-->垂直居中
+              <!--Regular if687-->
+              <!--Regular if688-->
+              <!--Regular if689-->
+            </li>
+
+            <!--Regular if690-->
+            <li class="clickable">
+              <i class="u-icn u-icn-"></i><!--inlcude-->底部对齐
+              <!--Regular if691-->
+              <!--Regular if692-->
+              <!--Regular if693-->
+            </li>
+
+          </ul>
+
+          <!--Regular if694-->
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
 </body>
 </html>
