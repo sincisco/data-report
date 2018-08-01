@@ -9,7 +9,13 @@ export class AppHeaderComponent implements AfterViewInit {
 
   mouseEnter(event: MouseEvent, id: string) {
     console.log('mouseEnter');
-    $(`#${id}`).css({left: $(event.currentTarget).offset().left}).show();
+    let offsetLeft = 0;
+    if (id === 'moreTools') {
+      offsetLeft = 52;
+    } else if (id === 'filterTools') {
+      offsetLeft = 12;
+    }
+    $(`#${id}`).css({left: $(event.currentTarget).offset().left - offsetLeft}).show();
   }
 
   mouseLeave() {
