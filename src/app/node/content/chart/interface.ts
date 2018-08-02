@@ -18,7 +18,9 @@ export interface AxisLabel {
 
 export interface IAxis {
   name?: string;
+  nameLocation?: 'start' | 'middle' | 'end';
   type?: AxisType;
+  position?: 'top' | 'bottom' | undefined | null;
   silent?: boolean;
   axisLabel?: AxisLabel;
 }

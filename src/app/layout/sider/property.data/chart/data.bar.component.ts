@@ -27,7 +27,7 @@ import {NzModalFilterComponent} from '../common/filter.modal.component';
 import {filterExecutor} from '@core/filter/filter.executor';
 
 @Component({
-  selector: 'data-bar',
+  selector: 'app-data-bar',
   templateUrl: './data.bar.component.html',
   styleUrls: ['./data.bar.component.less']
 })
@@ -39,6 +39,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
   option: ChartBarOption = {
     xAxis: {
+      name: 'xAxis1',
       axisLabel: {
         rotate: 90
       }
@@ -57,6 +58,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
   seriesX: any;
   seriesY: Array<any> = [];
+
   filterArray: Array<any> = [];
 
   angle: string;
@@ -64,6 +66,12 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
   constructor(private modalService: NzModalService, private _differs: KeyValueDiffers) {
   }
+
+  ngModelChange() {
+    console.log('123');
+  }
+
+  aa = 'top';
 
   ngOnInit() {
     this._differ = this._differs.find(this.option).create();
@@ -88,17 +96,16 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
   dropX(event: DragEvent) {
     event.preventDefault();
-    var data = event.dataTransfer.getData('Text');
+    const data = event.dataTransfer.getData('Text');
     console.log(data);
 
     this.seriesX = draggableHeler.dragInfo;
   }
 
   dropY(event: DragEvent) {
-    //火狐中取消drop默认行为，阻止打开URL
+    // 火狐中取消drop默认行为，阻止打开URL
     event.preventDefault();
 
-    var data = event.dataTransfer.getData('Text');
     console.log(JSON.stringify(draggableHeler.dragInfo));
     this.seriesY.push(draggableHeler.dragInfo);
     this.seriesX && this._updateSeries();
@@ -162,7 +169,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
         displayName: '移除',
         icon: 'u-icn-delete',
         callback: () => {
-
+          this.seriesX = null;
         }
       }
     ], $event.pageX, $event.pageY, $event, true);
@@ -216,13 +223,13 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
 
   ngAfterViewInit() {
-    console.log(this.ngForm);
     this.ngForm.valueChanges.subscribe((value) => {
       console.log(value);
       console.log(this.option);
       const changes = this._differ.diff(value);
       if (changes) {
         console.log('has change');
+        setTimeout(() => this._updateSeries());
         //this._applyChanges(changes);
       }
 

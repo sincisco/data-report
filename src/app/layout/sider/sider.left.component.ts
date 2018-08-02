@@ -130,32 +130,6 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
     var that = this;
 
     siderLeftComponent = this;
-
-
-    // document.getElementById("dragTarget").addEventListener("dragenter", function(event) {
-    //   // 阻止浏览器默认事件
-    //   event.preventDefault();
-    // }, false);
-    // document.getElementById("dragTarget").addEventListener("dragover", function(event) {
-    //   // 阻止浏览器默认事件
-    //   event.preventDefault();
-    // }, false);
-    // document.getElementById("dragTarget").addEventListener("drop", function(event:DragEvent) {
-    //   event.preventDefault();
-    //   var data=event.dataTransfer.getData("Text");
-    //   that.appBody.chart.setOption({
-    //     series: [
-    //       {type: 'bar',
-    //         encode:{
-    //           x:0,
-    //           y:1
-    //         }
-    //       }
-    //     ]
-    //   });
-    //   alert(data);
-    //   //(<Node>event.target).appendChild(document.getElementById(data));
-    // }, false);
   }
 
 }

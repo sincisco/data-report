@@ -18,10 +18,6 @@
   display: none;
 }
 
-.m-dashbox:hover .m-graphic-toolbar ul.more {
-  display: block;
-}
-
 .m-graphic-toolbar ul.more li {
   float: left;
   position: relative;
@@ -32,14 +28,19 @@
   cursor: pointer;
   color: #8f8f8f;
   background-color: rgba(255, 255, 255, 0.16);
+  &:hover {
+    background-color: rgba(53,53,53,0.16);
+  }
 }
 
-.m-graphic-toolbar ul.more li:hover {
-  background-color: rgba(53,53,53,0.16);
-}
 
 .m-graphic-toolbar ul.more li .u-icn {
   position: absolute;
   top: 6px;
   left: 6px;
+}
+
+
+.m-dashbox:hover .m-graphic-toolbar ul.more {
+  display: block;
 }

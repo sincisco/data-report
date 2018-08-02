@@ -35,9 +35,9 @@ export class GraphicChart implements IGraphic {
     this._bindToolbarEvent();
   }
 
-  activate() {
+  update(option: any) {
     if (this._content) {
-      this._content.activate();
+      this._content.update(option);
     }
   }
 
@@ -47,9 +47,9 @@ export class GraphicChart implements IGraphic {
     }
   }
 
-  update(option: any) {
+  activate() {
     if (this._content) {
-      this._content.update(option);
+      this._content.activate();
     }
   }
 
