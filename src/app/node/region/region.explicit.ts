@@ -1,16 +1,18 @@
-import {Region, RegionState, reportGlobal} from './region';
+import {Region, RegionState, reportGlobal, resizeTipHelper} from './region';
 import {Report} from '../canvas/report';
 import {ChartBarNode} from '../content/chart/chart.bar';
 import {HeaderHtml} from '../content/html/header.html';
 import {closestNum} from '../../utils/common';
 import {ContextMenuHelper} from '../../utils/contextMenu';
-import {fromEvent} from 'rxjs';
+import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
 import {HtmlParagraph} from '../content/html/paragraph.html';
 import {HtmlImage} from '../content/html/image.html';
 import {CommentContent} from '../content/comment.content';
 import {TextContent} from '../content/text.content';
 import {Dimensions} from '../interface';
+import {ar_EG} from 'ng-zorro-antd';
+import {Observable} from 'rxjs/src/internal/Observable';
 
 
 const resizeHelper = `
@@ -46,11 +48,8 @@ export class ExplicitRegion extends Region {
     height: 200
   };
 
+  $host: JQuery;
   $frame: JQuery;
-
-  offset: JQuery.Coordinates;
-  snapshot: CoordinatesAndDimensions;
-
 
   constructor() {
     super([resizeHelper, graphic]);
@@ -58,6 +57,7 @@ export class ExplicitRegion extends Region {
       left: 100,
       top: 100
     };
+    this.$host = this.$element;
     this.$frame = this.$element.find('.graphic');
     this.refresh();
     setTimeout(() => {
@@ -65,41 +65,148 @@ export class ExplicitRegion extends Region {
     }, 10);
   }
 
-  setContent(content: IContent) {
-    this._content = content;
+  set width(width: number) {
+    this._dimensions.width = closestNum(width);
   }
 
-  private _which;
+  set height(height: number) {
+    this._dimensions.height = closestNum(height);
+  }
+
+  get width() {
+    return this._dimensions.width;
+  }
+
+  get height() {
+    return this._dimensions.height;
+  }
+
+  setCoordinates(left, top) {
+    this._coordinates.left = left;
+    this._coordinates.top = top;
+  }
+
+  refresh() {
+    this.$element.css({
+      width: this._dimensions.width,
+      height: this._dimensions.height,
+      left: this._coordinates.left,
+      top: this._coordinates.top
+    });
+    if (this._regionState === RegionState.activated) {
+      this.report.regionResize(this);
+    }
+  }
 
   private _bindEvent() {
-    var count = 0;
+    let count = 0,
+      offsetX, offsetY,
+      offset: JQuery.Coordinates,
+      snapshot: CoordinatesAndDimensions,
+      _which: string;
+    const _handleResize = (pageX, pageY) => {
+      const coordinates = this._coordinates,
+        dimensions = this._dimensions;
+      switch (_which) {
+        case 'resize-left':
+          if (pageX < (offset.left + snapshot.width)) {
+            offsetX = closestNum(pageX - offset.left);
+            coordinates.left = snapshot.left + offsetX;
+            dimensions.width = snapshot.width - offsetX;
+          }
+          break;
+        case 'resize-top':
+          if (pageY < (offset.top + snapshot.height)) {
+            offsetY = closestNum(pageY - offset.top);
+            coordinates.top = snapshot.top + offsetY;
+            dimensions.height = snapshot.height - offsetY;
+          }
+          break;
+        case 'resize-right':
+          if (pageX > offset.left) {
+            dimensions.width = closestNum(pageX - offset.left);
+          }
+          break;
+        case 'resize-topLeft':
+          if (pageY < (offset.top + snapshot.height) && pageX < (offset.left + snapshot.width)) {
+            offsetX = closestNum(pageX - offset.left),
+              offsetY = closestNum(pageY - offset.top);
+            coordinates.left = snapshot.left + offsetX;
+            dimensions.width = snapshot.width - offsetX;
+            coordinates.top = snapshot.top + offsetY;
+            dimensions.height = snapshot.height - offsetY;
+          }
+          break;
+        case 'resize-topRight':
+          if (pageY < (offset.top + snapshot.height)) {
+            offsetY = closestNum(pageY - offset.top);
+            coordinates.top = snapshot.top + offsetY;
+            dimensions.height = snapshot.height - offsetY;
+          }
+          if (pageX > offset.left) {
+            dimensions.width = closestNum(pageX - offset.left);
+          }
+          break;
+        case 'resize-bottomRight':
+          if (pageX > offset.left) {
+            this.width = pageX - offset.left;
+          }
+          if (pageY > offset.top) {
+            this.height = pageY - offset.top;
+          }
+          break;
+        case 'resize-bottomLeft':
+          if (pageX < (offset.left + snapshot.width)) {
+            offsetX = closestNum(pageX - offset.left);
+            coordinates.left = snapshot.left + offsetX;
+            dimensions.width = snapshot.width - offsetX;
+          }
+          if (pageY > offset.top) {
+            this.height = pageY - offset.top;
+          }
+          break;
+        case 'resize-bottom':
+          if (pageY > offset.top) {
+            this.height = pageY - offset.top;
+          }
+          break;
+
+      }
+    };
+
+    let subscription: Subscription;
+    const dragEndHelper = (event: MouseEvent) => {
+      if (subscription) {
+        subscription.unsubscribe();
+        subscription = null;
+        document.removeEventListener('mouseup', dragEndHelper);
+        this.$element.removeClass('no-transition');
+        resizeTipHelper.hide();
+        _handleResize(event.pageX, event.pageY);
+        this._content && this._content.resize();
+      }
+    };
 
     this.$element.find('div.u-resize>.draggable')
       .on('dragstart', ($event: JQuery.Event) => {
         count = 0;
+        offset = this.$element.offset();
+        snapshot = Object.assign({}, this._dimensions, this._coordinates);
+        _which = (<HTMLElement>$event.currentTarget).dataset.which;
+        resizeTipHelper.show($event.pageX, $event.pageY, this._dimensions.width, this._dimensions.height);
         this.$element.addClass('no-transition');
-        this.offset = this.$element.offset();
-        this.snapshot = Object.assign({}, this._dimensions, this._coordinates);
 
-        this._which = (<HTMLElement>$event.currentTarget).dataset.which;
-
-        console.log('u-resize dragstart', $event.pageX, $event.pageY);
-      }).on('dragend', ($event: JQuery.Event) => {
-      var event: DragEvent = <DragEvent>$event.originalEvent;
-      console.log('u-resize dragend', event.pageX, event.pageY);
-      this.$element.removeClass('no-transition');
-      this._handleResize(event.pageX, event.pageY);
-      this._content && this._content.resize();
-    });
-
-    var draggableDrag = fromEvent(this.$element.find('div.u-resize>.draggable'), 'drag');
-
-    draggableDrag.pipe(filter(ev => count++ > 2), throttleTime(200)).subscribe((event: DragEvent) => {
-      console.log('drag', event.pageX, event.pageY);
-      if (event.pageX === 0 && event.pageY === 0)
-        return;
-      this._handleResize(event.pageX, event.pageY);
-    }); // 事件对象
+        subscription = fromEvent(document, 'mousemove')
+          .pipe(throttleTime(30))
+          .subscribe((mouseEvent: MouseEvent) => {
+            _handleResize(mouseEvent.pageX, mouseEvent.pageY);
+            resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._dimensions.width, this._dimensions.height);
+            this.refresh();
+          });
+        document.addEventListener('mouseup', dragEndHelper);
+        return false;
+      });
+    // 事件对象
 
 
     this.$mover.contextmenu(($event: JQuery.Event) => {
@@ -210,120 +317,4 @@ export class ExplicitRegion extends Region {
     super._bindEventForMover();
   }
 
-  private _handleResize(pageX, pageY) {
-    let region: ExplicitRegion = this,
-      offset = this.offset,
-      dimensions = this._dimensions,
-      coordinates = this._coordinates,
-      snapshot = this.snapshot;
-    switch (this._which) {
-      case 'resize-left':
-        if (pageX < (offset.left + snapshot.width)) {
-          var offsetX = closestNum(pageX - offset.left);
-          coordinates.left = snapshot.left + offsetX;
-          dimensions.width = snapshot.width - offsetX;
-        }
-        break;
-      case 'resize-top':
-        if (pageY < (offset.top + snapshot.height)) {
-          var offsetY = pageY - offset.top;
-          coordinates.top = snapshot.top + offsetY;
-          dimensions.height = snapshot.height - offsetY;
-        }
-        break;
-      case 'resize-right':
-        if (pageX > offset.left) {
-          dimensions.width = closestNum(pageX - offset.left);
-        }
-        break;
-      case 'resize-topLeft':
-        if (pageY < (offset.top + snapshot.height) && pageX < (offset.left + snapshot.width)) {
-          var offsetX = closestNum(pageX - offset.left),
-            offsetY = pageY - offset.top;
-          coordinates.left = snapshot.left + offsetX;
-          dimensions.width = snapshot.width - offsetX;
-          coordinates.top = snapshot.top + offsetY;
-          dimensions.height = snapshot.height - offsetY;
-        }
-        break;
-      case 'resize-topRight':
-        if (pageY < (offset.top + snapshot.height)) {
-          var offsetY = pageY - offset.top;
-          coordinates.top = snapshot.top + offsetY;
-          dimensions.height = snapshot.height - offsetY;
-        }
-        if (pageX > offset.left) {
-          dimensions.width = closestNum(pageX - offset.left);
-        }
-        break;
-      case 'resize-bottomRight':
-        if (pageX > offset.left) {
-          region.width = pageX - offset.left;
-        }
-        if (pageY > offset.top) {
-          region.height = pageY - offset.top;
-        }
-        break;
-      case 'resize-bottomLeft':
-        if (pageX < (offset.left + snapshot.width)) {
-          var offsetX = pageX - offset.left;
-          coordinates.left = snapshot.left + offsetX;
-          dimensions.width = snapshot.width - offsetX;
-        }
-        if (pageY > offset.top) {
-          dimensions.height = pageY - offset.top;
-        }
-        break;
-      case 'resize-bottom':
-        if (pageY > offset.top) {
-          dimensions.height = pageY - offset.top;
-        }
-        break;
-
-    }
-    this.refresh();
-  }
-
-
-  set report(param: Report) {
-    this._report = param;
-  }
-
-  get report() {
-    return this._report;
-  }
-
-  setCoordinates(left, top) {
-    this._coordinates.left = left;
-    this._coordinates.top = top;
-  }
-
-  get width() {
-    return this._dimensions.width;
-  }
-
-  get height() {
-    return this._dimensions.height;
-  }
-
-  set width(width) {
-    this._dimensions.width = width;
-  }
-
-  set height(height) {
-    this._dimensions.height = height;
-  }
-
-
-  refresh() {
-    this.$element.css({
-      width: closestNum(this._dimensions.width),
-      height: closestNum(this._dimensions.height),
-      left: closestNum(this._coordinates.left),
-      top: closestNum(this._coordinates.top)
-    });
-    if (this._regionState === RegionState.activated) {
-      this.report.regionResize(this);
-    }
-  }
 }

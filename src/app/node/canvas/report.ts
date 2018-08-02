@@ -210,6 +210,10 @@ export class Report implements INode {
   unselect() {
 
   }
+
+  destroy() {
+
+  }
 }
 
 class RootNode implements INode {
@@ -217,4 +221,8 @@ class RootNode implements INode {
 <div class="report-canvas">
 </div>
     `;
+
+  destroy() {
+
+  }
 }

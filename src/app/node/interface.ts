@@ -1,4 +1,5 @@
 export interface INode {
+  destroy();
 }
 
 export interface Dimensions {
