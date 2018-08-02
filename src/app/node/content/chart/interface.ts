@@ -5,10 +5,10 @@ type Target = 'self' | 'blank';
  *
  */
 export interface ITitle {
-  show?: boolean; //default: true
+  show?: boolean; // default: true
   text?: string;
   link?: string;
-  target?: Target; //default: 'blank'
+  target?: Target; // default: 'blank'
 }
 
 export interface AxisLabel {

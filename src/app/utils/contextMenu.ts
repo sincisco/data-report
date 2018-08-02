@@ -122,4 +122,4 @@ class ContextMenu {
   }
 }
 
-export const ContextMenuHelper = new ContextMenu();
+export const contextMenuHelper = new ContextMenu();

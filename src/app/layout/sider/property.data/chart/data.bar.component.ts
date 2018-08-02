@@ -18,7 +18,7 @@ import {ChartBarNode, ChartBarOption} from '../../../../node/content/chart/chart
 import {datasetManager} from '@core/dataset/dataset.manager';
 import {HtmlParagraph} from '../../../../node/content/html/paragraph.html';
 import {HeaderHtml} from '../../../../node/content/html/header.html';
-import {ContextMenuHelper} from '../../../../utils/contextMenu';
+import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {TextContent} from '../../../../node/content/text.content';
 import {HtmlImage} from '../../../../node/content/html/image.html';
 import {CommentContent} from '../../../../node/content/comment.content';
@@ -124,7 +124,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
   }
 
   xAxisClick($event: MouseEvent) {
-    ContextMenuHelper.open([
+    contextMenuHelper.open([
       {
         displayName: '修改显示名称',
         callback: () => {
@@ -135,7 +135,7 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
         icon: 'u-icn-filter',
         callback: () => {
           this.createComponentModal((<HTMLElement>$event.target).getAttribute('fieldName'));
-          ContextMenuHelper.close();
+          contextMenuHelper.close();
         }
       }, {
         displayName: '设置数轴',

@@ -1,4 +1,4 @@
-.node-wrapper .u-mover {
+.m-dashbox .u-mover {
   position: absolute;
   top: 0;
   left: 0;
@@ -6,8 +6,17 @@
   right: 0;
 }
 
+.m-dashbox .u-mover {
+  background: rgba(255, 255, 255, 0);
+}
+
+.m-dashbox .u-mover {
+  cursor: move;
+  z-index: 5;
+}
+
 .report-region.activated{
-  .node-wrapper.selected{
+  .m-dashbox.selected{
     .u-mover{
       display: none;
     }
@@ -16,16 +25,9 @@
 
 
 
-.node-wrapper .u-mover {
-  background: rgba(255, 255, 255, 0);
-}
 
-.node-wrapper .u-mover {
-  cursor: move;
-  z-index: 5;
-}
 
-.node-wrapper .graphic-wrapper{
+.m-dashbox .graphic-wrapper{
   position: absolute;
   top: 0;
   left: 0;
@@ -34,16 +36,16 @@
   background: rgba(255,255,255,0);
 }
 
-.node-wrapper .frame {
+.m-dashbox .frame {
   transition: background 0.3s ease-in-out;
 }
-.node-wrapper .frame {
+.m-dashbox .frame {
   border: 0px solid rgb(204, 204, 204);
   background-color: rgb(255, 255, 255);
   border-radius: 0px;
   opacity: 1;
 }
-.node-wrapper .frame {
+.m-dashbox .frame {
   position: absolute;
   top: 0;
   left: 0;

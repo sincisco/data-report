@@ -1,5 +1,5 @@
 import {Dimensions, INode} from '../interface';
-import {ContextMenuHelper} from '../../utils/contextMenu';
+import {contextMenuHelper} from '../../utils/contextMenu';
 import {ExplicitRegion} from '../region/region.explicit';
 import {Region} from '../region/region';
 
@@ -114,7 +114,7 @@ export class Report implements INode {
     this.refresh();
 
     this.$grid.contextmenu(($event: JQuery.Event) => {
-      ContextMenuHelper.open([
+      contextMenuHelper.open([
         {
           displayName: '新建图表',
           callback: () => {
@@ -123,7 +123,7 @@ export class Report implements INode {
             graphNode.setCoordinates($event.offsetX, $event.offsetY);
             graphNode.refresh();
             this.addChild(graphNode);
-            ContextMenuHelper.close();
+            contextMenuHelper.close();
           }
         }, {
           displayName: '新建文本',
@@ -133,7 +133,7 @@ export class Report implements INode {
             // graphNode.coordinates($event.offsetX, $event.offsetY);
             // graphNode.refresh();
             // this.addChild(graphNode);
-            // ContextMenuHelper.close();
+            // contextMenuHelper.close();
           }
         }, {
           displayName: '剪切',

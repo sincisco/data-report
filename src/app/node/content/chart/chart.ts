@@ -1,7 +1,15 @@
+import {ComponentRef, Type} from '@angular/core';
+
+import {IDataComponent} from '../../../layout/sider/property.data/html/header.component';
+import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
+
 export abstract class ChartNode implements IContent {
   private _echart: Echart;
+  protected _dataConfigClass: Type<IDataComponent>;
+  protected _dataConfigComponentRef: ComponentRef<IDataComponent>;
 
-  constructor(public host: HTMLElement) {
+  protected constructor(public host: HTMLElement) {
+    // 初始化之前  确保host已经挂载到document中
     this._echart = echarts.init(host);
   }
 
@@ -10,11 +18,16 @@ export abstract class ChartNode implements IContent {
   }
 
   update(option: any) {
-    console.log(JSON.stringify(option));
     this._echart.setOption(option);
   }
 
-  abstract activate();
+  activate() {
+    if (!this._dataConfigComponentRef) {
+      this._dataConfigComponentRef = siderLeftComponent.createDataProperty(this._dataConfigClass);
+    } else {
+      siderLeftComponent.attachDataProperty(this._dataConfigComponentRef.hostView);
+    }
+  }
 
   resize() {
     this._echart.resize();

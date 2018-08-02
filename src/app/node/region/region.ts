@@ -3,9 +3,11 @@ import {Report} from '../canvas/report';
 import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
 import {closestNum} from '../../utils/common';
+import {IGraphic} from '../graphic/graphic';
+
 
 export const reportGlobal: {
-  instance: IContent
+  instance: IGraphic
 } = {
   instance: null
 };
@@ -29,15 +31,16 @@ export abstract class Region implements INode {
   protected _coordinates: JQuery.Coordinates;
   // 模型层
   protected _report: Report;
-  protected _content: IContent;
+  protected _graphic: IGraphic;
   protected _regionState: RegionState = RegionState.default;
 
   // 展现层
   $element: JQuery;
+  $fill: JQuery;
   $mover: JQuery;
 
-  constructor(contentArray: Array<string>) {
-    this.$element = $(getRegionTemplate(contentArray));
+  protected constructor(template: string) {
+    this.$element = $(template);
     this.$mover = this.$element.find('.u-mover');
   }
 
@@ -49,13 +52,6 @@ export abstract class Region implements INode {
     return this._report;
   }
 
-  set content(content: IContent) {
-    this._content = content;
-  }
-
-  get content() {
-    return this._content;
-  }
 
   get coordinates(): JQuery.Coordinates {
     return this._coordinates;
@@ -64,9 +60,9 @@ export abstract class Region implements INode {
   select() {
     this._regionState = RegionState.selected;
     this.$element.addClass('selected');
-    if (this._content) {
-      reportGlobal.instance = this._content;
-      this._content.activate();
+    if (this._graphic) {
+      reportGlobal.instance = this._graphic;
+      this._graphic.activate();
     }
   }
 

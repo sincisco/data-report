@@ -4,6 +4,7 @@ import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import {DataBarComponent} from '../../../layout/sider/property.data/chart/data.bar.component';
 import {ComponentRef} from '@angular/core';
 import {IDataComponent} from '../../../layout/sider/property.data/html/header.component';
+import * as _ from 'lodash';
 
 export interface ChartBarOption {
   title?: ITitle;
@@ -17,7 +18,9 @@ const defaultOption: ChartBarOption = {
   title: {
     text: '我是标题'
   },
-  xAxis: {},
+  xAxis: {
+    type: 'category'
+  },
   yAxis: {
     type: 'value'
   },
@@ -28,21 +31,15 @@ const defaultOption: ChartBarOption = {
 export class ChartBarNode extends ChartNode {
 
 
-  dataProperty = DataBarComponent;
-
-  private _dataPropertyComponentRef: ComponentRef<IDataComponent>;
+  _dataConfigClass = DataBarComponent;
 
   constructor(host: HTMLElement) {
     super(host);
   }
 
-  activate() {
-    if (!this._dataPropertyComponentRef) {
-      this._dataPropertyComponentRef = siderLeftComponent.createDataProperty(this.dataProperty);
-    } else {
-      siderLeftComponent.attachDataProperty(this._dataPropertyComponentRef.hostView);
-    }
-
+  init(option?: any) {
+    option = _.defaultsDeep(option || {}, defaultOption);
+    super.init(option);
   }
 
 }

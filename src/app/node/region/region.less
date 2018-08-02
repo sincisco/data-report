@@ -6,12 +6,13 @@
   transition-timing-function: ease-in-out;
 }
 
-.g-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+
+.no-transition{
+  transition: none;
+}
+
+.m-dashbox.no-transition{
+  opacity: .5;
 }
 
 .m-dashbox{
@@ -61,33 +62,4 @@
 .m-graphic .frame,
 .m-graphic .m-rect {
   transition: background 0.3s ease-in-out;
-}
-
-.m-graphic-toolbar {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  z-index: 8;
-  &:before, &:after {
-    display: table;
-    content: "";
-    line-height: 0;
-  }
-}
-
-.m-graphic-toolbar ul.more li {
-  float: left;
-  width: 29px;
-  height: 28px;
-  line-height: 28px;
-  border: 1px solid transparent;
-  cursor: pointer;
-  position: relative;
-  color: #8f8f8f;
-  background-color: rgba(255,255,255,0.16);
-}
-
-.m-graphic-toolbar ul.more {
-  float: left;
-  display: none;
 }
