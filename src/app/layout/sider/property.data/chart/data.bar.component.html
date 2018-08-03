@@ -29,6 +29,9 @@
               <label nz-radio nzValue="bottom">bottom</label>
             </nz-radio-group>
           </div>
+          <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
+            <nz-input-number name="nameGap" [(ngModel)]="option.xAxis.nameGap" [nzMin]="1" [nzMax]="50" [nzStep]="1"></nz-input-number>
+          </div>
           <div nz-col [nzSpan]="24" style="margin-bottom: 8px" ngModelGroup="axisLabel">
             <nz-slider [nzMin]="-90" [nzMax]="90" name="rotate" [(ngModel)]="option.xAxis.axisLabel.rotate"></nz-slider>
           </div>

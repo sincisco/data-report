@@ -12,6 +12,7 @@ import {NgForm} from '@angular/forms';
 import {AppBodyComponent} from '../app.body.component';
 import {reportGlobal} from '../../node/region/region';
 import {DataHeaderComponent, IDataComponent} from './property.data/html/header.component';
+import {Title} from '../../node/content/chart/echart.interface/title';
 
 export var siderLeftComponent: SiderLeftComponent;
 
@@ -27,7 +28,11 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
-  option = {
+  option: {
+    title: Title,
+    grid: any;
+    color: any;
+  } = {
     title: {
       show: true,
       text: '大水牛',
@@ -39,6 +44,15 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
       textStyle: {
         align: 'left'
       }
+    },
+    grid: {
+      show: false,
+      borderColor: '#ccc',
+      backgroundColor: 'transparent',
+      left: '10%',
+      right: '10%',
+      top: 60,
+      bottom: 60
     },
     color: []
   };
@@ -111,6 +125,7 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     console.log(this.ngForm);
     this.ngForm.valueChanges.subscribe((value) => {
+      console.log('SiderLeftComponent valueChanges');
       console.log(value);
       console.log(this.option);
       const changes = this._differ.diff(value);

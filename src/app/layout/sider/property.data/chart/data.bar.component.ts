@@ -42,6 +42,9 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
       name: 'xAxis1',
       axisLabel: {
         rotate: 90
+      },
+      axisTick: {
+        interval: 5
       }
     },
     series: [

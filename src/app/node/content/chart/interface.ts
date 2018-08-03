@@ -1,28 +1,37 @@
 type AxisType = 'category' | 'value' | 'time' | 'log';
-type Target = 'self' | 'blank';
-
-/**
- *
- */
-export interface ITitle {
-  show?: boolean; // default: true
-  text?: string;
-  link?: string;
-  target?: Target; // default: 'blank'
-}
 
 export interface AxisLabel {
-  rotate: number;
+  rotate?: number;
+}
+
+export interface AxisTick {
+  show?: boolean;
+  alignWithLabel?: boolean;
+  interval?: number | Function | 'auto';
+  inside?: boolean;
+  length?: number;
 }
 
 
 export interface IAxis {
+  // 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。
+  id?: string;
+  // [ default: true ]
+  // 是否显示 x 轴。
+  show?: boolean;
+  // [ default: 0 ]
+  // x 轴所在的 grid 的索引，默认位于第一个 grid。
+  gridIndex?: number;
+  // 默认 grid 中的第一个 x 轴在 grid 的下方（'bottom'），第二个 x 轴视第一个 x 轴的位置放在另一侧。
+  position?: 'top' | 'bottom' | undefined | null;
   name?: string;
   nameLocation?: 'start' | 'middle' | 'end';
+  nameGap?: number;
+  nameRotate?: number;
   type?: AxisType;
-  position?: 'top' | 'bottom' | undefined | null;
   silent?: boolean;
   axisLabel?: AxisLabel;
+  axisTick?: AxisTick;
 }
 
 interface ChartLineItem {

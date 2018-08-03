@@ -1,13 +1,14 @@
 import {ChartNode} from './chart';
-import {ChartBarItem, IAxis, ITitle} from './interface';
+import {ChartBarItem, IAxis} from './interface';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import {DataBarComponent} from '../../../layout/sider/property.data/chart/data.bar.component';
 import {ComponentRef} from '@angular/core';
 import {IDataComponent} from '../../../layout/sider/property.data/html/header.component';
 import * as _ from 'lodash';
+import {Title} from './echart.interface/title';
 
 export interface ChartBarOption {
-  title?: ITitle;
+  title?: Title;
   dataset?: any;
   xAxis?: IAxis;
   yAxis?: IAxis;
