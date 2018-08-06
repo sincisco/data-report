@@ -13,15 +13,14 @@ import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
 import {SchemaPillsComponent} from './sider/model/schema.component';
 import {SiderRightComponent} from './sider/sider.right.component';
 import {PropertyDataModule} from './sider/property.data/property.data.module';
-import {TitleConfigComponent} from '../components/config/title.config.component';
+import {ConfigModule} from "../components/config/config.module";
 
 const COMPONENTS = [
   AppHeaderComponent,
   AppBodyComponent,
   SiderLeftComponent,
   SiderRightComponent,
-  SchemaPillsComponent,
-  TitleConfigComponent
+  SchemaPillsComponent
 ];
 
 @NgModule({
@@ -35,6 +34,7 @@ const COMPONENTS = [
     HttpClientModule,
     NgZorroAntdModule,
     ColorPickerModule,
+    ConfigModule,
     PropertyDataModule
   ],
   exports: [
