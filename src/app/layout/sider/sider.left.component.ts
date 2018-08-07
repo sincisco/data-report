@@ -2,17 +2,13 @@ import {
   AfterViewInit,
   Component,
   ComponentFactory, ComponentFactoryResolver, ComponentRef,
-  KeyValueDiffer,
-  KeyValueDiffers, NgZone,
-  OnInit, Type,
-  ViewChild,
+  KeyValueDiffer, NgZone, Type, ViewChild,
   ViewContainerRef, ViewRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AppBodyComponent} from '../app.body.component';
 import {reportGlobal} from '../../node/region/region';
-import {DataHeaderComponent, IDataComponent} from './graphic.config/html/header.component';
-import {Title} from '../../node/content/chart/echart.interface/title';
+import {DataHeaderComponent} from './graphic.config/html/header.component';
+import {GraphicConfig} from './graphic.config/graphic.config';
 
 export var siderLeftComponent: SiderLeftComponent;
 
@@ -21,52 +17,20 @@ export var siderLeftComponent: SiderLeftComponent;
   templateUrl: './sider.left.component.html',
   styleUrls: ['./sider.left.component.less']
 })
-export class SiderLeftComponent implements AfterViewInit, OnInit {
+export class SiderLeftComponent implements AfterViewInit {
 
 
-  @ViewChild('dataComponent', {read: ViewContainerRef}) container: ViewContainerRef;
+  @ViewChild('configContainer', {read: ViewContainerRef}) container: ViewContainerRef;
+  @ViewChild('shadowContainer', {read: ViewContainerRef}) shadowContainer: ViewContainerRef;
 
   @ViewChild(NgForm) ngForm: NgForm;
 
-  option: {
-    title: Title,
-    grid: any;
-    color: any;
-  } = {
-    title: {
-      show: true,
-      text: '大水牛',
-      left: 'auto',
-      top: 'auto',
-      right: 'auto',
-      bottom: 'auto',
-      backgroundColor: '#fff',
-      textStyle: {
-        align: 'left'
-      }
-    },
-    grid: {
-      show: false,
-      borderColor: '#ccc',
-      backgroundColor: 'transparent',
-      left: '10%',
-      right: '10%',
-      top: 60,
-      bottom: 60
-    },
-    color: []
-  };
   private _differ: KeyValueDiffer<any, any>;
   componentRef: any;
 
-  constructor(private _differs: KeyValueDiffers,
-              /*              private appBody: AppBodyComponent,*/
+  constructor(/*              private appBody: AppBodyComponent,*/
               private resolver: ComponentFactoryResolver,
               private zone: NgZone) {
-  }
-
-  ngOnInit() {
-    this._differ = this._differs.find(this.option).create();
   }
 
   createComponent(type: string) {
@@ -83,21 +47,41 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
     });
   }
 
-  createDataProperty(type: Type<IDataComponent>): ComponentRef<IDataComponent> {
-    let retComponentRef: ComponentRef<IDataComponent>;
+  createGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
+    let retComponentRef: ComponentRef<GraphicConfig>;
     this.zone.run(() => {
       this.container.detach();
       this.container.clear();
-      const factory: ComponentFactory<IDataComponent> =
+      const factory: ComponentFactory<GraphicConfig> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.container.createComponent(factory);
-      // this.componentRef.instance.type = type;
-      this.componentRef.instance.output.subscribe((msg: string) => {
-        console.log('我是', msg);
-        if (reportGlobal.instance) {
-          reportGlobal.instance.update(msg);
-        }
-      });
+      this.componentRef.instance.type = type;
+      // this.componentRef.instance.output.subscribe((msg: string) => {
+      //   console.log('我是', msg);
+      //   if (reportGlobal.instance) {
+      //     reportGlobal.instance.update(msg);
+      //   }
+      // });
+    });
+    return retComponentRef;
+  }
+
+  forwardCreateGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
+    let retComponentRef: ComponentRef<GraphicConfig>;
+    this.zone.run(() => {
+      this.shadowContainer.detach();
+      this.shadowContainer.clear();
+      const factory: ComponentFactory<GraphicConfig> =
+        this.resolver.resolveComponentFactory(type);
+      retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
+      this.componentRef.instance.type = type;
+      this.shadowContainer.detach();
+      // this.componentRef.instance.output.subscribe((msg: string) => {
+      //   console.log('我是', msg);
+      //   if (reportGlobal.instance) {
+      //     reportGlobal.instance.update(msg);
+      //   }
+      // });
     });
     return retComponentRef;
   }
@@ -112,20 +96,6 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
 
 
   ngAfterViewInit() {
-    console.log(this.ngForm);
-    this.ngForm.valueChanges.subscribe((value) => {
-      console.log('***************************SiderLeftComponent valueChanges');
-      console.log(value);
-      console.log(this.option);
-      const changes = this._differ.diff(value);
-      if (changes) {
-        console.log('has change');
-        if (reportGlobal.instance) {
-          reportGlobal.instance.update(value);
-        }
-      }
-
-    });
     siderLeftComponent = this;
   }
 

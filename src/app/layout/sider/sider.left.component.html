@@ -2,24 +2,11 @@
   <i class="u-icn u-icn-back" style="display: none;"></i>
   <i class="u-icn u-icn-panel-open" style="display: none;"></i>
 </h2>
-<nz-tabset ngForm>
-  <nz-tab nzTitle="数据">
-    <ng-template #dataComponent></ng-template>
-  </nz-tab>
-  <nz-tab nzTitle="样式">
-    <nz-collapse [nzBordered]="false" class="zijin-form">
-      <nz-collapse-panel nzHeader="标题">
-        <app-title-config name="title" [ngModel]="option.title"></app-title-config>
-      </nz-collapse-panel>
-      <nz-collapse-panel nzHeader="绘图区">
-        <app-grid-config name="grid" [ngModel]="option.grid"></app-grid-config>
-      </nz-collapse-panel>
-      <nz-collapse-panel nzHeader="标题">
+<ng-template #configContainer></ng-template>
+<span style="display: none">
+  <ng-template #shadowContainer></ng-template>
+</span>
 
-      </nz-collapse-panel>
-    </nz-collapse>
-  </nz-tab>
-</nz-tabset>
 
 
 

@@ -56,6 +56,6 @@ export class HtmlParagraph extends HtmlNode {
   }
 
   activate() {
-    siderLeftComponent.createDataProperty(this.dataProperty);
+    siderLeftComponent.createGraphicConfig(this.dataProperty);
   }
 }

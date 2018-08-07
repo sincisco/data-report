@@ -54,6 +54,6 @@ export class HeaderHtml extends HtmlNode {
   }
 
   activate() {
-    siderLeftComponent.createDataProperty(this.dataProperty);
+    siderLeftComponent.createGraphicConfig(this.dataProperty);
   }
 }

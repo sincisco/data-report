@@ -4,7 +4,7 @@
  */
 import {Shadow} from './common';
 
-export interface Grid extends Shadow{
+export interface Grid extends Shadow {
   id?: string;
   // [ default: false ]
   // 是否显示直角坐标系网格。

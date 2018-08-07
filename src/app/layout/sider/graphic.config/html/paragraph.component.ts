@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {IDataComponent} from './header.component';
+import {GraphicConfig} from '../graphic.config';
 
 @Component({
   selector: 'data-html-paragraph',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less']
 })
-export class DataParagraphComponent implements AfterViewInit, OnInit, IDataComponent {
+export class DataParagraphComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -21,6 +21,7 @@ export class DataParagraphComponent implements AfterViewInit, OnInit, IDataCompo
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers) {
+    super();
   }
 
   ngOnInit() {

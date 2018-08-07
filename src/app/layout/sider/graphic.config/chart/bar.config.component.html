@@ -1,14 +1,32 @@
-<nz-collapse [nzBordered]="false" class="zijin-form" ngForm>
-  <nz-collapse-panel nzHeader="X 轴">
-    <app-axis-config name="xAxis" [axis]="option.xAxis" [series]="seriesX" (axisChange)="ngAxisChange($event)"></app-axis-config>
-  </nz-collapse-panel>
-  <nz-collapse-panel nzHeader="Y 轴">
-    <app-axis-config name="yAxis" [axis]="option.yAxis" [series]="seriesY" (axisChange)="ngAxisChange($event)"></app-axis-config>
-  </nz-collapse-panel>
-  <nz-collapse-panel nzHeader="全部属性">
+<nz-tabset ngForm>
+  <nz-tab nzTitle="数据">
+    <nz-collapse [nzBordered]="false" class="zijin-form">
+      <nz-collapse-panel nzHeader="X 轴">
+        <app-axis-config name="xAxis" [axis]="option.xAxis" [series]="seriesX" (axisChange)="ngAxisChange($event)"></app-axis-config>
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="Y 轴">
+        <app-axis-config name="yAxis" [axis]="option.yAxis" [series]="seriesY" (axisChange)="ngAxisChange($event)"></app-axis-config>
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="全部属性">
 
-  </nz-collapse-panel>
-</nz-collapse>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+  <nz-tab nzTitle="样式">
+    <nz-collapse [nzBordered]="false" class="zijin-form">
+      <nz-collapse-panel nzHeader="标题">
+        <app-title-config name="title" [ngModel]="option.title"></app-title-config>
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="绘图区">
+        <app-grid-config name="grid" [ngModel]="option.grid"></app-grid-config>
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="标题">
+
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+</nz-tabset>
+
 <ng-template #modalTitle>
   <h2 class="wintt"><span class="u-icn u-icn-set-o"></span> 数据筛选<span>(省份)</span></h2>
 </ng-template>

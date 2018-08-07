@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {IDataComponent} from './header.component';
+import {GraphicConfig} from '../graphic.config';
 
 @Component({
   selector: 'data-html-image',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less']
 })
-export class DataImageComponent implements AfterViewInit, OnInit, IDataComponent {
+export class DataImageComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -21,6 +21,7 @@ export class DataImageComponent implements AfterViewInit, OnInit, IDataComponent
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers) {
+    super();
   }
 
   ngOnInit() {

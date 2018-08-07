@@ -1,12 +1,14 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {IGraphic} from '../../../../node/graphic/graphic';
+import {GraphicConfig} from '../graphic.config';
 
 @Component({
   selector: 'data-html-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less']
 })
-export class DataHeaderComponent implements AfterViewInit, OnInit, IDataComponent {
+export class DataHeaderComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -20,6 +22,7 @@ export class DataHeaderComponent implements AfterViewInit, OnInit, IDataComponen
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers) {
+    super();
   }
 
   ngOnInit() {
@@ -35,13 +38,8 @@ export class DataHeaderComponent implements AfterViewInit, OnInit, IDataComponen
       if (changes) {
         console.log('has change');
         this.output.emit(value);
-        //this._applyChanges(changes);
       }
     });
   }
-
-}
-
-export interface IDataComponent {
 
 }

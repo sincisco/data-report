@@ -4,40 +4,30 @@ import {BarConfigComponent} from '../../../layout/sider/graphic.config/chart/bar
 import * as _ from 'lodash';
 import {Title} from './echart.interface/title';
 import {Axis} from './echart.interface/axis';
+import {Grid} from './echart.interface/grid';
 
 export interface ChartBarOption {
   title?: Title;
   dataset?: any;
+  grid?: Grid;
   xAxis?: Axis;
   yAxis?: Axis;
   series?: Array<ChartBarItem>;
 }
 
-const defaultOption: ChartBarOption = {
-  title: {
-    text: '我是标题'
-  },
-  xAxis: {
-    type: 'category'
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: []
-};
-
 
 export class ChartBarNode extends ChartNode {
 
 
-  _dataConfigClass = BarConfigComponent;
+  _configClass = BarConfigComponent;
 
   constructor(host: HTMLElement) {
     super(host);
   }
 
   init(option?: any) {
-    option = _.defaultsDeep(option || {}, defaultOption);
+    this.mockActive();
+    option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
     super.init(option);
   }
 

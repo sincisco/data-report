@@ -1,12 +1,12 @@
 import {ComponentRef, Type} from '@angular/core';
 
-import {IDataComponent} from '../../../layout/sider/graphic.config/html/header.component';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
+import {GraphicConfig} from '../../../layout/sider/graphic.config/graphic.config';
 
 export abstract class ChartNode implements IContent {
   private _echart: Echart;
-  protected _dataConfigClass: Type<IDataComponent>;
-  protected _dataConfigComponentRef: ComponentRef<IDataComponent>;
+  protected _configClass: Type<GraphicConfig>;
+  protected _configComponentRef: ComponentRef<GraphicConfig>;
 
   protected constructor(public host: HTMLElement) {
     // 初始化之前  确保host已经挂载到document中
@@ -23,11 +23,17 @@ export abstract class ChartNode implements IContent {
   }
 
   activate() {
-    if (!this._dataConfigComponentRef) {
-      this._dataConfigComponentRef = siderLeftComponent.createDataProperty(this._dataConfigClass);
+    if (!this._configComponentRef) {
+      this._configComponentRef = siderLeftComponent.createGraphicConfig(this._configClass);
+      this._configComponentRef.instance.content = this;
     } else {
-      siderLeftComponent.attachDataProperty(this._dataConfigComponentRef.hostView);
+      siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
+  }
+
+  protected mockActive() {
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._configClass);
+    this._configComponentRef.instance.content = this;
   }
 
   resize() {
