@@ -9,6 +9,7 @@ import {
 import {NgForm} from '@angular/forms';
 import {reportGlobal} from '../../node/region/region';
 import {Title} from '../../node/content/chart/echart.interface/title';
+import {Axis} from '../../node/content/chart/interface';
 
 @Component({
   selector: 'app-axis-config',
@@ -22,7 +23,7 @@ export class AxisConfigComponent implements AfterViewInit, OnInit {
 
   private _differ: KeyValueDiffer<any, any>;
 
-  @Input() option: Title = {};
+  @Input() xAxis: Axis = {};
 
   constructor(private _differs: KeyValueDiffers,
               private zone: NgZone) {
