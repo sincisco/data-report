@@ -3,11 +3,11 @@ import {NgForm} from '@angular/forms';
 import {AppBodyComponent} from '../../../app.body.component';
 
 @Component({
-  selector: 'data-pie',
-  templateUrl: './data.pie.component.html',
-  styleUrls: ['./data.pie.component.less']
+  selector: 'app-pie-config',
+  templateUrl: './pie.config.component.html',
+  styleUrls: ['./pie.config.component.less']
 })
-export class DataPieComponent implements AfterViewInit, OnInit {
+export class PieConfigComponent implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -78,7 +78,7 @@ export class DataPieComponent implements AfterViewInit, OnInit {
           }
         ]
       });
-      that.angle=data;
+      that.angle = data;
       console.log({
         series: [
           {

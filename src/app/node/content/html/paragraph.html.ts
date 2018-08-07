@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import {HtmlNode} from './html';
-import {DataHeaderComponent} from '../../../layout/sider/property.data/html/header.component';
+import {DataHeaderComponent} from '../../../layout/sider/graphic.config/html/header.component';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
-import {DataParagraphComponent} from '../../../layout/sider/property.data/html/paragraph.component';
+import {DataParagraphComponent} from '../../../layout/sider/graphic.config/html/paragraph.component';
 
 interface ParagraphOption {
   text?: string;

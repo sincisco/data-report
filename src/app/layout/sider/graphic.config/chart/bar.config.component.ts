@@ -28,11 +28,11 @@ import {filterExecutor} from '@core/filter/filter.executor';
 import {Dimension} from '@core/dataset/dataset.interface';
 
 @Component({
-  selector: 'app-data-bar',
-  templateUrl: './data.bar.component.html',
-  styleUrls: ['./data.bar.component.less']
+  selector: 'app-bar-config',
+  templateUrl: './bar.config.component.html',
+  styleUrls: ['./bar.config.component.less']
 })
-export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
+export class BarConfigComponent implements AfterViewInit, OnInit, IDataComponent {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
@@ -95,11 +95,11 @@ export class DataBarComponent implements AfterViewInit, OnInit, IDataComponent {
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.subscribe((value) => {
-      console.log('DataBarComponent  valueChanges');
+      console.log('BarConfigComponent  valueChanges');
       console.log(value);
       const changes = this._differ.diff(value);
       if (changes) {
-        console.log('DataBarComponent  has change');
+        console.log('BarConfigComponent  has change');
       }
     });
   }

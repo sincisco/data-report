@@ -1,6 +1,6 @@
 import {ChartNode} from './chart';
 import {ChartBarItem} from './interface';
-import {DataBarComponent} from '../../../layout/sider/property.data/chart/data.bar.component';
+import {BarConfigComponent} from '../../../layout/sider/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
 import {Title} from './echart.interface/title';
 import {Axis} from './echart.interface/axis';
@@ -30,7 +30,7 @@ const defaultOption: ChartBarOption = {
 export class ChartBarNode extends ChartNode {
 
 
-  _dataConfigClass = DataBarComponent;
+  _dataConfigClass = BarConfigComponent;
 
   constructor(host: HTMLElement) {
     super(host);

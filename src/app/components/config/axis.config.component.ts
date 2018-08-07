@@ -9,7 +9,7 @@ import {
 import {NgForm} from '@angular/forms';
 import {Axis} from '../../node/content/chart/echart.interface/axis';
 
-import {NzModalFilterComponent} from '../../layout/sider/property.data/common/filter.modal.component';
+import {NzModalFilterComponent} from '../../layout/sider/graphic.config/common/filter.modal.component';
 import {NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '@core/dataset/dataset.interface';
 

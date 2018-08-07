@@ -1,6 +1,6 @@
 import {ComponentRef, Type} from '@angular/core';
 
-import {IDataComponent} from '../../../layout/sider/property.data/html/header.component';
+import {IDataComponent} from '../../../layout/sider/graphic.config/html/header.component';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 
 export abstract class ChartNode implements IContent {

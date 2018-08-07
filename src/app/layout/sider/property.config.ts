@@ -1,7 +1,7 @@
-import {DataHeaderComponent} from './property.data/html/header.component';
+import {DataHeaderComponent} from './graphic.config/html/header.component';
 
-export const PropertyConfigMap={
-  header:{
-    data:DataHeaderComponent
+export const PropertyConfigMap = {
+  header: {
+    data: DataHeaderComponent
   }
-}
+};

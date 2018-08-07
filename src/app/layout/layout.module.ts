@@ -12,7 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
 import {SchemaPillsComponent} from './sider/model/schema.component';
 import {SiderRightComponent} from './sider/sider.right.component';
-import {PropertyDataModule} from './sider/property.data/property.data.module';
+import {GraphicConfigModule} from './sider/graphic.config/graphic.config.module';
 import {ConfigModule} from "../components/config/config.module";
 
 const COMPONENTS = [
@@ -35,7 +35,7 @@ const COMPONENTS = [
     NgZorroAntdModule,
     ColorPickerModule,
     ConfigModule,
-    PropertyDataModule
+    GraphicConfigModule
   ],
   exports: [
     ...COMPONENTS

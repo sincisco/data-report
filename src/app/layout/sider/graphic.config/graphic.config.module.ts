@@ -7,19 +7,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule} from '@angular/forms';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
 import {HttpClientModule} from '@angular/common/http';
-import {DataPieComponent} from './chart/data.pie.component';
+import {PieConfigComponent} from './chart/pie.config.component';
 import {DataHeaderComponent} from './html/header.component';
 import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
 import {DataParagraphComponent} from './html/paragraph.component';
 import {DataImageComponent} from './html/image.component';
-import {DataBarComponent} from './chart/data.bar.component';
+import {BarConfigComponent} from './chart/bar.config.component';
 import {NzModalFilterComponent} from './common/filter.modal.component';
 import {FilterListComponent} from './common/filter.list.component';
 import {ConfigModule} from '../../../components/config/config.module';
 
 const COMPONENTS = [
-  DataPieComponent,
-  DataBarComponent,
+  PieConfigComponent,
+  BarConfigComponent,
   DataHeaderComponent,
   DataParagraphComponent,
   DataImageComponent,
@@ -47,5 +47,5 @@ const COMPONENTS = [
     ...COMPONENTS
   ]
 })
-export class PropertyDataModule {
+export class GraphicConfigModule {
 }

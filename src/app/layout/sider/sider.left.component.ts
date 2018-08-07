@@ -11,7 +11,7 @@ import {
 import {NgForm} from '@angular/forms';
 import {AppBodyComponent} from '../app.body.component';
 import {reportGlobal} from '../../node/region/region';
-import {DataHeaderComponent, IDataComponent} from './property.data/html/header.component';
+import {DataHeaderComponent, IDataComponent} from './graphic.config/html/header.component';
 import {Title} from '../../node/content/chart/echart.interface/title';
 
 export var siderLeftComponent: SiderLeftComponent;
