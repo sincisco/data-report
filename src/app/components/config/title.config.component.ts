@@ -1,52 +1,40 @@
 import {
   AfterViewInit,
-  Component, ComponentFactoryResolver, Input,
-  KeyValueDiffer,
-  KeyValueDiffers, NgZone,
-  OnInit,
+  Component, forwardRef, Input,
   ViewChild,
 } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {reportGlobal} from '../../node/region/region';
+import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
 import {Title} from '../../node/content/chart/echart.interface/title';
+import {CustomControlValueAccessor} from './CustomControlValueAccessor';
+
+export const Title_CONFIG_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => TitleConfigComponent),
+  multi: true
+};
 
 @Component({
   selector: 'app-title-config',
   templateUrl: './title.config.component.html',
-  styleUrls: ['./title.config.component.less']
+  styleUrls: ['./title.config.component.less'],
+  providers: [Title_CONFIG_VALUE_ACCESSOR]
 })
-export class TitleConfigComponent implements AfterViewInit, OnInit {
+export class TitleConfigComponent extends CustomControlValueAccessor implements AfterViewInit {
 
 
   @ViewChild(NgForm) ngForm: NgForm;
 
-  private _differ: KeyValueDiffer<any, any>;
+  option: Title = {};
 
-  @Input() option: Title = {};
-
-  constructor(private _differs: KeyValueDiffers,
-              private zone: NgZone) {
-  }
-
-  ngOnInit() {
-    this._differ = this._differs.find(this.option).create();
+  constructor() {
+    super();
   }
 
   ngAfterViewInit() {
-    console.log(this.ngForm);
     this.ngForm.valueChanges.subscribe((value) => {
       console.log('TitleConfigComponent valueChanges');
       console.log(value);
-      const changes = this._differ.diff(value);
-      if (changes) {
-        console.log('has change');
-        if (reportGlobal.instance) {
-          reportGlobal.instance.update({
-            title: value
-          });
-        }
-      }
-
+      this._propagateChange(value);
     });
   }
 

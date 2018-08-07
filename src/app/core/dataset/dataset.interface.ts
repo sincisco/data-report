@@ -1,9 +1,7 @@
-interface DimensionsItem {
+ export interface Dimension {
   name: string;
   type: 'number' | 'ordinal' | 'float' | 'int' | 'time';
 }
-
-type Dimensions = Array<DimensionsItem>;
 
 /**
  *
@@ -17,7 +15,7 @@ type Dimensions = Array<DimensionsItem>;
 export interface Dataset {
   id?: string;
   source?: any;
-  dimensions?: Dimensions;
+  dimensions?: Array<Dimension>;
   sourceHeader?: null | undefined | boolean;
 }
 

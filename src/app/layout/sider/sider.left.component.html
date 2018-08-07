@@ -2,97 +2,20 @@
   <i class="u-icn u-icn-back" style="display: none;"></i>
   <i class="u-icn u-icn-panel-open" style="display: none;"></i>
 </h2>
-<nz-tabset>
+<nz-tabset ngForm>
   <nz-tab nzTitle="数据">
     <ng-template #dataComponent></ng-template>
   </nz-tab>
   <nz-tab nzTitle="样式">
-    <nz-collapse [nzBordered]="false" class="zijin-form" ngForm>
+    <nz-collapse [nzBordered]="false" class="zijin-form">
       <nz-collapse-panel nzHeader="标题">
-        <app-title-config [option]="option.title" ngModelGroup="title"></app-title-config>
+        <app-title-config name="title" [ngModel]="option.title"></app-title-config>
       </nz-collapse-panel>
       <nz-collapse-panel nzHeader="绘图区">
-        <div nz-row nzType="flex" ngModelGroup="grid">
-          <div nz-col class="flex-start" [nzSpan]="12">
-            <span>坐标系网格</span>
-          </div>
-          <div nz-col class="flex-end" [nzSpan]="12">
-            <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.grid.show">显示</label>
-          </div>
-          <div nz-col [nzSpan]="12" class="padding-right">
-            <input nz-input
-                   placeholder="left"
-                   name="left"
-                   [(ngModel)]="option.grid.left"
-                   nzTitle="left:{{option.grid.left}}" nzPlacement="topCenter" nz-tooltip
-                   nzSize="small">
-          </div>
-          <div nz-col [nzSpan]="12" class="padding-left">
-            <input nz-input
-                   placeholder="top"
-                   name="top"
-                   [(ngModel)]="option.grid.top"
-                   nzTitle="top:{{option.grid.top}}" nzPlacement="topCenter" nz-tooltip
-                   nzSize="small">
-          </div>
-          <div nz-col [nzSpan]="12" class="padding-right">
-            <input nz-input
-                   placeholder="right"
-                   name="right"
-                   [(ngModel)]="option.grid.right"
-                   nzTitle="right:{{option.grid.right}}" nzPlacement="topCenter" nz-tooltip
-                   nzSize="small">
-          </div>
-          <div nz-col [nzSpan]="12" class="padding-left">
-            <input nz-input
-                   placeholder="bottom"
-                   name="bottom"
-                   [(ngModel)]="option.grid.bottom"
-                   nzTitle="bottom:{{option.grid.bottom}}" nzPlacement="topCenter" nz-tooltip
-                   nzSize="small">
-          </div>
-          <div nz-col [nzSpan]="8">
-            背景
-          </div>
-          <div nz-col [nzSpan]="4">
-            <div name="backgroundColor"
-                 style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
-                 colorPicker [(ngModel)]="option.grid.backgroundColor"
-                 [cpOutputFormat]="'rgba'"
-                 [cpOKButton]="true"
-                 cpOKButtonClass="ant-btn ant-btn-default"
-                 [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-                 [style.background]="option.grid.backgroundColor">
-
-            </div>
-          </div>
-          <div nz-col [nzSpan]="8">
-            边框
-          </div>
-          <div nz-col [nzSpan]="4">
-            <div name="borderColor"
-                 style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
-                 colorPicker [(ngModel)]="option.grid.borderColor"
-                 [cpOutputFormat]="'rgba'"
-                 [cpOKButton]="true"
-                 cpOKButtonClass="ant-btn ant-btn-default"
-                 [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-                 [style.background]="option.grid.borderColor">
-
-            </div>
-          </div>
-        </div>
+        <app-grid-config name="grid" [ngModel]="option.grid"></app-grid-config>
       </nz-collapse-panel>
       <nz-collapse-panel nzHeader="标题">
-        <nz-switch nzCheckedChildren="开" nzUnCheckedChildren="关"></nz-switch>
-        <nz-select [nzMaxMultipleCount]="3" style="width: 100%" name="color"
-                   nzMode="multiple"
-                   nzPlaceHolder="Please select"
-                   [(ngModel)]="option.color">
-          <nz-option nzCustomContent *ngFor="let item of listOfOption" [nzLabel]="item.label"
-                     [nzValue]="item.value"><span [style.backgroundColor]="item.value"> </span>{{item.label}}
-          </nz-option>
-        </nz-select>
+
       </nz-collapse-panel>
     </nz-collapse>
   </nz-tab>

@@ -1,6 +1,20 @@
 import {TextStyle} from './text.style';
+import {LineStyle} from './line.style';
+import {Border, Font, Shadow, TextShadow} from './common';
 
 type AxisType = 'category' | 'value' | 'time' | 'log';
+
+interface AxisNameTextStyle extends TextStyle {
+  backgroundColor?: string | { image: string };
+  borderColor?: string;
+  borderWidth?: number;
+  borderRadius?: number | Array<number>;
+  padding?: number | Array<number>;
+  shadowColor?: string;
+  shadowBlur?: number;
+  shadowOffsetX?: number;
+  shadowOffsetY?: number;
+}
 
 interface AxisLine {
   show?: boolean;
@@ -21,22 +35,56 @@ interface AxisLine {
   // 如果是数组，第一个数字表示起始箭头的偏移，第二个数字表示末端箭头的偏移；
   // 如果是数字，表示这两个箭头使用同样的偏移。
   symbolOffset?: Array<number> | number;
-}
-
-
-interface AxisLabel {
-  rotate?: number;
+  lineStyle?: LineStyle;
 }
 
 interface AxisTick {
   show?: boolean;
   alignWithLabel?: boolean;
   interval?: number | Function | 'auto';
+  // [ default: false ]
+  // 坐标轴刻度是否朝内，默认朝外。
   inside?: boolean;
+  // [ default: 5 ]
+  // 坐标轴刻度的长度。
   length?: number;
+  lineStyle?: LineStyle;
 }
 
+interface AxisLabel extends Font, Border, Shadow, TextShadow {
+  show?: boolean;
+  rotate?: number;
+  inside?: boolean;
+  margin?: number;
+  formatter?: string | Function;
+  showMinLabel?: boolean;
+  showMaxLabel?: boolean;
+  backgroundColor?: string;
+  padding?: number | Array<number>;
+  width?: number | string;
+  height?: number | string;
+  textBorderColor?: string;
+  textBorderWidth?: number;
+}
 
+interface SplitLine {
+  // [ default: true ]
+  // 是否显示分隔线。默认数值轴显示，类目轴不显示。
+  show?: boolean;
+  interval?: string;
+  lineStyle?: LineStyle;
+}
+
+interface AreaStyle extends Shadow {
+  color?: string;
+  opacity?: number;
+}
+
+interface SplitArea {
+  show?: boolean;
+  interval?: number | Function;
+  areaStyle?: AreaStyle;
+}
 
 export interface Axis {
   // 组件 ID。默认不指定。指定则可用于在 option 或者 API 中引用组件。
@@ -103,19 +151,10 @@ export interface Axis {
   // [ default: false ]
   // 坐标轴的标签是否响应和触发鼠标事件，默认不响应。
   triggerEvent?: boolean;
-  axisLabel?: AxisLabel;
+  axisLine?: AxisLine;
   axisTick?: AxisTick;
-}
-
-interface AxisNameTextStyle extends TextStyle {
-  backgroundColor?: string | { image: string };
-  borderColor?: string;
-  borderWidth?: number;
-  borderRadius?: number | Array<number>;
-  padding?: number | Array<number>;
-  shadowColor?: string;
-  shadowBlur?: number;
-  shadowOffsetX?: number;
-  shadowOffsetY?: number;
+  axisLabel?: AxisLabel;
+  splitLine?: SplitLine;
+  splitArea?: SplitArea;
 }
 

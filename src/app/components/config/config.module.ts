@@ -6,15 +6,17 @@ import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 import {NgZorroAntdModule} from 'ng-zorro-antd';
-import {ColorPickerModule} from "@shared/color-picker/color-picker.module";
+import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
 
-import {TitleConfigComponent} from "./title.config.component";
-import {AxisConfigComponent} from "./axis.config.component";
+import {TitleConfigComponent} from './title.config.component';
+import {AxisConfigComponent} from './axis.config.component';
+import {GridConfigComponent} from './grid.config.component';
 
 
 const COMPONENTS = [
   AxisConfigComponent,
-  TitleConfigComponent
+  TitleConfigComponent,
+  GridConfigComponent
 ];
 
 @NgModule({

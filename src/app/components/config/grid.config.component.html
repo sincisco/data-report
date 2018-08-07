@@ -1,0 +1,70 @@
+<div nz-row nzType="flex" ngForm>
+  <div nz-col class="flex-start" [nzSpan]="12">
+    <span>坐标系网格</span>
+  </div>
+  <div nz-col class="flex-end" [nzSpan]="12">
+    <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.show">显示</label>
+  </div>
+  <div nz-col [nzSpan]="12" class="padding-right">
+    <input nz-input
+           placeholder="left"
+           name="left"
+           [(ngModel)]="option.left"
+           nzTitle="left:{{option.left}}" nzPlacement="topCenter" nz-tooltip
+           nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="12" class="padding-left">
+    <input nz-input
+           placeholder="top"
+           name="top"
+           [(ngModel)]="option.top"
+           nzTitle="top:{{option.top}}" nzPlacement="topCenter" nz-tooltip
+           nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="12" class="padding-right">
+    <input nz-input
+           placeholder="right"
+           name="right"
+           [(ngModel)]="option.right"
+           nzTitle="right:{{option.right}}" nzPlacement="topCenter" nz-tooltip
+           nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="12" class="padding-left">
+    <input nz-input
+           placeholder="bottom"
+           name="bottom"
+           [(ngModel)]="option.bottom"
+           nzTitle="bottom:{{option.bottom}}" nzPlacement="topCenter" nz-tooltip
+           nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="8">
+    背景
+  </div>
+  <div nz-col [nzSpan]="4">
+    <div name="backgroundColor"
+         style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
+         colorPicker [(ngModel)]="option.backgroundColor"
+         [cpOutputFormat]="'rgba'"
+         [cpOKButton]="true"
+         cpOKButtonClass="ant-btn ant-btn-default"
+         [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+         [style.background]="option.backgroundColor">
+
+    </div>
+  </div>
+  <div nz-col [nzSpan]="8">
+    边框
+  </div>
+  <div nz-col [nzSpan]="4">
+    <div name="borderColor"
+         style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
+         colorPicker [(ngModel)]="option.borderColor"
+         [cpOutputFormat]="'rgba'"
+         [cpOKButton]="true"
+         cpOKButtonClass="ant-btn ant-btn-default"
+         [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+         [style.background]="option.borderColor">
+
+    </div>
+  </div>
+</div>

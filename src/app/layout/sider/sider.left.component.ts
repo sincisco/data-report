@@ -59,17 +59,6 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
   private _differ: KeyValueDiffer<any, any>;
   componentRef: any;
 
-
-  listOfOption = [
-    {
-      label: '#61a0a8',
-      value: '#61a0a8'
-    }, {
-      label: '#2f4554',
-      value: '#2f4554'
-    }
-  ];
-
   constructor(private _differs: KeyValueDiffers,
               /*              private appBody: AppBodyComponent,*/
               private resolver: ComponentFactoryResolver,
@@ -125,7 +114,7 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     console.log(this.ngForm);
     this.ngForm.valueChanges.subscribe((value) => {
-      console.log('SiderLeftComponent valueChanges');
+      console.log('***************************SiderLeftComponent valueChanges');
       console.log(value);
       console.log(this.option);
       const changes = this._differ.diff(value);
@@ -134,16 +123,9 @@ export class SiderLeftComponent implements AfterViewInit, OnInit {
         if (reportGlobal.instance) {
           reportGlobal.instance.update(value);
         }
-        // if (this.appBody.chart) {
-        //   this.appBody.chart.setOption(value);
-        // }
-        //this._applyChanges(changes);
       }
 
     });
-
-    var that = this;
-
     siderLeftComponent = this;
   }
 

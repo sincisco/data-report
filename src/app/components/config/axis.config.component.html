@@ -1,9 +1,9 @@
 <div class="m-schema-droppable">
   <div class="dropArea">
-    <div nz-row nzType="flex" ngModelGroup="xAxis">
+    <div nz-row nzType="flex" ngForm>
       <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
         <nz-select style="width:100%;" name="type" nzShowSearch nzAllowClear nzPlaceHolder="坐标轴类型"
-                   [(ngModel)]="option.xAxis.type">
+                   [(ngModel)]="axis.type">
           <nz-option nzLabel="value" nzValue="value"></nz-option>
           <nz-option nzLabel="category" nzValue="category"></nz-option>
           <nz-option nzLabel="time" nzValue="time"></nz-option>
@@ -11,10 +11,10 @@
         </nz-select>
       </div>
       <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-        <input nz-input placeholder="坐标轴名称" name="name" [(ngModel)]="option.xAxis.name">
+        <input nz-input placeholder="坐标轴名称" name="name" [(ngModel)]="axis.name">
       </div>
       <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-        <nz-select style="width: 120px;" name="nameLocation" [(ngModel)]="option.xAxis.nameLocation" nzAllowClear
+        <nz-select style="width: 120px;" name="nameLocation" [(ngModel)]="axis.nameLocation" nzAllowClear
                    nzPlaceHolder="Choose">
           <nz-option nzValue="start" nzLabel="start"></nz-option>
           <nz-option nzValue="middle" nzLabel="middle"></nz-option>
@@ -22,28 +22,28 @@
         </nz-select>
       </div>
       <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-        <nz-radio-group name="position" [(ngModel)]="option.xAxis.position">
+        <nz-radio-group name="position" [(ngModel)]="axis.position">
           <label nz-radio nzValue="top">top</label>
           <label nz-radio nzValue="bottom">bottom</label>
         </nz-radio-group>
       </div>
       <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-        <nz-input-number name="nameGap" [(ngModel)]="option.xAxis.nameGap" [nzMin]="1" [nzMax]="50" [nzStep]="1"></nz-input-number>
+        <nz-input-number name="nameGap" [(ngModel)]="axis.nameGap" [nzMin]="1" [nzMax]="50" [nzStep]="1"></nz-input-number>
       </div>
       <div nz-col [nzSpan]="24" style="margin-bottom: 8px" ngModelGroup="axisLabel">
-        <nz-slider [nzMin]="-90" [nzMax]="90" name="rotate" [(ngModel)]="option.xAxis.axisLabel.rotate"></nz-slider>
+        <nz-slider [nzMin]="-90" [nzMax]="90" name="rotate" [(ngModel)]="axis?.axisLabel.rotate"></nz-slider>
       </div>
       <div nz-col [nzSpan]="24">
         <div class="pills">
-          <div *ngIf="!!seriesX" [title]="seriesX.name"
+          <div *ngFor="let item of series" [title]="item.name"
                class="m-Pill m-Pill-DimensionPill u-item u-item-1 animated">
             <div class="text">
-              <span>{{seriesX.name}}</span>
+              <span>{{item.name}}</span>
               <span class="u-icn u-icn-"></span>
             </div>
-            <i class="sel" (click)="xAxisClick($event)" [attr.fieldName]="seriesX.name"></i>
+            <i class="sel" (click)="axisClick($event)" [attr.fieldName]="item.name"></i>
           </div>
-          <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="dropX($event)">
+          <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)" (drop)="drop($event)">
             拖入字段
           </div>
         </div>
@@ -51,3 +51,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #modalTitle>
+  <h2 class="wintt"><span class="u-icn u-icn-set-o"></span> 数据筛选<span>(省份)</span></h2>
+</ng-template>

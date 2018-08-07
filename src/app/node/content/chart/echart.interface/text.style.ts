@@ -4,6 +4,11 @@ type FontFamily = 'serif' | 'monospace' | 'Arial' | 'Courier New' | 'Microsoft Y
 type Align = 'left' | 'center' | 'right';
 type VerticalAlign = 'top' | 'middle' | 'bottom';
 
+/**
+ * user:
+ * title.textTitle
+ * title.subtextStyle
+ */
 export interface TextStyle {
   color?: string;
   fontStyle?: FontStyle;

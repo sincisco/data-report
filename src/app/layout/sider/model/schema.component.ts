@@ -18,9 +18,9 @@ import {datasetManager} from '@core/dataset/dataset.manager';
 
 
 interface Dimension {
-  name: string,
-  displayName: string,
-  type?: 'number' | 'ordinal'
+  name: string;
+  displayName: string;
+  type?: 'number' | 'ordinal';
 }
 
 type Dimensions = Array<Dimension | string>;
@@ -55,12 +55,6 @@ export class SchemaPillsComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit() {
-    // document.getElementById('dragImg').addEventListener('dragstart', function (event: DragEvent) {
-    //   // 存储拖拽数据和拖拽效果...
-    //   console.log(event);
-    //   console.log((<HTMLElement>event.target).getAttribute('fieldid'));
-    //   event.dataTransfer.setData('Text', (<HTMLElement>event.target).getAttribute('fieldid'));
-    // }, false);
   }
 
   doDragStart(event: DragEvent, item) {

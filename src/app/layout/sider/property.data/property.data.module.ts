@@ -15,6 +15,7 @@ import {DataImageComponent} from './html/image.component';
 import {DataBarComponent} from './chart/data.bar.component';
 import {NzModalFilterComponent} from './common/filter.modal.component';
 import {FilterListComponent} from './common/filter.list.component';
+import {ConfigModule} from '../../../components/config/config.module';
 
 const COMPONENTS = [
   DataPieComponent,
@@ -36,7 +37,8 @@ const COMPONENTS = [
     FormsModule,
     HttpClientModule,
     ColorPickerModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    ConfigModule
   ],
   entryComponents: [
     ...COMPONENTS

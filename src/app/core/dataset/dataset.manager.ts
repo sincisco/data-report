@@ -28,7 +28,7 @@ class DatasetManager {
     });
   }
 
-  get current() {
+  get current(): Dataset {
     return this._currentDatasetWrapper ? this._currentDatasetWrapper.dataset : null;
   }
 
