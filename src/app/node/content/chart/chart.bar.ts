@@ -1,10 +1,10 @@
 import {ChartNode} from './chart';
-import {ChartBarItem} from './interface';
 import {BarConfigComponent} from '../../../layout/sider/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
 import {Title} from './echart.interface/title';
 import {Axis} from './echart.interface/axis';
 import {Grid} from './echart.interface/grid';
+import {BarSeriesConfig} from './echart.interface/series/bar.series';
 
 export interface ChartBarOption {
   title?: Title;
@@ -12,7 +12,7 @@ export interface ChartBarOption {
   grid?: Grid;
   xAxis?: Axis;
   yAxis?: Axis;
-  series?: Array<ChartBarItem>;
+  series?: Array<BarSeriesConfig>;
 }
 
 

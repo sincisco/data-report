@@ -11,7 +11,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {ChartBarItem} from '../../../../node/content/chart/interface';
 import {draggableHeler} from '../../../../utils/draggable.helper';
 import {ChartBarNode, ChartBarOption} from '../../../../node/content/chart/chart.bar';
 import {datasetManager} from '@core/dataset/dataset.manager';
@@ -75,7 +74,10 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
       axisLabel: {},
       axisTick: {}
     },
-    series: []
+    series: [{
+      name: '系列1',
+      type: 'bar'
+    }]
   };
 
   seriesX: Array<Dimension> = [];
@@ -126,6 +128,7 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
         console.log(value);
         const changes = this._differ.diff(value);
         if (this.content) {
+          value.dataset = datasetManager.current;
           this.content.update(value);
         }
         if (changes) {
