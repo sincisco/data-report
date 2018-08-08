@@ -1,8 +1,4 @@
 <div nz-row nzType="flex" ngForm>
-  <div nz-col [nzSpan]="24">
-    <span>标题文字</span>
-    <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.show">显示</label>
-  </div>
   <div nz-col class="flex-start" [nzSpan]="12">
     <span>标题文字</span>
   </div>
@@ -12,40 +8,37 @@
   <div nz-col [nzSpan]="24">
     <input nz-input placeholder="标题文本" name="text" [(ngModel)]="option.text" nzSize="small">
   </div>
-  <div nz-col [nzSpan]="12" class="padding-right">
+  <div nz-col [nzSpan]="12" class="padding-right" appControlMonitor>
     <input nz-input
-           placeholder="left"
+           placeholder="left" appHorizontalPosition
            name="left"
            [(ngModel)]="option.left"
            nzTitle="left:{{option.left}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
   </div>
-  <div nz-col [nzSpan]="12" class="padding-left">
-    <input nz-input
+  <div nz-col [nzSpan]="12" class="padding-left" appControlMonitor>
+    <input nz-input appVerticalPosition
            placeholder="top"
            name="top"
            [(ngModel)]="option.top"
            nzTitle="top:{{option.top}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
   </div>
-  <div nz-col [nzSpan]="12" class="padding-right">
-    <input nz-input
+  <div nz-col [nzSpan]="12" class="padding-right" appControlMonitor>
+    <input nz-input appHorizontalPosition
            placeholder="right"
            name="right"
            [(ngModel)]="option.right"
            nzTitle="right:{{option.right}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
   </div>
-  <div nz-col [nzSpan]="12" class="padding-left">
-    <input nz-input
+  <div nz-col [nzSpan]="12" class="padding-left" appControlMonitor>
+    <input nz-input appVerticalPosition
            placeholder="bottom"
            name="bottom"
            [(ngModel)]="option.bottom"
            nzTitle="bottom:{{option.bottom}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="24">
-    <input nz-input placeholder="标题文本" nzSize="small">
   </div>
   <div nz-col [nzSpan]="24">
     <input nz-input placeholder="标题文本" nzSize="small">
@@ -66,8 +59,23 @@
         </nz-radio-group>
       </div>
       <div nz-col [nzSpan]="24">
-        <nz-input-number name="width" nzSize="small" [(ngModel)]="option?.textStyle.width" [nzMin]="1" [nzMax]="500" [nzStep]="5"></nz-input-number>
+        <nz-input-number name="width" nzSize="small" [(ngModel)]="option?.textStyle.width" [nzMin]="1" [nzMax]="500"
+                         [nzStep]="5"></nz-input-number>
       </div>
+    </div>
+  </div>
+  <div nz-col [nzSpan]="24"
+       name="backgroundColor"
+       colorPicker [(ngModel)]="option.backgroundColor"
+       [cpOutputFormat]="'rgba'"
+       [cpOKButton]="true"
+       cpOKButtonClass="ant-btn ant-btn-default"
+       [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
+       style="height:28px;padding: 2px;border-radius: 2px;border: 1px solid #ccc;background-color: #fff;">
+    <span>背景色</span>
+    <div
+      style="width: 24px;height: 24px;border-radius: 3px; float: right;"
+      [style.background]="option.backgroundColor">
     </div>
   </div>
   <div nz-col [nzSpan]="24">
@@ -76,16 +84,7 @@
         背景色
       </div>
       <div nz-col [nzSpan]="4">
-        <div name="backgroundColor"
-             style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
-             colorPicker [(ngModel)]="option.backgroundColor"
-             [cpOutputFormat]="'rgba'"
-             [cpOKButton]="true"
-             cpOKButtonClass="ant-btn ant-btn-default"
-             [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-             [style.background]="option.backgroundColor">
 
-        </div>
       </div>
       <div nz-col [nzSpan]="12">
         <nz-select nzTitle="字体" nzPlacement="topCenter" nz-tooltip style="width: 100%" nzShowSearch nzAllowClear
@@ -111,7 +110,8 @@
         </div>
       </div>
       <div nz-col [nzSpan]="12">
-        <nz-input-number name="borderWidth" nzSize="small" [(ngModel)]="option.borderWidth" [nzMin]="1" [nzMax]="20" [nzStep]="1"></nz-input-number>
+        <nz-input-number name="borderWidth" nzSize="small" [(ngModel)]="option.borderWidth" [nzMin]="1" [nzMax]="20"
+                         [nzStep]="1"></nz-input-number>
       </div>
     </div>
   </div>

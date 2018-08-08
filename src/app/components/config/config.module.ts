@@ -13,6 +13,8 @@ import {AxisConfigComponent} from './axis.config.component';
 import {GridConfigComponent} from './grid.config.component';
 import {BarSeriesConfigComponent} from './series/bar.series.config.component';
 import {SeriesConfigComponent} from './series.config.component';
+import {HorizontalPositionDirective, VerticalPositionDirective} from './title.config.validator';
+import {ControlMonitorDirective} from '../../directives/control.monitor.directive';
 
 
 const COMPONENTS = [
@@ -23,9 +25,15 @@ const COMPONENTS = [
   SeriesConfigComponent
 ];
 
+const DIRECTIVES = [
+  ControlMonitorDirective,
+  HorizontalPositionDirective,
+  VerticalPositionDirective
+];
+
 @NgModule({
   declarations: [
-    ...COMPONENTS
+    ...COMPONENTS, ...DIRECTIVES
   ],
   imports: [
     BrowserModule,
@@ -39,7 +47,7 @@ const COMPONENTS = [
     ...COMPONENTS
   ],
   exports: [
-    ...COMPONENTS
+    ...COMPONENTS, ...DIRECTIVES
   ]
 })
 export class ConfigModule {

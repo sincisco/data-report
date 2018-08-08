@@ -16,6 +16,7 @@ import {Dimension} from '@core/dataset/dataset.interface';
 import {draggableHeler} from '../../utils/draggable.helper';
 import {contextMenuHelper} from '../../utils/contextMenu';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
+import {removeUndefined} from '../../utils/common';
 
 export const AXIS_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -57,7 +58,7 @@ export class AxisConfigComponent extends CustomControlValueAccessor implements A
     setTimeout(() => {
       this.ngForm.valueChanges.subscribe((value) => {
         console.log('AxisConfigComponent valueChanges');
-        this._propagateChange(value);
+        this._propagateChange(removeUndefined(value));
         // const changes = this._differ.diff(value);
         // if (changes) {
         //   console.log('AxisConfigComponent valueChanges');
