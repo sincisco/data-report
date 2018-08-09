@@ -44,7 +44,13 @@
     <span class="item-title">堆叠:</span>
   </div>
   <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
-    <input nz-input placeholder="数据堆叠" name="stack" [(ngModel)]="option.stack" nzSize="small">
+    <input nz-input placeholder="数据堆叠" style="width: 100%;" name="stack" [(ngModel)]="option.stack" nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+    <span class="item-title">柱间距离:</span>
+  </div>
+  <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+    <input nz-input placeholder="柱间距离" style="width: 100%;" name="stack" title="不同系列的柱间距离" [(ngModel)]="option.barGap" nzSize="small">
   </div>
 </div>
 

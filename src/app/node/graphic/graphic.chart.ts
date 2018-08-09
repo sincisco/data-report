@@ -20,6 +20,7 @@ export class GraphicChart implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
   private _$toolbar: JQuery;
+
   private _content: IContent;
 
   constructor(region: Region) {

@@ -1,4 +1,4 @@
-.title {
+:host /deep/ .title {
   position: relative;
   height: 36px;
   line-height: 36px;
@@ -8,4 +8,23 @@
   color: #282828;
   font-weight: 500;
   background-color: #fff;
+}
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+:host /deep/ app-bar-config {
+  display: block;
+  height: ~"calc(100% - 36px)";
+  nz-tabset {
+    height: 100%;
+    .ant-tabs-content{
+      height: ~"calc(100% - 44px)";
+      .ant-tabs-tabpane{
+        overflow-y: auto;
+      }
+    }
+  }
 }
