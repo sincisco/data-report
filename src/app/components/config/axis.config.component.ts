@@ -53,6 +53,8 @@ export class AxisConfigComponent extends CustomControlValueAccessor implements A
 
   axisState = true;
   nameState = false;
+  labelState = false;
+  tickState = false;
 
   ngOnInit() {
     console.log('**************************');

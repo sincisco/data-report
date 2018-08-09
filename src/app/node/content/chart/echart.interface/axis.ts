@@ -53,8 +53,9 @@ interface AxisTick {
 
 interface AxisLabel extends Font, Border, Shadow, TextShadow {
   show?: boolean;
-  rotate?: number;
+  interval?: number;
   inside?: boolean;
+  rotate?: number;
   margin?: number;
   formatter?: string | Function;
   showMinLabel?: boolean;

@@ -52,14 +52,54 @@
       <nz-input-number name="nameGap" [(ngModel)]="option.nameGap" [nzMin]="1" [nzMax]="50" [nzStep]="1"
                        nzSize="small"></nz-input-number>
     </div>
+  </div>
+  <app-control-divider title="刻度标签" [(state)]="labelState"></app-control-divider>
+  <div nz-row nzType="flex" [class.form-collapse]="!labelState" ngModelGroup="axisLabel">
+    <div nz-col  [nzSpan]="12" style="margin-bottom: 8px">
+      <span class="item-title">刻度标签</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="margin-bottom: 8px;text-align: right">
+      <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option?.axisLabel.show">显示</label>
+    </div>
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">显示间隔:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+      <nz-input-number name="interval" style="width:100%;" [(ngModel)]="option?.axisLabel.interval" [nzMin]="0" [nzMax]="50" [nzStep]="1"
+                       nzSize="small"></nz-input-number>
+    </div>
+    <div nz-col  [nzSpan]="12" style="margin-bottom: 8px">
+      <span class="item-title">标签朝内</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="margin-bottom: 8px;text-align: right">
+      <label nz-checkbox name="inside" nzSize="small" [(ngModel)]="option?.axisLabel.inside">朝内</label>
+    </div>
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">距离:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+      <nz-input-number name="margin" style="width:100%;" [(ngModel)]="option?.axisLabel.margin" [nzMin]="0" [nzMax]="50" [nzStep]="1"
+                       nzSize="small"></nz-input-number>
+    </div>
     <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
       <span class="item-title">旋转角度:</span>
     </div>
-    <div nz-col [nzSpan]="14" style="margin-bottom: 8px" ngModelGroup="axisLabel">
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
       <nz-slider [nzMin]="-90" [nzMax]="90" name="rotate" [(ngModel)]="option?.axisLabel.rotate"
                  nzSize="small"></nz-slider>
     </div>
   </div>
+  <app-control-divider title="刻度" [(state)]="tickState"></app-control-divider>
+  <div nz-row nzType="flex" [class.form-collapse]="!tickState" ngModelGroup="axisTick">
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">刻度间隔:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+      <nz-input-number name="interval" style="width:100%;" [(ngModel)]="option?.axisTick.interval" [nzMin]="0" [nzMax]="50" [nzStep]="1"
+                       nzSize="small"></nz-input-number>
+    </div>
+  </div>
+
 </div>
 
 

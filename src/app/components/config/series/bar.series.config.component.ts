@@ -187,12 +187,16 @@ export class BarSeriesConfigComponent extends CustomControlValueAccessor impleme
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.subscribe((value) => {
-      const changes = this._differ.diff(value);
-      if (changes) {
-        console.log('AxisConfigComponent valueChanges');
-        console.log(value);
+      // const changes = this._differ.diff(value);
+      // if (changes) {
+      //   console.log('AxisConfigComponent valueChanges');
+      //   console.log(value);
+      // }
+
+      setTimeout(() => {
         this.seriesChange.emit();
-      }
+      }, 10);
+
 
     });
   }
