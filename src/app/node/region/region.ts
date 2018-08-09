@@ -148,7 +148,7 @@ export abstract class Region implements INode {
    * 3、解除当前对象的属性引用
    */
   destroy() {
-
+    this.$element.remove();
   }
 
 }

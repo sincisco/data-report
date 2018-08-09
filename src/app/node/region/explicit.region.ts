@@ -6,11 +6,12 @@ import {contextMenuHelper} from '../../utils/contextMenu';
 import {fromEvent, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/internal/operators';
 import {HtmlParagraph} from '../content/html/paragraph.html';
-import {HtmlImage} from '../content/html/image.html';
+import {ImageHtml} from '../content/html/image.html';
 import {CommentContent} from '../content/comment.content';
 import {TextContent} from '../content/text.content';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
 import {ChartGraphic} from '../graphic/chart.graphic';
+import {HtmlGraphic} from '../graphic/image.graphic';
 
 const template = `
 <div class="m-dashbox">
@@ -24,8 +25,7 @@ const template = `
     <div class="resize-bottomLeft draggable" data-which="resize-bottomLeft" draggable="true"></div>
     <div class="resize-left draggable" data-which="resize-left" draggable="true"></div>
   </div>
-  <div class="g-fill u-graphic droppable">
-  </div>
+  <div class="g-fill u-graphic droppable"></div>
   <div class="u-mover"  draggable="true"></div>
   </div>
 `;
@@ -218,6 +218,7 @@ export class ExplicitRegion extends Region {
           shortcut: 'Backspace',
           callback: () => {
             this._graphic.destroy();
+            this.destroy();
           }
         }, 'split',
         {
@@ -258,14 +259,13 @@ export class ExplicitRegion extends Region {
         }, {
           displayName: '创建Image',
           callback: () => {
-            // var content = this._content = new HtmlImage(this.$frame[0]);
-            // console.log(content);
-            // var option = {
-            //   text: '英特尔 Xeon(至强)'
-            // };
-            //
-            // // 使用刚指定的配置项和数据显示图表。
-            // content.init(option);
+            const _graphic = this._graphic = new HtmlGraphic(this);
+
+            _graphic.init(ImageHtml);
+            // 使用刚指定的配置项和数据显示图表。
+            // content.init({});
+
+            contextMenuHelper.close();
           }
         }, {
           displayName: '创建Comment',

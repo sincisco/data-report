@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {GraphicConfig} from '../graphic.config';
+import {datasetManager} from '@core/dataset/dataset.manager';
 
 @Component({
   selector: 'app-image-config',
@@ -15,6 +16,7 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
 
   option = {
     text: '我是标题',
+    dataUrl: '',
     backgroundColor: undefined
   };
 
@@ -26,6 +28,26 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
 
   ngOnInit() {
     this._differ = this._differs.find(this.option).create();
+  }
+
+  change(event: Event) {
+    const file: HTMLInputElement = <HTMLInputElement>event.currentTarget;
+    if (!file.files || !file.files[0]) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      console.log('qwerty', (<any>evt.target).result);
+      this.option.dataUrl = (<any>evt.target).result;
+      if (this.graphic) {
+        this.graphic.update(this.option);
+      }
+      // console.log((<any>evt.target).result);
+      // console.log(image);
+      // image.src = (<any>evt.target).result;
+      // image = evt.target.result;
+    };
+    reader.readAsDataURL(file.files[0]);
   }
 
 

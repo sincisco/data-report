@@ -48,7 +48,7 @@ export class ChartGraphic implements IGraphic {
     this._bindToolbarEvent();
     console.log(this._chart);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._chart.configClass);
-    this._configComponentRef.instance.content = this;
+    this._configComponentRef.instance.graphic = this;
   }
 
   load(option?: any) {
@@ -71,7 +71,7 @@ export class ChartGraphic implements IGraphic {
   activate() {
     if (!this._configComponentRef) {
       this._configComponentRef = siderLeftComponent.createGraphicConfig(this._chart.configClass);
-      this._configComponentRef.instance.content = this;
+      this._configComponentRef.instance.graphic = this;
     } else {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }

@@ -18,7 +18,6 @@ import {HtmlParagraph} from '../../../../node/content/html/paragraph.html';
 import {HeaderHtml} from '../../../../node/content/html/header.html';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {TextContent} from '../../../../node/content/text.content';
-import {HtmlImage} from '../../../../node/content/html/image.html';
 import {CommentContent} from '../../../../node/content/comment.content';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {NzModalFilterComponent} from '../common/filter.modal.component';
@@ -38,8 +37,6 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
   @Output() output = new EventEmitter();
-
-  content: IContent;
 
   option: ChartBarOption = {
     title: {
@@ -127,9 +124,9 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
         console.log('BarConfigComponent  valueChanges');
         console.log(value);
         const changes = this._differ.diff(value);
-        if (this.content) {
+        if (this.graphic) {
           value.dataset = datasetManager.current;
-          this.content.update(value);
+          this.graphic.update(value);
         }
         if (changes) {
           console.log('BarConfigComponent  has change');
