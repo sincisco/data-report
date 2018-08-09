@@ -1,7 +1,13 @@
+import {ComponentRef, Type} from '@angular/core';
 import {Region} from '../region/region';
-import {Type} from '@angular/core';
 import {IGraphic} from './graphic';
+import {Chart} from '../content/chart/chart';
+
+import {GraphicConfig} from '../../layout/sider/graphic.config/graphic.config';
 import {contextMenuHelper} from '../../utils/contextMenu';
+import {siderLeftComponent} from '../../layout/sider/sider.left.component';
+
+import * as _ from 'lodash';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -16,41 +22,68 @@ const template = `
 </div>
 `;
 
-export class GraphicChart implements IGraphic {
+export class ChartGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
   private _$toolbar: JQuery;
 
-  private _content: IContent;
+  private _region: Region;
+  private _chart: Chart;
+  private _configComponentRef: ComponentRef<GraphicConfig>;
 
   constructor(region: Region) {
+    this._region = region;
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     this._$toolbar = this.$element.find('.m-graphic-toolbar');
     region.$fill.append(this.$element);
   }
 
-  init(contentClass: Type<IContent>) {
-    const chart = this._content = new contentClass(this._$frame[0]);
-    chart.init({});
+  childHost(): JQuery {
+    return this._$frame;
+  }
+
+  init(contentClass: Type<Chart>) {
+    this._chart = new contentClass(this);
     this._bindToolbarEvent();
+    console.log(this._chart);
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._chart.configClass);
+    this._configComponentRef.instance.content = this;
+  }
+
+  load(option?: any) {
+    option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
+    this._chart.init(option);
   }
 
   update(option: any) {
-    if (this._content) {
-      this._content.update(option);
+    if (this._chart) {
+      this._chart.update(option);
     }
   }
 
   resize() {
-    if (this._content) {
-      this._content.resize();
+    if (this._chart) {
+      this._chart.resize();
     }
   }
 
   activate() {
-    if (this._content) {
-      this._content.activate();
+    if (!this._configComponentRef) {
+      this._configComponentRef = siderLeftComponent.createGraphicConfig(this._chart.configClass);
+      this._configComponentRef.instance.content = this;
+    } else {
+      siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+    }
+    if (this._chart) {
+      this._chart.activate();
+    }
+  }
+
+  destroy() {
+    if (this._chart) {
+      this._chart.destroy();
+      this._configComponentRef.destroy();
     }
   }
 

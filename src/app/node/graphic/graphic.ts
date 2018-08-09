@@ -10,5 +10,7 @@ export interface IGraphic {
   resize();
 
   update(option: any);
+
+  destroy();
 }
 

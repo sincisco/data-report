@@ -3,11 +3,11 @@ import {NgForm} from '@angular/forms';
 import {GraphicConfig} from '../graphic.config';
 
 @Component({
-  selector: 'data-html-image',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.less']
+  selector: 'app-image-config',
+  templateUrl: './image.config.component.html',
+  styleUrls: ['./image.config.component.less']
 })
-export class DataImageComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class ImageConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 

@@ -1,5 +1,5 @@
 import {Region, RegionState, resizeTipHelper} from './region';
-import {ChartBarNode} from '../content/chart/chart.bar';
+import {BarChart} from '../content/chart/bar.chart';
 import {HeaderHtml} from '../content/html/header.html';
 import {closestNum} from '../../utils/common';
 import {contextMenuHelper} from '../../utils/contextMenu';
@@ -10,7 +10,7 @@ import {HtmlImage} from '../content/html/image.html';
 import {CommentContent} from '../content/comment.content';
 import {TextContent} from '../content/text.content';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
-import {GraphicChart} from '../graphic/graphic.chart';
+import {ChartGraphic} from '../graphic/chart.graphic';
 
 const template = `
 <div class="m-dashbox">
@@ -46,7 +46,7 @@ export class ExplicitRegion extends Region {
       top: 100
     };
     this.$host = this.$element;
-    this.$fill = this.$element.find('.u-graphic');
+    this.$fill = this.$element.find('.g-fill');
     this.refresh();
     setTimeout(() => {
       this._bindEvent();
@@ -196,7 +196,12 @@ export class ExplicitRegion extends Region {
       });
     // 事件对象
 
+    this._bindContextEvent();
 
+    super._bindEventForMover();
+  }
+
+  private _bindContextEvent() {
     this.$mover.contextmenu(($event: JQuery.Event) => {
       contextMenuHelper.open([
         {
@@ -210,14 +215,17 @@ export class ExplicitRegion extends Region {
           shortcut: 'Ctrl+X'
         }, {
           displayName: '删除',
-          shortcut: 'Backspace'
+          shortcut: 'Backspace',
+          callback: () => {
+            this._graphic.destroy();
+          }
         }, 'split',
         {
           displayName: '创建Echart',
           callback: () => {
-            var _graphic = this._graphic = new GraphicChart(this);
+            const _graphic = this._graphic = new ChartGraphic(this);
 
-            _graphic.init(ChartBarNode);
+            _graphic.init(BarChart);
             // 使用刚指定的配置项和数据显示图表。
             // content.init({});
 
@@ -287,8 +295,6 @@ export class ExplicitRegion extends Region {
       ], $event.pageX, $event.pageY, $event);
       return false;
     });
-
-    super._bindEventForMover();
   }
 
 }

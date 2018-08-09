@@ -1,10 +1,11 @@
-import {ChartNode} from './chart';
+import {Chart} from './chart';
 import {BarConfigComponent} from '../../../layout/sider/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
 import {Title} from './echart.interface/title';
 import {Axis} from './echart.interface/axis';
 import {Grid} from './echart.interface/grid';
 import {BarSeriesConfig} from './echart.interface/series/bar.series';
+import {ChartGraphic} from '../../graphic/chart.graphic';
 
 export interface ChartBarOption {
   title?: Title;
@@ -16,19 +17,18 @@ export interface ChartBarOption {
 }
 
 
-export class ChartBarNode extends ChartNode {
+export class BarChart extends Chart {
 
 
-  _configClass = BarConfigComponent;
+  configClass = BarConfigComponent;
 
-  constructor(host: HTMLElement) {
-    super(host);
+  constructor(chartGraphic: ChartGraphic) {
+    super(chartGraphic);
   }
 
-  init(option?: any) {
-    this.mockActive();
-    option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
-    super.init(option);
+  destroy() {
+    delete this.configClass;
+    super.destroy();
   }
 
 }

@@ -20,7 +20,7 @@ interface Echart {
   getHeight: Function;
   clear: Function;
   dispose: Function;
-  isDisposed: boolean;
+  isDisposed: Function;
 }
 
 interface Array<T> {

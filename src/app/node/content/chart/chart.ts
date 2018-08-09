@@ -1,43 +1,41 @@
-import {ComponentRef, Type} from '@angular/core';
+import {Type} from '@angular/core';
 
-import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import {GraphicConfig} from '../../../layout/sider/graphic.config/graphic.config';
+import {ChartGraphic} from '../../graphic/chart.graphic';
 
-export abstract class ChartNode implements IContent {
-  private _echart: Echart;
-  protected _configClass: Type<GraphicConfig>;
-  protected _configComponentRef: ComponentRef<GraphicConfig>;
+// chartNode
 
-  protected constructor(public host: HTMLElement) {
+export abstract class Chart implements IContent {
+  protected _echart: Echart;
+
+  public configClass: Type<GraphicConfig>;
+
+  protected constructor(private _graphic: ChartGraphic) {
     // 初始化之前  确保host已经挂载到document中
-    this._echart = echarts.init(host);
+    this._echart = echarts.init(_graphic.childHost()[0]);
   }
 
   init(option: any) {
-    this._echart.setOption(option);
+    if (this._echart) {
+      this._echart.setOption(option);
+    }
   }
 
   update(option: any) {
     console.log(JSON.stringify(option));
-    this._echart.setOption(option);
-  }
-
-  activate() {
-    if (!this._configComponentRef) {
-      this._configComponentRef = siderLeftComponent.createGraphicConfig(this._configClass);
-      this._configComponentRef.instance.content = this;
-    } else {
-      siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+    if (!this._echart.isDisposed()) {
+      this._echart.setOption(option);
     }
   }
 
-  protected mockActive() {
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._configClass);
-    this._configComponentRef.instance.content = this;
+  activate() {
+
   }
 
   resize() {
-    this._echart.resize();
+    if (this._echart) {
+      this._echart.resize();
+    }
   }
 
   /**
@@ -48,6 +46,16 @@ export abstract class ChartNode implements IContent {
    * @returns {any}
    */
   getOption() {
-    return this._echart.getOption();
+    if (this._echart) {
+      return this._echart.getOption();
+    } else {
+      return null;
+    }
+  }
+
+  destroy() {
+    if (this._echart && !this._echart.isDisposed()) {
+      this._echart.dispose();
+    }
   }
 }

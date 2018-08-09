@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {draggableHeler} from '../../../../utils/draggable.helper';
-import {ChartBarNode, ChartBarOption} from '../../../../node/content/chart/chart.bar';
+import {BarChart, ChartBarOption} from '../../../../node/content/chart/bar.chart';
 import {datasetManager} from '@core/dataset/dataset.manager';
 import {HtmlParagraph} from '../../../../node/content/html/paragraph.html';
 import {HeaderHtml} from '../../../../node/content/html/header.html';

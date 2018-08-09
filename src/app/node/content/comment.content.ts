@@ -40,7 +40,7 @@ export class CommentContent implements IContent {
    */
   resize() {
 
-  };
+  }
 
   /**
    * 属性面板发生变化，更新内容
@@ -48,9 +48,16 @@ export class CommentContent implements IContent {
    */
   update(option: any) {
 
-  };
+  }
 
   activate() {
 
-  };
+  }
+
+  destroy() {
+  }
+
+  getOption() {
+
+  }
 }

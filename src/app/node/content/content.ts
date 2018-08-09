@@ -13,4 +13,8 @@ interface IContent {
   update(option: any);
 
   activate();
+
+  getOption();
+
+  destroy();
 }

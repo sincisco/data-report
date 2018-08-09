@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import {HtmlNode} from './html';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
-import {DataImageComponent} from '../../../layout/sider/graphic.config/html/image.component';
+import {ImageConfigComponent} from '../../../layout/sider/graphic.config/html/image.config.component';
 
 interface ImageOption {
   text?: string;
@@ -20,7 +20,7 @@ export class HtmlImage extends HtmlNode {
   private _option: ImageOption;
   private _$host: JQuery;
   private _$element: JQuery;
-  dataProperty = DataImageComponent;
+  dataProperty = ImageConfigComponent;
 
   constructor(private _host: HTMLElement) {
     super();

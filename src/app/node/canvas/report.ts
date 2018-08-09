@@ -1,6 +1,6 @@
 import {Dimensions, INode} from '../interface';
 import {contextMenuHelper} from '../../utils/contextMenu';
-import {ExplicitRegion} from '../region/region.explicit';
+import {ExplicitRegion} from '../region/explicit.region';
 import {Region} from '../region/region';
 
 const ReportTemplate = `

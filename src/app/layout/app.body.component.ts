@@ -1,7 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {DataSet} from '../core/adapter/groupBy';
 import {Report} from '../node/canvas/report';
-import {ExplicitRegion} from "../node/region/region.explicit";
+import {ExplicitRegion} from "../node/region/explicit.region";
 
 @Component({
   selector: 'app-body',

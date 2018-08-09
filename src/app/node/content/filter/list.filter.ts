@@ -45,4 +45,11 @@ export class ListFilter extends FilterNode {
   activate() {
 
   }
+
+  destroy() {
+  }
+
+  getOption() {
+
+  }
 }

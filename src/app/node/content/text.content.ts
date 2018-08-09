@@ -50,5 +50,12 @@ export class TextContent implements IContent {
 
   activate() {
 
-  };
+  }
+
+  destroy() {
+  }
+
+  getOption() {
+
+  }
 }

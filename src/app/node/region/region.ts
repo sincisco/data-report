@@ -37,7 +37,7 @@ export abstract class Region implements INode {
   // 展现层
   $element: JQuery;
   $fill: JQuery;
-  $mover: JQuery;
+  protected $mover: JQuery;
 
   protected constructor(template: string) {
     this.$element = $(template);
@@ -52,9 +52,8 @@ export abstract class Region implements INode {
     return this._report;
   }
 
-
   get coordinates(): JQuery.Coordinates {
-    return this._coordinates;
+    return Object.assign({}, this._coordinates);
   }
 
   select() {
