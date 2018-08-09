@@ -1,0 +1,23 @@
+.control-divider {
+  position: relative;
+  padding: 12px 0 16px;
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    transform: translateY(50%);
+  }
+  span {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    background-color: #fafafa;
+    transform: translateY(-50%);
+    padding: 0 10px 0 0;
+    font-weight: 500;
+    cursor: pointer;
+  }
+}

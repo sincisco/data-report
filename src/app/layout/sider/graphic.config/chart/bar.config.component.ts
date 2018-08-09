@@ -65,7 +65,7 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
     },
     xAxis: {
       type: 'category',
-      name: '123',
+      name: 'X轴名称',
       nameGap: 10,
       axisLabel: {},
       axisTick: {}

@@ -35,7 +35,10 @@ export class AxisConfigComponent extends CustomControlValueAccessor implements A
 
   @ViewChild(NgForm) ngForm: NgForm;
 
-  @Input() option: Axis = {};
+  @Input() option: Axis = {
+    axisLabel: {},
+    axisTick: {}
+  };
 
   @Output() axisChange = new EventEmitter();
 
@@ -47,6 +50,9 @@ export class AxisConfigComponent extends CustomControlValueAccessor implements A
               private _zone: NgZone) {
     super();
   }
+
+  axisState = true;
+  nameState = false;
 
   ngOnInit() {
     console.log('**************************');

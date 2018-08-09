@@ -1,38 +1,65 @@
-<div nz-row nzType="flex" ngForm>
-  <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
-    <span class="item-title">坐标轴类型:</span>
+<div ngForm>
+  <app-control-divider title="坐标轴" [(state)]="axisState"></app-control-divider>
+  <div nz-row nzType="flex" [class.form-collapse]="!axisState">
+    <div nz-col  [nzSpan]="12" style="margin-bottom: 8px">
+      <span class="item-title">标题文字</span>
+    </div>
+    <div nz-col [nzSpan]="12" style="margin-bottom: 8px;text-align: right">
+      <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.show">显示</label>
+    </div>
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">轴类型:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+      <nz-select style="width:100%;" name="type" nzShowSearch nzAllowClear nzPlaceHolder="坐标轴类型" nzSize="small"
+                 [(ngModel)]="option.type">
+        <nz-option nzLabel="value" nzValue="value"></nz-option>
+        <nz-option nzLabel="category" nzValue="category"></nz-option>
+        <nz-option nzLabel="time" nzValue="time"></nz-option>
+        <nz-option nzLabel="log" nzValue="log"></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">轴位置:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+      <nz-radio-group name="position" [(ngModel)]="option.position">
+        <label nz-radio nzValue="top">top</label>
+        <label nz-radio nzValue="bottom">bottom</label>
+      </nz-radio-group>
+    </div>
   </div>
-  <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
-    <nz-select style="width:100%;" name="type" nzShowSearch nzAllowClear nzPlaceHolder="坐标轴类型" nzSize="small"
-               [(ngModel)]="option.type">
-      <nz-option nzLabel="value" nzValue="value"></nz-option>
-      <nz-option nzLabel="category" nzValue="category"></nz-option>
-      <nz-option nzLabel="time" nzValue="time"></nz-option>
-      <nz-option nzLabel="log" nzValue="log"></nz-option>
-    </nz-select>
-  </div>
-  <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-    <input nz-input placeholder="坐标轴名称" name="name" [(ngModel)]="option.name" nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-    <nz-select style="width: 120px;" name="nameLocation" [(ngModel)]="option.nameLocation" nzSize="small" nzAllowClear
-               nzPlaceHolder="Choose">
-      <nz-option nzValue="start" nzLabel="start"></nz-option>
-      <nz-option nzValue="middle" nzLabel="middle"></nz-option>
-      <nz-option nzValue="end" nzLabel="end"></nz-option>
-    </nz-select>
-  </div>
-  <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-    <nz-radio-group name="position" [(ngModel)]="option.position">
-      <label nz-radio nzValue="top">top</label>
-      <label nz-radio nzValue="bottom">bottom</label>
-    </nz-radio-group>
-  </div>
-  <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
-    <nz-input-number name="nameGap" [(ngModel)]="option.nameGap" [nzMin]="1" [nzMax]="50" [nzStep]="1" nzSize="small"></nz-input-number>
-  </div>
-  <div nz-col [nzSpan]="24" style="margin-bottom: 8px" ngModelGroup="axisLabel">
-    <nz-slider [nzMin]="-90" [nzMax]="90" name="rotate" [(ngModel)]="option?.axisLabel.rotate" nzSize="small"></nz-slider>
+  <app-control-divider title="坐标轴名称" [(state)]="nameState"></app-control-divider>
+  <div nz-row nzType="flex" [class.form-collapse]="!nameState">
+    <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
+      <input nz-input placeholder="坐标轴名称" name="name" [(ngModel)]="option.name" nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">位置:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+      <nz-select style="width: 100%;" name="nameLocation" [(ngModel)]="option.nameLocation" nzSize="small" nzAllowClear
+                 nzPlaceHolder="Choose">
+        <nz-option nzValue="start" nzLabel="start"></nz-option>
+        <nz-option nzValue="middle" nzLabel="middle"></nz-option>
+        <nz-option nzValue="end" nzLabel="end"></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">间距:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+      <nz-input-number name="nameGap" [(ngModel)]="option.nameGap" [nzMin]="1" [nzMax]="50" [nzStep]="1"
+                       nzSize="small"></nz-input-number>
+    </div>
+    <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+      <span class="item-title">旋转角度:</span>
+    </div>
+    <div nz-col [nzSpan]="14" style="margin-bottom: 8px" ngModelGroup="axisLabel">
+      <nz-slider [nzMin]="-90" [nzMax]="90" name="rotate" [(ngModel)]="option?.axisLabel.rotate"
+                 nzSize="small"></nz-slider>
+    </div>
   </div>
 </div>
+
 
