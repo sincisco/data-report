@@ -36,7 +36,7 @@ export class ChartGraphic implements IGraphic {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     this._$toolbar = this.$element.find('.m-graphic-toolbar');
-    region.$fill.append(this.$element);
+    region.addChild(this);
   }
 
   childHost(): JQuery {

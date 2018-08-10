@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {GraphicConfig} from '../graphic.config';
-import {datasetManager} from '@core/dataset/dataset.manager';
 
 @Component({
   selector: 'app-image-config',
@@ -16,7 +15,10 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
 
   option = {
     text: '我是标题',
+    width: 400,
+    height: 300,
     dataUrl: '',
+    preserveAspectRatio: false,
     backgroundColor: undefined
   };
 
@@ -35,13 +37,20 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
     if (!file.files || !file.files[0]) {
       return;
     }
+    const that = this;
     const reader = new FileReader();
     reader.onload = (evt) => {
       console.log('qwerty', (<any>evt.target).result);
       this.option.dataUrl = (<any>evt.target).result;
-      if (this.graphic) {
-        this.graphic.update(this.option);
-      }
+      const image = new Image();
+      image.src = (<any>evt.target).result;
+      image.onload = function () {
+        that.option.width = (<HTMLImageElement>this).width;
+        that.option.height = (<HTMLImageElement>this).height;
+        if (that.graphic) {
+          that.graphic.update(that.option);
+        }
+      };
       // console.log((<any>evt.target).result);
       // console.log(image);
       // image.src = (<any>evt.target).result;

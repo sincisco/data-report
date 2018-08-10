@@ -12,6 +12,7 @@ import {TextContent} from '../content/text.content';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
 import {ChartGraphic} from '../graphic/chart.graphic';
 import {HtmlGraphic} from '../graphic/image.graphic';
+import {IGraphic} from '../graphic/graphic';
 
 const template = `
 <div class="m-dashbox">
@@ -74,6 +75,21 @@ export class ExplicitRegion extends Region {
     this._coordinates.top = top;
   }
 
+  setDimensions(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+    this.refresh();
+  }
+
+  zoom(width: number, height: number, preserveAspectRatio?: boolean) {
+    if (preserveAspectRatio) {
+      height = (this.height * width) / this.width;
+      this.setDimensions(width, height);
+    } else {
+      this.setDimensions(width, height);
+    }
+  }
+
   refresh() {
     this.$element.css({
       width: this._dimensions.width,
@@ -84,6 +100,11 @@ export class ExplicitRegion extends Region {
     if (this._regionState === RegionState.activated) {
       this.report.regionResize(this);
     }
+  }
+
+  addChild(graphic: IGraphic) {
+    this._graphic = graphic;
+    this.$fill.append(graphic.$element);
   }
 
   private _bindEvent() {
@@ -112,7 +133,8 @@ export class ExplicitRegion extends Region {
           break;
         case 'resize-right':
           if (pageX > offset.left) {
-            dimensions.width = closestNum(pageX - offset.left);
+            // dimensions.width = closestNum(pageX - offset.left);
+            this.zoom(closestNum(pageX - offset.left), 0, true);
           }
           break;
         case 'resize-topLeft':
@@ -171,7 +193,9 @@ export class ExplicitRegion extends Region {
         this.$element.removeClass('no-transition');
         resizeTipHelper.hide();
         _handleResize(event.pageX, event.pageY);
-        this._graphic && this._graphic.resize();
+        if (this._graphic) {
+          this._graphic.resize();
+        }
       }
     };
 
@@ -217,14 +241,17 @@ export class ExplicitRegion extends Region {
           displayName: '删除',
           shortcut: 'Backspace',
           callback: () => {
-            this._graphic.destroy();
+            if (this._graphic) {
+              this._graphic.destroy();
+            }
             this.destroy();
+            contextMenuHelper.close();
           }
         }, 'split',
         {
           displayName: '创建Echart',
           callback: () => {
-            const _graphic = this._graphic = new ChartGraphic(this);
+            const _graphic = new ChartGraphic(this);
 
             _graphic.init(BarChart);
             // 使用刚指定的配置项和数据显示图表。

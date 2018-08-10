@@ -2,6 +2,7 @@ import {Type} from '@angular/core';
 
 
 export interface IGraphic {
+  $element: JQuery;
 
   init(contentClass: Type<IContent>);
 

@@ -8,6 +8,7 @@ import {siderLeftComponent} from '../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
 import {HtmlNode} from '../content/html/html';
+import {ExplicitRegion} from '../region/explicit.region';
 
 const template = `
 <div class="graphic m-graphic m-graphic-image z-mode-edit">
@@ -21,15 +22,15 @@ export class HtmlGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _region: Region;
+  private _region: ExplicitRegion;
   private _html: HtmlNode;
   private _configComponentRef: ComponentRef<GraphicConfig>;
 
-  constructor(region: Region) {
+  constructor(region: ExplicitRegion) {
     this._region = region;
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
-    region.$fill.append(this.$element);
+    region.addChild(this);
   }
 
   childHost(): JQuery {
@@ -49,6 +50,7 @@ export class HtmlGraphic implements IGraphic {
 
   update(option: any) {
     if (this._html) {
+      this._region.setDimensions(option.width, option.height);
       this._html.update(option);
     }
   }

@@ -12,31 +12,23 @@ export const reportGlobal: {
   instance: null
 };
 
-export function getRegionTemplate(contentArray: Array<string>): string {
-  return `
-  <div class="node-wrapper">
-  ${contentArray.join(' ')}
-  <div class="u-mover"  draggable="true"></div>
-  </div>
-  `;
-}
-
 export enum RegionState {
   default, selected, activated
 }
 
 export abstract class Region implements INode {
-  // 状态层
+  // 持久化状态层
   protected _zIndex: number;
   protected _coordinates: JQuery.Coordinates;
+  // 非持久化状态层
+  protected _regionState: RegionState = RegionState.default;
   // 模型层
   protected _report: Report;
   protected _graphic: IGraphic;
-  protected _regionState: RegionState = RegionState.default;
 
   // 展现层
   $element: JQuery;
-  $fill: JQuery;
+  protected $fill: JQuery;
   protected $mover: JQuery;
 
   protected constructor(template: string) {
@@ -85,6 +77,8 @@ export abstract class Region implements INode {
   set top(param: number) {
     this._coordinates.top = closestNum(param);
   }
+
+  public abstract addChild(child: IGraphic);
 
   abstract refresh();
 
