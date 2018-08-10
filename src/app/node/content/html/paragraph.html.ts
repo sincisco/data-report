@@ -2,7 +2,8 @@ import * as _ from 'lodash';
 import {HtmlNode} from './html';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import {ParagraphConfigComponent} from '../../../layout/sider/graphic.config/html/paragraph.config.component';
-import {HtmlGraphic} from '../../graphic/image.graphic';
+import {ImageGraphic} from '../../graphic/image.graphic';
+import {ParagraphGraphic} from '../../graphic/paragraph.graphic';
 
 interface ParagraphOption {
   text?: string;
@@ -19,13 +20,23 @@ const OptionDefault: ParagraphOption = {
 
 export class ParagraphHtml extends HtmlNode {
   private _option: ParagraphOption;
-  private _$host: JQuery;
   private _$element: JQuery;
+  private _$editor: JQuery;
   configClass = ParagraphConfigComponent;
 
-  constructor(private htmlGraphic: HtmlGraphic) {
+  constructor(private htmlGraphic: ParagraphGraphic) {
     super();
-    this._$element = $(`<div id="container123" style="width:100%;height:100%;">这里写你的初始化内容</div>`);
+    this._$element = $(`<div class="m-rect m-rect-text"
+ style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, 'Microsoft YaHei', Arial,
+'Hiragino Sans GB', sans-serif; background: rgba(1, 1, 1, 0); border-radius: 0px; overflow-y: visible;">
+<div class="editor-wrap">
+<div class="editor medium-editor-element"
+contenteditable="true"
+spellcheck="false"
+role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="vertical-align: top;"></div>
+</div>
+</div>`);
+    this._$editor = this._$element.find('.medium-editor-element');
     this.htmlGraphic.$element.click(() => {
       console.log('container123');
       return false;
@@ -66,7 +77,10 @@ export class ParagraphHtml extends HtmlNode {
     console.log('ParagraphHtml active ');
     if (!this.state) {
       BalloonEditor
-        .create(document.querySelector('#container123'))
+        .create(this._$editor[0], {
+          toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+          fontSize: [10, 12, 14, 16, 20, 24, 36]
+        })
         .catch(error => {
           console.error(error);
         });

@@ -1,0 +1,61 @@
+.m-rect {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.m-rect-text {
+  position: relative;
+  -ms-user-select: text;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.m-graphic .m-rect {
+  transition: background 0.3s ease-in-out;
+}
+
+.m-rect-text .editor-wrap {
+  display: table;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.m-rect-text .editor {
+  display: table-cell;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.m-rect-text{
+  i, cite, em, var, address, dfn {
+    font-style: italic;
+  }
+  strong, b {
+    font-weight: bold;
+  }
+
+  ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    margin: inherit;
+    padding: inherit;
+  }
+
+  li {
+    display: list-item;
+  }
+
+  ol {
+    display: block;
+    list-style-type: decimal;
+    margin: inherit;
+    padding: inherit;
+  }
+}
+
+

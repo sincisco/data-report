@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import {HtmlNode} from './html';
 import {ImageConfigComponent} from '../../../layout/sider/graphic.config/html/image.config.component';
-import {HtmlGraphic} from '../../graphic/image.graphic';
+import {ImageGraphic} from '../../graphic/image.graphic';
 
 interface ImageOption {
   text?: string;
@@ -23,7 +23,7 @@ export class ImageHtml extends HtmlNode {
   private _$element: JQuery;
   configClass = ImageConfigComponent;
 
-  constructor(htmlGraphic: HtmlGraphic) {
+  constructor(htmlGraphic: ImageGraphic) {
     super();
     this._$element = $(`<div class="m-image"><img alt="Image preview..."/></div>`);
     this._$image = this._$element.find('img');

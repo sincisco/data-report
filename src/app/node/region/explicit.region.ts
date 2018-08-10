@@ -11,8 +11,9 @@ import {CommentContent} from '../content/comment.content';
 import {TextContent} from '../content/text.content';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
 import {ChartGraphic} from '../graphic/chart.graphic';
-import {HtmlGraphic} from '../graphic/image.graphic';
+import {ImageGraphic} from '../graphic/image.graphic';
 import {IGraphic} from '../graphic/graphic';
+import {ParagraphGraphic} from '../graphic/paragraph.graphic';
 
 const template = `
 <div class="m-dashbox">
@@ -274,7 +275,7 @@ export class ExplicitRegion extends Region {
         }, {
           displayName: '创建Paragraph',
           callback: () => {
-            const _graphic = this._graphic = new HtmlGraphic(this);
+            const _graphic = this._graphic = new ParagraphGraphic(this);
             const option = {
               text: '英特尔 Xeon(至强)'
             };
@@ -286,7 +287,7 @@ export class ExplicitRegion extends Region {
         }, {
           displayName: '创建Image',
           callback: () => {
-            const _graphic = this._graphic = new HtmlGraphic(this);
+            const _graphic = this._graphic = new ImageGraphic(this);
 
             _graphic.init(ImageHtml);
             // 使用刚指定的配置项和数据显示图表。

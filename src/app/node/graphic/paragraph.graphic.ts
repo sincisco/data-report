@@ -1,7 +1,5 @@
 import {ComponentRef, Type} from '@angular/core';
-import {Region} from '../region/region';
 import {IGraphic} from './graphic';
-import {Chart} from '../content/chart/chart';
 
 import {GraphicConfig} from '../../layout/sider/graphic.config/graphic.config';
 import {siderLeftComponent} from '../../layout/sider/sider.left.component';
@@ -11,14 +9,13 @@ import {HtmlNode} from '../content/html/html';
 import {ExplicitRegion} from '../region/explicit.region';
 
 const template = `
-<div class="graphic m-graphic m-graphic-image z-mode-edit">
-  <div class="frame"
-  style="border: 0px solid rgb(204, 204, 204); background-color: rgba(255, 255, 255, 0); border-radius: 0px; opacity: 1;">
+<div class="graphic m-graphic m-graphic-text z-mode-edit">
+  <div class="frame" style="border: 0px solid rgb(204, 204, 204); background-color: rgba(1, 1, 1, 0); border-radius: 0px; opacity: 1;">
   </div>
 </div>
 `;
 
-export class ImageGraphic implements IGraphic {
+export class ParagraphGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
