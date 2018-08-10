@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import {HtmlNode} from './html';
-import {DataHeaderComponent} from '../../../layout/sider/graphic.config/html/header.component';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
-import {DataParagraphComponent} from '../../../layout/sider/graphic.config/html/paragraph.component';
+import {ParagraphConfigComponent} from '../../../layout/sider/graphic.config/html/paragraph.config.component';
+import {HtmlGraphic} from '../../graphic/image.graphic';
 
 interface ParagraphOption {
   text?: string;
@@ -17,16 +17,20 @@ const OptionDefault: ParagraphOption = {
 };
 
 
-export class HtmlParagraph extends HtmlNode {
+export class ParagraphHtml extends HtmlNode {
   private _option: ParagraphOption;
   private _$host: JQuery;
   private _$element: JQuery;
-  dataProperty = DataParagraphComponent;
+  configClass = ParagraphConfigComponent;
 
-  constructor(private _host: HTMLElement) {
+  constructor(private htmlGraphic: HtmlGraphic) {
     super();
-    this._$host = $(_host);
-    console.log(123);
+    this._$element = $(`<div id="container123" style="width:100%;height:100%;">这里写你的初始化内容</div>`);
+    this.htmlGraphic.$element.click(() => {
+      console.log('container123');
+      return false;
+    });
+    htmlGraphic.childHost().append(this._$element);
   }
 
   init(option: ParagraphOption) {
@@ -44,18 +48,29 @@ export class HtmlParagraph extends HtmlNode {
   }
 
   private _refresh() {
-    const option = this._option;
-    this._$element = $('<p></p>');
-    (<HTMLParagraphElement>this._$element[0]).align = option.align;
-    this._$host.empty().append(this._$element);
-    this._$element.text(option.text);
-    this._$element.css({
-      'background-color': option.backgroundColor
-    });
+    // const option = this._option;
+    // this._$element = $('<p></p>');
+    // this._$element = $('<p></p>');
+    // (<HTMLParagraphElement>this._$element[0]).align = option.align;
+    // this._$host.empty().append(this._$element);
+    // this._$element.text(option.text);
+    // this._$element.css({
+    //   'background-color': option.backgroundColor
+    // });
 
   }
 
+  private state = false;
+
   activate() {
-    siderLeftComponent.createGraphicConfig(this.dataProperty);
+    console.log('ParagraphHtml active ');
+    if (!this.state) {
+      BalloonEditor
+        .create(document.querySelector('#container123'))
+        .catch(error => {
+          console.error(error);
+        });
+      this.state = true;
+    }
   }
 }

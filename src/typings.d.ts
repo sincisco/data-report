@@ -7,6 +7,7 @@ interface NodeModule {
 
 declare var echarts: any;
 declare var hljs: any;
+declare var BalloonEditor: any;
 
 interface Echart {
   setOption: Function;

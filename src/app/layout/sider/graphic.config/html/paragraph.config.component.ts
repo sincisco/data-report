@@ -3,11 +3,11 @@ import {NgForm} from '@angular/forms';
 import {GraphicConfig} from '../graphic.config';
 
 @Component({
-  selector: 'data-html-paragraph',
+  selector: 'app-paragraph-config',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less']
 })
-export class DataParagraphComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class ParagraphConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 

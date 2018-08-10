@@ -14,7 +14,6 @@ import {NgForm} from '@angular/forms';
 import {draggableHeler} from '../../../../utils/draggable.helper';
 import {BarChart, ChartBarOption} from '../../../../node/content/chart/bar.chart';
 import {datasetManager} from '@core/dataset/dataset.manager';
-import {HtmlParagraph} from '../../../../node/content/html/paragraph.html';
 import {HeaderHtml} from '../../../../node/content/html/header.html';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {TextContent} from '../../../../node/content/text.content';

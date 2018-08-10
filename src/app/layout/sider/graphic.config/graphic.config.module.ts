@@ -10,7 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {PieConfigComponent} from './chart/pie.config.component';
 import {DataHeaderComponent} from './html/header.component';
 import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
-import {DataParagraphComponent} from './html/paragraph.component';
+import {ParagraphConfigComponent} from './html/paragraph.config.component';
 import {ImageConfigComponent} from './html/image.config.component';
 import {BarConfigComponent} from './chart/bar.config.component';
 import {NzModalFilterComponent} from './common/filter.modal.component';
@@ -21,7 +21,7 @@ const COMPONENTS = [
   PieConfigComponent,
   BarConfigComponent,
   DataHeaderComponent,
-  DataParagraphComponent,
+  ParagraphConfigComponent,
   ImageConfigComponent,
   NzModalFilterComponent,
   FilterListComponent
