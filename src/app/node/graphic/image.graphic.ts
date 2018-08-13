@@ -55,6 +55,34 @@ export class ImageGraphic implements IGraphic {
     }
   }
 
+  updateGraphic(option: any) {
+    if (option.borderRadius) {
+      this._$frame.css({
+        'borderRadius': option.borderRadius
+      });
+    }
+    if (option.borderWidth) {
+      this._$frame.css({
+        'borderWidth': option.borderWidth
+      });
+    }
+    if (option.borderColor) {
+      this._$frame.css({
+        'borderColor': option.borderColor
+      });
+    }
+    if (option.borderStyle) {
+      this._$frame.css({
+        'borderStyle': option.borderStyle
+      });
+    }
+    if (option.backgroundColor) {
+      this._$frame.css({
+        'backgroundColor': option.backgroundColor
+      });
+    }
+  }
+
   resize() {
     if (this._html) {
       this._html.resize();

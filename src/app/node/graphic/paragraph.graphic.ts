@@ -52,6 +52,10 @@ export class ParagraphGraphic implements IGraphic {
     }
   }
 
+  updateGraphic(option: any) {
+
+  }
+
   resize() {
     if (this._html) {
       this._html.resize();

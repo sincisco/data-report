@@ -18,8 +18,15 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
     width: 400,
     height: 300,
     dataUrl: '',
-    preserveAspectRatio: false,
-    backgroundColor: undefined
+    preserveAspectRatio: false
+  };
+
+  graphicOption = {
+    backgroundColor: undefined,
+    borderStyle: 'solid',
+    borderColor: '#aaa',
+    borderWidth: 0,
+    borderRadius: 0
   };
 
   private _differ: KeyValueDiffer<any, any>;
@@ -64,6 +71,7 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
     this.ngForm.valueChanges.subscribe((value) => {
       console.log(JSON.stringify(value));
       console.log(JSON.stringify(this.option));
+      this.graphic.updateGraphic(value);
       const changes = this._differ.diff(value);
       if (changes) {
         console.log('has change');

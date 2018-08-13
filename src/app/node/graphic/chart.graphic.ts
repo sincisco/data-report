@@ -62,6 +62,10 @@ export class ChartGraphic implements IGraphic {
     }
   }
 
+  updateGraphic(option: any) {
+
+  }
+
   resize() {
     if (this._chart) {
       this._chart.resize();

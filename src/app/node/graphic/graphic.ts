@@ -12,6 +12,8 @@ export interface IGraphic {
 
   update(option: any);
 
+  updateGraphic(option: any);
+
   destroy();
 }
 
