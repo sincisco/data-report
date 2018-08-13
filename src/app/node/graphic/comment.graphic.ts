@@ -7,23 +7,24 @@ import {siderLeftComponent} from '../../layout/sider/sider.left.component';
 import * as _ from 'lodash';
 import {HtmlNode} from '../content/html/html';
 import {ExplicitRegion} from '../region/explicit.region';
+import {CommentRegion} from '../region/comment.region';
 
 const template = `
-<div class="graphic m-graphic m-graphic-text z-mode-edit">
-  <div class="frame" style="border: 0px solid rgb(204, 204, 204); background-color: rgba(1, 1, 1, 0); border-radius: 0px; opacity: 1;">
-  </div>
+<div class="graphic m-graphic m-graphic-comment z-mode-edit">
+<div class="frame" style="border: 0px solid rgb(204, 204, 204); background-color: rgba(1, 1, 1, 0); border-radius: 0px; opacity: 1;">
+</div>
 </div>
 `;
 
-export class ParagraphGraphic implements IGraphic {
+export class CommentGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _region: ExplicitRegion;
+  private _region: CommentRegion;
   private _html: HtmlNode;
   private _configComponentRef: ComponentRef<GraphicConfig>;
 
-  constructor(region: ExplicitRegion) {
+  constructor(region: CommentRegion) {
     this._region = region;
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');

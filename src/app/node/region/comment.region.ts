@@ -1,18 +1,14 @@
-import {Region, RegionState, resizeTipHelper} from './region';
-import {BarChart} from '../content/chart/bar.chart';
-import {HeaderHtml} from '../content/html/header.html';
+import {Region, RegionState, reportGlobal, resizeTipHelper} from './region';
 import {closestNum} from '../../utils/common';
 import {contextMenuHelper} from '../../utils/contextMenu';
 import {fromEvent, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/internal/operators';
 import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
-import {ImageHtml} from '../content/html/image.html';
-import {TextContent} from '../content/text.content';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
-import {ChartGraphic} from '../graphic/chart.graphic';
-import {ImageGraphic} from '../graphic/image.graphic';
 import {IGraphic} from '../graphic/graphic';
 import {TextGraphic} from '../graphic/text.graphic';
+import {CommentGraphic} from '../graphic/comment.graphic';
+import {CommentAuxiliary} from '../content/auxiliary/comment.auxiliary';
 
 const template = `
 <div class="m-dashbox">
@@ -31,13 +27,17 @@ const template = `
   </div>
 `;
 
-export class ExplicitRegion extends Region {
+export class CommentRegion extends Region {
+  private _defaultDimensions: Dimensions = {
+    width: 30,
+    height: 30
+  };
+
   private _dimensions: Dimensions = {
     width: 300,
     height: 200
   };
 
-  $host: JQuery;
   $fill: JQuery;
 
   constructor() {
@@ -46,7 +46,6 @@ export class ExplicitRegion extends Region {
       left: 100,
       top: 100
     };
-    this.$host = this.$element;
     this.$fill = this.$element.find('.g-fill');
     this.refresh();
     setTimeout(() => {
@@ -75,6 +74,29 @@ export class ExplicitRegion extends Region {
     this._coordinates.top = top;
   }
 
+  select() {
+    console.log('select');
+    if (this._regionState === RegionState.selected) {
+      return;
+    }
+    this._regionState = RegionState.selected;
+    this.$element.addClass('selected');
+    if (this._graphic) {
+      reportGlobal.instance = this._graphic;
+      this._graphic.activate();
+    }
+    this.refresh();
+  }
+
+  unselect() {
+    if (this._regionState === RegionState.default) {
+      return;
+    }
+    this._regionState = RegionState.default;
+    this.$element.removeClass('selected');
+    this.refresh();
+  }
+
   setDimensions(width: number, height: number) {
     this.width = width;
     this.height = height;
@@ -91,12 +113,21 @@ export class ExplicitRegion extends Region {
   }
 
   refresh() {
-    this.$element.css({
-      width: this._dimensions.width,
-      height: this._dimensions.height,
-      left: this._coordinates.left,
-      top: this._coordinates.top
-    });
+    if (this._regionState === RegionState.default) {
+      this.$element.css({
+        width: this._defaultDimensions.width,
+        height: this._defaultDimensions.height,
+        left: this._coordinates.left,
+        top: this._coordinates.top
+      });
+    } else if (this._regionState === RegionState.selected) {
+      this.$element.css({
+        width: this._dimensions.width,
+        height: this._dimensions.height,
+        left: this._coordinates.left,
+        top: this._coordinates.top
+      });
+    }
     if (this._regionState === RegionState.activated) {
       this.report.regionResize(this);
     }
@@ -247,69 +278,22 @@ export class ExplicitRegion extends Region {
             this.destroy();
             contextMenuHelper.close();
           }
-        }, 'split',
-        {
-          displayName: '创建Echart',
-          callback: () => {
-            const _graphic = new ChartGraphic(this);
-
-            _graphic.init(BarChart);
-            // 使用刚指定的配置项和数据显示图表。
-            // content.init({});
-
-            contextMenuHelper.close();
-          }
-        }, {
-          displayName: '创建Header',
-          callback: () => {
-            // var content = this._content = new HeaderHtml(this.$frame[0]);
-            // console.log(content);
-            // var option = {
-            //   text: '英特尔 Xeon(至强)'
-            // };
-            //
-            // // 使用刚指定的配置项和数据显示图表。
-            // content.init(option);
-          }
-        }, {
+        }, 'split', {
           displayName: '创建Paragraph',
           callback: () => {
-            const _graphic = this._graphic = new TextGraphic(this);
+            const _graphic = this._graphic = new CommentGraphic(this);
             const option = {
               text: '英特尔 Xeon(至强)'
             };
 
             // 使用刚指定的配置项和数据显示图表。
-            _graphic.init(TextAuxiliary);
-            contextMenuHelper.close();
-          }
-        }, {
-          displayName: '创建Image',
-          callback: () => {
-            const _graphic = this._graphic = new ImageGraphic(this);
-
-            _graphic.init(ImageHtml);
-            // 使用刚指定的配置项和数据显示图表。
-            // content.init({});
-
+            _graphic.init(CommentAuxiliary);
             contextMenuHelper.close();
           }
         }, {
           displayName: '创建Comment',
           callback: () => {
             // var content = this._content = new CommentContent(this.$frame[0]);
-            // console.log(content);
-            // var option = {
-            //   text: '英特尔 Xeon(至强)'
-            // };
-            //
-            // // 使用刚指定的配置项和数据显示图表。
-            // content.init(option);
-          }
-        }, {
-          displayName: '创建Text',
-          callback: () => {
-            // var content = this._content = new TextContent(this.$frame[0]);
             // console.log(content);
             // var option = {
             //   text: '英特尔 Xeon(至强)'

@@ -17,7 +17,6 @@ import {datasetManager} from '@core/dataset/dataset.manager';
 import {HeaderHtml} from '../../../../node/content/html/header.html';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {TextContent} from '../../../../node/content/text.content';
-import {CommentContent} from '../../../../node/content/comment.content';
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {NzModalFilterComponent} from '../common/filter.modal.component';
 import {filterExecutor} from '@core/filter/filter.executor';

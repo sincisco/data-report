@@ -1,9 +1,12 @@
 import * as _ from 'lodash';
-import {HtmlNode} from './html';
+
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
-import {ParagraphConfigComponent} from '../../../layout/sider/graphic.config/html/paragraph.config.component';
+import {TextConfigComponent} from '../../../layout/sider/graphic.config/auxiliary/text.config.component';
 import {ImageGraphic} from '../../graphic/image.graphic';
-import {ParagraphGraphic} from '../../graphic/paragraph.graphic';
+import {TextGraphic} from '../../graphic/text.graphic';
+import {HtmlNode} from '../html/html';
+import {CommentConfigComponent} from '../../../layout/sider/graphic.config/auxiliary/comment.config.component';
+import {CommentGraphic} from '../../graphic/comment.graphic';
 
 interface ParagraphOption {
   text?: string;
@@ -18,30 +21,29 @@ const OptionDefault: ParagraphOption = {
 };
 
 
-export class ParagraphHtml extends HtmlNode {
+export class CommentAuxiliary extends HtmlNode {
   private _option: ParagraphOption;
   private _$element: JQuery;
   private _$editor: JQuery;
-  configClass = ParagraphConfigComponent;
+  configClass = CommentConfigComponent;
 
-  constructor(private htmlGraphic: ParagraphGraphic) {
+  constructor(private _commentGraphic: CommentGraphic) {
     super();
-    this._$element = $(`<div class="m-rect m-rect-text"
- style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, 'Microsoft YaHei', Arial,
-'Hiragino Sans GB', sans-serif; background: rgba(1, 1, 1, 0); border-radius: 0px; overflow-y: visible;">
-<div class="editor-wrap">
-<div class="editor medium-editor-element"
-contenteditable="true"
-spellcheck="false"
-role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="vertical-align: top;"></div>
+    this._$element = $(`<div class="m-rect m-rect-comment">
+<div class="icon top left" style="background: rgb(255, 193, 7);">!</div>
+<div class="tooltip top left ">
+  <div class="editor-wrap">
+    <div class="editor medium-editor-element" spellcheck="true"
+        data-placeholder="请输入文本" style="color: rgb(0, 0, 0); vertical-align: top;"></div>
+  </div>
 </div>
 </div>`);
     this._$editor = this._$element.find('.medium-editor-element');
-    this.htmlGraphic.$element.click(() => {
+    this._commentGraphic.$element.click(() => {
       console.log('container123');
       return false;
     });
-    htmlGraphic.childHost().append(this._$element);
+    _commentGraphic.childHost().append(this._$element);
   }
 
   init(option: ParagraphOption) {
@@ -74,7 +76,7 @@ role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="v
   private state = false;
 
   activate() {
-    console.log('ParagraphHtml active ');
+    console.log('TextAuxiliary active ');
     if (!this.state) {
       BalloonEditor
         .create(this._$editor[0], {

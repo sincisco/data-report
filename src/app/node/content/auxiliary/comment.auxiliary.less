@@ -1,9 +1,6 @@
-.m-rect {
+.m-rect-comment {
   position: relative;
-  height: 100%;
-  width: 100%;
 }
-
 
 .m-rect-comment {
   .icon {
@@ -35,3 +32,23 @@
     }
   }
 }
+
+.m-rect-comment .editor-wrap {
+  display: table;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+}
+
+.m-rect-comment .editor {
+  display: table-cell;
+  line-height: 1.4;
+  text-align: left;
+}
+
+.m-rect-comment .editor:focus {
+  outline: none;
+  overflow: auto;
+}
+

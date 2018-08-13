@@ -2,6 +2,7 @@ import {Dimensions, INode} from '../interface';
 import {contextMenuHelper} from '../../utils/contextMenu';
 import {ExplicitRegion} from '../region/explicit.region';
 import {Region} from '../region/region';
+import {CommentRegion} from '../region/comment.region';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -119,10 +120,20 @@ export class Report implements INode {
           displayName: '新建图表',
           callback: () => {
             console.log('新建图表');
-            var graphNode = new ExplicitRegion();
-            graphNode.setCoordinates($event.offsetX, $event.offsetY);
-            graphNode.refresh();
-            this.addChild(graphNode);
+            const explicitRegion = new ExplicitRegion();
+            explicitRegion.setCoordinates($event.offsetX, $event.offsetY);
+            explicitRegion.refresh();
+            this.addChild(explicitRegion);
+            contextMenuHelper.close();
+          }
+        }, {
+          displayName: '新建注释',
+          callback: () => {
+            console.log('新建注释');
+            const commentRegion = new CommentRegion();
+            commentRegion.setCoordinates($event.offsetX, $event.offsetY);
+            commentRegion.refresh();
+            this.addChild(commentRegion);
             contextMenuHelper.close();
           }
         }, {

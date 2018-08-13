@@ -4,10 +4,10 @@ import {GraphicConfig} from '../graphic.config';
 
 @Component({
   selector: 'app-paragraph-config',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.less']
+  templateUrl: './text.config.component.html',
+  styleUrls: ['./text.config.component.less']
 })
-export class ParagraphConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class TextConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
