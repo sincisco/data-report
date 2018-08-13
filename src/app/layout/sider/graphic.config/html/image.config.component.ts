@@ -14,9 +14,11 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
   @Output() output = new EventEmitter();
 
   option = {
-    text: '我是标题',
+    alt: '我是标题',
+    name: '',
     width: 400,
     height: 300,
+    url: '',
     dataUrl: '',
     preserveAspectRatio: false
   };
@@ -44,6 +46,8 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
     if (!file.files || !file.files[0]) {
       return;
     }
+    this.option.name = file.files[0].name;
+    console.log(file.files[0]);
     const that = this;
     const reader = new FileReader();
     reader.onload = (evt) => {
@@ -52,16 +56,12 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
       const image = new Image();
       image.src = (<any>evt.target).result;
       image.onload = function () {
-        that.option.width = (<HTMLImageElement>this).width;
-        that.option.height = (<HTMLImageElement>this).height;
+        that.option.width = (<HTMLImageElement>this).naturalWidth;
+        that.option.height = (<HTMLImageElement>this).naturalHeight;
         if (that.graphic) {
           that.graphic.update(that.option);
         }
       };
-      // console.log((<any>evt.target).result);
-      // console.log(image);
-      // image.src = (<any>evt.target).result;
-      // image = evt.target.result;
     };
     reader.readAsDataURL(file.files[0]);
   }

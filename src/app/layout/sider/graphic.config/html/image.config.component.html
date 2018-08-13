@@ -1,14 +1,10 @@
 <nz-collapse [nzBordered]="false" class="zijin-form">
   <nz-collapse-panel nzHeader="图片文件">
     <div nz-row nzType="flex">
-      <div nz-col [nzSpan]="24" style="margin-bottom: 8px;">
-        <button nz-button (click)="imageInput.click()">
-          <i class="anticon anticon-upload"></i><span>选择图片</span>
-        </button>
-      </div>
       <div nz-col [nzSpan]="24">
         <label for="settingFileToUpload" class="upload f-ellipsis">
-          <span class="text">QQ截图20180810093757.png</span>
+          <span class="text" *ngIf="option.name">{{option.name}}</span>
+          <span class="text" *ngIf="!option.name"><i class="anticon anticon-upload"></i><span>选择图片</span></span>
         </label>
         <input type="file" name="settingFileToUpload" id="settingFileToUpload" #imageInput (change)="change($event)"
                style="display: none;">
@@ -30,8 +26,8 @@
   </nz-collapse-panel>
   <nz-collapse-panel nzHeader="样式">
     <div nz-row nzType="flex" ngForm>
-      <div nz-col [nzSpan]="12" style="vertical-align: middle;line-height: 28px">背景</div>
-      <div nz-col [nzSpan]="12" style="padding: 0 2px;">
+      <div nz-col [nzSpan]="12" style="vertical-align: middle;line-height: 28px;margin-bottom: 8px;">背景</div>
+      <div nz-col [nzSpan]="12" style="padding: 0 2px;margin-bottom: 8px;">
         <div name="backgroundColor" class="u-color-block"
              colorPicker [(ngModel)]="graphicOption.backgroundColor"
              [cpOutputFormat]="'rgba'"
@@ -39,7 +35,8 @@
              cpOKButtonClass="ant-btn ant-btn-default"
              [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
           <div class="color-area" style="border: 1px solid rgb(204, 204, 204);height: 22px;">
-            <div style="width: 100%;height: 100%;z-index: 2;position: absolute;" [style.background]="graphicOption.backgroundColor"></div>
+            <div style="width: 100%;height: 100%;z-index: 2;position: absolute;"
+                 [style.background]="graphicOption.backgroundColor"></div>
           </div>
         </div>
       </div>
@@ -81,7 +78,8 @@
              cpOKButtonClass="ant-btn ant-btn-default"
              [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
           <div class="color-area" style="border: 1px solid rgb(204, 204, 204);height: 22px;">
-              <div style="width: 100%;height: 100%;z-index: 2;position: absolute;" [style.background]="graphicOption.borderColor"></div>
+            <div style="width: 100%;height: 100%;z-index: 2;position: absolute;"
+                 [style.background]="graphicOption.borderColor"></div>
           </div>
         </div>
       </div>

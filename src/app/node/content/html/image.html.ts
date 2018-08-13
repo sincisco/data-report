@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 import {HtmlNode} from './html';
 import {ImageConfigComponent} from '../../../layout/sider/graphic.config/html/image.config.component';
 import {ImageGraphic} from '../../graphic/image.graphic';
+import {consoleTestResultHandler} from 'tslint/lib/test';
 
 interface ImageOption {
   text?: string;
@@ -19,21 +20,29 @@ const OptionDefault: ImageOption = {
 
 export class ImageHtml extends HtmlNode {
   private _option: ImageOption;
-  private _$image: JQuery;
   private _$element: JQuery;
+
+  private _image: HTMLImageElement;
+
   configClass = ImageConfigComponent;
 
   constructor(htmlGraphic: ImageGraphic) {
     super();
-    this._$element = $(`<div class="m-image"><img alt="Image preview..."/></div>`);
-    this._$image = this._$element.find('img');
+    this._$element = $(`<div class="m-image"></div>`);
     htmlGraphic.childHost().append(this._$element);
   }
 
   init(option: ImageOption) {
+    if (!this._image) {
+      const image = document.createElement('img');
+      image.alt = 'Image preview...';
+      this._image = image;
+      this._$element.append(image);
+    }
+
     this._option = _.defaultsDeep(option, OptionDefault);
     if (this._option.dataUrl) {
-      (<HTMLImageElement>this._$image[0]).src = this._option.dataUrl;
+      this._image.src = this._option.dataUrl;
     }
     // this._refresh();
   }
@@ -43,9 +52,16 @@ export class ImageHtml extends HtmlNode {
   }
 
   update(option: any) {
+    if (!this._image) {
+      const image = document.createElement('img');
+      image.alt = 'Image preview...';
+      this._image = image;
+      this._$element.append(image);
+    }
+
     this._option = _.defaultsDeep(option, this._option);
     if (this._option.dataUrl) {
-      (<HTMLImageElement>this._$image[0]).src = this._option.dataUrl;
+      this._image.src = this._option.dataUrl;
     }
   }
 

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="400px" height="300px" viewBox="0 0 400 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>holder-meter</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0.00489648538,99 C0.541445029,44.2320965 45.1052427,0 100,0 C154.894757,0 199.458555,44.2320965 199.995104,99 L175.985396,99 C175.186326,57.9948507 141.696343,25 100.5,25 C59.3036568,25 25.813674,57.9948507 25.0146036,99 L0.00489648538,99 Z" id="path-1"></path>
+        <path d="M100,0 C126.52,0 151.96,10.54 170.71,29.29 L100,100 L100,100 L100,0 Z" id="path-3"></path>
+        <path d="M170.71,29.29 C189.46,48.04 200,73.48 200,100 L100,100 L100,100 L170.71,29.29 Z" id="path-4"></path>
+        <path d="M0,100 C0,73.48 10.54,48.04 29.29,29.29 L100,100 L0,100 Z" id="path-5"></path>
+        <path d="M29.29,29.29 C48.04,10.54 73.48,0 100,0 L100,100 L100,100 L29.29,29.29 Z" id="path-6"></path>
+    </defs>
+    <g id="V3.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="holder-meter">
+            <path d="M209.908638,191.651654 C212.251784,193.9948 212.251784,197.79379 209.908638,200.136936 C207.565492,202.480081 203.766502,202.480081 201.423357,200.136936 C199.080211,197.79379 199.080211,193.9948 201.423357,191.651654 C203.766502,189.308509 207.565492,189.308509 209.908638,191.651654 Z M167,158.013388 L169.013388,156 L202.378993,189.365605 L200.365605,191.378993 L167,158.013388 Z" id="Shape" fill="#D8D8D8" fill-rule="nonzero"></path>
+            <g id="Segments-circle" transform="translate(106.000000, 96.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Combined-Shape"></g>
+                <g id="Segment-1" opacity="0.5" mask="url(#mask-2)">
+                    <use fill="#CCCCCC" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <path stroke="#FFFFFF" stroke-width="0.25" d="M100.125,0.125078153 C126.523288,0.15808822 151.843302,10.6468655 170.533168,29.2900553 L100.125,99.6982233 L100.125,0.125078153 Z"></path>
+                </g>
+                <g id="Segment-2" opacity="0.5" mask="url(#mask-2)">
+                    <use fill="#CCCCCC" fill-rule="evenodd" xlink:href="#path-4"></use>
+                    <path stroke="#FFFFFF" stroke-width="0.25" d="M170.709945,29.4668319 C189.353134,48.1566979 199.841912,73.4767119 199.874922,99.875 L100.301777,99.875 L170.709945,29.4668319 Z"></path>
+                </g>
+                <g id="Segment-7" mask="url(#mask-2)">
+                    <use fill="#CECECE" fill-rule="evenodd" xlink:href="#path-5"></use>
+                    <path stroke="#FFFFFF" stroke-width="0.25" d="M0.125078153,99.875 C0.15808822,73.4767119 10.6468655,48.1566979 29.2900553,29.4668319 L99.6982233,99.875 L0.125078153,99.875 Z"></path>
+                </g>
+                <g id="Segment-8" opacity="0.300000012" mask="url(#mask-2)">
+                    <use fill="#E2E3E4" fill-rule="evenodd" xlink:href="#path-6"></use>
+                    <path stroke="#FFFFFF" stroke-width="0.25" d="M29.4668319,29.2900553 C48.1566979,10.6468655 73.4767119,0.15808822 99.875,0.125078153 L99.875,99.6982233 L29.4668319,29.2900553 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

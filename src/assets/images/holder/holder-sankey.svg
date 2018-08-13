@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400px" height="300px" viewBox="0 0 400 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="background: #FFFFFF;">
+    <!-- Generator: Sketch 48.1 (47250) - http://www.bohemiancoding.com/sketch -->
+    <title>holder-sankey</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="4.1.报告-默认图表样式" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="holder-sankey">
+            <g id="Group" transform="translate(26.000000, 30.000000)">
+                <path d="M0,163 L31,163 C31,163 60,204 96,204 L190,204 L190,240 L0,240 L0,163 Z" id="Rectangle-16" fill="#EFEFEF"></path>
+                <path d="M190,125 C253,125 253,1 316,1 C316,21 316,44 316,74 C253,74 242,240 190,240 C190,199 190,163 190,125 Z" id="Rectangle-16" fill="#EFEFEF" transform="translate(253.000000, 120.500000) scale(-1, 1) translate(-253.000000, -120.500000) "></path>
+                <path d="M32,85 C95,85 95,1 158,1 C158,21 158,44 158,74 C95,74 84,150 32,150 C32,109 32,123 32,85 Z" id="Rectangle-16" fill="#EFEFEF"></path>
+                <path d="M348,42 C348,42 342,42 317,42 C269,42 261,204 190,204 C190,221 190,228 190,240 C282,240 274,115 317,115 C328,115 348,115 348,115 L348,42 Z" id="Rectangle-16" fill="#EFEFEF"></path>
+                <path d="M348,7.10542736e-15 C348,7.10542736e-15 342,3.50379448e-14 317,7.10542736e-15 C254,-2.13318946e-14 245,85 190,85 C190,102 190,144 190,156 C269,156 260,31 317,31 C328,31 348,31 348,31 L348,7.10542736e-15 Z" id="Rectangle-16" fill="#EFEFEF"></path>
+                <path d="M156.422931,0 C156.422931,0 165.422931,2.79325174e-14 140.422931,0 C77.4229313,-2.84373219e-14 85.4229313,158 30.4229313,158 C30.4229313,175 30.4229313,182 30.4229313,194 C109.422931,194 83.4229313,31 140.422931,31 C151.422931,31 156.422931,31 156.422931,31 L156.422931,0 Z" id="Rectangle-16" fill="#EFEFEF" transform="translate(94.211466, 97.000000) scale(-1, 1) translate(-94.211466, -97.000000) "></path>
+                <g id="Stacked-Group" transform="translate(316.000000, 0.000000)" fill="#A7A8AC">
+                    <rect id="Rectangle-16" x="0" y="0" width="32" height="31"></rect>
+                    <rect id="Rectangle-16" x="0" y="125" width="32" height="115"></rect>
+                    <rect id="Rectangle-16" x="0" y="41" width="32" height="74"></rect>
+                </g>
+                <g id="Stacked-Group-2" transform="translate(158.000000, 0.000000)" fill="#A7A8AC">
+                    <rect id="Rectangle-16" x="0" y="204" width="32" height="36"></rect>
+                    <rect id="Rectangle-16" x="0" y="84" width="32" height="110"></rect>
+                    <rect id="Rectangle-16" x="0" y="0" width="32" height="74"></rect>
+                </g>
+                <g id="Stacked-Group-3" fill="#A7A8AC">
+                    <rect id="Rectangle-16" x="0" y="162" width="32" height="78"></rect>
+                    <rect id="Rectangle-16" x="0" y="84" width="32" height="68"></rect>
+                    <rect id="Rectangle-16" x="0" y="1.20245694e-14" width="32" height="74"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

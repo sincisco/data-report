@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400px" height="300px" viewBox="0 0 400 300" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>img-13</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M200,281 C127.650698,281 69,222.349302 69,150 C69,77.6506978 127.650698,19 200,19 C272.349302,19 331,77.6506978 331,150 C331,222.349302 272.349302,281 200,281 Z M200.5,218 C237.779221,218 268,187.779221 268,150.5 C268,113.220779 237.779221,83 200.5,83 C163.220779,83 133,113.220779 133,150.5 C133,187.779221 163.220779,218 200.5,218 Z" id="path-1"></path>
+        <circle id="path-3" cx="117" cy="117" r="116.5"></circle>
+        <circle id="path-5" cx="94" cy="94" r="94"></circle>
+    </defs>
+    <g id="img-13" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Oval"></g>
+        <g id="Group" opacity="0.300000012" mask="url(#mask-2)">
+            <g transform="translate(200.000000, 150.000000) rotate(114.000000) translate(-200.000000, -150.000000) translate(83.000000, 33.000000)">
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <use id="Oval-2" stroke="none" fill="#D7D9DB" fill-rule="evenodd" xlink:href="#path-3"></use>
+                <path d="M117,116.849077 L117,-2 C182.721885,-2 236,51.2105442 236,116.849077 C236,154.893262 217.763922,190.638189 186.946445,213 L117,116.849077 Z" id="c_pie_1" stroke="none" fill="#F0F1F1" fill-rule="evenodd" opacity="0.300000012" mask="url(#mask-4)"></path>
+                <path d="M117,116.849077 C170.093274,50.9851075 196.639911,18.0531228 196.639911,18.0531228 C196.639911,18.0531228 217.669701,32.9406665 233.53353,73.8730199 C244.109416,101.161256 246.525076,120.518945 240.780509,131.946088 C225.436118,171.074155 207.49143,198.092126 186.946445,213 L117,116.849077 Z" id="c_pie_1" stroke="none" fill="#868686" fill-rule="evenodd" opacity="0.300000012" mask="url(#mask-4)"></path>
+                <path d="M116.896697,117 L187,213.269223 C136.063113,250.192775 54.9354668,238.26942 14.8023248,189.867244 L116.896697,117 Z" id="c_pie_2" stroke="none" fill="#000000" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,116.459015 L17.5429612,188.647034 C-11.8399836,153.275054 -10.3000509,107.537929 9.32683739,66 L117,116.459015 Z" id="c_pie_3" stroke="none" fill="#B6B7BA" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,117 L9,66.4471714 C24.1464353,34.4291697 52.8605804,10.8000831 87.3164182,2 L117,117 Z" id="c_pie_4" stroke="none" fill="#F0F1F1" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,117 L87,1.79879105 C91.895889,0.559395968 96.8659468,-0.375377123 101.88078,-1 L117,117 Z" id="c_pie_5" stroke="none" fill="#B6B7BA" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,117 L102,-1.29507777 C104.487031,-1.60809293 106.98332,-1.84318298 109.485171,-2 L117,117 Z" id="c_pie_6" stroke="none" fill="#B6B7BA" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,117 L110,-1.76518068 C112.330454,-1.92168826 114.664939,-2 117,-2 L117,117 Z" id="c_pie_7" stroke="none" fill="#F0F1F1" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M172.551002,174.630033 L167.30891,49.6205235 C169.639364,49.4640159 182.817851,51.3393945 185.152912,51.3393945 L172.551002,174.630033 Z" id="c_pie_7" stroke="none" fill="#F0F1F1" fill-rule="evenodd" mask="url(#mask-4)" transform="translate(176.230911, 112.120639) rotate(79.000000) translate(-176.230911, -112.120639) "></path>
+                <path d="M177.794297,161.380568 L169.263323,34.8012361 C171.593776,34.6447285 176.104915,35.6895043 178.439977,35.6895043 L177.794297,161.380568 Z" id="c_pie_7" stroke="none" fill="#F0F1F1" fill-rule="evenodd" mask="url(#mask-4)" transform="translate(173.851650, 98.082913) rotate(73.000000) translate(-173.851650, -98.082913) "></path>
+                <path d="M117,117 L117,-2 L117,117 Z" id="c_pie_8" stroke="none" fill="#00BCD4" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,117 L117,-2 L117,117 Z" id="c_pie_9" stroke="none" fill="#673AB7" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,117 L117,-2 L117,117 Z" id="c_pie_10" stroke="none" fill="#009688" fill-rule="evenodd" mask="url(#mask-4)"></path>
+                <path d="M117,117 L117,-2 L117,117 Z" id="c_pie_11" stroke="none" fill="#FF9800" fill-rule="evenodd" mask="url(#mask-4)"></path>
+            </g>
+        </g>
+        <g id="Group" mask="url(#mask-2)">
+            <g transform="translate(106.000000, 56.000000)">
+                <mask id="mask-6" fill="white">
+                    <use xlink:href="#path-5"></use>
+                </mask>
+                <use id="Oval-2" stroke="none" fill="#D7D9DB" fill-rule="evenodd" xlink:href="#path-5"></use>
+                <path d="M94,93.9487664 L94,-5 C148.67619,-5 193,39.3008717 193,93.9487664 C193,125.622762 177.828809,155.382492 152.19074,174 L94,93.9487664 Z" id="c_pie_1" stroke="none" fill="#A2A2A2" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94.5805809,94 L153,174.089522 C110.552594,204.807435 51.444285,197.369842 18,157.102485 L94.5805809,94 Z" id="c_pie_2" stroke="none" fill="#B6B7BA" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94.0491795 L17.7200792,157 C-6.72455554,127.52335 -11.9050843,86.6149405 4.42316724,52 L94,94.0491795 Z" id="c_pie_3" stroke="none" fill="#909191" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94 L4,51.7993779 C16.6220295,25.0713069 26.2868018,7.34615631 55,0 L94,94 Z" id="c_pie_4" stroke="none" fill="#6B6B6B" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94 L69,-1.67558032 C73.0799075,-2.70490843 77.2216223,-3.48124541 81.4006504,-4 L94,94 Z" id="c_pie_5" stroke="none" fill="#B6B7BA" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94 L82,-4.41355209 C83.989625,-4.67395966 85.9866558,-4.86953878 87.988137,-5 L94,94 Z" id="c_pie_6" stroke="none" fill="#6E6F71" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94 L88,-4.80464611 C89.9975317,-4.9348499 91.9985188,-5 94,-5 L94,94 Z" id="c_pie_7" stroke="none" fill="#6E6F71" fill-rule="evenodd" opacity="0.300000012" mask="url(#mask-6)"></path>
+                <path d="M94,94 L94,-5 L94,94 Z" id="c_pie_8" stroke="none" fill="#00BCD4" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94 L94,-5 L94,94 Z" id="c_pie_9" stroke="none" fill="#673AB7" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94 L94,-5 L94,94 Z" id="c_pie_10" stroke="none" fill="#009688" fill-rule="evenodd" mask="url(#mask-6)"></path>
+                <path d="M94,94 L94,-5 L94,94 Z" id="c_pie_11" stroke="none" fill="#FF9800" fill-rule="evenodd" mask="url(#mask-6)"></path>
+            </g>
+        </g>
+    </g>
+</svg>
