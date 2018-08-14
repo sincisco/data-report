@@ -6,9 +6,9 @@ import {
   ViewContainerRef, ViewRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {reportGlobal} from '../../node/region/region';
 import {DataHeaderComponent} from './graphic.config/html/header.component';
 import {GraphicConfig} from './graphic.config/graphic.config';
+import {reportGlobal} from '@core/node/region/region';
 
 export var siderLeftComponent: SiderLeftComponent;
 

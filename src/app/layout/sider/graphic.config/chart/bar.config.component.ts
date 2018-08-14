@@ -12,18 +12,17 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {draggableHeler} from '../../../../utils/draggable.helper';
-import {BarChart, ChartBarOption} from '../../../../node/content/chart/bar.chart';
+
 import {datasetManager} from '@core/dataset/dataset.manager';
-import {HeaderHtml} from '../../../../node/content/html/header.html';
+
 import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {TextContent} from '../../../../node/content/text.content';
+
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {NzModalFilterComponent} from '../common/filter.modal.component';
 import {filterExecutor} from '@core/filter/filter.executor';
 import {Dimension} from '@core/dataset/dataset.interface';
-import {Title} from '../../../../node/content/chart/echart.interface/title';
-import {reportGlobal} from '../../../../node/region/region';
 import {GraphicConfig} from '../graphic.config';
+import {ChartBarOption} from '@core/node/content/chart/bar.chart';
 
 @Component({
   selector: 'app-bar-config',

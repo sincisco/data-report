@@ -4,8 +4,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
-import {Grid} from '../../node/content/chart/echart.interface/grid';
+
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
+import {Grid} from '@core/node/content/chart/echart.interface/grid';
 
 export const GRID_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

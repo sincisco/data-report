@@ -1,0 +1,41 @@
+.m-dashbox .graphic, .m-dashbox .frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/**
+* z-index
+*/
+.m-dashbox .frame {
+  z-index: 1;
+}
+
+.m-graphic .frame {
+  transition: background 0.3s ease-in-out;
+}
+
+
+.m-graphic .placeholder:after {
+  content: "";
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 400px;
+  position: relative;
+  top: -10px;
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.m-graphic .placeholder.t-radar:after {
+  background-image: url('../../../../assets/images/holder/holder-radar.svg');
+}
+
+.m-graphic .placeholder.t-automatic:after {
+  background-image: url('../../../../assets/images/holder/holder-automatic.svg');
+}

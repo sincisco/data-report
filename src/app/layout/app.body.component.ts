@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {Report} from '../node/canvas/report';
-import {ExplicitRegion} from '../node/region/explicit.region';
+import {ExplicitRegion} from '@core/node/region/explicit.region';
+import {ReportCanvas} from '@core/node/canvas/report.canvas';
 
 @Component({
   selector: 'app-body',
@@ -12,7 +12,7 @@ export class AppBodyComponent implements AfterViewInit {
   report;
 
   ngAfterViewInit() {
-    var report = this.report = new Report();
+    var report = this.report = new ReportCanvas();
     report.addChild(new ExplicitRegion());
     $('.app-content').prepend(report.$element);
 

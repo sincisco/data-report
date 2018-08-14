@@ -1,13 +1,14 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {GraphicConfig} from '../graphic.config';
+import {PageConfig} from './page.config';
+
 
 @Component({
-  selector: 'app-header-config',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.less']
+  selector: 'app-page-config',
+  templateUrl: './page.config.component.html',
+  styleUrls: ['./page.config.component.less']
 })
-export class DataHeaderComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class PageConfigComponent extends PageConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -31,14 +32,9 @@ export class DataHeaderComponent extends GraphicConfig implements AfterViewInit,
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.subscribe((value) => {
-      console.log(JSON.stringify(value));
-      console.log(JSON.stringify(this.option));
       const changes = this._differ.diff(value);
-      if (changes) {
-        console.log('has change');
-        this.output.emit(value);
-      }
     });
   }
 
 }
+

@@ -10,7 +10,7 @@ import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
-import {BarSeriesConfig} from '../../node/content/chart/echart.interface/series/bar.series';
+import {BarSeriesConfig} from '@core/node/content/chart/echart.interface/series/bar.series';
 
 export const SERIES_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

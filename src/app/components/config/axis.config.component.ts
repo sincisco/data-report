@@ -7,7 +7,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
-import {Axis} from '../../node/content/chart/echart.interface/axis';
 
 import {NzModalFilterComponent} from '../../layout/sider/graphic.config/common/filter.modal.component';
 import {NzModalService} from 'ng-zorro-antd';
@@ -17,6 +16,7 @@ import {draggableHeler} from '../../utils/draggable.helper';
 import {contextMenuHelper} from '../../utils/contextMenu';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
 import {removeUndefined} from '../../utils/common';
+import {Axis} from '@core/node/content/chart/echart.interface/axis';
 
 export const AXIS_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

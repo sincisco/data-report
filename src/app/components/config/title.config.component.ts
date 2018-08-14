@@ -4,11 +4,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
-import {Title} from '../../node/content/chart/echart.interface/title';
+
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
 
 import * as _ from 'lodash';
 import {removeUndefined} from '../../utils/common';
+import {Title} from '@core/node/content/chart/echart.interface/title';
 
 export const Title_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

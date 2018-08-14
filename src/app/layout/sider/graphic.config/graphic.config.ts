@@ -1,4 +1,4 @@
-import {IGraphic} from '../../../node/graphic/graphic';
+import {IGraphic} from '@core/node/graphic/graphic';
 
 export class GraphicConfig {
   option: any;

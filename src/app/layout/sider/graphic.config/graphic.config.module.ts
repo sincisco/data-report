@@ -19,6 +19,7 @@ import {BarConfigComponent} from './chart/bar.config.component';
 import {NzModalFilterComponent} from './common/filter.modal.component';
 import {FilterListComponent} from './common/filter.list.component';
 import {ConfigModule} from '../../../components/config/config.module';
+import {PageConfigComponent} from '../page.config/page.config.component';
 
 const COMPONENTS = [
   PieConfigComponent,
@@ -28,7 +29,8 @@ const COMPONENTS = [
   CommentConfigComponent,
   ImageConfigComponent,
   NzModalFilterComponent,
-  FilterListComponent
+  FilterListComponent,
+  PageConfigComponent
 ];
 
 @NgModule({
