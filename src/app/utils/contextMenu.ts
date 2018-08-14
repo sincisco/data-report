@@ -77,6 +77,8 @@ class ContextMenu {
   $mask: JQuery;
   $menu: JQuery;
 
+  callback: Function;
+
   constructor() {
     this.$mask = $(windowMask);
     this.$mask.click(($event) => {
@@ -116,10 +118,18 @@ class ContextMenu {
 
   }
 
-  close() {
+  close(callback?: Function) {
+    if (callback) {
+      callback();
+    }
+    if (this.callback) {
+      this.callback();
+      this.callback = null;
+    }
     this.$mask.detach();
     this.$menu.remove();
   }
+
 }
 
 export const contextMenuHelper = new ContextMenu();

@@ -1,0 +1,33 @@
+.m-dashRegion {
+  position: relative;
+  padding: 15px 25px;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.m-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+}
+
+.m-canvas .box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  overflow: hidden;
+  backface-visibility: hidden !important;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+}
+
+.g-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

@@ -1,0 +1,61 @@
+.gutter {
+  flex-grow: 0;
+  flex-shrink: 0;
+  background-color: rgba(16, 16, 16, 0.2);
+  background-position: center center;
+  background-repeat: no-repeat;
+  &.gutter-horizontal {
+    background-image: url('../../../../../assets/images/grips/vertical.png');
+    cursor: ew-resize;
+  }
+  &.gutter-vertical {
+    background-image: url('../../../../../assets/images/grips/horizontal.png');
+    cursor: ns-resize;
+  }
+}
+
+
+.split-horizontal {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+}
+
+.split-vertical {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.split.activated {
+  transition: background-color 0.3s ease-in-out;
+  background-color: rgba(147, 147, 156, 0.29) !important;
+}
+
+.split-area {
+  margin: 2px;
+  box-sizing: border-box;
+  outline: 1px dashed rgba(238, 238, 238, 0.51);
+  border-radius: 5px;
+  overflow: hidden;
+  transition: background-color 0.3s ease-in-out;
+  &:empty:before{
+    content: attr(data-attr);
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    font-weight: bold;
+    color: #ccb1a2;
+  }
+  &.activated {
+    box-shadow: 0 0 6px #58bee9;
+    background-color: rgba(199, 255, 210, 0.23);
+  }
+}
+
+

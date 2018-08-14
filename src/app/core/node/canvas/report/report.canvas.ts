@@ -1,8 +1,8 @@
-import {Dimensions, INode} from '../interface';
-import {contextMenuHelper} from '../../../utils/contextMenu';
-import {ExplicitRegion} from '../region/explicit.region';
-import {Region} from '../region/region';
-import {CommentRegion} from '../region/comment.region';
+import {Dimensions, INode} from '../../interface';
+import {contextMenuHelper} from '../../../../utils/contextMenu';
+import {ExplicitRegion} from '../../region/explicit.region';
+import {Region} from '../../region/region';
+import {CommentRegion} from '../../region/comment.region';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -38,6 +38,65 @@ export class ReportCanvas implements INode {
   $grid: JQuery;
 
   $mask: JQuery;
+
+  constructor() {
+    this.$element = this.$region = $(ReportTemplate);
+    this.$canvas = this.$element.find('.report-canvas');
+    this.$box = this.$element.find('.report-box');
+    this.$grid = this.$element.find('.report-grid');
+    this.$mask = this.$element.find('.u-edit-mask');
+    this.refresh();
+
+    this.$grid.contextmenu(($event: JQuery.Event) => {
+      contextMenuHelper.open([
+        {
+          displayName: '新建图表',
+          callback: () => {
+            console.log('新建图表');
+            const explicitRegion = new ExplicitRegion();
+            explicitRegion.setCoordinates($event.offsetX, $event.offsetY);
+            explicitRegion.refresh();
+            this.addChild(explicitRegion);
+            contextMenuHelper.close();
+          }
+        }, {
+          displayName: '新建注释',
+          callback: () => {
+            console.log('新建注释');
+            const commentRegion = new CommentRegion();
+            commentRegion.setCoordinates($event.offsetX, $event.offsetY);
+            commentRegion.refresh();
+            this.addChild(commentRegion);
+            contextMenuHelper.close();
+          }
+        }, {
+          displayName: '新建文本',
+          callback: () => {
+            console.log('新建图表');
+            // var graphNode = new RegionText();
+            // graphNode.coordinates($event.offsetX, $event.offsetY);
+            // graphNode.refresh();
+            // this.addChild(graphNode);
+            // contextMenuHelper.close();
+          }
+        }, {
+          displayName: '剪切',
+          shortcut: 'Ctrl+X'
+        }, {
+          displayName: '删除',
+          shortcut: 'Backspace'
+        }, 'split',
+        {
+          displayName: '创建'
+        }
+      ], $event.pageX, $event.pageY, $event);
+      return false;
+    });
+
+
+    this._init();
+  }
+
 
   activateRegion(region: Region) {
     region.activate();
@@ -106,63 +165,6 @@ export class ReportCanvas implements INode {
   }
 
 
-  constructor() {
-    this.$element = this.$region = $(ReportTemplate);
-    this.$canvas = this.$element.find('.report-canvas');
-    this.$box = this.$element.find('.report-box');
-    this.$grid = this.$element.find('.report-grid');
-    this.$mask = this.$element.find('.u-edit-mask');
-    this.refresh();
-
-    this.$grid.contextmenu(($event: JQuery.Event) => {
-      contextMenuHelper.open([
-        {
-          displayName: '新建图表',
-          callback: () => {
-            console.log('新建图表');
-            const explicitRegion = new ExplicitRegion();
-            explicitRegion.setCoordinates($event.offsetX, $event.offsetY);
-            explicitRegion.refresh();
-            this.addChild(explicitRegion);
-            contextMenuHelper.close();
-          }
-        }, {
-          displayName: '新建注释',
-          callback: () => {
-            console.log('新建注释');
-            const commentRegion = new CommentRegion();
-            commentRegion.setCoordinates($event.offsetX, $event.offsetY);
-            commentRegion.refresh();
-            this.addChild(commentRegion);
-            contextMenuHelper.close();
-          }
-        }, {
-          displayName: '新建文本',
-          callback: () => {
-            console.log('新建图表');
-            // var graphNode = new RegionText();
-            // graphNode.coordinates($event.offsetX, $event.offsetY);
-            // graphNode.refresh();
-            // this.addChild(graphNode);
-            // contextMenuHelper.close();
-          }
-        }, {
-          displayName: '剪切',
-          shortcut: 'Ctrl+X'
-        }, {
-          displayName: '删除',
-          shortcut: 'Backspace'
-        }, 'split',
-        {
-          displayName: '创建'
-        }
-      ], $event.pageX, $event.pageY, $event);
-      return false;
-    });
-
-
-    this._init();
-  }
 
   private _init() {
     this.$grid.click(($event) => {

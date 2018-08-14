@@ -1,5 +1,5 @@
 import {INode} from '../interface';
-import {ReportCanvas} from '../canvas/report.canvas';
+import {ReportCanvas} from '../canvas/report/report.canvas';
 import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
 import {closestNum} from '../../../utils/common';

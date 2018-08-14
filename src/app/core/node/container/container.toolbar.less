@@ -1,0 +1,48 @@
+.chart-container {
+  .m-graphic-toolbar {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    z-index: 8;
+    &:before, &:after {
+      display: table;
+      content: "";
+      line-height: 0;
+    }
+    &:after {
+      clear: both;
+    }
+    ul.more {
+      float: left;
+      display: none;
+      li {
+        float: left;
+        width: 29px;
+        height: 28px;
+        line-height: 28px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        position: relative;
+        color: #8f8f8f;
+        background-color: rgba(255, 255, 255, 0.16);
+        &:hover {
+          background-color: rgba(195, 195, 195, 0.85);
+        }
+        .u-icn {
+          position: absolute;
+          font-size: 14px;
+          top: 6px;
+          left: 6px;
+        }
+      }
+    }
+  }
+  &:hover {
+    .m-graphic-toolbar {
+      ul.more {
+        display: block;
+      }
+    }
+  }
+}
+
