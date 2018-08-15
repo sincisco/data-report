@@ -53,7 +53,7 @@ export abstract class Container {
 
   setChart(options: any, index: number) {
 
-  };
+  }
 
   abstract set start(param: boolean);
 

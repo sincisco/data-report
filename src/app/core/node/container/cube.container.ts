@@ -58,7 +58,7 @@ export class Cube extends ContainerImmutable {
   }
 
 
-  private _map;
+  private _transformMap;
 
   private _compute(width) {
 
@@ -69,7 +69,7 @@ export class Cube extends ContainerImmutable {
     this._$top.css('transform', `rotateX(90deg) translateZ(${width / 2}px)`);
     this._$bottom.css('transform', `rotateX(-90deg) translateZ(${width / 2}px)`);
 
-    /* this._map = {
+    /* this._transformMap = {
          'show-front': `translateZ( -${y / 2}px) rotateY(0deg)`,
          'show-back': `translateZ( -${y / 2}px) rotateY(-180deg)`,
          'show-left': `translateZ(-${x / 2}px) rotateY(90deg)`,
@@ -77,7 +77,7 @@ export class Cube extends ContainerImmutable {
          'show-top': `translateZ(-${y / 2}px) rotateX(-90deg)`,
          'show-bottom': `translateZ(-${y / 2}px) rotateX(90deg)`
      }*/
-    this._map = {
+    this._transformMap = {
       'show-front': `translateZ( -${width / 2}px) rotateY(0deg)`,
       'show-back': `translateZ( -${width / 2}px) rotateY(-180deg)`,
       'show-left': `translateZ(-${width / 2}px) rotateY(90deg)`,
@@ -144,7 +144,7 @@ export class Cube extends ContainerImmutable {
 
   set effect(key: string) {
     this._effect = key;
-    this._$cube.css('transform', this._map[key]);
+    this._$cube.css('transform', this._transformMap[key]);
   }
 
   get effect() {

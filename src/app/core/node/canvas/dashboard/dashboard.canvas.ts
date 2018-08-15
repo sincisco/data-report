@@ -29,11 +29,11 @@ export class DashboardCanvas {
 
   root: Split;
   template = `
-<div class="m-dashRegion dragable" style="width: 1010px; height: 750px;">
-  <div class="m-canvas z-selected" style="width: 960px; height: 720px; background: transparent;">
+<div class="m-dashRegion dragable" style="width: 820px; height: 550px;">
+  <div class="m-canvas z-selected" style="width: 760px; height: 520px; background: transparent;">
     <div class="g-fill canvas-fill dropable">
       <div class="box" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 4px 0px; transform: translate(-50%, -50%); overflow: visible;">
-      <div class="grid canvas" style="width: 960px; height: 720px;">
+      <div class="grid canvas" style="width: 760px; height: 520px;">
       </div>
       </div>
     </div>

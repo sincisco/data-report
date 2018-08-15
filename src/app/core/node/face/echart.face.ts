@@ -2,6 +2,8 @@ import {Face} from '@core/node/face/face';
 import {GraphicConfig} from '../../../layout/sider/graphic.config/graphic.config';
 import {Type} from '@angular/core';
 
+import * as _ from 'lodash';
+
 export abstract class EchartFace {
   protected _echart: Echart;
 
@@ -14,13 +16,38 @@ export abstract class EchartFace {
 
   init(option: any) {
     if (this._echart) {
+      option = Object.assign(option, {
+        xAxis: {
+          axisLabel: {
+            color: '#fdfdfd'
+          }
+        },
+        textStyle: {
+          color: '#fdfdfd'
+        }
+      });
       this._echart.setOption(option);
     }
   }
 
   update(option: any) {
-    console.log(JSON.stringify(option));
     if (!this._echart.isDisposed()) {
+      option = _.defaultsDeep(option, {
+        grid: {
+          left: 10,
+          right: 10,
+          top: 30,
+          bottom: 30
+        },
+        xAxis: {
+          axisLabel: {
+            color: '#fdfdfd'
+          }
+        },
+        textStyle: {
+          color: '#fdfdfd'
+        }
+      });
       this._echart.setOption(option);
     }
   }

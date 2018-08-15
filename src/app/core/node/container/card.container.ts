@@ -1,7 +1,5 @@
-import {Face} from '@core/node/face/face';
 import {ContainerImmutable} from '@core/node/container/container.immutable.interface';
 import {FaceWrapper} from '@core/node/face/face.wrapper';
-// import {FaceEchart} from '@core/node/face/echart.face';
 
 const CARD_TEMPLATE = `
 <div class="chart-container">
@@ -27,12 +25,9 @@ export class Card extends ContainerImmutable {
   private _interval = 8000;
   private _intervalHandle;
 
-  private _map: Map<string, FaceWrapper> = new Map();
-
   constructor() {
     super(CARD_TEMPLATE);
-    const $element = this._$element,
-      $card = this._$card = $element.find('.card');
+    const $card = this._$card = this.$element.find('.card');
     this._$front = $card.find('.front');
     this._$back = $card.find('.back');
 
@@ -43,10 +38,8 @@ export class Card extends ContainerImmutable {
     this._$card.on('click', (event) => {
       this._$card.toggleClass('flipped');
     });
-    this._map.set('front', new FaceWrapper(this._$front[0]));
+    this._map.set('front', this._current = new FaceWrapper(this._$front[0]));
     this._map.set('back', new FaceWrapper(this._$back[0]));
-
-    this._current = this._map.get('front');
   }
 
 
@@ -132,6 +125,14 @@ export class Card extends ContainerImmutable {
       {
         displayName: '切换到正面',
         callback: () => {
+          this.switchTo(1);
+          console.log('切换到正面');
+        }
+      },
+      {
+        displayName: '切换到反面',
+        callback: () => {
+          this.switchTo(2);
           console.log('切换到正面');
         }
       }

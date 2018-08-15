@@ -19,96 +19,10 @@
     background-color: rgba(201, 201, 201, 0);
     z-index: 1000;
   }
-  .chart-settings-panel {
-    position: absolute;
-    display: none;
-    width: 100%;
-    height: 100%;
-    z-index: 1001;
-    background-color: rgba(201, 201, 201, 0.4);
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
-
-    overflow-x: hidden;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    &::-webkit-scrollbar {
-      height: @aside-scrollbar-width;
-      width: @aside-scrollbar-height;
-    }
-    &::-webkit-scrollbar-trac {
-      -webkit-box-shadow: inset 0 0 @aside-scrollbar-width rgba(0, 0, 0, 0.3);
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: @aside-scrollbar-thumb-color;
-    }
-    .face {
-      background-color: rgba(84, 84, 84, 0.83);
-      font-size: 24px;
-      color: #f2f2f2;
-      border-radius: 3px;
-      transition: box-shadow, color .3s ease-in-out;
-      width: 100px;
-      height: 100px;
-      margin: 20px;
-      &:hover {
-        cursor: pointer;
-        background-color: #2c2c2c;
-        color: #fff;
-        box-shadow: 0 0 5px #2b2c2c;
-      }
-      &:before {
-        content: attr(data-attr);
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      &.face-add:before {
-        font-size: 28px;
-        content: "\f067";
-      }
-
-    }
-    &.alterable{
-      .face-item{
-        &:after{
-          font: normal normal normal 14px/1 FontAwesome;
-          content: "\f00d";
-          font-size: 14px;
-          display: none;
-          width: 20px;
-          height: 20px;
-          line-height: 20px;
-          vertical-align: top;
-          text-align: center;
-          position: relative;
-          top: -20px;
-          left: 80px;
-        }
-        &:hover{
-          &:after{
-            display: inline-block;
-          }
-        }
-      }
-    }
-  }
   &.editing {
     .chart-settings-mask {
-      left: -3000px;
-      top: -3000px;
-      right: -3000px;
-      bottom: -3000px;
-      background-color: rgba(201, 201, 201, 0.99);
+      display: none;
     }
-    .chart-settings-panel {
-      display: flex;
-    }
-
   }
 
   figure {
@@ -124,41 +38,42 @@
     border-radius: 3px;
     background-color: rgba(255, 255, 255, 0.98);
     backface-visibility: hidden;
-    &:before{
-      content: "";
-      display: none;
-      position: relative;
-      margin: auto;
-      width: 100%;
-      height: 100%;
-      max-width: 400px;
-      //top: -10px;
-      background-image: url("../../../../assets/images/holder/holder-automatic.svg");
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: contain;
-    }
-    &:empty:before {
-      display: block;
-    }
-    &:nth-child(1):before{
-      background-image: url("../../../../assets/images/holder/holder-automatic.svg");
-    }
-    &:nth-child(2):before{
-      background-image: url("../../../../assets/images/holder/holder-funnel.svg");
-    }
-    &:nth-child(3):before{
-      background-image: url("../../../../assets/images/holder/holder-meter.svg");
-    }
-    &:nth-child(4):before{
-      background-image: url("../../../../assets/images/holder/holder-radar.svg");
-    }
-    &:nth-child(5):before{
-      background-image: url("../../../../assets/images/holder/holder-sankey.svg");
-    }
-    &:nth-child(6):before{
-       background-image: url("../../../../assets/images/holder/holder-table.svg");
-     }
+    //&:before{
+    //  content: "";
+    //  display: none;
+    //  position: relative;
+    //  margin: auto;
+    //  width: 100%;
+    //  height: 100%;
+    //  max-width: 400px;
+    //  //top: -10px;
+    //  background-image: url("../../../../assets/images/holder/holder-automatic.svg");
+    //  background-repeat: no-repeat;
+    //  background-position: center;
+    //  background-size: contain;
+    //  backface-visibility: hidden;
+    //}
+    //&:empty:before {
+    //  display: block;
+    //}
+    //&:nth-child(1):before{
+    //  background-image: url("../../../../assets/images/holder/holder-automatic.svg");
+    //}
+    //&:nth-child(2):before{
+    //  background-image: url("../../../../assets/images/holder/holder-funnel.svg");
+    //}
+    //&:nth-child(3):before{
+    //  background-image: url("../../../../assets/images/holder/holder-meter.svg");
+    //}
+    //&:nth-child(4):before{
+    //  background-image: url("../../../../assets/images/holder/holder-radar.svg");
+    //}
+    //&:nth-child(5):before{
+    //  background-image: url("../../../../assets/images/holder/holder-sankey.svg");
+    //}
+    //&:nth-child(6):before{
+    //   background-image: url("../../../../assets/images/holder/holder-table.svg");
+    // }
   }
 }
 

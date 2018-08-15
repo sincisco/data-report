@@ -33,6 +33,9 @@ export class FaceWrapper {
   }
 
   activate() {
+    if (!this._face) {
+      return;
+    }
     if (!this._configComponentRef) {
       this._configComponentRef = siderLeftComponent.createGraphicConfig(this._face.configClass);
       this._configComponentRef.instance.face = this;
