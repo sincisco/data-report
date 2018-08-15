@@ -14,6 +14,7 @@ export interface ChartBarOption {
   xAxis?: Axis;
   yAxis?: Axis;
   series?: Array<BarSeriesConfig>;
+  color?: Array<string>;
 }
 
 

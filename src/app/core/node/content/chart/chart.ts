@@ -24,6 +24,7 @@ export abstract class Chart implements IContent {
   update(option: any) {
     console.log(JSON.stringify(option));
     if (!this._echart.isDisposed()) {
+      this._echart.clear();
       this._echart.setOption(option);
     }
   }

@@ -16,6 +16,7 @@ import {SeriesConfigComponent} from './series.config.component';
 import {HorizontalPositionDirective, VerticalPositionDirective} from './title.config.validator';
 import {ControlMonitorDirective} from '../../directives/control.monitor.directive';
 import {ControlDividerComponent} from '../common/control.divider.component';
+import {ColorConfigComponent} from './color.config.component';
 
 
 const COMPONENTS = [
@@ -24,7 +25,8 @@ const COMPONENTS = [
   BarSeriesConfigComponent,
   TitleConfigComponent,
   GridConfigComponent,
-  SeriesConfigComponent
+  SeriesConfigComponent,
+  ColorConfigComponent
 ];
 
 const DIRECTIVES = [
