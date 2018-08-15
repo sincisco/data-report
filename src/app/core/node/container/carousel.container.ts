@@ -1,5 +1,5 @@
 import {ContainerAlterable} from '@core/node/container/container.alterable.interface';
-import {FaceEchart} from '@core/node/face/echart.face';
+// import {FaceEchart} from '@core/node/face/echart.face';
 
 const CAROUSEL_ROTATE_TEMPLATE = `
 <div class="chart-container">
@@ -101,7 +101,7 @@ export class CarouselRotate extends ContainerAlterable {
 
   public setChart(options: any, index: number) {
     if (!this.getFace(index)) {
-      this.setFace(index, new FaceEchart(this._$carousel.find('figure').eq(index - 1)[0], options));
+      // this.setFace(index, new FaceEchart(this._$carousel.find('figure').eq(index - 1)[0], options));
     }
     this.getFace(index).select();
   }

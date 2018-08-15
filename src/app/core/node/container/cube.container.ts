@@ -1,6 +1,6 @@
 import {ContainerImmutable} from '@core/node/container/container.immutable.interface';
 import {Face} from '@core/node/face/face';
-import {FaceEchart} from '@core/node/face/echart.face';
+// import {FaceEchart} from '@core/node/face/echart.face';
 
 const CUBE_TEMPLATE = `
 <div class="chart-container">
@@ -161,39 +161,39 @@ export class Cube extends ContainerImmutable {
   public setChart(options: any, index: number) {
     if (index === 1) {
       if (!this._frontFace) {
-        this._frontFace = new FaceEchart(this._$front[0], options);
+        // this._frontFace = new FaceEchart(this._$front[0], options);
       }
       this.effect = 'show-front';
       this._frontFace.select();
 
     } else if (index === 2) {
       if (!this._backFace) {
-        this._backFace = new FaceEchart(this._$back[0], options);
+        // this._backFace = new FaceEchart(this._$back[0], options);
       }
       this.effect = 'show-back';
       this._backFace.select();
 
     } else if (index === 3) {
       if (!this._leftFace) {
-        this._leftFace = new FaceEchart(this._$left[0], options);
+        // this._leftFace = new FaceEchart(this._$left[0], options);
       }
       this.effect = 'show-left';
       this._leftFace.select();
     } else if (index === 4) {
       if (!this._rightFace) {
-        this._rightFace = new FaceEchart(this._$right[0], options);
+        // this._rightFace = new FaceEchart(this._$right[0], options);
       }
       this.effect = 'show-right';
       this._rightFace.select();
     } else if (index === 5) {
       if (!this._topFace) {
-        this._topFace = new FaceEchart(this._$top[0], options);
+        // this._topFace = new FaceEchart(this._$top[0], options);
       }
       this.effect = 'show-top';
       this._topFace.select();
     } else {
       if (!this._bottomFace) {
-        this._bottomFace = new FaceEchart(this._$bottom[0], options);
+        // this._bottomFace = new FaceEchart(this._$bottom[0], options);
       }
       this.effect = 'show-bottom';
       this._bottomFace.select();

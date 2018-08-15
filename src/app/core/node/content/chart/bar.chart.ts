@@ -19,6 +19,7 @@ export interface ChartBarOption {
 
 export class BarChart extends Chart {
 
+  static config = BarConfigComponent;
 
   configClass = BarConfigComponent;
 

@@ -1,36 +1,13 @@
-class GlobalSession {
-  private _activatedFace: Face;
-  private _$tabContent: JQuery;
+export interface Face {
+  select();
 
-  constructor() {
-  }
+  resize();
 
-  set activated(value: Face) {
-    this._activatedFace = value;
-  }
+  refresh(param1?: boolean);
 
-  get activated() {
-    return this._activatedFace;
-  }
+  render(): string;
 
-  get $formContainer() {
-    return this._$tabContent;
-  }
-
-}
-
-export const globalSession = new GlobalSession();
-
-export abstract class Face {
-  abstract select();
-
-  abstract resize();
-
-  abstract refresh(param1?: boolean);
-
-  abstract render(): string;
-
-  abstract destroy();
+  destroy();
 }
 
 

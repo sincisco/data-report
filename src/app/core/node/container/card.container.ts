@@ -1,6 +1,7 @@
 import {Face} from '@core/node/face/face';
 import {ContainerImmutable} from '@core/node/container/container.immutable.interface';
-import {FaceEchart} from '@core/node/face/echart.face';
+import {FaceWrapper} from '@core/node/face/face.wrapper';
+// import {FaceEchart} from '@core/node/face/echart.face';
 
 const CARD_TEMPLATE = `
 <div class="chart-container">
@@ -23,11 +24,10 @@ export class Card extends ContainerImmutable {
   private readonly _$front: JQuery;
   private readonly _$back: JQuery;
 
-  private _frontFace: Face;
-  private _backFace: Face;
-
   private _interval = 8000;
   private _intervalHandle;
+
+  private _map: Map<string, FaceWrapper> = new Map();
 
   constructor() {
     super(CARD_TEMPLATE);
@@ -43,6 +43,10 @@ export class Card extends ContainerImmutable {
     this._$card.on('click', (event) => {
       this._$card.toggleClass('flipped');
     });
+    this._map.set('front', new FaceWrapper(this._$front[0]));
+    this._map.set('back', new FaceWrapper(this._$back[0]));
+
+    this._current = this._map.get('front');
   }
 
 
@@ -85,46 +89,41 @@ export class Card extends ContainerImmutable {
     }
   }
 
-  public setChart(options: any, index: number) {
+  public switchTo(index: number) {
     if (index === 1) {
-      if (!this._frontFace) {
-        this._frontFace = new FaceEchart(this._$front[0], options);
-        this._$front.removeClass('no-chart');
-      }
+      this._current = this._map.get('front');
       this._$card.removeClass('flipped');
-      this._frontFace.select();
     } else {
-      if (!this._backFace) {
-        this._backFace = new FaceEchart(this._$back[0], options);
-        this._$back.removeClass('no-chart');
-      }
+      this._current = this._map.get('back');
       this._$card.addClass('flipped');
-      this._backFace.select();
     }
+    this._current.activate();
   }
 
 
   public resize() {
-    this._frontFace && this._frontFace.resize();
-    this._backFace && this._backFace.resize();
+    this._map.forEach((value, key, map) => {
+      value.resize();
+    });
   }
 
   public destroy() {
-    this._frontFace && this._frontFace.destroy();
-    this._backFace && this._backFace.destroy();
+    this._map.forEach((value, key, map) => {
+      value.destroy();
+    });
   }
 
   public render() {
-    return `
-            <card-flip>
-                <div style="width:100%;height:100%;" front>
-                    ${this._frontFace ? this._frontFace.render() : ''}
-                </div>
-                <div style="width:100%;height:100%;" back>
-                    ${this._backFace ? this._backFace.render() : ''}
-                </div>
-            </card-flip>
-        `;
+    // return `
+    //         <card-flip>
+    //             <div style="width:100%;height:100%;" front>
+    //                 ${this._frontFace ? this._frontFace.render() : ''}
+    //             </div>
+    //             <div style="width:100%;height:100%;" back>
+    //                 ${this._backFace ? this._backFace.render() : ''}
+    //             </div>
+    //         </card-flip>
+    //     `;
   }
 
 

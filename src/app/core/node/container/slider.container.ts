@@ -1,5 +1,5 @@
 import {Container} from '@core/node/container/container.interface';
-import {FaceEchart} from '@core/node/face/echart.face';
+// import {FaceEchart} from '@core/node/face/echart.face';
 import {Face} from '@core/node/face/face';
 
 const CONTAINER_SLIDER_TEMPLATE = `
@@ -44,7 +44,7 @@ class SliderContainer extends Container {
 
   public setChart(options: any, index: number) {
     if (!this._face) {
-      this._face = new FaceEchart(this._$figure[0], options);
+      // this._face = new FaceEchart(this._$figure[0], options);
       this._$figure.removeClass('no-chart');
     }
     this._face.select();

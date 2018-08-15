@@ -125,6 +125,11 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
           value.dataset = datasetManager.current;
           this.graphic.update(value);
         }
+
+        if (this.face) {
+          value.dataset = datasetManager.current;
+          this.face.update(value);
+        }
         if (changes) {
           console.log('BarConfigComponent  has change');
         }

@@ -1,5 +1,5 @@
 import {ContainerAlterable} from '@core/node/container/container.alterable.interface';
-import {FaceEchart} from '@core/node/face/echart.face';
+// import {FaceEchart} from '@core/node/face/echart.face';
 import {Face} from '@core/node/face/face';
 
 const SLIDER_SIMPLE_TEMPLATE = `
@@ -46,7 +46,7 @@ class SliderSimpleContainer extends ContainerAlterable {
 
     setChart(options: any, index: number) {
         if (!this.getFace(index)) {
-            this.setFace(index, new FaceEchart(this._$slider.find('figure').eq(index - 1)[0], options))
+            // this.setFace(index, new FaceEchart(this._$slider.find('figure').eq(index - 1)[0], options))
         }
         this.getFace(index).select();
     }

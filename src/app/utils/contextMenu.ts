@@ -118,6 +118,29 @@ class ContextMenu {
 
   }
 
+  openWithEvent(array: Array<ContextMenuItem | string>, $event: JQuery.Event | MouseEvent) {
+    this.$menu = $(getTemplate(array));
+    this.$menu.css({
+      left: `${$event.pageX}px`,
+      top: `${$event.pageY}px`
+    });
+    this.$menu.on('click', 'li.z-clickable', ($itemEvent) => {
+      console.log($itemEvent.currentTarget.dataset.callbackNo);
+      const callbackNo = $itemEvent.currentTarget.dataset.callbackNo;
+      if (callbackNo === 'undefined') {
+        return false;
+      }
+      visit(array, (item) => {
+        if (typeof item !== 'string' && item._callbackNo === callbackNo) {
+          item.callback($event);
+        }
+      });
+      return false;
+    });
+    $('body').append(this.$mask).append(this.$menu);
+
+  }
+
   close(callback?: Function) {
     if (callback) {
       callback();
