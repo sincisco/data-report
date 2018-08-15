@@ -1,11 +1,31 @@
 <div nz-row nzType="flex" ngForm>
-  <div nz-col class="flex-start" [nzSpan]="12">
-    <span>坐标系网格</span>
+  <div nz-col style="margin-bottom: 8px;line-height: 28px" [nzSpan]="12">
+    <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.show">显示网格</label>
   </div>
-  <div nz-col class="flex-end" [nzSpan]="12">
-    <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.show">显示</label>
+  <div nz-col style="margin-bottom: 8px;line-height: 28px" [nzSpan]="12">
+    <label nz-checkbox name="containLabel" nzSize="small" [(ngModel)]="option.containLabel">包含标签</label>
   </div>
-  <div nz-col [nzSpan]="12" class="padding-right">
+  <div nz-col [nzSpan]="6" style="margin-bottom: 8px;line-height: 28px;" class="padding-left">
+    width:
+  </div>
+  <div nz-col [nzSpan]="6" style="margin-bottom: 8px;" class="padding-right">
+    <input nz-input
+           placeholder="auto"
+           name="width"
+           [(ngModel)]="option.width"
+           nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="6" style="margin-bottom: 8px;line-height: 28px;" class="padding-left">
+    height:
+  </div>
+  <div nz-col [nzSpan]="6" style="margin-bottom: 8px;" class="padding-right">
+    <input nz-input
+           placeholder="auto"
+           name="height"
+           [(ngModel)]="option.height"
+           nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="12" style="margin-bottom: 8px;" class="padding-right">
     <input nz-input
            placeholder="left"
            name="left"
@@ -13,7 +33,7 @@
            nzTitle="left:{{option.left}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
   </div>
-  <div nz-col [nzSpan]="12" class="padding-left">
+  <div nz-col [nzSpan]="12" style="margin-bottom: 8px;" class="padding-left">
     <input nz-input
            placeholder="top"
            name="top"
@@ -21,7 +41,7 @@
            nzTitle="top:{{option.top}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
   </div>
-  <div nz-col [nzSpan]="12" class="padding-right">
+  <div nz-col [nzSpan]="12" style="margin-bottom: 8px;" class="padding-right">
     <input nz-input
            placeholder="right"
            name="right"
@@ -29,7 +49,7 @@
            nzTitle="right:{{option.right}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
   </div>
-  <div nz-col [nzSpan]="12" class="padding-left">
+  <div nz-col [nzSpan]="12" style="margin-bottom: 8px;" class="padding-left">
     <input nz-input
            placeholder="bottom"
            name="bottom"
@@ -37,34 +57,61 @@
            nzTitle="bottom:{{option.bottom}}" nzPlacement="topCenter" nz-tooltip
            nzSize="small">
   </div>
-  <div nz-col [nzSpan]="8">
-    背景
-  </div>
-  <div nz-col [nzSpan]="4">
-    <div name="backgroundColor"
-         style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
+  <div nz-col [nzSpan]="12" style="vertical-align: middle;line-height: 28px;margin-bottom: 8px;">背景</div>
+  <div nz-col [nzSpan]="12" style="padding: 0 2px;margin-bottom: 8px;">
+    <div name="backgroundColor" class="u-color-block"
          colorPicker [(ngModel)]="option.backgroundColor"
          [cpOutputFormat]="'rgba'"
          [cpOKButton]="true"
          cpOKButtonClass="ant-btn ant-btn-default"
-         [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-         [style.background]="option.backgroundColor">
-
+         [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
+      <div class="color-area" style="border: 1px solid rgb(204, 204, 204);height: 22px;">
+        <div style="width: 100%;height: 100%;z-index: 2;position: absolute;"
+             [style.background]="option.backgroundColor"></div>
+      </div>
     </div>
   </div>
-  <div nz-col [nzSpan]="8">
-    边框
-  </div>
-  <div nz-col [nzSpan]="4">
-    <div name="borderColor"
-         style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
+  <div nz-col [nzSpan]="6" style="vertical-align: middle;line-height: 28px">边框</div>
+  <div nz-col [nzSpan]="6" style="padding: 0 2px;">
+    <div name="borderColor" class="u-color-block"
          colorPicker [(ngModel)]="option.borderColor"
          [cpOutputFormat]="'rgba'"
          [cpOKButton]="true"
          cpOKButtonClass="ant-btn ant-btn-default"
-         [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-         [style.background]="option.borderColor">
-
+         [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
+      <div class="color-area" style="border: 1px solid rgb(204, 204, 204);height: 22px;">
+        <div style="width: 100%;height: 100%;z-index: 2;position: absolute;"
+             [style.background]="option.borderColor"></div>
+      </div>
     </div>
+  </div>
+  <div nz-col [nzSpan]="12" style="padding: 0 2px;">
+    <nz-select nzSize="small" name="borderWidth" style="width: 100%;" nzAllowClear nzPlaceHolder="边框宽度"
+               [(ngModel)]="option.borderWidth">
+      <nz-option nzCustomContent nzLabel="0" nzValue="0">
+        0
+        <i class="u-icn u-lwsicn-0" style="margin-left: 5px; margin-right: 0px;"></i>
+      </nz-option>
+      <nz-option nzCustomContent nzLabel="1" nzValue="1">
+        1
+        <i class="u-icn u-lwsicn-1" style="margin-left: 5px; margin-right: 0px;"></i>
+      </nz-option>
+      <nz-option nzCustomContent nzLabel="2" nzValue="2">
+        2
+        <i class="u-icn u-lwsicn-2" style="margin-left: 5px; margin-right: 0px;"></i>
+      </nz-option>
+      <nz-option nzCustomContent nzLabel="3" nzValue="3">
+        3
+        <i class="u-icn u-lwsicn-3" style="margin-left: 5px; margin-right: 0px;"></i>
+      </nz-option>
+      <nz-option nzCustomContent nzLabel="4" nzValue="4">
+        4
+        <i class="u-icn u-lwsicn-4" style="margin-left: 5px; margin-right: 0px;"></i>
+      </nz-option>
+      <nz-option nzCustomContent nzLabel="5" nzValue="5">
+        5
+        <i class="u-icn u-lwsicn-5" style="margin-left: 5px; margin-right: 0px;"></i>
+      </nz-option>
+    </nz-select>
   </div>
 </div>

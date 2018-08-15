@@ -97,11 +97,6 @@ export class SiderLeftComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     siderLeftComponent = this;
-
-    var card = document.querySelector('.card');
-    card.addEventListener( 'click', function() {
-      card.classList.toggle('is-flipped');
-    });
   }
 
 }

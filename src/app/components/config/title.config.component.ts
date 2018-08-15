@@ -28,7 +28,38 @@ export class TitleConfigComponent extends CustomControlValueAccessor implements 
 
   @ViewChild(NgForm) ngForm: NgForm;
 
-  option: Title = {};
+  option: Title = {
+    textStyle: {}
+  };
+
+  textState = false;
+  subtextState = false;
+
+  fontSizeArray = [10, 12, 14, 16, 18, 20, 24, 32, 40];
+
+  fontStyleArray = ['normal', 'italic', 'oblique'];
+
+  fontWeightArray = ['normal',
+    'bold',
+    'bolder',
+    'lighter',
+    100, 200, 300, 400, 500, 600, 800];
+
+  fontFamilyArray = [
+    ['serif', 'serif'],
+    ['Courier New', 'Courier New'],
+    ['楷体', 'KaiTi'],
+    ['黑体', 'SimHei'],
+    ['宋体', 'SimSun'],
+    ['微软雅黑', 'Microsoft YaHei'],
+    ['华文细黑', 'STXihei'],
+    ['华文楷体', 'STKaiti'],
+    ['华文宋体', 'STSong'],
+    ['华文彩云', 'STCaiyun'],
+    ['华文琥珀', 'STHupo'],
+    ['华文隶书', 'STLiti'],
+    ['华文行楷', 'STXingkai']
+  ];
 
   constructor() {
     super();

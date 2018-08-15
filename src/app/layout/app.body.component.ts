@@ -14,11 +14,12 @@ export class AppBodyComponent implements AfterViewInit {
   report;
 
   ngAfterViewInit() {
-    // var report = this.report = new ReportCanvas();
-    // report.addChild(new ExplicitRegion());
-    // $('.app-content').prepend(report.$element);
-    const dashboardCanvas = new DashboardCanvas();
-    $('.app-content').prepend(dashboardCanvas.$element);
+    var report = this.report = new ReportCanvas();
+    report.addChild(new ExplicitRegion());
+    $('.app-content').prepend(report.$element);
+
+    // const dashboardCanvas = new DashboardCanvas();
+    // $('.app-content').prepend(dashboardCanvas.$element);
     return;
   }
 

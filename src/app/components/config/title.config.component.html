@@ -1,119 +1,209 @@
-<div nz-row nzType="flex" ngForm>
-  <div nz-col class="flex-start" [nzSpan]="12">
-    <span>标题文字</span>
-  </div>
-  <div nz-col class="flex-end" [nzSpan]="12">
-    <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.show">显示</label>
-  </div>
-  <div nz-col [nzSpan]="24">
-    <input nz-input placeholder="坐标轴名称" name="text" [(ngModel)]="option.text" nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="12" class="padding-right" appControlMonitor>
-    <input nz-input
-           placeholder="left" appHorizontalPosition
-           name="left"
-           [(ngModel)]="option.left"
-           nzTitle="left:{{option.left}}" nzPlacement="topCenter" nz-tooltip
-           nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="12" class="padding-left" appControlMonitor>
-    <input nz-input appVerticalPosition
-           placeholder="top"
-           name="top"
-           [(ngModel)]="option.top"
-           nzTitle="top:{{option.top}}" nzPlacement="topCenter" nz-tooltip
-           nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="12" class="padding-right" appControlMonitor>
-    <input nz-input appHorizontalPosition
-           placeholder="right"
-           name="right"
-           [(ngModel)]="option.right"
-           nzTitle="right:{{option.right}}" nzPlacement="topCenter" nz-tooltip
-           nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="12" class="padding-left" appControlMonitor>
-    <input nz-input appVerticalPosition
-           placeholder="bottom"
-           name="bottom"
-           [(ngModel)]="option.bottom"
-           nzTitle="bottom:{{option.bottom}}" nzPlacement="topCenter" nz-tooltip
-           nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="24">
-    <input nz-input placeholder="标题文本" nzSize="small">
-  </div>
-  <div nz-col [nzSpan]="24">
-    <nz-switch nzSize="small"></nz-switch>
-  </div>
-  <div nz-col [nzSpan]="24" ngModelGroup="textStyle">
-    <div nz-row class="back-white" nzType="flex">
-      <div nz-col class="flex-start" [nzSpan]="8">
-        <span>align</span>
-      </div>
-      <div nz-col class="flex-end" [nzSpan]="16">
-        <nz-radio-group [nzSize]="'small'" name="align" [(ngModel)]="option?.textStyle.align">
-          <label nz-radio-button nzValue="left"><i class="u-icn u-icn-align-left"></i></label>
-          <label nz-radio-button nzValue="center"><i class="u-icn u-icn-align-center"></i></label>
-          <label nz-radio-button nzValue="right"><i class="u-icn u-icn-align-right"></i></label>
-        </nz-radio-group>
-      </div>
-      <div nz-col [nzSpan]="24">
-        <nz-input-number name="width" nzSize="small" [(ngModel)]="option?.textStyle.width" [nzMin]="1" [nzMax]="500"
-                         [nzStep]="5"></nz-input-number>
-      </div>
+<div ngForm>
+  <div nz-row nzType="flex">
+    <div nz-col class="flex-start" [nzSpan]="12">
+      <span>标题文字</span>
     </div>
-  </div>
-  <div nz-col [nzSpan]="24"
-       name="backgroundColor"
-       colorPicker [(ngModel)]="option.backgroundColor"
-       [cpOutputFormat]="'rgba'"
-       [cpOKButton]="true"
-       cpOKButtonClass="ant-btn ant-btn-default"
-       [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-       style="height:28px;padding: 2px;border-radius: 2px;border: 1px solid #ccc;background-color: #fff;">
-    <span>背景色</span>
-    <div
-      style="width: 24px;height: 24px;border-radius: 3px; float: right;"
-      [style.background]="option.backgroundColor">
+    <div nz-col class="flex-end" [nzSpan]="12">
+      <label nz-checkbox name="show" nzSize="small" [(ngModel)]="option.show">显示</label>
     </div>
-  </div>
-  <div nz-col [nzSpan]="24">
-    <div nz-row class="multi-item-row" nzGutter="8">
-      <div nz-col [nzSpan]="8">
-        背景色
-      </div>
-      <div nz-col [nzSpan]="4">
-
-      </div>
-      <div nz-col [nzSpan]="12">
-        <nz-select nzTitle="字体" nzPlacement="topCenter" nz-tooltip style="width: 100%" nzShowSearch nzAllowClear
-                   nzPlaceHolder="字体" nzSize="small">
-          <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-          <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-          <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
-        </nz-select>
-      </div>
-      <div nz-col [nzSpan]="8">
-        borderColor
-      </div>
-      <div nz-col [nzSpan]="4">
-        <div name="borderColor"
-             style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
-             colorPicker [(ngModel)]="option.borderColor"
-             [cpOutputFormat]="'rgba'"
-             [cpOKButton]="true"
-             cpOKButtonClass="ant-btn ant-btn-default"
-             [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']"
-             [style.background]="option.borderColor">
-
+    <div nz-col [nzSpan]="24">
+      <input nz-input placeholder="主标题文本" name="text" [(ngModel)]="option.text" nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="12">
+      <span class="item-title">标题间距:</span>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <nz-input-number name="itemGap" [(ngModel)]="option.itemGap" [nzMin]="0" [nzMax]="100" [nzStep]="1"
+                       nzSize="small"></nz-input-number>
+    </div>
+    <div nz-col [nzSpan]="24">
+      <input nz-input placeholder="副标题文本" name="subtext" [(ngModel)]="option.subtext" nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="12" class="padding-right" appControlMonitor>
+      <input nz-input
+             placeholder="left" appHorizontalPosition
+             name="left"
+             [(ngModel)]="option.left"
+             nzTitle="left:{{option.left}}" nzPlacement="topCenter" nz-tooltip
+             nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="12" class="padding-left" appControlMonitor>
+      <input nz-input appVerticalPosition
+             placeholder="top"
+             name="top"
+             [(ngModel)]="option.top"
+             nzTitle="top:{{option.top}}" nzPlacement="topCenter" nz-tooltip
+             nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="12" class="padding-right" appControlMonitor>
+      <input nz-input appHorizontalPosition
+             placeholder="right"
+             name="right"
+             [(ngModel)]="option.right"
+             nzTitle="right:{{option.right}}" nzPlacement="topCenter" nz-tooltip
+             nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="12" class="padding-left" appControlMonitor>
+      <input nz-input appVerticalPosition
+             placeholder="bottom"
+             name="bottom"
+             [(ngModel)]="option.bottom"
+             nzTitle="bottom:{{option.bottom}}" nzPlacement="topCenter" nz-tooltip
+             nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="12" style="vertical-align: middle;line-height: 28px;margin-bottom: 8px;">背景色</div>
+    <div nz-col [nzSpan]="12" style="padding: 0 2px;margin-bottom: 8px;">
+      <div name="backgroundColor" class="u-color-block"
+           colorPicker [(ngModel)]="option.backgroundColor"
+           [cpOutputFormat]="'rgba'"
+           [cpOKButton]="true"
+           cpOKButtonClass="ant-btn ant-btn-default"
+           [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
+        <div class="color-area" style="border: 1px solid rgb(204, 204, 204);height: 22px;">
+          <div style="width: 100%;height: 100%;z-index: 2;position: absolute;"
+               [style.background]="option.backgroundColor"></div>
         </div>
       </div>
-      <div nz-col [nzSpan]="12">
-        <nz-input-number name="borderWidth" nzSize="small" [(ngModel)]="option.borderWidth" [nzMin]="1" [nzMax]="20"
-                         [nzStep]="1"></nz-input-number>
+    </div>
+    <div nz-col [nzSpan]="6" style="vertical-align: middle;line-height: 28px">边框</div>
+    <div nz-col [nzSpan]="6" style="padding: 0 2px;">
+      <div name="borderColor" class="u-color-block"
+           colorPicker [(ngModel)]="option.borderColor"
+           [cpOutputFormat]="'rgba'"
+           [cpOKButton]="true"
+           cpOKButtonClass="ant-btn ant-btn-default"
+           [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
+        <div class="color-area" style="border: 1px solid rgb(204, 204, 204);height: 22px;">
+          <div style="width: 100%;height: 100%;z-index: 2;position: absolute;"
+               [style.background]="option.borderColor"></div>
+        </div>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="12" style="padding: 0 2px;">
+      <nz-select nzSize="small" name="borderWidth" style="width: 100%;" nzAllowClear nzPlaceHolder="边框宽度"
+                 [(ngModel)]="option.borderWidth">
+        <nz-option nzCustomContent nzLabel="0" nzValue="0">
+          0
+          <i class="u-icn u-lwsicn-0" style="margin-left: 5px; margin-right: 0px;"></i>
+        </nz-option>
+        <nz-option nzCustomContent nzLabel="1" nzValue="1">
+          1
+          <i class="u-icn u-lwsicn-1" style="margin-left: 5px; margin-right: 0px;"></i>
+        </nz-option>
+        <nz-option nzCustomContent nzLabel="2" nzValue="2">
+          2
+          <i class="u-icn u-lwsicn-2" style="margin-left: 5px; margin-right: 0px;"></i>
+        </nz-option>
+        <nz-option nzCustomContent nzLabel="3" nzValue="3">
+          3
+          <i class="u-icn u-lwsicn-3" style="margin-left: 5px; margin-right: 0px;"></i>
+        </nz-option>
+        <nz-option nzCustomContent nzLabel="4" nzValue="4">
+          4
+          <i class="u-icn u-lwsicn-4" style="margin-left: 5px; margin-right: 0px;"></i>
+        </nz-option>
+        <nz-option nzCustomContent nzLabel="5" nzValue="5">
+          5
+          <i class="u-icn u-lwsicn-5" style="margin-left: 5px; margin-right: 0px;"></i>
+        </nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="12" style="vertical-align: middle;line-height: 28px;">圆角</div>
+    <div nz-col [nzSpan]="12" style="padding: 0 2px;">
+      <nz-input-number name="borderRadius" nzSize="small" style="width: 100%;"
+                       [(ngModel)]="option.borderRadius" [nzMin]="0" [nzMax]="3000"
+                       [nzStep]="1"></nz-input-number>
+    </div>
+  </div>
+  <app-control-divider title="主标题样式" [(state)]="textState"></app-control-divider>
+  <div nz-row nzType="flex" [class.form-collapse]="!textState" ngModelGroup="textStyle">
+    <div nz-col [nzSpan]="6" style="line-height: 28px;" class="padding-left">
+      width:
+    </div>
+    <div nz-col [nzSpan]="6" class="padding-right">
+      <input nz-input
+             placeholder="auto"
+             name="width"
+             [(ngModel)]="option.textStyle.width"
+             nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="6" style="line-height: 28px;" class="padding-left">
+      height:
+    </div>
+    <div nz-col [nzSpan]="6" class="padding-right">
+      <input nz-input
+             placeholder="auto"
+             name="height"
+             [(ngModel)]="option.textStyle.height"
+             nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="4" style="padding: 0 2px;">
+      <div name="color" class="u-color-block"
+           colorPicker [(ngModel)]="option.textStyle.color"
+           [cpOutputFormat]="'rgba'"
+           [cpOKButton]="true"
+           cpOKButtonClass="ant-btn ant-btn-default"
+           [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
+        <div class="color-area" style="border: 1px solid rgb(204, 204, 204);height: 22px;">
+          <div style="width: 100%;height: 100%;z-index: 2;position: absolute;"
+               [style.background]="option.textStyle.color"></div>
+        </div>
+      </div>
+    </div>
+    <div nz-col [nzSpan]="10" style="padding: 0 2px;">
+      <nz-select style="width: 100%;" name="fontSize" [(ngModel)]="option.textStyle.fontSize" nzSize="small" nzAllowClear
+                 nzPlaceHolder="字号">
+        <nz-option *ngFor="let item of fontSizeArray" nzCustomContent
+                   [nzValue]="item" [nzLabel]="item"><span [style.fontSize]="item+'px'">{{item}}</span></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="10" style="padding: 0 2px;">
+      <nz-select style="width: 100%;" name="fontFamily" [(ngModel)]="option.textStyle.fontFamily" nzSize="small" nzAllowClear
+                 nzPlaceHolder="字体">
+        <nz-option *ngFor="let item of fontFamilyArray" nzCustomContent
+                   [nzValue]="item[1]" [nzLabel]="item[0]"><span [style.fontFamily]="item[1]">{{item[0]}}</span></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="8" class="padding-right">
+      <input nz-input
+             placeholder="auto"
+             name="lineHeight"
+             [(ngModel)]="option.textStyle.lineHeight" nzTitle="line-height:{{option.textStyle.lineHeight}}" nzPlacement="topCenter" nz-tooltip
+             nzSize="small">
+    </div>
+    <div nz-col [nzSpan]="8" style="padding: 0 2px;">
+      <nz-select style="width: 100%;" name="fontStyle" [(ngModel)]="option.textStyle.fontStyle" nzSize="small" nzAllowClear
+                 nzPlaceHolder="风格">
+        <nz-option *ngFor="let item of fontStyleArray" nzCustomContent
+                   [nzValue]="item" [nzLabel]="item"><span [style.fontStyle]="item">{{item}}</span></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="8" style="padding: 0 2px;">
+      <nz-select style="width: 100%;" name="fontWeight" [(ngModel)]="option.textStyle.fontWeight" nzSize="small" nzAllowClear
+                 nzPlaceHolder="粗细">
+        <nz-option *ngFor="let item of fontWeightArray" nzCustomContent
+                   [nzValue]="item" [nzLabel]="item"><span [style.fontWeight]="item">{{item}}</span></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col [nzSpan]="24" >
+      <div nz-row class="back-white" nzType="flex">
+        <div nz-col class="flex-start" [nzSpan]="8">
+          <span>align</span>
+        </div>
+        <div nz-col class="flex-end" [nzSpan]="16">
+          <nz-radio-group [nzSize]="'small'" name="align" [(ngModel)]="option?.textStyle.align">
+            <label nz-radio-button nzValue="left"><i class="u-icn u-icn-align-left"></i></label>
+            <label nz-radio-button nzValue="center"><i class="u-icn u-icn-align-center"></i></label>
+            <label nz-radio-button nzValue="right"><i class="u-icn u-icn-align-right"></i></label>
+          </nz-radio-group>
+        </div>
       </div>
     </div>
   </div>
+  <app-control-divider title="副标题样式" [(state)]="subtextState"></app-control-divider>
+  <div nz-row nzType="flex" [class.form-collapse]="!subtextState"></div>
 </div>
+
+
+
 
