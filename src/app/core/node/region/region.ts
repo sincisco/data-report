@@ -67,6 +67,8 @@ export abstract class Region implements INode {
   }
 
   deactivate() {
+    console.log(this._graphic);
+    (<any>this._graphic).deactivate();
     this._regionState = RegionState.default;
   }
 

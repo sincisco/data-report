@@ -29,7 +29,7 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "src/lib/ckeditor.js"
+              "src/lib/ckeditor/ckeditor.js"
             ]
           },
           "configurations": {

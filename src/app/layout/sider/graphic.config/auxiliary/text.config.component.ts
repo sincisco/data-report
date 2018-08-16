@@ -30,7 +30,7 @@ export class TextConfigComponent extends GraphicConfig implements AfterViewInit,
 
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.subscribe((value) => {
+    this.ngForm && this.ngForm.valueChanges.subscribe((value) => {
       console.log(JSON.stringify(value));
       console.log(JSON.stringify(this.option));
       const changes = this._differ.diff(value);

@@ -14,10 +14,10 @@ const ReportTemplate = `
           <div class="report-box">
              <div class="report-grid">
              <div class="u-edit-mask">
-                <div class="mask mask-left"></div>
-                <div class="mask mask-right"></div>
-                <div class="mask mask-bottom"></div>
-                <div class="mask mask-top"></div>
+                <div class="mask mask-left" tabindex="-1"></div>
+                <div class="mask mask-right" tabindex="-1"></div>
+                <div class="mask mask-bottom" tabindex="-1"></div>
+                <div class="mask mask-top" tabindex="-1"></div>
               </div>
              </div>
           </div>
@@ -42,6 +42,8 @@ export class ReportCanvas implements INode {
   $grid: JQuery;
 
   $mask: JQuery;
+
+  private _activatedRegion: Region;
 
   private _configComponentRef: ComponentRef<PageConfig>;
 
@@ -99,13 +101,13 @@ export class ReportCanvas implements INode {
       return false;
     });
 
-
     this._init();
   }
 
 
   activateRegion(region: Region) {
     region.activate();
+    this._activatedRegion = region;
     const $element: JQuery = region.$element,
       $mask = this.$mask,
       left = $element.position().left,
@@ -188,7 +190,10 @@ export class ReportCanvas implements INode {
       }
     });
     this.$mask.click(() => {
+      console.log('this.$mask.click');
       this.regionActivated = false;
+      console.log(!!this._activatedRegion);
+      this._activatedRegion && (<any>this._activatedRegion).deactivate();
     });
 
     setTimeout(() => {

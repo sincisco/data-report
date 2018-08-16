@@ -12,6 +12,9 @@ export class AppComponent implements AfterViewInit {
   title = 'app';
 
   ngAfterViewInit() {
+    document.addEventListener('click', () => {
+      console.log('yon click');
+    });
     var users = [
       {'学校': '北京大学', '省份': '北京市', '城市': '北京市', '本科毕业生人数': '2645', '硕士毕业生人数': '3604', '博士毕业生人数': '1213', '毕业生人数': '7462'},
       {'学校': '北京航空航天大学', '省份': '北京市', '城市': '北京市', '本科毕业生人数': '3105', '硕士毕业生人数': '2845', '博士毕业生人数': '437', '毕业生人数': '6387'},

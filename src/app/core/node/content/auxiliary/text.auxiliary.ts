@@ -39,7 +39,7 @@ role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="v
     this._$editor = this._$element.find('.medium-editor-element');
     this.htmlGraphic.$element.click(() => {
       console.log('container123');
-      return false;
+      //return false;
     });
     htmlGraphic.childHost().append(this._$element);
   }
@@ -78,13 +78,82 @@ role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="v
     if (!this.state) {
       BalloonEditor
         .create(this._$editor[0], {
-          toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-          fontSize: [10, 12, 14, 16, 20, 24, 36]
+          toolbar: ['heading', '|', 'bold', 'italic', 'fontFamily', 'fontSize', 'highlight', 'bulletedList', 'numberedList', 'alignment'],
+          fontSize: [10, 12, 14, 16, 20, 24, 36],
+          highlight: {
+            options: [
+              {
+                model: 'yellowMarker',
+                class: 'marker-yellow',
+                title: 'Yellow marker',
+                color: 'var(--ck-highlight-marker-yellow)',
+                type: 'marker'
+              },
+              {
+                model: 'greenMarker',
+                class: 'marker-green',
+                title: 'Green marker',
+                color: 'var(--ck-highlight-marker-green)',
+                type: 'marker'
+              },
+              {
+                model: 'pinkMarker',
+                class: 'marker-pink',
+                title: 'Pink marker',
+                color: 'var(--ck-highlight-marker-pink)',
+                type: 'marker'
+              },
+              {
+                model: 'blueMarker',
+                class: 'marker-blue',
+                title: 'Blue marker',
+                color: 'var(--ck-highlight-marker-blue)',
+                type: 'marker'
+              },
+              {
+                model: 'whiteMarker',
+                class: 'marker-white',
+                title: 'White marker',
+                color: 'var(--ck-highlight-marker-white)',
+                type: 'marker'
+              },
+              {
+                model: 'redPen',
+                class: 'pen-red',
+                title: 'Red pen',
+                color: 'var(--ck-highlight-pen-red)',
+                type: 'pen'
+              },
+              {
+                model: 'greenPen',
+                class: 'pen-green',
+                title: 'Green pen',
+                color: 'var(--ck-highlight-pen-green)',
+                type: 'pen'
+              },
+              {
+                model: 'whitePen',
+                class: 'pen-white',
+                title: 'White pen',
+                color: 'var(--ck-highlight-pen-white)',
+                type: 'pen'
+              }
+            ]
+          }
+        })
+        .then(editor => {
+          console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()), editor);
         })
         .catch(error => {
           console.error(error);
         });
       this.state = true;
     }
+  }
+
+  deactivate() {
+    console.log('deactivate');
+    document.getSelection().removeAllRanges();
+    // this._$editor[0].blur();
   }
 }

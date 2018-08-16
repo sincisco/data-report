@@ -74,6 +74,12 @@ export class TextGraphic implements IGraphic {
     }
   }
 
+  deactivate() {
+    if (this._html) {
+      (<any>this._html).deactivate();
+    }
+  }
+
   destroy() {
     if (this._html) {
       this._html.destroy();

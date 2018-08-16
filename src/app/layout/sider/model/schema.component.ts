@@ -10,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {TableSchema} from '../../../model/table.schema';
+import {TableSchema} from '../../../core/model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
 import {DataSet} from '../../../core/adapter/groupBy';
 import {DatasetWrapper} from '@core/dataset/dataset.interface';
