@@ -16,13 +16,27 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   option = {
     text: '我是标题',
-    backgroundColor: undefined
+    backgroundColor: undefined,
+    backgroundClass: 'background1'
+  };
+
+  backgroundMode = 'built-in';
+
+  style = {
+    display: 'block',
+    height: '30px',
+    lineHeight: '30px'
   };
 
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers) {
     super();
+  }
+
+  buildInClick(value) {
+    this.option.backgroundClass = value;
+    this.page.update(this.option);
   }
 
   ngOnInit() {

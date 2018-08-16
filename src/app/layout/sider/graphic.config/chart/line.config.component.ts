@@ -11,27 +11,29 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
+import {draggableHeler} from '../../../../utils/draggable.helper';
 
 import {datasetManager} from '@core/dataset/dataset.manager';
 
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
+import {NzModalFilterComponent} from '../common/filter.modal.component';
+import {filterExecutor} from '@core/filter/filter.executor';
 import {Dimension} from '@core/dataset/dataset.interface';
 import {GraphicConfig} from '../graphic.config';
 import {ChartLineOption} from '@core/node/content/chart/line.chart';
-import {ChartpieConfig} from '@core/node/content/chart/pie.chart';
 
 @Component({
-  selector: 'app-pie-config',
-  templateUrl: './pie.config.component.html',
-  styleUrls: ['./pie.config.component.less']
+  selector: 'app-line-config',
+  templateUrl: './line.config.component.html',
+  styleUrls: ['./line.config.component.less']
 })
-export class PieConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class LineConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
   @Output() output = new EventEmitter();
 
-  option: ChartpieConfig = {
+  option: ChartLineOption = {
     title: {
       show: true,
       text: '我是一个大标题',
@@ -53,9 +55,20 @@ export class PieConfigComponent extends GraphicConfig implements AfterViewInit, 
       top: 60,
       bottom: 60
     },
+    xAxis: {
+      type: 'category',
+      name: 'X轴名称',
+      nameGap: 10,
+      axisLabel: {},
+      axisTick: {}
+    },
+    yAxis: {
+      axisLabel: {},
+      axisTick: {}
+    },
     series: [{
       name: '系列1',
-      type: 'pie'
+      type: 'line'
     }]
   };
 
@@ -84,10 +97,18 @@ export class PieConfigComponent extends GraphicConfig implements AfterViewInit, 
     // this.option.dataset = Object.assign({},
     //   datasetManager.current,
     //   {source: filterExecutor.execute(datasetManager.current.source, this.filterArray)});
-    // this.option.dataset = datasetManager.current;
+    this.option.dataset = datasetManager.current;
     this.option.series.push({
-      type: 'pie',
-      name: 'test'
+      type: 'line',
+      name: 'test',
+      encode: {
+        x: this.seriesX.map((value) => {
+          return value.name;
+        }),
+        y: this.seriesY.map((value) => {
+          return value.name;
+        })
+      }
     });
     this.output.emit(this.option);
   }

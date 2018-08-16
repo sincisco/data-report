@@ -1,16 +1,74 @@
-<div ngForm>
-  <div nz-row nzType="flex">
-    <div nz-col [nzSpan]="24">
-      <div name="backgroundColor"
-           style="width: 24px;height: 24px;cursor: pointer;border-radius: 3px;"
-           colorPicker [(ngModel)]="option.backgroundColor"
-           [style.background]="option.backgroundColor"
-           [cpOutputFormat]="'rgba'"
-           [cpOKButton]="true"
-           cpOKButtonClass="ant-btn ant-btn-default"
-           [cpPresetColors]="['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)']">
-      </div>
-    </div>
-  </div>
-</div>
+<nz-tabset ngForm>
+  <nz-tab nzTitle="数据">
+    <nz-collapse [nzBordered]="false" class="zijin-form">
+      <nz-collapse-panel nzHeader="X 轴">
 
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="Y 轴">
+
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="背景图片">
+        <div nz-row nzType="flex">
+          <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
+            <nz-radio-group name="backgroundMode" [(ngModel)]="backgroundMode" [nzSize]="'small'">
+              <label nz-radio [ngStyle]="style" nzValue="built-in">内置背景</label>
+              <label nz-radio [ngStyle]="style" nzValue="custom">自定义背景</label>
+              <label nz-radio [ngStyle]="style" nzValue="only-color">只是用背景色</label>
+            </nz-radio-group>
+          </div>
+          <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
+            <div [ngSwitch]="backgroundMode">
+              <ng-container *ngSwitchCase="'built-in'">
+                <div class="input-list-items">
+                  <div class="input-list-item" (click)="buildInClick('background1')"
+                       [class.active]="option.backgroundClass==='background1'">
+                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-1.png"
+                                                               class="w-full" alt="背景1"></div>
+                    <div>背景1</div>
+                  </div>
+                  <div class="input-list-item" (click)="buildInClick('background2')"
+                       [class.active]="option.backgroundClass==='background2'">
+                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-2.png"
+                                                               class="w-full" alt="背景2"></div>
+                    <div>背景2</div>
+                  </div>
+                  <div class="input-list-item" (click)="buildInClick('background3')"
+                       [class.active]="option.backgroundClass==='background3'">
+                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-3.png"
+                                                               class="w-full" alt="背景3"></div>
+                    <div>背景3</div>
+                  </div>
+                  <div class="input-list-item" (click)="buildInClick('background4')"
+                       [class.active]="option.backgroundClass==='background4'">
+                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-4.png"
+                                                               class="w-full" alt="背景4"></div>
+                    <div>背景4</div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'custom'">
+
+              </ng-container>
+              <ng-container *ngSwitchCase="'only-color'">
+
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+  <nz-tab nzTitle="样式">
+    <nz-collapse [nzBordered]="false" class="zijin-form">
+      <nz-collapse-panel nzHeader="标题">
+
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="绘图区">
+
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="颜色">
+
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+</nz-tabset>

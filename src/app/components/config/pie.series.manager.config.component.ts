@@ -10,23 +10,23 @@ import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
-import {BarSeriesConfig} from '@core/node/content/chart/echart.interface/series/bar.series';
+import {PieSeriesConfig} from '@core/node/content/chart/echart.interface/series/pie.series';
 
-export const SERIES_CONFIG_VALUE_ACCESSOR: any = {
+export const PIE_SERIES_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => SeriesConfigComponent),
+  useExisting: forwardRef(() => PieSeriesManagerConfigComponent),
   multi: true
 };
 
 @Component({
-  selector: 'app-series-config',
-  templateUrl: './series.config.component.html',
-  styleUrls: ['./series.config.component.less'],
-  providers: [SERIES_CONFIG_VALUE_ACCESSOR]
+  selector: 'app-pie-series-manager-config',
+  templateUrl: './pie.series.manager.config.component.html',
+  styleUrls: ['./pie.series.manager.config.component.less'],
+  providers: [PIE_SERIES_CONFIG_VALUE_ACCESSOR]
 })
-export class SeriesConfigComponent extends CustomControlValueAccessor implements AfterViewInit {
+export class PieSeriesManagerConfigComponent extends CustomControlValueAccessor implements AfterViewInit {
 
-  option: Array<BarSeriesConfig> = [];
+  option: Array<PieSeriesConfig> = [];
 
   @Output() axisChange = new EventEmitter();
 
@@ -42,14 +42,14 @@ export class SeriesConfigComponent extends CustomControlValueAccessor implements
 
   addSerious() {
     this.option.push({
-      type: 'bar',
+      type: 'pie',
       name: `系列${this.option.length + 1}`
     });
   }
 
   seriesChange($event) {
     this._propagateChange(this.option);
-    console.log('SeriesConfigComponent seriesChange', JSON.stringify(this.option));
+    console.log('BarSeriesManagerConfigComponent seriesChange', JSON.stringify(this.option));
   }
 
   ngAfterViewInit() {

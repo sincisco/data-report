@@ -1,0 +1,59 @@
+<div nz-row nzType="flex" ngForm data-series-name="option.name">
+  <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
+    <div class="m-schema-droppable">
+      <div class="dropArea">
+        <div class="pills">
+          <div *ngFor="let item of seriesX;index as i;" [title]="item.name" [class.u-item-1]="item.type==='ordinal'" [class.u-item-2]="item.type!=='ordinal'"
+               class="m-Pill m-Pill-DimensionPill u-item animated">
+            <div class="text">
+              <span>{{item.name}}</span>
+              <span class="u-icn u-icn-"></span>
+            </div>
+            <i class="sel" (click)="axisClick($event,seriesX,i)" [attr.fieldName]="item.name"></i>
+          </div>
+          <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)"
+               (drop)="drop($event,seriesX)">
+            拖入 X 轴字段
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div nz-col [nzSpan]="24" style="height: 2px;background-color: #c7c5c5;margin-bottom: 8px;"></div>
+  <div nz-col [nzSpan]="24" style="margin-bottom: 8px">
+    <div class="m-schema-droppable">
+      <div class="dropArea">
+        <div class="pills">
+          <div *ngFor="let item of seriesY;index as i;" [title]="item.name" [class.u-item-1]="item.type==='ordinal'" [class.u-item-2]="item.type!=='ordinal'"
+               class="m-Pill m-Pill-DimensionPill u-item animated">
+            <div class="text">
+              <span>{{item.name}}</span>
+              <span class="u-icn u-icn-"></span>
+            </div>
+            <i class="sel" (click)="axisClick($event,seriesY,i)" [attr.fieldName]="item.name"></i>
+          </div>
+          <div class="empty" (dragenter)="dragenter($event)" (dragover)="dragover($event)"
+               (drop)="drop($event,seriesY)">
+            拖入 Y 轴字段
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+    <span class="item-title">堆叠:</span>
+  </div>
+  <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+    <input nz-input placeholder="数据堆叠" style="width: 100%;" name="stack" [(ngModel)]="option.stack" nzSize="small">
+  </div>
+  <div nz-col [nzSpan]="10" style="margin-bottom: 8px">
+    <span class="item-title">标记大小:</span>
+  </div>
+  <div nz-col [nzSpan]="14" style="margin-bottom: 8px">
+    <input nz-input placeholder="标记大小" style="width: 100%;" name="symbolSize" title="标记大小" [(ngModel)]="option.symbolSize" nzSize="small">
+  </div>
+</div>
+
+<ng-template #modalTitle>
+  <h2 class="wintt"><span class="u-icn u-icn-set-o"></span> 数据筛选<span>({{option.name}})</span></h2>
+</ng-template>

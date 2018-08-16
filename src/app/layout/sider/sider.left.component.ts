@@ -9,6 +9,7 @@ import {NgForm} from '@angular/forms';
 import {DataHeaderComponent} from './graphic.config/html/header.component';
 import {GraphicConfig} from './graphic.config/graphic.config';
 import {reportGlobal} from '@core/node/region/region';
+import {PageConfig} from './page.config/page.config';
 
 export var siderLeftComponent: SiderLeftComponent;
 
@@ -72,6 +73,26 @@ export class SiderLeftComponent implements AfterViewInit {
       this.shadowContainer.detach();
       this.shadowContainer.clear();
       const factory: ComponentFactory<GraphicConfig> =
+        this.resolver.resolveComponentFactory(type);
+      retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
+      this.componentRef.instance.type = type;
+      this.shadowContainer.detach();
+      // this.componentRef.instance.output.subscribe((msg: string) => {
+      //   console.log('我是', msg);
+      //   if (reportGlobal.instance) {
+      //     reportGlobal.instance.update(msg);
+      //   }
+      // });
+    });
+    return retComponentRef;
+  }
+
+  forwardCreateCanvasConfig(type: Type<PageConfig>): ComponentRef<PageConfig> {
+    let retComponentRef: ComponentRef<PageConfig>;
+    this.zone.run(() => {
+      this.shadowContainer.detach();
+      this.shadowContainer.clear();
+      const factory: ComponentFactory<PageConfig> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       this.componentRef.instance.type = type;

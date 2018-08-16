@@ -12,20 +12,28 @@ import {TitleConfigComponent} from './title.config.component';
 import {AxisConfigComponent} from './axis.config.component';
 import {GridConfigComponent} from './grid.config.component';
 import {BarSeriesConfigComponent} from './series/bar.series.config.component';
-import {SeriesConfigComponent} from './series.config.component';
+import {BarSeriesManagerConfigComponent} from './bar.series.manager.config.component';
 import {HorizontalPositionDirective, VerticalPositionDirective} from './title.config.validator';
 import {ControlMonitorDirective} from '../../directives/control.monitor.directive';
 import {ControlDividerComponent} from '../common/control.divider.component';
 import {ColorConfigComponent} from './color.config.component';
+import {LineSeriesConfigComponent} from './series/line.series.config.component';
+import {LineSeriesManagerConfigComponent} from './line.series.manager.config.component';
+import {PieSeriesConfigComponent} from './series/pie.series.config.component';
+import {PieSeriesManagerConfigComponent} from './pie.series.manager.config.component';
 
 
 const COMPONENTS = [
   ControlDividerComponent,
   AxisConfigComponent,
   BarSeriesConfigComponent,
+  LineSeriesConfigComponent,
+  PieSeriesConfigComponent,
   TitleConfigComponent,
   GridConfigComponent,
-  SeriesConfigComponent,
+  BarSeriesManagerConfigComponent,
+  LineSeriesManagerConfigComponent,
+  PieSeriesManagerConfigComponent,
   ColorConfigComponent
 ];
 

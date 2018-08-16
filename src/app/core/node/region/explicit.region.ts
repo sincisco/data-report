@@ -13,6 +13,8 @@ import {ChartGraphic} from '../graphic/chart.graphic';
 import {ImageGraphic} from '../graphic/image.graphic';
 import {IGraphic} from '../graphic/graphic';
 import {TextGraphic} from '../graphic/text.graphic';
+import {LineChart} from '@core/node/content/chart/line.chart';
+import {PieChart} from '@core/node/content/chart/pie.chart';
 
 const template = `
 <div class="m-dashbox">
@@ -249,11 +251,35 @@ export class ExplicitRegion extends Region {
           }
         }, 'split',
         {
-          displayName: '创建Echart',
+          displayName: '创建bar Echart',
           callback: () => {
             const _graphic = new ChartGraphic(this);
 
             _graphic.init(BarChart);
+            // 使用刚指定的配置项和数据显示图表。
+            // content.init({});
+
+            contextMenuHelper.close();
+          }
+        },
+        {
+          displayName: '创建line Echart',
+          callback: () => {
+            const _graphic = new ChartGraphic(this);
+
+            _graphic.init(LineChart);
+            // 使用刚指定的配置项和数据显示图表。
+            // content.init({});
+
+            contextMenuHelper.close();
+          }
+        },
+        {
+          displayName: '创建pie Echart',
+          callback: () => {
+            const _graphic = new ChartGraphic(this);
+
+            _graphic.init(PieChart);
             // 使用刚指定的配置项和数据显示图表。
             // content.init({});
 

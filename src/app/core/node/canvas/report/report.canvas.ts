@@ -3,6 +3,10 @@ import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {ExplicitRegion} from '../../region/explicit.region';
 import {Region} from '../../region/region';
 import {CommentRegion} from '../../region/comment.region';
+import {ComponentRef} from '@angular/core';
+import {PageConfigComponent} from '../../../../layout/sider/page.config/page.config.component';
+import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {PageConfig} from '../../../../layout/sider/page.config/page.config';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -38,6 +42,8 @@ export class ReportCanvas implements INode {
   $grid: JQuery;
 
   $mask: JQuery;
+
+  private _configComponentRef: ComponentRef<PageConfig>;
 
   constructor() {
     this.$element = this.$region = $(ReportTemplate);
@@ -148,6 +154,10 @@ export class ReportCanvas implements INode {
       });
   }
 
+  activate() {
+    siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+  }
+
   get regionActivated() {
     return this._regionActivated;
   }
@@ -164,18 +174,29 @@ export class ReportCanvas implements INode {
     }
   }
 
-
+  public update(options) {
+    this.$box.removeClass('background1 background2 background3 background4');
+    this.$box.addClass(options.backgroundClass);
+  }
 
   private _init() {
     this.$grid.click(($event) => {
       console.log('click');
       if ($event.target === this.$grid[0]) {
         this.select();
+        this.activate();
       }
     });
     this.$mask.click(() => {
       this.regionActivated = false;
     });
+
+    setTimeout(() => {
+      if (!this._configComponentRef) {
+        this._configComponentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
+        this._configComponentRef.instance.page = this;
+      }
+    }, 100);
   }
 
   set width(width: number) {
@@ -223,17 +244,6 @@ export class ReportCanvas implements INode {
   unselect() {
 
   }
-
-  destroy() {
-
-  }
-}
-
-class RootNode implements INode {
-  template = `
-<div class="report-canvas">
-</div>
-    `;
 
   destroy() {
 

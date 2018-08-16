@@ -1,6 +1,34 @@
+@import "../common.config.less";
+
+:host {
+  display: block;
+  position: relative;
+  padding: 24px 5px 5px 5px;
+  margin-top: 10px;
+  background-color: #f5f5f5;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+}
+
+:host:before{
+  display: block;
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  top: 0px;
+  transform: translateX(-50%) translateY(-50%);
+  text-align: center;
+  content: attr(seriesName);
+  z-index: 10;
+  background-color: #ccc;
+  color: #666;
+  border-radius: 3px;
+  padding: 2px 5px;
+}
+
 .m-schema-droppable .dropArea {
-  padding: 8px 6px 8px 7px;
-  margin: -12px -14px 0px -15px;
+  //padding: 8px 6px 8px 7px;
+  //margin: -12px -14px 0px -15px;
 }
 
 .m-schema-droppable .empty {
@@ -42,6 +70,10 @@
   background-color: #4a90e2;
 }
 
+.u-item-2 {
+  background-color: #40c0a8;
+}
+
 .m-Pill {
   position: relative;
   padding: 0 18px;
@@ -63,7 +95,6 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
 
 .wintt {
   font-size: 14px;
