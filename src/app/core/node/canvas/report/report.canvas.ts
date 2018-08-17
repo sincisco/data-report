@@ -179,6 +179,9 @@ export class ReportCanvas implements INode {
   public update(options) {
     this.$box.removeClass('background1 background2 background3 background4');
     this.$box.addClass(options.backgroundClass);
+    this._children.forEach((item) => {
+      item.updateTheme(options.themeMode);
+    });
   }
 
   private _init() {

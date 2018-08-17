@@ -43,7 +43,7 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
       top: 'auto',
       right: 'auto',
       bottom: 'auto',
-      backgroundColor: '#fff',
+      backgroundColor: 'transparent',
       textStyle: {
         align: 'left'
       }

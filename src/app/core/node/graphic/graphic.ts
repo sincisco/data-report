@@ -10,7 +10,7 @@ export interface IGraphic {
 
   resize();
 
-  update(option: any);
+  update(option: any, theme?: string);
 
   updateGraphic(option: any);
 

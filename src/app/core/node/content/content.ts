@@ -10,7 +10,7 @@ interface IContent {
    * 属性面板发生变化，更新内容
    * @param option
    */
-  update(option: any);
+  update(option: any, theme?: string);
 
   activate();
 

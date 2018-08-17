@@ -21,6 +21,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
   };
 
   backgroundMode = 'built-in';
+  themeMode = '';
 
   style = {
     display: 'block',
@@ -46,6 +47,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.subscribe((value) => {
+      this.page.update(value);
       const changes = this._differ.diff(value);
     });
   }

@@ -56,6 +56,17 @@
           </div>
         </div>
       </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="图表主题">
+        <div nz-row nzType="flex">
+          <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
+            <nz-radio-group name="themeMode" [(ngModel)]="themeMode" [nzSize]="'small'">
+              <label nz-radio [ngStyle]="style" nzValue="dark">dark</label>
+              <label nz-radio [ngStyle]="style" nzValue="lsd">Large Screen Display</label>
+              <label nz-radio [ngStyle]="style" nzValue="">默认</label>
+            </nz-radio-group>
+          </div>
+        </div>
+      </nz-collapse-panel>
     </nz-collapse>
   </nz-tab>
   <nz-tab nzTitle="样式">

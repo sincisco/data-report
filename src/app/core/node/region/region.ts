@@ -72,6 +72,10 @@ export abstract class Region implements INode {
     this._regionState = RegionState.default;
   }
 
+  updateTheme(theme: string) {
+    this._graphic.update(undefined, theme);
+  }
+
   set left(param: number) {
     this._coordinates.left = closestNum(param);
   }

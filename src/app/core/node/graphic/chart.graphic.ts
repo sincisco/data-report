@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
   <div class="frame"
-       style="border: 0px solid rgb(204, 204, 204); background-color: rgb(255, 255, 255); border-radius: 0px; opacity: 1;">
+       style="border: 0px solid rgb(204, 204, 204); background-color: rgba(255, 255, 255, 0.2); border-radius: 0px; opacity: 1;">
   </div>
   <div class="m-graphic-toolbar">
     <ul class="more">
@@ -56,9 +56,9 @@ export class ChartGraphic implements IGraphic {
     this._chart.init(option);
   }
 
-  update(option: any) {
+  update(option: any, theme?: string) {
     if (this._chart) {
-      this._chart.update(option);
+      this._chart.update(option, theme);
     }
   }
 

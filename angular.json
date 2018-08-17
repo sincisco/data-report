@@ -29,7 +29,10 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",
-              "src/lib/ckeditor/ckeditor.js"
+              "src/lib/ckeditor/ckeditor.js",
+              "src/lib/echarts/echarts.min.js",
+              "src/lib/echarts/dark.js",
+              "src/lib/echarts/lsd.js"
             ]
           },
           "configurations": {
