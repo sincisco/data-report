@@ -53,7 +53,7 @@ export class ImageHtml extends HtmlNode {
   update(option: any) {
     if (!this._image) {
       const image = document.createElement('img');
-      image.alt = this._option.alt;
+      // image.alt = this._option.alt;
       this._image = image;
       this._$element.append(image);
     }

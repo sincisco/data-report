@@ -12,7 +12,7 @@ const ReportTemplate = `
     <div class="report-region">
         <div class="report-canvas">
           <div class="report-box">
-             <div class="report-grid">
+             <div class="report-grid help-lines">
              <div class="u-edit-mask">
                 <div class="mask mask-left" tabindex="-1"></div>
                 <div class="mask mask-right" tabindex="-1"></div>
@@ -185,14 +185,24 @@ export class ReportCanvas implements INode {
       this.$box.addClass(option.backgroundClass);
     } else if (option.backgroundMode === 'custom') {
       this.$box.removeClass('background1 background2 background3 background4');
-      this.$box.css({
+      option.backgroundDataUrl && this.$box.css({
         backgroundImage: `url(${option.backgroundDataUrl})`
+      });
+    } else if (option.backgroundMode === 'only-color') {
+      this.$box.removeClass('background1 background2 background3 background4');
+      this.$box.css({
+        backgroundImage: `none`
+      });
+      option.backgroundColor && this.$box.css({
+        backgroundColor: option.backgroundColor
       });
     }
 
     this.width = option.width;
     this.height = option.height;
     this.refresh();
+    console.log('help-lines', option.auxiliaryLine);
+    this.$grid.toggleClass('help-lines', option.auxiliaryLine);
 
     this._children.forEach((item) => {
       item.updateTheme(option.themeMode);

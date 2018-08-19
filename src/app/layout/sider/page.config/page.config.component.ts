@@ -21,7 +21,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     width: 960,
     height: 720,
     backgroundMode: 'built-in',
-    backgroundColor: undefined,
+    backgroundColor: 'transparent',
     backgroundClass: 'background1',
     fileName: '',
     backgroundUrl: '',
@@ -101,24 +101,26 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   ngAfterViewInit() {
     let count = 0;
-    this.ngForm.valueChanges.subscribe((value) => {
-      // this.page.update(value);
-      console.log('count:', count++);
-      console.log(JSON.stringify(value));
-      const changes = this._differ.diff(this.option);
-      if (changes) {
-        changes.forEachRemovedItem((record) => {
-          console.log(JSON.stringify(record.key));
-        });
-        changes.forEachAddedItem((record) => {
-          console.log(JSON.stringify(record.key));
-        });
-        changes.forEachChangedItem((record) => {
-          console.log(JSON.stringify(record.key));
-        });
-      }
-      console.log(changes);
-    });
+    setTimeout(() => {
+      this.ngForm.valueChanges.subscribe((value) => {
+        console.log('count:', count++);
+        console.log(JSON.stringify(value));
+        this.page.update(Object.assign({}, this.option, value));
+        const changes = this._differ.diff(this.option);
+        if (changes) {
+          changes.forEachRemovedItem((record) => {
+            console.log(JSON.stringify(record.key));
+          });
+          changes.forEachAddedItem((record) => {
+            console.log(JSON.stringify(record.key));
+          });
+          changes.forEachChangedItem((record) => {
+            console.log(JSON.stringify(record.key));
+          });
+        }
+      });
+    }, 50);
+
   }
 
 }

@@ -14,6 +14,7 @@ import {IGraphic} from '../graphic/graphic';
 import {TextGraphic} from '../graphic/text.graphic';
 import {LineChart} from '@core/node/content/chart/line.chart';
 import {PieChart} from '@core/node/content/chart/pie.chart';
+import {LinesChart} from '@core/node/content/chart/lines.chart';
 
 const template = `
 <div class="m-dashbox">
@@ -332,8 +333,15 @@ export class ExplicitRegion extends Region {
             // content.init(option);
           }
         }, {
-          displayName: '创建Text',
+          displayName: '创建Lines',
           callback: () => {
+            const _graphic = new ChartGraphic(this);
+
+            _graphic.init(LinesChart);
+            // 使用刚指定的配置项和数据显示图表。
+            // content.init({});
+
+            contextMenuHelper.close();
             // var content = this._content = new TextContent(this.$frame[0]);
             // console.log(content);
             // var option = {
