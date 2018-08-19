@@ -73,7 +73,9 @@ export abstract class Region implements INode {
   }
 
   updateTheme(theme: string) {
-    this._graphic.update(undefined, theme);
+    if (this._graphic) {
+      this._graphic.update(undefined, theme);
+    }
   }
 
   set left(param: number) {

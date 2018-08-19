@@ -50,7 +50,7 @@ export class SplitArea {
     });
     element.addEventListener('click', (event) => {
       console.log(this.element);
-      // propertyGrid.loadData(this._data);
+      // propertyGrid.loadData(this._option);
       // propertyGrid.afterEdit = (index, row, changes) => {
       //   if (row.name === 'fixed width') {
       //     this.size = row.value;

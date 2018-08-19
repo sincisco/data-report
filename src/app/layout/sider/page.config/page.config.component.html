@@ -4,20 +4,17 @@
       <nz-collapse-panel nzHeader="X 轴">
 
       </nz-collapse-panel>
-      <nz-collapse-panel nzHeader="Y 轴">
-
-      </nz-collapse-panel>
       <nz-collapse-panel nzHeader="背景图片">
         <div nz-row nzType="flex">
           <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
-            <nz-radio-group name="backgroundMode" [(ngModel)]="backgroundMode" [nzSize]="'small'">
+            <nz-radio-group name="backgroundMode" [(ngModel)]="option.backgroundMode" [nzSize]="'small'">
               <label nz-radio [ngStyle]="style" nzValue="built-in">内置背景</label>
               <label nz-radio [ngStyle]="style" nzValue="custom">自定义背景</label>
               <label nz-radio [ngStyle]="style" nzValue="only-color">只是用背景色</label>
             </nz-radio-group>
           </div>
           <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
-            <div [ngSwitch]="backgroundMode">
+            <div [ngSwitch]="option.backgroundMode">
               <ng-container *ngSwitchCase="'built-in'">
                 <div class="input-list-items">
                   <div class="input-list-item" (click)="buildInClick('background1')"
@@ -47,7 +44,16 @@
                 </div>
               </ng-container>
               <ng-container *ngSwitchCase="'custom'">
-
+                <div nz-row nzType="flex">
+                  <div nz-col [nzSpan]="24">
+                    <label for="settingFileToUpload" class="upload f-ellipsis">
+                      <span class="text" *ngIf="option.fileName">{{option.fileName}}</span>
+                      <span class="text" *ngIf="!option.fileName"><i class="anticon anticon-upload"></i><span>选择背景图</span></span>
+                    </label>
+                    <input type="file" name="settingFileToUpload" id="settingFileToUpload" #imageInput (change)="change($event)"
+                           style="display: none;">
+                  </div>
+                </div>
               </ng-container>
               <ng-container *ngSwitchCase="'only-color'">
 
@@ -59,7 +65,7 @@
       <nz-collapse-panel nzHeader="图表主题">
         <div nz-row nzType="flex">
           <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
-            <nz-radio-group name="themeMode" [(ngModel)]="themeMode" [nzSize]="'small'">
+            <nz-radio-group name="themeMode" [(ngModel)]="option.themeMode" [nzSize]="'small'">
               <label nz-radio [ngStyle]="style" nzValue="dark">dark</label>
               <label nz-radio [ngStyle]="style" nzValue="lsd">Large Screen Display</label>
               <label nz-radio [ngStyle]="style" nzValue="">默认</label>

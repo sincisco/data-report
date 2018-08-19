@@ -16,12 +16,14 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   option = {
     text: '我是标题',
+    backgroundMode: 'built-in',
     backgroundColor: undefined,
-    backgroundClass: 'background1'
+    backgroundClass: 'background1',
+    fileName: '',
+    backgroundUrl: '',
+    backgroundDataUrl: '',
+    themeMode: 'dark'
   };
-
-  backgroundMode = 'built-in';
-  themeMode = '';
 
   style = {
     display: 'block',
@@ -38,7 +40,28 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
   buildInClick(value) {
     this.option.backgroundClass = value;
     this.page.update(this.option);
+    console.log(this.option);
   }
+
+  change(event: Event) {
+    const file: HTMLInputElement = <HTMLInputElement>event.currentTarget;
+    if (!file.files || !file.files[0]) {
+      return;
+    }
+    this.option.fileName = file.files[0].name;
+    const that = this;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      this.option.backgroundDataUrl = (<any>evt.target).result;
+      const image = new Image();
+      image.src = (<any>evt.target).result;
+      image.onload = function () {
+        that.page.update(that.option);
+      };
+    };
+    reader.readAsDataURL(file.files[0]);
+  }
+
 
   ngOnInit() {
     this._differ = this._differs.find(this.option).create();
@@ -46,9 +69,24 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
 
   ngAfterViewInit() {
+    let count = 0;
     this.ngForm.valueChanges.subscribe((value) => {
-      this.page.update(value);
-      const changes = this._differ.diff(value);
+      // this.page.update(value);
+      console.log('count:', count++);
+      console.log(JSON.stringify(value));
+      const changes = this._differ.diff(this.option);
+      if (changes) {
+        changes.forEachRemovedItem((record) => {
+          console.log(JSON.stringify(record.key));
+        });
+        changes.forEachAddedItem((record) => {
+          console.log(JSON.stringify(record.key));
+        });
+        changes.forEachChangedItem((record) => {
+          console.log(JSON.stringify(record.key));
+        });
+      }
+      console.log(changes);
     });
   }
 

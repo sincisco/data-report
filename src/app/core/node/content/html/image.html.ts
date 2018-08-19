@@ -2,17 +2,16 @@ import * as _ from 'lodash';
 import {HtmlNode} from './html';
 import {ImageConfigComponent} from '../../../../layout/sider/graphic.config/html/image.config.component';
 import {ImageGraphic} from '../../graphic/image.graphic';
-import {consoleTestResultHandler} from 'tslint/lib/test';
 
 interface ImageOption {
-  text?: string;
+  alt?: string;
   backgroundColor?: string;
   align?: 'left' | 'right' | 'center' | 'justify';
   dataUrl?: string;
 }
 
 const OptionDefault: ImageOption = {
-  text: '我是一个段落',
+  alt: 'Image preview...',
   align: 'left',
   backgroundColor: 'transparent'
 };
@@ -54,7 +53,7 @@ export class ImageHtml extends HtmlNode {
   update(option: any) {
     if (!this._image) {
       const image = document.createElement('img');
-      image.alt = 'Image preview...';
+      image.alt = this._option.alt;
       this._image = image;
       this._$element.append(image);
     }
@@ -66,6 +65,9 @@ export class ImageHtml extends HtmlNode {
   }
 
   activate() {
+  }
+
+  destroy() {
   }
 }
 

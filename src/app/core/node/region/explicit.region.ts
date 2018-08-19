@@ -7,7 +7,6 @@ import {fromEvent, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/internal/operators';
 import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
 import {ImageHtml} from '../content/html/image.html';
-import {TextContent} from '../content/text.content';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
 import {ChartGraphic} from '../graphic/chart.graphic';
 import {ImageGraphic} from '../graphic/image.graphic';

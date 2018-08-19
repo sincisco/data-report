@@ -5,6 +5,9 @@ export abstract class FilterNode implements IContent {
 
   abstract update(option: any);
 
+  refresh() {
+  }
+
   abstract activate();
 
   abstract destroy();

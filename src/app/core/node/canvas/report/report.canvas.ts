@@ -176,11 +176,22 @@ export class ReportCanvas implements INode {
     }
   }
 
-  public update(options) {
-    this.$box.removeClass('background1 background2 background3 background4');
-    this.$box.addClass(options.backgroundClass);
+  public update(option) {
+    if (option.backgroundMode === 'built-in') {
+      this.$box.css({
+        backgroundImage: `none`
+      });
+      this.$box.removeClass('background1 background2 background3 background4');
+      this.$box.addClass(option.backgroundClass);
+    } else if (option.backgroundMode === 'custom') {
+      this.$box.removeClass('background1 background2 background3 background4');
+      this.$box.css({
+        backgroundImage: `url(${option.backgroundDataUrl})`
+      });
+    }
+
     this._children.forEach((item) => {
-      item.updateTheme(options.themeMode);
+      item.updateTheme(option.themeMode);
     });
   }
 

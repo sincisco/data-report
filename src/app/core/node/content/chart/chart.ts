@@ -7,20 +7,22 @@ import {ChartGraphic} from '../../graphic/chart.graphic';
 
 export abstract class Chart implements IContent {
   protected _echart: Echart;
-  private _data;
+  protected _option: any = {};
 
   public configClass: Type<GraphicConfig>;
 
   protected constructor(private _graphic: ChartGraphic) {
     // 初始化之前  确保host已经挂载到document中
-    const element = $('<div style="width: 100%;height: 100%;"></div>');
+    const element = document.createElement('div');
+    element.style.width = '100%';
+    element.style.height = '100%';
     _graphic.childHost().append(element);
-    this._echart = echarts.init(element[0]);
+    this._echart = echarts.init(element);
   }
 
   init(option: any) {
-    this._data = option;
     if (this._echart) {
+      this._option = option;
       this._echart.setOption(option);
     }
   }
@@ -29,20 +31,24 @@ export abstract class Chart implements IContent {
     console.log(JSON.stringify(option), theme);
     if (theme) {
       option = this._echart.getOption();
-      console.log('dvfare', this._data, JSON.stringify(option));
+      console.log(this._option, JSON.stringify(option));
       this._echart.dispose();
       this._graphic.childHost().empty();
       const element = $('<div style="width: 100%;height: 100%;"></div>');
       this._graphic.childHost().append(element);
       this._echart = echarts.init(element[0], theme);
-      this._echart.setOption(this._data);
+      this._echart.setOption(this._option);
     } else {
       if (!this._echart.isDisposed() && option) {
-        this._data = option;
+        this._option = option;
         this._echart.clear();
         this._echart.setOption(option);
       }
     }
+  }
+
+  refresh() {
+
   }
 
   activate() {
