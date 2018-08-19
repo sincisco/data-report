@@ -16,6 +16,10 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   option = {
     text: '我是标题',
+    auxiliaryLine: true,
+    dimensionMode: 'standard',
+    width: 960,
+    height: 720,
     backgroundMode: 'built-in',
     backgroundColor: undefined,
     backgroundClass: 'background1',
@@ -31,6 +35,11 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     lineHeight: '30px'
   };
 
+  formatterWidth = value => `宽度 ${value}`;
+  parserWidth = value => value.replace('宽度 ', '');
+  formatterHeight = value => `高度 ${value}`;
+  parserHeight = value => value.replace('高度 ', '');
+
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers) {
@@ -41,6 +50,28 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     this.option.backgroundClass = value;
     this.page.update(this.option);
     console.log(this.option);
+  }
+
+  dimensionModeChange(value) {
+    console.log(value);
+    switch (value) {
+      case 'standard':
+        this.option.width = 960;
+        this.option.height = 720;
+        break;
+      case 'wide':
+        this.option.width = 960;
+        this.option.height = 540;
+        break;
+      case 'mobile':
+        this.option.width = 380;
+        this.option.height = 680;
+        break;
+      case 'custom':
+        break;
+    }
+
+    this.page.update(this.option);
   }
 
   change(event: Event) {

@@ -190,6 +190,10 @@ export class ReportCanvas implements INode {
       });
     }
 
+    this.width = option.width;
+    this.height = option.height;
+    this.refresh();
+
     this._children.forEach((item) => {
       item.updateTheme(option.themeMode);
     });

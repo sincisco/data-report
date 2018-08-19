@@ -1,13 +1,41 @@
 <nz-tabset ngForm>
   <nz-tab nzTitle="数据">
     <nz-collapse [nzBordered]="false" class="zijin-form">
-      <nz-collapse-panel nzHeader="X 轴">
-
+      <nz-collapse-panel nzHeader="通用">
+        <div nz-row nzType="flex">
+          <div nz-col style="margin-bottom: 8px;text-align: left;line-height: 24px;padding: 0 4px;" [nzSpan]="12">
+            <span>辅助线</span>
+          </div>
+          <div nz-col style="margin-bottom: 8px;text-align: right;line-height: 24px;padding: 0 4px;" [nzSpan]="12">
+            <label nz-checkbox name="auxiliaryLine" [(ngModel)]="option.auxiliaryLine"></label>
+          </div>
+          <div nz-col style="margin-bottom: 8px;text-align: center" [nzSpan]="24">
+            <nz-radio-group name="dimensionMode" style="width: 100%" [nzSize]="'small'" (ngModelChange)="dimensionModeChange($event)"
+                            [(ngModel)]="option.dimensionMode">
+              <label nz-radio-button nzValue="standard">标准</label>
+              <label nz-radio-button nzValue="wide">宽幅</label>
+              <label nz-radio-button nzValue="mobile">移动端</label>
+              <label nz-radio-button nzValue="custom">自定义</label>
+            </nz-radio-group>
+          </div>
+          <div nz-col style="margin-bottom: 8px;padding: 0 4px 0 0" [nzSpan]="12">
+            <nz-input-number name="width" [nzFormatter]="formatterWidth" [nzParser]="parserWidth" style="width: 100%"
+                             [nzDisabled]="option.dimensionMode!=='custom'"
+                             [(ngModel)]="option.width" [nzSize]="'small'" [nzMin]="100" [nzMax]="10000"
+                             [nzStep]="10"></nz-input-number>
+          </div>
+          <div nz-col style="margin-bottom: 8px;padding: 0 0 0 4px" [nzSpan]="12">
+            <nz-input-number name="height" [nzFormatter]="formatterHeight" [nzParser]="parserHeight" style="width: 100%"
+                             [nzDisabled]="option.dimensionMode!=='custom'"
+                             [(ngModel)]="option.height" [nzSize]="'small'" [nzMin]="100" [nzMax]="10000"
+                             [nzStep]="10"></nz-input-number>
+          </div>
+        </div>
       </nz-collapse-panel>
       <nz-collapse-panel nzHeader="背景图片">
         <div nz-row nzType="flex">
           <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
-            <nz-radio-group name="backgroundMode" [(ngModel)]="option.backgroundMode" [nzSize]="'small'">
+            <nz-radio-group name="backgroundMode" [(ngModel)]="option.backgroundMode" [nzSize]="'small'" >
               <label nz-radio [ngStyle]="style" nzValue="built-in">内置背景</label>
               <label nz-radio [ngStyle]="style" nzValue="custom">自定义背景</label>
               <label nz-radio [ngStyle]="style" nzValue="only-color">只是用背景色</label>
@@ -48,9 +76,11 @@
                   <div nz-col [nzSpan]="24">
                     <label for="settingFileToUpload" class="upload f-ellipsis">
                       <span class="text" *ngIf="option.fileName">{{option.fileName}}</span>
-                      <span class="text" *ngIf="!option.fileName"><i class="anticon anticon-upload"></i><span>选择背景图</span></span>
+                      <span class="text" *ngIf="!option.fileName"><i
+                        class="anticon anticon-upload"></i><span>选择背景图</span></span>
                     </label>
-                    <input type="file" name="settingFileToUpload" id="settingFileToUpload" #imageInput (change)="change($event)"
+                    <input type="file" name="settingFileToUpload" id="settingFileToUpload" #imageInput
+                           (change)="change($event)"
                            style="display: none;">
                   </div>
                 </div>
