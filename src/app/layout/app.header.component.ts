@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {currentReport} from './app.body.component';
-import {graphicFactory} from '@core/node/factory/chart.factory';
+import {graphicFactory} from '@core/node/factory/graphic.factory';
 
 @Component({
   selector: 'app-header',

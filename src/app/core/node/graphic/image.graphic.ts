@@ -83,6 +83,9 @@ export class ImageGraphic implements IGraphic {
     }
   }
 
+  getOption() {
+  }
+
   resize() {
     if (this._html) {
       this._html.resize();

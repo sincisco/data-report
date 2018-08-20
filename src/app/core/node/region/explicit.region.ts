@@ -15,6 +15,7 @@ import {TextGraphic} from '../graphic/text.graphic';
 import {LineChart} from '@core/node/content/chart/line.chart';
 import {PieChart} from '@core/node/content/chart/pie.chart';
 import {LinesChart} from '@core/node/content/chart/lines.chart';
+import {clipboard} from '@core/node/clipboard';
 
 const template = `
 <div class="m-dashbox">
@@ -38,6 +39,8 @@ export class ExplicitRegion extends Region {
     width: 300,
     height: 200
   };
+
+  private _graphicClass: any;
 
   $host: JQuery;
   $fill: JQuery;
@@ -106,6 +109,8 @@ export class ExplicitRegion extends Region {
 
   addChild(graphic: IGraphic) {
     this._graphic = graphic;
+    this._graphicClass = graphic.constructor;
+    console.log('****************', graphic);
     this.$fill.append(graphic.$element);
   }
 
@@ -227,6 +232,10 @@ export class ExplicitRegion extends Region {
     super._bindEventForMover();
   }
 
+  getOption() {
+    return Object.assign({graphic: this._graphic.getOption(), graphicClass: this._graphicClass}, this._dimensions);
+  }
+
   private _bindContextEvent() {
     this.$mover.contextmenu(($event: JQuery.Event) => {
       contextMenuHelper.open([
@@ -235,6 +244,8 @@ export class ExplicitRegion extends Region {
           shortcut: 'Ctrl+C',
           callback: () => {
             console.log('复制');
+            clipboard.saveData(this.getOption());
+            console.log(this.getOption());
           }
         }, {
           displayName: '剪切',

@@ -56,6 +56,9 @@ export class TextGraphic implements IGraphic {
 
   }
 
+  getOption() {
+  }
+
   resize() {
     if (this._html) {
       this._html.resize();

@@ -4,6 +4,7 @@ import {ChartGraphic} from '@core/node/graphic/chart.graphic';
 import {BarChart} from '@core/node/content/chart/bar.chart';
 import {TextGraphic} from '@core/node/graphic/text.graphic';
 import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
+import {currentReport} from '../../../layout/app.body.component';
 
 
 class GraphicFactory {
@@ -31,6 +32,21 @@ class GraphicFactory {
 
     // 使用刚指定的配置项和数据显示图表。
     _graphic.init(TextAuxiliary);
+  }
+
+  createFromOption(option: any, x, y) {
+    console.log('新建文本段');
+    const explicitRegion = new ExplicitRegion();
+    explicitRegion.setCoordinates(x, y);
+    explicitRegion.refresh();
+    currentReport.addChild(explicitRegion);
+
+    const _graphic = new option.graphicClass(explicitRegion);
+
+    // 使用刚指定的配置项和数据显示图表。
+    _graphic.init(option.graphic.contentClass);
+
+    _graphic.update(option.graphic.option);
   }
 }
 

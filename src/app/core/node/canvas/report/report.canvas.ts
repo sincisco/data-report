@@ -7,7 +7,8 @@ import {ComponentRef} from '@angular/core';
 import {PageConfigComponent} from '../../../../layout/sider/page.config/page.config.component';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 import {PageConfig} from '../../../../layout/sider/page.config/page.config';
-import {graphicFactory} from '@core/node/factory/chart.factory';
+import {graphicFactory} from '@core/node/factory/graphic.factory';
+import {clipboard} from '@core/node/clipboard';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -91,6 +92,13 @@ export class ReportCanvas implements INode {
         }, {
           displayName: '剪切',
           shortcut: 'Ctrl+X'
+        }, {
+          displayName: '粘贴',
+          shortcut: 'Ctrl+X',
+          callback: () => {
+            console.log('粘贴');
+            graphicFactory.createFromOption(clipboard.getData(), $event.offsetX, $event.offsetY);
+          }
         }, {
           displayName: '删除',
           shortcut: 'Backspace'

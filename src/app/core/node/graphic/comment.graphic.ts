@@ -57,6 +57,9 @@ export class CommentGraphic implements IGraphic {
 
   }
 
+  getOption() {
+  }
+
   resize() {
     if (this._html) {
       this._html.resize();

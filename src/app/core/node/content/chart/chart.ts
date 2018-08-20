@@ -70,7 +70,9 @@ export abstract class Chart implements IContent {
    */
   getOption() {
     if (this._echart) {
-      return this._echart.getOption();
+      const ret = this._echart.getOption();
+      delete ret.timeline;
+      return ret;
     } else {
       return null;
     }

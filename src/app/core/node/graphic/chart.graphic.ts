@@ -30,6 +30,7 @@ export class ChartGraphic implements IGraphic {
   private _region: Region;
   private _chart: Chart;
   private _configComponentRef: ComponentRef<GraphicConfig>;
+  private _contentClass: any;
 
   constructor(region: Region) {
     this._region = region;
@@ -44,6 +45,7 @@ export class ChartGraphic implements IGraphic {
   }
 
   init(contentClass: Type<Chart>) {
+    this._contentClass = contentClass;
     this._chart = new contentClass(this);
     this._bindToolbarEvent();
     console.log(this._chart);
@@ -64,6 +66,13 @@ export class ChartGraphic implements IGraphic {
 
   updateGraphic(option: any) {
 
+  }
+
+  getOption() {
+    return {
+      contentClass: this._contentClass,
+      option: this._chart.getOption()
+    };
   }
 
   resize() {
