@@ -49,7 +49,7 @@ export class ImageGraphic implements IGraphic {
   }
 
   update(option: any) {
-    if (this._html) {
+    if (this._html && option) {
       this._region.setDimensions(option.width, option.height);
       this._html.update(option);
     }

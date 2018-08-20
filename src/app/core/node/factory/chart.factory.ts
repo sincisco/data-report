@@ -1,20 +1,37 @@
-import {Type} from '@angular/core/src/type';
-import {IGraphic} from '../graphic/graphic';
-import {Region} from '../region/region';
+import {ExplicitRegion} from '@core/node/region/explicit.region';
+import {ReportCanvas} from '@core/node/canvas/report/report.canvas';
+import {ChartGraphic} from '@core/node/graphic/chart.graphic';
+import {BarChart} from '@core/node/content/chart/bar.chart';
+import {TextGraphic} from '@core/node/graphic/text.graphic';
+import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
 
-function ChartbarFactory() {
 
-}
+class GraphicFactory {
+  createBarChart(canvas: ReportCanvas, x: number, y: number) {
+    console.log('新建图表');
+    const explicitRegion = new ExplicitRegion();
+    explicitRegion.setCoordinates(x, y);
+    explicitRegion.refresh();
+    canvas.addChild(explicitRegion);
 
-export abstract class Factory {
-  private _contentClass: Type<IContent>;
-  private _graphicClass: Type<IGraphic>;
+    const _graphic = new ChartGraphic(explicitRegion);
 
-  create(region: Region) {
-    const _graphic = new this._graphicClass(region);
+    _graphic.init(BarChart);
+    // 使用刚指定的配置项和数据显示图表。
+  }
 
-    _graphic.init(this._contentClass);
+  createTextAuxiliary(canvas: ReportCanvas, x: number, y: number) {
+    console.log('新建文本段');
+    const explicitRegion = new ExplicitRegion();
+    explicitRegion.setCoordinates(x, y);
+    explicitRegion.refresh();
+    canvas.addChild(explicitRegion);
 
-    return _graphic;
+    const _graphic = new TextGraphic(explicitRegion);
+
+    // 使用刚指定的配置项和数据显示图表。
+    _graphic.init(TextAuxiliary);
   }
 }
+
+export const graphicFactory = new GraphicFactory();

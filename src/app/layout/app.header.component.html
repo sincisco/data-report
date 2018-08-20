@@ -38,7 +38,7 @@
           <span class="text">表格<i class="u-icn u-icn-caret-down" style="display: none;"></i></span>
         </div>
       </li>
-      <li class="btn-item" style="cursor: default;"  (mouseenter)="mouseEnter($event,'moreTools')">
+      <li class="btn-item" style="cursor: default;" (mouseenter)="mouseEnter($event,moreToolsPopup,56)">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-menubar-more"></i>
           <span class="text">更多<i class="u-icn u-icn-caret-down" style="display: none;"></i></span>
@@ -50,8 +50,7 @@
     <div class="cut-line"></div>
 
     <ul class="btns-box">
-      <li class="btn-item  false" style="cursor: default;" (mouseenter)="mouseEnter($event,'helperTools')"
-          (mouseleave)="mouseLeave()">
+      <li class="btn-item  false" style="cursor: default;" (mouseenter)="mouseEnter($event,helperToolsPopup,0)">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-utility"></i>
           <span class="text">辅助工具<i class="u-icn u-icn-caret-down" style="display: none;"></i></span>
@@ -70,7 +69,7 @@
     <div class="cut-line"></div>
 
     <ul class="btns-box">
-      <li class="btn-item false false" style="cursor: default;" (mouseenter)="mouseEnter($event,'filterTools')">
+      <li class="btn-item false false" style="cursor: default;" (mouseenter)="mouseEnter($event,filterToolsPopup,12)">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-list"></i>
           <span class="text">筛选器<i class="u-icn u-icn-caret-down" style="display: none;"></i></span>

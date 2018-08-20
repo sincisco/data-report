@@ -4,6 +4,8 @@ import {ReportCanvas} from '@core/node/canvas/report/report.canvas';
 import {Split} from '@core/node/canvas/dashboard/split';
 import {DashboardCanvas} from '@core/node/canvas/dashboard/dashboard.canvas';
 
+export let currentReport: ReportCanvas;
+
 @Component({
   selector: 'app-body',
   templateUrl: './app.body.component.html',
@@ -14,7 +16,7 @@ export class AppBodyComponent implements AfterViewInit {
   report;
 
   ngAfterViewInit() {
-    var report = this.report = new ReportCanvas();
+    var report = this.report = currentReport = new ReportCanvas();
     report.addChild(new ExplicitRegion());
     $('.app-content').prepend(report.$element);
 

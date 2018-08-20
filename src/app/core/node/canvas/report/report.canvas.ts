@@ -7,6 +7,7 @@ import {ComponentRef} from '@angular/core';
 import {PageConfigComponent} from '../../../../layout/sider/page.config/page.config.component';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 import {PageConfig} from '../../../../layout/sider/page.config/page.config';
+import {graphicFactory} from '@core/node/factory/chart.factory';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -216,6 +217,13 @@ export class ReportCanvas implements INode {
         this.select();
         this.activate();
       }
+    });
+
+    this.$grid.on('dragover', ($event: JQuery.Event) => {
+      const dragEvent = <DragEvent>$event.originalEvent;
+
+      dragEvent.dataTransfer.dropEffect = 'copyMove';
+      $event.preventDefault();
     });
     this.$mask.click(() => {
       console.log('this.$mask.click');
