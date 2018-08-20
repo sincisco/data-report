@@ -40,9 +40,6 @@ export class ExplicitRegion extends Region {
     height: 200
   };
 
-  private _graphicClass: any;
-
-  $host: JQuery;
   $fill: JQuery;
 
   constructor() {
@@ -51,7 +48,6 @@ export class ExplicitRegion extends Region {
       left: 100,
       top: 100
     };
-    this.$host = this.$element;
     this.$fill = this.$element.find('.g-fill');
     this.refresh();
     setTimeout(() => {
@@ -107,11 +103,19 @@ export class ExplicitRegion extends Region {
     }
   }
 
+  /**
+   * 模型层关联，展现层关联
+   * @param {IGraphic} graphic
+   */
   addChild(graphic: IGraphic) {
     this._graphic = graphic;
-    this._graphicClass = graphic.constructor;
-    console.log('****************', graphic);
     this.$fill.append(graphic.$element);
+  }
+
+  getOption() {
+    if (this._graphic) {
+      return Object.assign({graphic: this._graphic.getOption(), graphicClass: this._graphic.constructor}, this._dimensions);
+    }
   }
 
   private _bindEvent() {
@@ -230,10 +234,6 @@ export class ExplicitRegion extends Region {
     this._bindContextEvent();
 
     super._bindEventForMover();
-  }
-
-  getOption() {
-    return Object.assign({graphic: this._graphic.getOption(), graphicClass: this._graphicClass}, this._dimensions);
   }
 
   private _bindContextEvent() {

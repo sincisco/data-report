@@ -11,6 +11,9 @@ export abstract class Auxiliary implements IContent {
 
   abstract update(option: any);
 
+  updateTheme() {
+  };
+
   refresh() {
   }
 

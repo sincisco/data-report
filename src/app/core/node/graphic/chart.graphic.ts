@@ -58,9 +58,15 @@ export class ChartGraphic implements IGraphic {
     this._chart.init(option);
   }
 
-  update(option: any, theme?: string) {
+  update(option: any) {
     if (this._chart) {
-      this._chart.update(option, theme);
+      this._chart.update(option);
+    }
+  }
+
+  updateTheme(theme) {
+    if (this._chart) {
+      this._chart.updateTheme(theme);
     }
   }
 
@@ -82,14 +88,17 @@ export class ChartGraphic implements IGraphic {
   }
 
   activate() {
+    if (this._chart) {
+      this._chart.activate();
+    }
+  }
+
+  activateConfig() {
     if (!this._configComponentRef) {
       this._configComponentRef = siderLeftComponent.createGraphicConfig(this._chart.configClass);
       this._configComponentRef.instance.graphic = this;
     } else {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-    if (this._chart) {
-      this._chart.activate();
     }
   }
 

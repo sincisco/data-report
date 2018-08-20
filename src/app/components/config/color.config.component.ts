@@ -23,7 +23,7 @@ export class ColorConfigComponent extends CustomControlValueAccessor implements 
 
   @ViewChild(NgForm) ngForm: NgForm;
 
-  option: Array<string> = [];
+  option: Array<string>;
 
   listOfColors = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
 
@@ -34,10 +34,9 @@ export class ColorConfigComponent extends CustomControlValueAccessor implements 
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.subscribe((value) => {
-      console.log('ColorConfigComponent valueChanges');
-      console.log(value);
+      console.log('ColorConfigComponent valueChanges', value);
 
-      this._propagateChange(value.color);
+      value.color && this._propagateChange(value.color);
     });
   }
 

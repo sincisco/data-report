@@ -33,6 +33,11 @@
               "src/lib/echarts/echarts.min.js",
               "src/lib/echarts/china.js",
               "src/lib/echarts/dark.js",
+              "src/lib/echarts/infographic.js",
+              "src/lib/echarts/macarons.js",
+              "src/lib/echarts/roma.js",
+              "src/lib/echarts/shine.js",
+              "src/lib/echarts/vintage.js",
               "src/lib/echarts/lsd.js"
             ]
           },

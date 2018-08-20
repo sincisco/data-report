@@ -12,6 +12,10 @@ export abstract class HtmlNode implements IContent {
 
   abstract update(option: any);
 
+  updateTheme(theme: string) {
+
+  }
+
   refresh() {
   }
 

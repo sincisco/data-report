@@ -35,12 +35,12 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     lineHeight: '30px'
   };
 
+  private _differ: KeyValueDiffer<any, any>;
+
   formatterWidth = value => `宽度 ${value}`;
   parserWidth = value => value.replace('宽度 ', '');
   formatterHeight = value => `高度 ${value}`;
   parserHeight = value => value.replace('高度 ', '');
-
-  private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers) {
     super();

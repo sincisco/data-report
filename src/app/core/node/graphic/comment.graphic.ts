@@ -53,6 +53,9 @@ export class CommentGraphic implements IGraphic {
     }
   }
 
+  updateTheme(theme: string) {
+  }
+
   updateGraphic(option: any) {
 
   }
@@ -67,14 +70,17 @@ export class CommentGraphic implements IGraphic {
   }
 
   activate() {
+    if (this._html) {
+      this._html.activate();
+    }
+  }
+
+  activateConfig() {
     if (!this._configComponentRef) {
       this._configComponentRef = siderLeftComponent.createGraphicConfig(this._html.configClass);
       this._configComponentRef.instance.graphic = this;
     } else {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-    if (this._html) {
-      this._html.activate();
     }
   }
 

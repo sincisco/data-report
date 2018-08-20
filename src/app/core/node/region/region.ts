@@ -22,6 +22,7 @@ export abstract class Region implements INode {
   protected _coordinates: JQuery.Coordinates;
   // 非持久化状态层
   protected _regionState: RegionState = RegionState.default;
+
   // 模型层
   protected _report: ReportCanvas;
   protected _graphic: IGraphic;
@@ -44,6 +45,14 @@ export abstract class Region implements INode {
     return this._report;
   }
 
+  set left(param: number) {
+    this._coordinates.left = closestNum(param);
+  }
+
+  set top(param: number) {
+    this._coordinates.top = closestNum(param);
+  }
+
   get coordinates(): JQuery.Coordinates {
     return Object.assign({}, this._coordinates);
   }
@@ -53,7 +62,7 @@ export abstract class Region implements INode {
     this.$element.addClass('selected');
     if (this._graphic) {
       reportGlobal.instance = this._graphic;
-      this._graphic.activate();
+      this._graphic.activateConfig();
     }
   }
 
@@ -64,31 +73,37 @@ export abstract class Region implements INode {
 
   activate() {
     this._regionState = RegionState.activated;
+    if (this._graphic) {
+      reportGlobal.instance = this._graphic;
+      this._graphic.activate();
+    }
   }
 
   deactivate() {
-    console.log(this._graphic);
-    (<any>this._graphic).deactivate();
     this._regionState = RegionState.default;
+    if (this._graphic) {
+      (<any>this._graphic).deactivate();
+    }
   }
 
   updateTheme(theme: string) {
     if (this._graphic) {
-      this._graphic.update(undefined, theme);
+      this._graphic.updateTheme(theme);
     }
   }
 
-  set left(param: number) {
-    this._coordinates.left = closestNum(param);
-  }
-
-  set top(param: number) {
-    this._coordinates.top = closestNum(param);
-  }
+  abstract refresh();
 
   public abstract addChild(child: IGraphic);
 
-  abstract refresh();
+  /**
+   * 1、销毁内部对象
+   * 2、解除事件绑定
+   * 3、解除当前对象的属性引用
+   */
+  destroy() {
+    this.$element.remove();
+  }
 
   /**
    * tips:
@@ -144,15 +159,12 @@ export abstract class Region implements INode {
       });
   }
 
-  /**
-   * 1、销毁内部对象
-   * 2、解除事件绑定
-   * 3、解除当前对象的属性引用
-   */
-  destroy() {
-    this.$element.remove();
-  }
 
+}
+
+class RegionManager {
+  constructor() {
+  }
 }
 
 
@@ -160,7 +172,7 @@ class ResizeTipHelper {
   private _template = `<div class="u-tip u-tip-grid" style="transform: translate(0px,-50%);left:300px;top:300px;display: none;">
     <span></span></div>`;
 
-  private _$element: JQuery;
+  private readonly _$element: JQuery;
 
   private _$span: JQuery;
 

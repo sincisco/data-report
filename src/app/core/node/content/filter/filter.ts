@@ -5,6 +5,9 @@ export abstract class FilterNode implements IContent {
 
   abstract update(option: any);
 
+  updateTheme(theme: string) {
+  }
+
   refresh() {
   }
 

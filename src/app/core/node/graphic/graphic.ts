@@ -6,11 +6,17 @@ export interface IGraphic {
 
   init(contentClass: Type<IContent>);
 
+  // 图标进入交互状态
   activate();
+
+  // 激活配置面板
+  activateConfig();
 
   resize();
 
-  update(option: any, theme?: string);
+  update(option: any);
+
+  updateTheme(theme: string);
 
   updateGraphic(option: any);
 

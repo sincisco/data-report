@@ -11,18 +11,13 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {draggableHeler} from '../../../../utils/draggable.helper';
-
 import {datasetManager} from '@core/dataset/dataset.manager';
 
-import {contextMenuHelper} from '../../../../utils/contextMenu';
-
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
-import {NzModalFilterComponent} from '../common/filter.modal.component';
-import {filterExecutor} from '@core/filter/filter.executor';
 import {Dimension} from '@core/dataset/dataset.interface';
 import {GraphicConfig} from '../graphic.config';
 import {ChartBarOption} from '@core/node/content/chart/bar.chart';
+import {removeUndefined} from '../../../../utils/common';
 
 @Component({
   selector: 'app-bar-config',
@@ -118,12 +113,11 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
   ngAfterViewInit() {
     setTimeout(() => {
       this.ngForm.valueChanges.subscribe((value) => {
-        console.log('BarConfigComponent  valueChanges');
-        console.log(value);
+        console.log('BarConfigComponent  valueChanges', value);
         const changes = this._differ.diff(value);
         if (this.graphic) {
           value.dataset = datasetManager.current;
-          this.graphic.update(value);
+          this.graphic.update(removeUndefined(value));
         }
 
         if (this.face) {
@@ -134,23 +128,9 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
           console.log('BarConfigComponent  has change');
         }
       });
-    }, 10);
+    }, 50);
   }
 
-//   console.log(this.ngForm);
-//   this.ngForm.valueChanges.subscribe((value) => {
-//   console.log('***************************SiderLeftComponent valueChanges');
-//   console.log(value);
-//   console.log(this.option);
-//   const changes = this._differ.diff(value);
-//   if (changes) {
-//     console.log('has change');
-//     if (reportGlobal.instance) {
-//       reportGlobal.instance.update(value);
-//     }
-//   }
-//
-// });
 
 }
 
