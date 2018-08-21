@@ -21,6 +21,7 @@ import {FilterListComponent} from './common/filter.list.component';
 import {ConfigModule} from '../../../components/config/config.module';
 import {PageConfigComponent} from '../page.config/page.config.component';
 import {LineConfigComponent} from './chart/line.config.component';
+import {BuildInConfigComponent} from '../page.config/build-in.config.component';
 
 const COMPONENTS = [
   PieConfigComponent,
@@ -32,6 +33,7 @@ const COMPONENTS = [
   ImageConfigComponent,
   NzModalFilterComponent,
   FilterListComponent,
+  BuildInConfigComponent,
   PageConfigComponent
 ];
 

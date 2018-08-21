@@ -44,32 +44,7 @@
           <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
             <div [ngSwitch]="option.backgroundMode">
               <ng-container *ngSwitchCase="'built-in'">
-                <div class="input-list-items">
-                  <div class="input-list-item" (click)="buildInClick('background1')"
-                       [class.active]="option.backgroundClass==='background1'">
-                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-1.png"
-                                                               class="w-full" alt="背景1"></div>
-                    <div>背景1</div>
-                  </div>
-                  <div class="input-list-item" (click)="buildInClick('background2')"
-                       [class.active]="option.backgroundClass==='background2'">
-                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-2.png"
-                                                               class="w-full" alt="背景2"></div>
-                    <div>背景2</div>
-                  </div>
-                  <div class="input-list-item" (click)="buildInClick('background3')"
-                       [class.active]="option.backgroundClass==='background3'">
-                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-3.png"
-                                                               class="w-full" alt="背景3"></div>
-                    <div>背景3</div>
-                  </div>
-                  <div class="input-list-item" (click)="buildInClick('background4')"
-                       [class.active]="option.backgroundClass==='background4'">
-                    <div class="list-item-image thumb-md"><img src="../../../../assets/images/templet/background-4.png"
-                                                               class="w-full" alt="背景4"></div>
-                    <div>背景4</div>
-                  </div>
-                </div>
+                <app-build-in name="backgroundClass" [(ngModel)]="option.backgroundClass"></app-build-in>
               </ng-container>
               <ng-container *ngSwitchCase="'custom'">
                 <div nz-row nzType="flex">

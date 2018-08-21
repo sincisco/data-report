@@ -9,6 +9,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 import {PageConfig} from '../../../../layout/sider/page.config/page.config';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
+import {ChangeItem, ChangeManager} from '@core/node/utils/ChangeManager';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -27,7 +28,7 @@ const ReportTemplate = `
     </div>
     `;
 
-export class ReportCanvas implements INode {
+export class ReportCanvas extends ChangeManager implements INode {
   private _dimensions: Dimensions = {
     width: 960,
     height: 720
@@ -52,6 +53,7 @@ export class ReportCanvas implements INode {
   private _configComponentRef: ComponentRef<PageConfig>;
 
   constructor() {
+    super();
     this.$element = this.$region = $(ReportTemplate);
     this.$canvas = this.$element.find('.report-canvas');
     this.$box = this.$element.find('.report-box');
@@ -66,6 +68,7 @@ export class ReportCanvas implements INode {
     this.refresh();
 
     this._init();
+    this._initForUpdate();
     this._bindContextEvent();
   }
 
@@ -95,6 +98,48 @@ export class ReportCanvas implements INode {
         this._configComponentRef.instance.page = this;
       }
     }, 100);
+  }
+
+  private _initForUpdate() {
+    this.register('backgroundMode', (key, oldValue, newValue, option) => {
+      if (newValue === 'built-in') {
+        this.$box.css({
+          backgroundImage: `none`
+        });
+        this.$box.removeClass('background1 background2 background3 background4');
+        this.$box.addClass(option.backgroundClass);
+      } else if (newValue === 'custom') {
+        this.$box.removeClass('background1 background2 background3 background4');
+        option.backgroundDataUrl && this.$box.css({
+          backgroundImage: `url(${option.backgroundDataUrl})`
+        });
+      } else if (newValue === 'only-color') {
+        this.$box.removeClass('background1 background2 background3 background4');
+        this.$box.css({
+          backgroundImage: `none`
+        });
+        option.backgroundColor && this.$box.css({
+          backgroundColor: option.backgroundColor
+        });
+      }
+    });
+
+    this.register('width', (key, oldValue, newValue) => {
+      this.width = newValue;
+      this.refresh();
+    });
+    this.register('height', (key, oldValue, newValue) => {
+      this.height = newValue;
+      this.refresh();
+    });
+    this.register('auxiliaryLine', (key, oldValue, newValue) => {
+      this.$grid.toggleClass('help-lines', newValue);
+    });
+    this.register('themeMode', (key, oldValue, newValue) => {
+      this._children.forEach((item) => {
+        item.updateTheme(newValue);
+      });
+    });
   }
 
   activateRegion(region: Region) {
@@ -153,36 +198,9 @@ export class ReportCanvas implements INode {
     siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
   }
 
-  public update(option) {
-    if (option.backgroundMode === 'built-in') {
-      this.$box.css({
-        backgroundImage: `none`
-      });
-      this.$box.removeClass('background1 background2 background3 background4');
-      this.$box.addClass(option.backgroundClass);
-    } else if (option.backgroundMode === 'custom') {
-      this.$box.removeClass('background1 background2 background3 background4');
-      option.backgroundDataUrl && this.$box.css({
-        backgroundImage: `url(${option.backgroundDataUrl})`
-      });
-    } else if (option.backgroundMode === 'only-color') {
-      this.$box.removeClass('background1 background2 background3 background4');
-      this.$box.css({
-        backgroundImage: `none`
-      });
-      option.backgroundColor && this.$box.css({
-        backgroundColor: option.backgroundColor
-      });
-    }
-
-    this.width = option.width;
-    this.height = option.height;
-    this.refresh();
-    console.log('help-lines', option.auxiliaryLine);
-    this.$grid.toggleClass('help-lines', option.auxiliaryLine);
-
-    this._children.forEach((item) => {
-      item.updateTheme(option.themeMode);
+  public update(changeItemArray: Array<ChangeItem>) {
+    changeItemArray.forEach((value, index, array) => {
+      this.trigger(value);
     });
   }
 

@@ -15,7 +15,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
   @Output() output = new EventEmitter();
 
   option = {
-    text: '我是标题',
+    text: '页面标题',
     auxiliaryLine: true,
     dimensionMode: 'standard',
     width: 960,
@@ -46,14 +46,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     super();
   }
 
-  buildInClick(value) {
-    this.option.backgroundClass = value;
-    this.page.update(this.option);
-    console.log(this.option);
-  }
-
   dimensionModeChange(value) {
-    console.log(value);
     switch (value) {
       case 'standard':
         this.option.width = 960;
@@ -70,8 +63,6 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
       case 'custom':
         break;
     }
-
-    this.page.update(this.option);
   }
 
   change(event: Event) {
@@ -105,21 +96,33 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
       this.ngForm.valueChanges.subscribe((value) => {
         console.log('count:', count++);
         console.log(JSON.stringify(value));
-        this.page.update(Object.assign({}, this.option, value));
-        const changes = this._differ.diff(this.option);
+        const array = [];
+        const changes = this._differ.diff(value);
         if (changes) {
           changes.forEachRemovedItem((record) => {
-            console.log(JSON.stringify(record.key));
+            console.log('removedItem', JSON.stringify(record.key));
           });
           changes.forEachAddedItem((record) => {
-            console.log(JSON.stringify(record.key));
+            console.log('addedItem', JSON.stringify(record.key));
           });
           changes.forEachChangedItem((record) => {
-            console.log(JSON.stringify(record.key));
+            console.log('changedItem', JSON.stringify(record.key));
+            array.push({
+              key: record.key,
+              oldValue: record.previousValue,
+              newValue: record.currentValue,
+              option: value
+            });
           });
+        } else {
+          console.log('has no changes');
+        }
+        if (array.length > 0) {
+          console.log('do page update');
+          this.page.update(array);
         }
       });
-    }, 50);
+    }, 100);
 
   }
 
