@@ -82,6 +82,9 @@ export abstract class Chart implements IContent {
 
   }
 
+  deactivate() {
+  }
+
   resize() {
     if (this._echart) {
       this._echart.resize();

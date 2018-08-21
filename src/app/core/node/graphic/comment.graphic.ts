@@ -77,7 +77,7 @@ export class CommentGraphic implements IGraphic {
 
   deactivate() {
     if (this._html) {
-      (<any>this._html).deactivate();
+      this._html.deactivate();
     }
   }
 

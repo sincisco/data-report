@@ -57,6 +57,9 @@ export abstract class Region implements INode {
     return Object.assign({}, this._coordinates);
   }
 
+  /**
+   * 用户单击mover的时候调用select，进入选中状态
+   */
   select() {
     this._regionState = RegionState.selected;
     this.$element.addClass('selected');
@@ -66,11 +69,17 @@ export abstract class Region implements INode {
     }
   }
 
+  /**
+   * 点击画布  所有的region、调用unselect方法
+   */
   unselect() {
     this._regionState = RegionState.default;
     this.$element.removeClass('selected');
   }
 
+  /**
+   * 用户双击mover，进入激活状态   此时已经调用了select
+   */
   activate() {
     this._regionState = RegionState.activated;
     if (this._graphic) {
@@ -79,6 +88,9 @@ export abstract class Region implements INode {
     }
   }
 
+  /**
+   * 点击mask  当前激活的region调用deactivate
+   */
   deactivate() {
     this._regionState = RegionState.default;
     if (this._graphic) {

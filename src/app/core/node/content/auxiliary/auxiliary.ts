@@ -19,6 +19,9 @@ export abstract class Auxiliary implements IContent {
 
   abstract activate();
 
+  deactivate() {
+  };
+
   abstract destroy();
 
   getOption() {

@@ -21,6 +21,8 @@ interface IContent {
 
   activate();
 
+  deactivate();
+
   getOption();
 
   destroy();

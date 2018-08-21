@@ -95,7 +95,7 @@ export class ChartGraphic implements IGraphic {
 
   deactivate() {
     if (this._chart) {
-      (<any>this._chart).deactivate();
+      this._chart.deactivate();
     }
   }
 
