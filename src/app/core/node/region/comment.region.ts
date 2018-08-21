@@ -75,10 +75,6 @@ export class CommentRegion extends Region {
   }
 
   select() {
-    console.log('select');
-    if (this._regionState === RegionState.selected) {
-      return;
-    }
     this._regionState = RegionState.selected;
     this.$element.addClass('selected');
     if (this._graphic) {
@@ -89,11 +85,20 @@ export class CommentRegion extends Region {
   }
 
   unselect() {
-    if (this._regionState === RegionState.default) {
-      return;
-    }
     this._regionState = RegionState.default;
     this.$element.removeClass('selected');
+    this.refresh();
+  }
+
+  /**
+   * 点击mask  当前激活的region调用deactivate
+   */
+  deactivate() {
+    this._regionState = RegionState.default;
+    this.$element.removeClass('selected');
+    if (this._graphic) {
+      (<any>this._graphic).deactivate();
+    }
     this.refresh();
   }
 
