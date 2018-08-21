@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
-import {HtmlNode} from './html';
+import {HtmlNode} from '../html/html';
 import {ImageConfigComponent} from '../../../../layout/sider/graphic.config/html/image.config.component';
 import {ImageGraphic} from '../../graphic/image.graphic';
+import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 
 interface ImageOption {
   alt?: string;
@@ -17,7 +18,7 @@ const OptionDefault: ImageOption = {
 };
 
 
-export class ImageHtml extends HtmlNode {
+export class ImageAuxiliary extends Auxiliary {
   private _option: ImageOption;
   private _$element: JQuery;
 

@@ -4,27 +4,21 @@ import {GraphicConfig} from '../../../../layout/sider/graphic.config/graphic.con
 import {ChartGraphic} from '../../graphic/chart.graphic';
 
 enum ChartState {
-  uninitialized, initialized, normal
+  uninitialized, initialized, normal, destroyed
 }
 
 // chartNode
 export abstract class Chart implements IContent {
   protected _echart: Echart;
+  private _theme = 'roma';
   protected _option: any = {};
+  private _state = ChartState.uninitialized;
 
   public configClass: Type<GraphicConfig>;
 
-  private _state = ChartState.uninitialized;
-  private _theme = 'roma';
-
   protected constructor(private _graphic: ChartGraphic) {
     // 初始化之前  确保host已经挂载到document中
-    const element = document.createElement('div');
-    element.style.width = '100%';
-    element.style.height = '100%';
-    _graphic.childHost().append(element);
-    this._echart = echarts.init(element);
-    this._state = ChartState.initialized;
+    this._innerReInit();
   }
 
   init(option: any) {
@@ -35,21 +29,8 @@ export abstract class Chart implements IContent {
         this._state = ChartState.normal;
       } catch (e) {
         console.log(e);
-        try {
-          this._echart.dispose();
-        } catch (e1) {
-          console.log(e1);
-        } finally {
-          this._echart = null;
-          this._graphic.childHost().empty();
 
-          const element = document.createElement('div');
-          element.style.width = '100%';
-          element.style.height = '100%';
-          this._graphic.childHost().append(element);
-          this._echart = echarts.init(element, this._theme);
-          this._state = ChartState.initialized;
-        }
+        this._innerReInit();
       }
     }
   }
@@ -65,22 +46,11 @@ export abstract class Chart implements IContent {
           this._option = option;
         } catch (e) {
           console.log(e);
-          try {
-            this._echart.dispose();
-          } catch (e1) {
-            console.log(e1);
-          } finally {
-            this._echart = null;
-            this._graphic.childHost().empty();
 
-            const element = document.createElement('div');
-            element.style.width = '100%';
-            element.style.height = '100%';
-            this._graphic.childHost().append(element);
-            this._echart = echarts.init(element, this._theme);
-            this._state = ChartState.initialized;
-          }
+          this._innerReInit();
+
           this._echart.setOption(this._option);
+          this._state = ChartState.normal;
         }
       }
     }
@@ -88,21 +58,20 @@ export abstract class Chart implements IContent {
 
   updateTheme(theme: string) {
     console.log(theme);
-    if (this._theme !== theme && this._state === ChartState.normal) {
-      this._echart.dispose();
-      this._graphic.childHost().empty();
-      const element = $('<div style="width: 100%;height: 100%;"></div>');
-      this._graphic.childHost().append(element);
-      this._echart = echarts.init(element[0], theme);
-      this._echart.setOption(this._option);
+    if (this._theme !== theme) {
+      this._theme = theme;
+      this._innerReInit();
+      if (this._option) {
+        this._echart.setOption(this._option);
+        this._state = ChartState.normal;
+      }
     }
-    this._theme = theme;
   }
 
   refresh() {
     if (!this._echart.isDisposed() && this._option) {
       this._echart.clear();
-      this._echart.setOption(this._option);
+      this._echart.setOption(this.getOption());
     }
   }
 
@@ -134,11 +103,36 @@ export abstract class Chart implements IContent {
     }
   }
 
+
   destroy() {
     if (this._echart && !this._echart.isDisposed()) {
       this._echart.dispose();
       this._echart = null;
-      this._graphic.childHost().empty();
     }
+    this._graphic.childHost().empty();
+    delete this._option;
+    delete this._graphic;
+
+    this._state = ChartState.destroyed;
+  }
+
+  private _innerReInit() {
+    if (this._echart && !this._echart.isDisposed()) {
+      this._echart.dispose();
+      this._echart = null;
+    }
+    this._graphic.childHost().empty();
+
+    const element = document.createElement('div');
+    element.style.width = '100%';
+    element.style.height = '100%';
+    this._graphic.childHost().append(element);
+    if (this._theme) {
+      this._echart = echarts.init(element, this._theme);
+    } else {
+      this._echart = echarts.init(element);
+    }
+
+    this._state = ChartState.initialized;
   }
 }

@@ -42,7 +42,7 @@ const HelperTools = `
           <span class="text">矩形</span>
         </div>
       </li>
-      <li class="btn-item draggable" draggable="true">
+      <li class="btn-item draggable" draggable="true" data-component-name="textAuxiliary">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-menubar-text"></i>
           <span class="text">文本</span>
@@ -54,7 +54,7 @@ const HelperTools = `
           <span class="text">Tab</span>
         </div>
       </li>
-      <li class="btn-item draggable">
+      <li class="btn-item draggable" draggable="true" data-component-name="commentAuxiliary">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-menubar-comment"></i>
           <span class="text">注释框</span>
@@ -166,12 +166,14 @@ class PopupWrapper {
   }
 
   private _init() {
+    let componentName: string;
     this._$element.mouseleave(() => {
       this._$element.hide();
     });
     this._$element.find('.btn-item.draggable').on('dragstart', ($event: JQuery.Event) => {
       document.addEventListener('mousemove', mouseMove);
       document.addEventListener('mouseup', mouseUp);
+      componentName = (<HTMLElement>$event.target).dataset.componentName;
       return false;
     });
 
@@ -182,7 +184,7 @@ class PopupWrapper {
     const mouseUp = (event: MouseEvent) => {
       console.log('document mouseup', event, currentReport.$grid.offset());
 
-      graphicFactory.createBarChart(currentReport,
+      graphicFactory.createByName(componentName, currentReport,
         event.pageX - currentReport.$grid.offset().left - 150,
         event.pageY - currentReport.$grid.offset().top - 100);
       grabHelper.hidden();

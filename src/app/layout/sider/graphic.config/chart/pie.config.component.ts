@@ -18,7 +18,7 @@ import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '@core/dataset/dataset.interface';
 import {GraphicConfig} from '../graphic.config';
 import {ChartLineOption} from '@core/node/content/chart/line.chart';
-import {ChartpieConfig} from '@core/node/content/chart/pie.chart';
+import {ChartPieConfig} from '@core/node/content/chart/pie.chart';
 
 @Component({
   selector: 'app-pie-config',
@@ -31,7 +31,7 @@ export class PieConfigComponent extends GraphicConfig implements AfterViewInit, 
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
   @Output() output = new EventEmitter();
 
-  option: ChartpieConfig = {
+  option: ChartPieConfig = {
     title: {
       show: true,
       text: '我是一个大标题',

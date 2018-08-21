@@ -33,9 +33,9 @@ export class ReportCanvas implements INode {
     height: 720
   };
   private _scale = 1;
-  private _regionActivated = false;
   private _children: Array<Region> = [];
 
+  private _activatedRegion: Region;
 
   $element: JQuery;
   $region: JQuery;
@@ -44,8 +44,10 @@ export class ReportCanvas implements INode {
   $grid: JQuery;
 
   $mask: JQuery;
-
-  private _activatedRegion: Region;
+  $maskLeft: JQuery;
+  $maskRight: JQuery;
+  $maskTop: JQuery;
+  $maskBottom: JQuery;
 
   private _configComponentRef: ComponentRef<PageConfig>;
 
@@ -54,9 +56,187 @@ export class ReportCanvas implements INode {
     this.$canvas = this.$element.find('.report-canvas');
     this.$box = this.$element.find('.report-box');
     this.$grid = this.$element.find('.report-grid');
-    this.$mask = this.$element.find('.u-edit-mask');
+
+
+    const $mask = this.$mask = this.$element.find('.u-edit-mask');
+    this.$maskLeft = $mask.find('.mask-left');
+    this.$maskRight = $mask.find('.mask-right');
+    this.$maskTop = $mask.find('.mask-top');
+    this.$maskBottom = $mask.find('.mask-bottom');
     this.refresh();
 
+    this._init();
+    this._bindContextEvent();
+  }
+
+  private _init() {
+    this.$grid.click(($event) => {
+      console.log('click');
+      if ($event.target === this.$grid[0]) {
+        this.select();
+        this.activateConfig();
+      }
+    });
+
+    this.$grid.on('dragover', ($event: JQuery.Event) => {
+      const dragEvent = <DragEvent>$event.originalEvent;
+
+      dragEvent.dataTransfer.dropEffect = 'copyMove';
+      $event.preventDefault();
+    });
+    this.$mask.click(() => {
+      console.log('$mask  click');
+      this.deactivateRegion();
+    });
+
+    setTimeout(() => {
+      if (!this._configComponentRef) {
+        this._configComponentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
+        this._configComponentRef.instance.page = this;
+      }
+    }, 100);
+  }
+
+  activateRegion(region: Region) {
+    this._activatedRegion = region;
+    region.activate();
+    this.$element.addClass('activated');
+    this._maskRepaint(region.$element);
+  }
+
+  deactivateRegion() {
+    if (this._activatedRegion) {
+      this._activatedRegion.deactivate();
+      this._activatedRegion = null;
+      this.$element.removeClass('activated');
+    }
+  }
+
+  regionResize(region: Region) {
+    this._maskRepaint(region.$element);
+  }
+
+  private _maskRepaint($activateElement: JQuery) {
+    const left = $activateElement.position().left,
+      top = $activateElement.position().top,
+      width = $activateElement.outerWidth(),
+      height = $activateElement.outerHeight();
+    this.$maskLeft
+      .width(Math.max(0, left));
+    this.$maskRight
+      .css({
+        left: left + width
+      });
+    this.$maskBottom
+      .width(width)
+      .css({
+        left: Math.max(0, left),
+        top: top + height
+      });
+    this.$maskTop
+      .width(width)
+      .height(Math.max(top, 0))
+      .css({
+        left: Math.max(0, left)
+      });
+  }
+
+  get regionActivated() {
+    return !!this._activatedRegion;
+  }
+
+  activate() {
+
+  }
+
+  activateConfig() {
+    siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+  }
+
+  public update(option) {
+    if (option.backgroundMode === 'built-in') {
+      this.$box.css({
+        backgroundImage: `none`
+      });
+      this.$box.removeClass('background1 background2 background3 background4');
+      this.$box.addClass(option.backgroundClass);
+    } else if (option.backgroundMode === 'custom') {
+      this.$box.removeClass('background1 background2 background3 background4');
+      option.backgroundDataUrl && this.$box.css({
+        backgroundImage: `url(${option.backgroundDataUrl})`
+      });
+    } else if (option.backgroundMode === 'only-color') {
+      this.$box.removeClass('background1 background2 background3 background4');
+      this.$box.css({
+        backgroundImage: `none`
+      });
+      option.backgroundColor && this.$box.css({
+        backgroundColor: option.backgroundColor
+      });
+    }
+
+    this.width = option.width;
+    this.height = option.height;
+    this.refresh();
+    console.log('help-lines', option.auxiliaryLine);
+    this.$grid.toggleClass('help-lines', option.auxiliaryLine);
+
+    this._children.forEach((item) => {
+      item.updateTheme(option.themeMode);
+    });
+  }
+
+  select() {
+    this._children.forEach((value) => {
+      value.unselect();
+    });
+  }
+
+  unselect() {
+
+  }
+
+  addChild(child: Region) {
+    child.report = this;
+    this._children.push(child);
+    this.$grid.append(child.$element);
+  }
+
+  set width(width: number) {
+    this._dimensions.width = width;
+  }
+
+  set height(height: number) {
+    this._dimensions.height = height;
+  }
+
+  get scale() {
+    return this._scale;
+  }
+
+  set scale(param: number) {
+    this._scale = param / 100;
+    this.refresh();
+  }
+
+  refresh() {
+    const width = this._dimensions.width, height = this._dimensions.height;
+
+    this._setDim(this.$region, width * this.scale + 50, height * this.scale + 30);
+    this._setDim(this.$canvas, width * this.scale, height * this.scale);
+    this.$box.css('transform', `translate(-50%, -50%) scale(${this.scale})`);
+    this._setDim(this.$grid, width, height);
+  }
+
+  private _setDim($ele, width, height) {
+    $ele.css('width', width).css('height', height);
+  }
+
+  destroy() {
+
+  }
+
+  private _bindContextEvent() {
     this.$grid.contextmenu(($event: JQuery.Event) => {
       contextMenuHelper.open([
         {
@@ -109,192 +289,5 @@ export class ReportCanvas implements INode {
       ], $event.pageX, $event.pageY, $event);
       return false;
     });
-
-    this._init();
-  }
-
-
-  activateRegion(region: Region) {
-    region.activate();
-    this._activatedRegion = region;
-    const $element: JQuery = region.$element,
-      $mask = this.$mask,
-      left = $element.position().left,
-      top = $element.position().top,
-      width = $element.outerWidth(),
-      height = $element.outerHeight();
-    $mask.find('.mask-left').width(Math.max(0, left));
-    $mask.find('.mask-right').css({
-      left: left + width
-    });
-    $mask.find('.mask-bottom').width(width).css({
-      left: Math.max(0, left),
-      top: top + height
-    });
-    $mask.find('.mask-top').width(width).height(Math.max(top, 0)).css({
-      left: Math.max(0, left)
-    });
-
-    this.regionActivated = true;
-  }
-
-  regionResize(region: Region) {
-    const $element: JQuery = region.$element,
-      $mask = this.$mask,
-      left = $element.position().left,
-      top = $element.position().top,
-      width = $element.outerWidth(),
-      height = $element.outerHeight();
-    $mask.find('.mask-left')
-      .width(Math.max(0, left));
-    $mask.find('.mask-right')
-      .css({
-        left: left + width
-      });
-    $mask.find('.mask-bottom')
-      .width(width)
-      .css({
-        left: Math.max(0, left),
-        top: top + height
-      });
-    $mask.find('.mask-top')
-      .width(width)
-      .height(Math.max(top, 0))
-      .css({
-        left: Math.max(0, left)
-      });
-  }
-
-  activate() {
-    siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-  }
-
-  get regionActivated() {
-    return this._regionActivated;
-  }
-
-  set regionActivated(param: boolean) {
-    if (this._regionActivated === param) {
-      return;
-    }
-    this._regionActivated = param;
-    if (param) {
-      this.$element.addClass('activated');
-    } else {
-      this.$element.removeClass('activated');
-    }
-  }
-
-  public update(option) {
-    if (option.backgroundMode === 'built-in') {
-      this.$box.css({
-        backgroundImage: `none`
-      });
-      this.$box.removeClass('background1 background2 background3 background4');
-      this.$box.addClass(option.backgroundClass);
-    } else if (option.backgroundMode === 'custom') {
-      this.$box.removeClass('background1 background2 background3 background4');
-      option.backgroundDataUrl && this.$box.css({
-        backgroundImage: `url(${option.backgroundDataUrl})`
-      });
-    } else if (option.backgroundMode === 'only-color') {
-      this.$box.removeClass('background1 background2 background3 background4');
-      this.$box.css({
-        backgroundImage: `none`
-      });
-      option.backgroundColor && this.$box.css({
-        backgroundColor: option.backgroundColor
-      });
-    }
-
-    this.width = option.width;
-    this.height = option.height;
-    this.refresh();
-    console.log('help-lines', option.auxiliaryLine);
-    this.$grid.toggleClass('help-lines', option.auxiliaryLine);
-
-    this._children.forEach((item) => {
-      item.updateTheme(option.themeMode);
-    });
-  }
-
-  private _init() {
-    this.$grid.click(($event) => {
-      console.log('click');
-      if ($event.target === this.$grid[0]) {
-        this.select();
-        this.activate();
-      }
-    });
-
-    this.$grid.on('dragover', ($event: JQuery.Event) => {
-      const dragEvent = <DragEvent>$event.originalEvent;
-
-      dragEvent.dataTransfer.dropEffect = 'copyMove';
-      $event.preventDefault();
-    });
-    this.$mask.click(() => {
-      console.log('this.$mask.click');
-      this.regionActivated = false;
-      console.log(!!this._activatedRegion);
-      this._activatedRegion && (<any>this._activatedRegion).deactivate();
-    });
-
-    setTimeout(() => {
-      if (!this._configComponentRef) {
-        this._configComponentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
-        this._configComponentRef.instance.page = this;
-      }
-    }, 100);
-  }
-
-  set width(width: number) {
-    this._dimensions.width = width;
-  }
-
-  set height(height: number) {
-    this._dimensions.height = height;
-  }
-
-  get scale() {
-    return this._scale;
-  }
-
-  set scale(param: number) {
-    this._scale = param / 100;
-    this.refresh();
-  }
-
-  refresh() {
-    const width = this._dimensions.width, height = this._dimensions.height;
-
-    this._setDim(this.$region, width * this.scale + 50, height * this.scale + 30);
-    this._setDim(this.$canvas, width * this.scale, height * this.scale);
-    this.$box.css('transform', `translate(-50%, -50%) scale(${this.scale})`);
-    this._setDim(this.$grid, width, height);
-  }
-
-  private _setDim($ele, width, height) {
-    $ele.css('width', width).css('height', height);
-  }
-
-  addChild(child: Region) {
-    child.report = this;
-    this._children.push(child);
-    this.$grid.append(child.$element);
-  }
-
-  select() {
-    this._children.forEach((value) => {
-      value.unselect();
-    });
-  }
-
-  unselect() {
-
-  }
-
-  destroy() {
-
   }
 }

@@ -4,15 +4,12 @@ import {CommentConfigComponent} from '../../../../layout/sider/graphic.config/au
 import {CommentGraphic} from '../../graphic/comment.graphic';
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 
-interface ParagraphOption {
+interface CommentOption {
   text?: string;
   backgroundColor?: string;
-  align?: 'left' | 'right' | 'center' | 'justify';
 }
 
-const OptionDefault: ParagraphOption = {
-  text: '我是一个段落',
-  align: 'left',
+const OptionDefault: CommentOption = {
   backgroundColor: 'transparent'
 };
 
@@ -30,22 +27,23 @@ const CommentTemplate = `
 
 
 export class CommentAuxiliary extends Auxiliary {
-  private _option: ParagraphOption;
-  private _$element: JQuery;
+  private readonly _$element: JQuery;
   private _$editor: JQuery;
+  private _option: CommentOption;
+
   configClass = CommentConfigComponent;
+
+  private _editorInstance: any;
+  private _creating = false;
 
   constructor(private _commentGraphic: CommentGraphic) {
     super();
     this._$element = $(CommentTemplate);
     this._$editor = this._$element.find('.medium-editor-element');
-    this._commentGraphic.$element.click(() => {
-      return false;
-    });
     _commentGraphic.childHost().append(this._$element);
   }
 
-  init(option: ParagraphOption) {
+  init(option: CommentOption) {
     this._option = _.defaultsDeep(option, OptionDefault);
     this._refresh();
   }
@@ -59,27 +57,102 @@ export class CommentAuxiliary extends Auxiliary {
     this._refresh();
   }
 
-  private _refresh() {
-  }
-
-  private state = false;
-
   activate() {
-    console.log('TextAuxiliary active ');
-    if (!this.state) {
+    if (!this._editorInstance && !this._creating) {
+      this._creating = true;
       BalloonEditor
         .create(this._$editor[0], {
-          toolbar: ['bold', 'italic', 'link', '|', 'bulletedList', 'numberedList', 'blockQuote'],
-          fontSize: [10, 12, 14, 16, 20, 24, 36]
+          toolbar: ['heading', '|', 'bold', 'italic', 'fontFamily', 'fontSize', 'highlight', 'bulletedList', 'numberedList', 'alignment'],
+          fontSize: [10, 12, 14, 16, 20, 24, 36],
+          highlight: {
+            options: [
+              {
+                model: 'yellowMarker',
+                class: 'marker-yellow',
+                title: 'Yellow marker',
+                color: 'var(--ck-highlight-marker-yellow)',
+                type: 'marker'
+              },
+              {
+                model: 'greenMarker',
+                class: 'marker-green',
+                title: 'Green marker',
+                color: 'var(--ck-highlight-marker-green)',
+                type: 'marker'
+              },
+              {
+                model: 'pinkMarker',
+                class: 'marker-pink',
+                title: 'Pink marker',
+                color: 'var(--ck-highlight-marker-pink)',
+                type: 'marker'
+              },
+              {
+                model: 'blueMarker',
+                class: 'marker-blue',
+                title: 'Blue marker',
+                color: 'var(--ck-highlight-marker-blue)',
+                type: 'marker'
+              },
+              {
+                model: 'whiteMarker',
+                class: 'marker-white',
+                title: 'White marker',
+                color: 'var(--ck-highlight-marker-white)',
+                type: 'marker'
+              },
+              {
+                model: 'redPen',
+                class: 'pen-red',
+                title: 'Red pen',
+                color: 'var(--ck-highlight-pen-red)',
+                type: 'pen'
+              },
+              {
+                model: 'greenPen',
+                class: 'pen-green',
+                title: 'Green pen',
+                color: 'var(--ck-highlight-pen-green)',
+                type: 'pen'
+              },
+              {
+                model: 'whitePen',
+                class: 'pen-white',
+                title: 'White pen',
+                color: 'var(--ck-highlight-pen-white)',
+                type: 'pen'
+              }
+            ]
+          }
+        })
+        .then(editor => {
+          this._creating = false;
+          this._editorInstance = editor;
+          editor.setData(this._option.text);
+          console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()), editor);
         })
         .catch(error => {
+          this._creating = false;
           console.error(error);
         });
-      this.state = true;
     }
   }
 
-  destroy() {
+  deactivate() {
+    if (this._editorInstance) {
+      this._option.text = this._editorInstance.getData();
+      document.getSelection().removeAllRanges();
+    }
 
+  }
+
+  destroy() {
+    if (this._editorInstance) {
+      this._editorInstance.destroy();
+      this._editorInstance = null;
+    }
+  }
+
+  private _refresh() {
   }
 }

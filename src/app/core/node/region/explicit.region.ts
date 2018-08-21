@@ -1,12 +1,11 @@
 import {Region, RegionState, resizeTipHelper} from './region';
 import {BarChart} from '../content/chart/bar.chart';
-import {HeaderHtml} from '../content/html/header.html';
 import {closestNum} from '../../../utils/common';
 import {contextMenuHelper} from '../../../utils/contextMenu';
 import {fromEvent, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/internal/operators';
 import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
-import {ImageHtml} from '../content/html/image.html';
+import {ImageAuxiliary} from '../content/auxiliary/image.auxiliary';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
 import {ChartGraphic} from '../graphic/chart.graphic';
 import {ImageGraphic} from '../graphic/image.graphic';
@@ -325,7 +324,7 @@ export class ExplicitRegion extends Region {
           callback: () => {
             const _graphic = this._graphic = new ImageGraphic(this);
 
-            _graphic.init(ImageHtml);
+            _graphic.init(ImageAuxiliary);
             // 使用刚指定的配置项和数据显示图表。
             // content.init({});
 
@@ -354,10 +353,6 @@ export class ExplicitRegion extends Region {
 
             contextMenuHelper.close();
             // var content = this._content = new TextContent(this.$frame[0]);
-            // console.log(content);
-            // var option = {
-            //   text: '英特尔 Xeon(至强)'
-            // };
             //
             // // 使用刚指定的配置项和数据显示图表。
             // content.init(option);

@@ -15,12 +15,12 @@ const OptionDefault: TextOption = {
 const TextTemplate = `<div class="m-rect m-rect-text"
  style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, 'Microsoft YaHei', Arial,
 'Hiragino Sans GB', sans-serif; background: rgba(1, 1, 1, 0); border-radius: 0px; overflow-y: visible;">
-<div class="editor-wrap">
-<div class="editor medium-editor-element"
-contenteditable="true"
-spellcheck="false"
-role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="vertical-align: top;"></div>
-</div>
+  <div class="editor-wrap">
+    <div class="editor medium-editor-element"
+    contenteditable="true"
+    spellcheck="false"
+    role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="vertical-align: top;"></div>
+  </div>
 </div>
 `;
 
@@ -28,12 +28,13 @@ role="textbox" aria-multiline="true" data-placeholder="请输入文本" style="v
  * region 高度自适应
  */
 export class TextAuxiliary extends Auxiliary {
-  private _option: TextOption;
   private readonly _$element: JQuery;
   private _$editor: JQuery;
+  private _option: TextOption;
   private _editorInstance: any;
 
   private _creating = false;
+
   configClass = TextConfigComponent;
 
   constructor(private textGraphic: TextGraphic) {
@@ -43,7 +44,7 @@ export class TextAuxiliary extends Auxiliary {
     textGraphic.childHost().append(this._$element);
   }
 
-  init(option: TextOption) {
+  init(option?: TextOption) {
     this._option = _.defaultsDeep(option, OptionDefault);
     this._refresh();
   }
@@ -55,9 +56,6 @@ export class TextAuxiliary extends Auxiliary {
   update(option: any) {
     this._option = _.defaultsDeep(option, this._option);
     this._refresh();
-  }
-
-  private _refresh() {
   }
 
   activate() {
@@ -131,6 +129,7 @@ export class TextAuxiliary extends Auxiliary {
         .then(editor => {
           this._creating = false;
           this._editorInstance = editor;
+          editor.setData(this._option.text);
           console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()), editor);
         })
         .catch(error => {
@@ -153,5 +152,8 @@ export class TextAuxiliary extends Auxiliary {
       this._editorInstance.destroy();
       this._editorInstance = null;
     }
+  }
+
+  private _refresh() {
   }
 }

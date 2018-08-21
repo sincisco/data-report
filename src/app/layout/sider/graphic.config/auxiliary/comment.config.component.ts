@@ -14,8 +14,7 @@ export class CommentConfigComponent extends GraphicConfig implements AfterViewIn
   @Output() output = new EventEmitter();
 
   option = {
-    text: '我是标题',
-    backgroundColor: undefined
+    backgroundColor: 'transparent'
   };
 
   private _differ: KeyValueDiffer<any, any>;
@@ -30,17 +29,14 @@ export class CommentConfigComponent extends GraphicConfig implements AfterViewIn
 
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.subscribe((value) => {
-      console.log(JSON.stringify(value));
-      console.log(JSON.stringify(this.option));
-      const changes = this._differ.diff(value);
-      if (changes) {
-        console.log('has change');
-        this.output.emit(value);
-        //this._applyChanges(changes);
-      }
-    });
+    setTimeout(() => {
+      this.ngForm.valueChanges.subscribe((value) => {
+        console.log('CommentConfigComponent valueChanges', JSON.stringify(value));
+        if (this.graphic) {
+          this.graphic.update(value);
+        }
+      });
+    }, 50);
   }
-
 }
 

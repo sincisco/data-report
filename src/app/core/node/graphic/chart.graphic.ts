@@ -24,13 +24,12 @@ const template = `
 
 export class ChartGraphic implements IGraphic {
   $element: JQuery;
-  private _$frame: JQuery;
+  private readonly _$frame: JQuery;
   private _$toolbar: JQuery;
 
   private _region: Region;
   private _chart: Chart;
   private _configComponentRef: ComponentRef<GraphicConfig>;
-  private _contentClass: any;
 
   constructor(region: Region) {
     this._region = region;
@@ -45,7 +44,6 @@ export class ChartGraphic implements IGraphic {
   }
 
   init(contentClass: Type<Chart>) {
-    this._contentClass = contentClass;
     this._chart = new contentClass(this);
     this._bindToolbarEvent();
     console.log(this._chart);
@@ -75,10 +73,12 @@ export class ChartGraphic implements IGraphic {
   }
 
   getOption() {
-    return {
-      contentClass: this._contentClass,
-      option: this._chart.getOption()
-    };
+    if (this._chart) {
+      return {
+        contentClass: this._chart.constructor,
+        option: this._chart.getOption()
+      };
+    }
   }
 
   resize() {
@@ -93,6 +93,12 @@ export class ChartGraphic implements IGraphic {
     }
   }
 
+  deactivate() {
+    if (this._chart) {
+      (<any>this._chart).deactivate();
+    }
+  }
+
   activateConfig() {
     if (!this._configComponentRef) {
       this._configComponentRef = siderLeftComponent.createGraphicConfig(this._chart.configClass);
@@ -102,10 +108,16 @@ export class ChartGraphic implements IGraphic {
     }
   }
 
+  /**
+   *
+   */
   destroy() {
     if (this._chart) {
       this._chart.destroy();
+      this._chart = null;
+
       this._configComponentRef.destroy();
+      this._configComponentRef = null;
     }
   }
 

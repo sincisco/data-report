@@ -101,6 +101,12 @@ export class ImageGraphic implements IGraphic {
     }
   }
 
+  deactivate() {
+    if (this._html) {
+      (<any>this._html).deactivate();
+    }
+  }
+
   activateConfig() {
     if (!this._configComponentRef) {
       this._configComponentRef = siderLeftComponent.createGraphicConfig(this._html.configClass);

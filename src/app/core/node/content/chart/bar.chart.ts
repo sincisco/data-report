@@ -1,11 +1,11 @@
 import {Chart} from './chart';
-import {BarConfigComponent} from '../../../../layout/sider/graphic.config/chart/bar.config.component';
-import * as _ from 'lodash';
 import {Title} from './echart.interface/title';
 import {Axis} from './echart.interface/axis';
 import {Grid} from './echart.interface/grid';
 import {BarSeriesConfig} from './echart.interface/series/bar.series';
 import {ChartGraphic} from '../../graphic/chart.graphic';
+
+import {BarConfigComponent} from '../../../../layout/sider/graphic.config/chart/bar.config.component';
 
 export interface ChartBarOption {
   title?: Title;
@@ -19,8 +19,6 @@ export interface ChartBarOption {
 
 
 export class BarChart extends Chart {
-
-  static config = BarConfigComponent;
 
   configClass = BarConfigComponent;
 

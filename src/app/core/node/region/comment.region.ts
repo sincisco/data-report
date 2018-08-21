@@ -83,7 +83,7 @@ export class CommentRegion extends Region {
     this.$element.addClass('selected');
     if (this._graphic) {
       reportGlobal.instance = this._graphic;
-      this._graphic.activate();
+      this._graphic.activateConfig();
     }
     this.refresh();
   }
@@ -289,18 +289,6 @@ export class CommentRegion extends Region {
             // 使用刚指定的配置项和数据显示图表。
             _graphic.init(CommentAuxiliary);
             contextMenuHelper.close();
-          }
-        }, {
-          displayName: '创建Comment',
-          callback: () => {
-            // var content = this._content = new CommentContent(this.$frame[0]);
-            // console.log(content);
-            // var option = {
-            //   text: '英特尔 Xeon(至强)'
-            // };
-            //
-            // // 使用刚指定的配置项和数据显示图表。
-            // content.init(option);
           }
         }
       ], $event.pageX, $event.pageY, $event);

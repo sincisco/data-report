@@ -7,7 +7,7 @@ import {ChartGraphic} from '../../graphic/chart.graphic';
 import {PieSeriesConfig} from '@core/node/content/chart/echart.interface/series/pie.series';
 import {PieConfigComponent} from '../../../../layout/sider/graphic.config/chart/pie.config.component';
 
-export interface ChartpieConfig {
+export interface ChartPieConfig {
   title?: Title;
   dataset?: any;
   grid?: Grid;
