@@ -23,9 +23,11 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     backgroundMode: 'built-in',
     backgroundColor: 'transparent',
     backgroundClass: 'background1',
-    fileName: '',
-    backgroundUrl: '',
-    backgroundDataUrl: '',
+    backgroundCustom: {
+      fileName: '',
+      backgroundUrl: '',
+      backgroundDataUrl: ''
+    },
     themeMode: 'dark'
   };
 
@@ -65,26 +67,6 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     }
   }
 
-  change(event: Event) {
-    const file: HTMLInputElement = <HTMLInputElement>event.currentTarget;
-    if (!file.files || !file.files[0]) {
-      return;
-    }
-    this.option.fileName = file.files[0].name;
-    const that = this;
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      this.option.backgroundDataUrl = (<any>evt.target).result;
-      const image = new Image();
-      image.src = (<any>evt.target).result;
-      image.onload = function () {
-        that.page.update(that.option);
-      };
-    };
-    reader.readAsDataURL(file.files[0]);
-  }
-
-
   ngOnInit() {
     this._differ = this._differs.find(this.option).create();
   }
@@ -101,8 +83,20 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
         if (changes) {
           changes.forEachRemovedItem((record) => {
             console.log('removedItem', JSON.stringify(record.key));
+            array.push({
+              key: `remove.${record.key}`,
+              oldValue: record.previousValue,
+              newValue: record.currentValue,
+              option: value
+            });
           });
           changes.forEachAddedItem((record) => {
+            array.push({
+              key: `add.${record.key}`,
+              oldValue: record.previousValue,
+              newValue: record.currentValue,
+              option: value
+            });
             console.log('addedItem', JSON.stringify(record.key));
           });
           changes.forEachChangedItem((record) => {

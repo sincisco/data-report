@@ -102,26 +102,33 @@ export class ReportCanvas extends ChangeManager implements INode {
 
   private _initForUpdate() {
     this.register('backgroundMode', (key, oldValue, newValue, option) => {
-      if (newValue === 'built-in') {
-        this.$box.css({
-          backgroundImage: `none`
-        });
-        this.$box.removeClass('background1 background2 background3 background4');
-        this.$box.addClass(option.backgroundClass);
-      } else if (newValue === 'custom') {
-        this.$box.removeClass('background1 background2 background3 background4');
-        option.backgroundDataUrl && this.$box.css({
-          backgroundImage: `url(${option.backgroundDataUrl})`
-        });
-      } else if (newValue === 'only-color') {
-        this.$box.removeClass('background1 background2 background3 background4');
-        this.$box.css({
-          backgroundImage: `none`
-        });
-        option.backgroundColor && this.$box.css({
-          backgroundColor: option.backgroundColor
-        });
-      }
+    });
+
+    this.register('remove.backgroundClass', (key, oldValue, newValue) => {
+      this.$box.removeClass('background1 background2 background3 background4');
+    });
+    this.register('add.backgroundClass backgroundClass', (key, oldValue, newValue) => {
+      this.$box.removeClass(oldValue).addClass(newValue);
+    });
+    this.register('remove.backgroundCustom', (key, oldValue, newValue) => {
+      this.$box.css({
+        backgroundImage: `none`
+      });
+    });
+    this.register('add.backgroundCustom backgroundCustom', (key, oldValue, newValue) => {
+      newValue.backgroundDataUrl && this.$box.css({
+        backgroundImage: `url(${newValue.backgroundDataUrl})`
+      });
+    });
+    this.register('remove.backgroundColor', (key, oldValue, newValue) => {
+      this.$box.css({
+        backgroundColor: 'transparent'
+      });
+    });
+    this.register('add.backgroundColor backgroundColor', (key, oldValue, newValue) => {
+      this.$box.css({
+        backgroundColor: newValue
+      });
     });
 
     this.register('width', (key, oldValue, newValue) => {

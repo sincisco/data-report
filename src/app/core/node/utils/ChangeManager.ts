@@ -11,12 +11,15 @@ export class ChangeManager {
   private _map = new Map();
 
   protected register(eventType: string, listener: KeyValueListener) {
-    this._map.set(eventType, listener);
+    const eventArray = eventType.trim().replace(/\s+/g, ' ').split(' ');
+    eventArray.forEach((value, index, array) => {
+      this._map.set(value, listener);
+    });
   }
 
   protected trigger(item: ChangeItem) {
-    console.log('handle: ', item.key);
     if (this._map.has(item.key)) {
+      console.log('handle: ', item.key);
       const listener = this._map.get(item.key);
       listener(item.key, item.oldValue, item.newValue, item.option);
     }

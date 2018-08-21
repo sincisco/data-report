@@ -10,7 +10,8 @@
             <label nz-checkbox name="auxiliaryLine" [(ngModel)]="option.auxiliaryLine"></label>
           </div>
           <div nz-col style="margin-bottom: 8px;text-align: center" [nzSpan]="24">
-            <nz-radio-group name="dimensionMode" style="width: 100%" [nzSize]="'small'" (ngModelChange)="dimensionModeChange($event)"
+            <nz-radio-group name="dimensionMode" style="width: 100%" [nzSize]="'small'"
+                            (ngModelChange)="dimensionModeChange($event)"
                             [(ngModel)]="option.dimensionMode">
               <label nz-radio-button nzValue="standard">标准</label>
               <label nz-radio-button nzValue="wide">宽幅</label>
@@ -35,7 +36,7 @@
       <nz-collapse-panel nzHeader="背景图片">
         <div nz-row nzType="flex">
           <div nz-col style="margin-bottom: 8px;" [nzSpan]="24">
-            <nz-radio-group name="backgroundMode" [(ngModel)]="option.backgroundMode" [nzSize]="'small'" >
+            <nz-radio-group name="backgroundMode" [(ngModel)]="option.backgroundMode" [nzSize]="'small'">
               <label nz-radio [ngStyle]="style" nzValue="built-in">内置背景</label>
               <label nz-radio [ngStyle]="style" nzValue="custom">自定义背景</label>
               <label nz-radio [ngStyle]="style" nzValue="only-color">只是用背景色</label>
@@ -49,20 +50,14 @@
               <ng-container *ngSwitchCase="'custom'">
                 <div nz-row nzType="flex">
                   <div nz-col [nzSpan]="24">
-                    <label for="settingFileToUpload" class="upload f-ellipsis">
-                      <span class="text" *ngIf="option.fileName">{{option.fileName}}</span>
-                      <span class="text" *ngIf="!option.fileName"><i
-                        class="anticon anticon-upload"></i><span>选择背景图</span></span>
-                    </label>
-                    <input type="file" name="settingFileToUpload" id="settingFileToUpload" #imageInput
-                           (change)="change($event)"
-                           style="display: none;">
+                    <app-image-select name="backgroundCustom" [(ngModel)]="option.backgroundCustom"></app-image-select>
                   </div>
                 </div>
               </ng-container>
               <ng-container *ngSwitchCase="'only-color'">
                 <div nz-row nzType="flex">
-                  <div nz-col [nzSpan]="12" style="vertical-align: middle;line-height: 28px;margin-bottom: 8px;">背景色</div>
+                  <div nz-col [nzSpan]="12" style="vertical-align: middle;line-height: 28px;margin-bottom: 8px;">背景色
+                  </div>
                   <div nz-col [nzSpan]="12" style="padding: 0 2px;margin-bottom: 8px;">
                     <div name="backgroundColor" class="u-color-block"
                          colorPicker [(ngModel)]="option.backgroundColor"

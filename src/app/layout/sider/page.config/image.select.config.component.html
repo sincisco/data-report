@@ -1,0 +1,8 @@
+<label for="settingFileToUpload" class="upload f-ellipsis">
+  <span class="text" *ngIf="option.fileName">{{option.fileName}}</span>
+  <span class="text" *ngIf="!option.fileName"><i
+    class="anticon anticon-upload"></i><span>选择背景图</span></span>
+</label>
+<input type="file" name="settingFileToUpload" id="settingFileToUpload" #imageInput
+       (change)="change($event)"
+       style="display: none;">
