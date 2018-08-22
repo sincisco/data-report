@@ -1,4 +1,4 @@
-import {ChartGraphic} from '@core/node/graphic/chart.graphic';
+import {ChartGraphic} from '../graphic/chart.graphic';
 
 const map = new Map();
 map.set('chart.graphic', ChartGraphic);

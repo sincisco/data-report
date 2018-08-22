@@ -268,6 +268,7 @@ export class ReportPage extends ChangeManager implements IPage {
           displayName: '新建图表',
           callback: () => {
             console.log('新建图表');
+            // 如何建立关联
             const explicitRegion = new ExplicitRegion();
             explicitRegion.setCoordinates($event.offsetX, $event.offsetY);
             explicitRegion.refresh();

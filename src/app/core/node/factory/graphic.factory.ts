@@ -74,6 +74,7 @@ class GraphicFactory {
 
   createFromOption(option: any, x, y) {
     console.log('新建文本段');
+    // 建立关联
     const explicitRegion = new ExplicitRegion();
     explicitRegion.setCoordinates(x, y);
     explicitRegion.refresh();

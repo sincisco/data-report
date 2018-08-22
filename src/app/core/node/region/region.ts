@@ -16,7 +16,7 @@ export enum RegionState {
   default, selected, activated
 }
 
-export abstract class Region implements IPage {
+export abstract class Region {
   // 持久化状态层
   protected _zIndex: number;
   protected _coordinates: JQuery.Coordinates;
