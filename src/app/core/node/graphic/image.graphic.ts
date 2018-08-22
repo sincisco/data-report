@@ -9,6 +9,7 @@ import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import * as _ from 'lodash';
 import {HtmlNode} from '../content/html/html';
 import {ExplicitRegion} from '../region/explicit.region';
+import {ChangeItem, ChangeManager} from '@core/node/utils/ChangeManager';
 
 const template = `
 <div class="graphic m-graphic m-graphic-image z-mode-edit">
@@ -18,7 +19,7 @@ const template = `
 </div>
 `;
 
-export class ImageGraphic implements IGraphic {
+export class ImageGraphic extends ChangeManager implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
@@ -27,10 +28,13 @@ export class ImageGraphic implements IGraphic {
   private _configComponentRef: ComponentRef<GraphicConfig>;
 
   constructor(region: ExplicitRegion) {
+    super();
     this._region = region;
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     region.addChild(this);
+
+    this._initForUpdate();
   }
 
   childHost(): JQuery {
@@ -41,6 +45,30 @@ export class ImageGraphic implements IGraphic {
     this._html = new contentClass(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._html.configClass);
     this._configComponentRef.instance.graphic = this;
+  }
+
+  private _initForUpdate() {
+    this.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
+      this._$frame.css({
+        'borderRadius': newValue
+      });
+    }).register('add.borderWidth borderWidth', (key, oldValue, newValue) => {
+      this._$frame.css({
+        'borderWidth': newValue
+      });
+    }).register('add.borderColor borderColor', (key, oldValue, newValue) => {
+      this._$frame.css({
+        'borderColor': newValue
+      });
+    }).register('add.borderStyle borderStyle', (key, oldValue, newValue) => {
+      this._$frame.css({
+        'borderStyle': newValue
+      });
+    }).register('add.backgroundColor backgroundColor', (key, oldValue, newValue) => {
+      this._$frame.css({
+        'backgroundColor': newValue
+      });
+    });
   }
 
   load(option?: any) {
@@ -58,32 +86,10 @@ export class ImageGraphic implements IGraphic {
   updateTheme(theme: string) {
   }
 
-  updateGraphic(option: any) {
-    if (option.borderRadius) {
-      this._$frame.css({
-        'borderRadius': option.borderRadius
-      });
-    }
-    if (option.borderWidth) {
-      this._$frame.css({
-        'borderWidth': option.borderWidth
-      });
-    }
-    if (option.borderColor) {
-      this._$frame.css({
-        'borderColor': option.borderColor
-      });
-    }
-    if (option.borderStyle) {
-      this._$frame.css({
-        'borderStyle': option.borderStyle
-      });
-    }
-    if (option.backgroundColor) {
-      this._$frame.css({
-        'backgroundColor': option.backgroundColor
-      });
-    }
+  updateGraphic(changeItemArray: Array<ChangeItem>) {
+    changeItemArray.forEach((value, index, array) => {
+      this.trigger(value);
+    });
   }
 
   getOption() {

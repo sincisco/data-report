@@ -10,6 +10,7 @@ import {CustomControlValueAccessor} from './CustomControlValueAccessor';
 import * as _ from 'lodash';
 import {removeUndefined} from '../../utils/common';
 import {Title} from '@core/node/content/chart/echart.interface/title';
+import {debounceTime} from 'rxjs/operators';
 
 export const Title_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -66,7 +67,7 @@ export class TitleConfigComponent extends CustomControlValueAccessor implements 
   }
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.subscribe((value) => {
+    this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
       console.log('TitleConfigComponent valueChanges', this.ngForm.valid);
       if (this.ngForm.valid) {
         this._propagateChange(removeUndefined(value));

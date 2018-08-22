@@ -18,6 +18,7 @@ import {Dimension} from '@core/dataset/dataset.interface';
 import {GraphicConfig} from '../graphic.config';
 import {ChartBarOption} from '@core/node/content/chart/bar.chart';
 import {removeUndefined} from '../../../../utils/common';
+import {debounce, debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-bar-config',
@@ -33,7 +34,7 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
   option: ChartBarOption = {
     title: {
       show: true,
-      text: '我是一个大标题',
+      text: '默认标题',
       left: 'auto',
       top: 'auto',
       right: 'auto',
@@ -54,7 +55,6 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
     },
     xAxis: {
       type: 'category',
-      name: 'X轴名称',
       nameGap: 10,
       axisLabel: {},
       axisTick: {}
@@ -111,24 +111,31 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.ngForm.valueChanges.subscribe((value) => {
-        console.log('BarConfigComponent  valueChanges', value);
-        const changes = this._differ.diff(value);
-        if (this.graphic) {
-          value.dataset = datasetManager.current;
-          this.graphic.update(removeUndefined(value));
-        }
+    this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
+      console.log('BarConfigComponent  valueChanges', value);
+      const changes = this._differ.diff(value);
+      if (this.graphic) {
+        value.dataset = datasetManager.current;
+        this.graphic.update(removeUndefined(value));
+      }
 
-        if (this.face) {
-          value.dataset = datasetManager.current;
-          this.face.update(value);
-        }
-        if (changes) {
-          console.log('BarConfigComponent  has change');
-        }
-      });
-    }, 50);
+      if (this.face) {
+        value.dataset = datasetManager.current;
+        this.face.update(value);
+      }
+      if (changes) {
+        changes.forEachRemovedItem((record) => {
+          console.log('removedItem', JSON.stringify(record.key));
+        });
+        changes.forEachAddedItem((record) => {
+          console.log('addedItem', JSON.stringify(record.key));
+        });
+        changes.forEachChangedItem((record) => {
+          console.log('changedItem', JSON.stringify(record.key));
+        });
+        console.log('BarConfigComponent  has change');
+      }
+    });
   }
 
 

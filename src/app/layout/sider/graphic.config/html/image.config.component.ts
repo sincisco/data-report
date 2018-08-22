@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {GraphicConfig} from '../graphic.config';
+import {debounceTime} from 'rxjs/operators';
 
 @Component({
   selector: 'app-image-config',
@@ -68,15 +69,44 @@ export class ImageConfigComponent extends GraphicConfig implements AfterViewInit
 
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.subscribe((value) => {
-      console.log(JSON.stringify(value));
-      console.log(JSON.stringify(this.option));
-      this.graphic.updateGraphic(value);
+    this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
+      console.log('ImageConfigComponent', value);
+      const array = [];
       const changes = this._differ.diff(value);
       if (changes) {
-        console.log('has change');
-        this.output.emit(value);
-        //this._applyChanges(changes);
+        changes.forEachRemovedItem((record) => {
+          console.log('removedItem', JSON.stringify(record.key));
+          array.push({
+            key: `remove.${record.key}`,
+            oldValue: record.previousValue,
+            newValue: record.currentValue,
+            option: value
+          });
+        });
+        changes.forEachAddedItem((record) => {
+          array.push({
+            key: `add.${record.key}`,
+            oldValue: record.previousValue,
+            newValue: record.currentValue,
+            option: value
+          });
+          console.log('addedItem', JSON.stringify(record.key));
+        });
+        changes.forEachChangedItem((record) => {
+          console.log('changedItem', JSON.stringify(record.key));
+          array.push({
+            key: record.key,
+            oldValue: record.previousValue,
+            newValue: record.currentValue,
+            option: value
+          });
+        });
+      } else {
+        console.log('has no changes');
+      }
+      if (array.length > 0) {
+        console.log('do page update');
+        this.graphic.updateGraphic(array);
       }
     });
   }

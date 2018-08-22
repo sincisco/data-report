@@ -19,8 +19,9 @@ const OptionDefault: ImageOption = {
 
 
 export class ImageAuxiliary extends Auxiliary {
+  private readonly _$element: JQuery;
   private _option: ImageOption;
-  private _$element: JQuery;
+
 
   private _image: HTMLImageElement;
 

@@ -76,7 +76,7 @@ export class SiderLeftComponent implements AfterViewInit {
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       this.componentRef.instance.type = type;
-      this.shadowContainer.detach();
+      // this.shadowContainer.detach();
       // this.componentRef.instance.output.subscribe((msg: string) => {
       //   console.log('我是', msg);
       //   if (reportGlobal.instance) {
@@ -96,7 +96,7 @@ export class SiderLeftComponent implements AfterViewInit {
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       this.componentRef.instance.type = type;
-      this.shadowContainer.detach();
+      // this.shadowContainer.detach();
       // this.componentRef.instance.output.subscribe((msg: string) => {
       //   console.log('我是', msg);
       //   if (reportGlobal.instance) {
@@ -109,6 +109,10 @@ export class SiderLeftComponent implements AfterViewInit {
 
   attachDataProperty(viewRef: ViewRef) {
     this.zone.run(() => {
+      const index = this.shadowContainer.indexOf(viewRef);
+      if (index >= 0) {
+        this.shadowContainer.detach(index);
+      }
       this.container.detach();
       this.container.clear();
       this.container.insert(viewRef);

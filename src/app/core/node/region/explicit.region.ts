@@ -117,7 +117,29 @@ export class ExplicitRegion extends Region {
     }
   }
 
+  derender() {
+    return {
+      regionClass: 'explicit.region',
+      option: {
+        dimensions: Object.assign({}, this._dimensions)
+      }
+    };
+  }
+
+  render(option) {
+    this._dimensions = option.dimensions;
+  }
+
   private _bindEvent() {
+
+    this._bindEventForResize();
+
+    this._bindContextEvent();
+
+    super._bindEventForMover();
+  }
+
+  private _bindEventForResize() {
     let count = 0,
       offsetX, offsetY,
       offset: JQuery.Coordinates,
@@ -229,10 +251,6 @@ export class ExplicitRegion extends Region {
         return false;
       });
     // 事件对象
-
-    this._bindContextEvent();
-
-    super._bindEventForMover();
   }
 
   private _bindContextEvent() {
@@ -243,8 +261,10 @@ export class ExplicitRegion extends Region {
           shortcut: 'Ctrl+C',
           callback: () => {
             console.log('复制');
-            clipboard.saveData(this.getOption());
-            console.log(this.getOption());
+            // clipboard.saveData(this.getOption());
+            // console.log(this.getOption());
+            clipboard.saveData(this.derender());
+            console.log(this.derender());
           }
         }, {
           displayName: '剪切',

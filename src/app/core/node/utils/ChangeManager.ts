@@ -15,6 +15,7 @@ export class ChangeManager {
     eventArray.forEach((value, index, array) => {
       this._map.set(value, listener);
     });
+    return this;
   }
 
   protected trigger(item: ChangeItem) {

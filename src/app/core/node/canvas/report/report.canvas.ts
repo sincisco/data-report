@@ -302,7 +302,8 @@ export class ReportCanvas extends ChangeManager implements INode {
           shortcut: 'Ctrl+X',
           callback: () => {
             console.log('粘贴');
-            graphicFactory.createFromOption(clipboard.getData(), $event.offsetX, $event.offsetY);
+            graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
+            // graphicFactory.createFromOption(clipboard.getData(), $event.offsetX, $event.offsetY);
           }
         }, {
           displayName: '删除',
