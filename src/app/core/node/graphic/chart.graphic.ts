@@ -8,7 +8,7 @@ import {contextMenuHelper} from '../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {contentMap} from '@core/node/content/content.map';
+import {contentMap} from '@core/node/config/content.map';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">

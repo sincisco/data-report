@@ -1,4 +1,4 @@
-import {INode} from '../interface';
+import {IPage} from '../interface';
 import {ReportCanvas} from '../canvas/report/report.canvas';
 import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
@@ -16,15 +16,16 @@ export enum RegionState {
   default, selected, activated
 }
 
-export abstract class Region implements INode {
+export abstract class Region implements IPage {
   // 持久化状态层
   protected _zIndex: number;
   protected _coordinates: JQuery.Coordinates;
+
   // 非持久化状态层
   protected _regionState: RegionState = RegionState.default;
 
   // 模型层
-  protected _report: ReportCanvas;
+  protected _page: ReportCanvas;
   protected _graphic: IGraphic;
 
   // 展现层
@@ -37,12 +38,12 @@ export abstract class Region implements INode {
     this.$mover = this.$element.find('.u-mover');
   }
 
-  set report(param: ReportCanvas) {
-    this._report = param;
+  set page(param: ReportCanvas) {
+    this._page = param;
   }
 
-  get report() {
-    return this._report;
+  get page() {
+    return this._page;
   }
 
   set left(param: number) {
@@ -154,8 +155,8 @@ export abstract class Region implements INode {
           .subscribe((mouseEvent: MouseEvent) => {
             const offsetLeft = mouseEvent.pageX - originPageX,
               offsetTop = mouseEvent.pageY - originPageY;
-            this.left = snapshot.left + Math.round(offsetLeft / this._report.scale);
-            this.top = snapshot.top + Math.round(offsetTop / this._report.scale);
+            this.left = snapshot.left + Math.round(offsetLeft / this._page.scale);
+            this.top = snapshot.top + Math.round(offsetTop / this._page.scale);
 
             resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._coordinates.left, this._coordinates.top);
             this.refresh();
@@ -167,7 +168,7 @@ export abstract class Region implements INode {
         this.select();
       })
       .on('dblclick', ($event: JQuery.Event) => {
-        this.report.activateRegion(this);
+        this.page.activateRegion(this);
       });
   }
 

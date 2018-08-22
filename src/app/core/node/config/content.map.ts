@@ -1,4 +1,4 @@
-import {BarChart} from '@core/node/content/chart/bar.chart';
+import {BarChart} from '../content/chart/bar.chart';
 
 const map = new Map();
 map.set('bar.chart', BarChart);

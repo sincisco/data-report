@@ -98,7 +98,7 @@ export class ExplicitRegion extends Region {
       top: this._coordinates.top
     });
     if (this._regionState === RegionState.activated) {
-      this.report.regionResize(this);
+      this.page.regionResize(this);
     }
   }
 

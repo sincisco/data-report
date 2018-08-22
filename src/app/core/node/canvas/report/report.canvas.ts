@@ -1,4 +1,4 @@
-import {Dimensions, INode} from '../../interface';
+import {Dimensions, IPage} from '../../interface';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {ExplicitRegion} from '../../region/explicit.region';
 import {Region} from '../../region/region';
@@ -28,7 +28,7 @@ const ReportTemplate = `
     </div>
     `;
 
-export class ReportCanvas extends ChangeManager implements INode {
+export class ReportCanvas extends ChangeManager implements IPage {
   private _dimensions: Dimensions = {
     width: 960,
     height: 720
@@ -222,7 +222,7 @@ export class ReportCanvas extends ChangeManager implements INode {
   }
 
   addChild(child: Region) {
-    child.report = this;
+    child.page = this;
     this._children.push(child);
     this.$grid.append(child.$element);
   }

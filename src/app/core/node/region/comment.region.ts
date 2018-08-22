@@ -134,7 +134,7 @@ export class CommentRegion extends Region {
       });
     }
     if (this._regionState === RegionState.activated) {
-      this.report.regionResize(this);
+      this.page.regionResize(this);
     }
   }
 

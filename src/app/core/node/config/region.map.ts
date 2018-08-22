@@ -1,4 +1,4 @@
-import {ExplicitRegion} from '@core/node/region/explicit.region';
+import {ExplicitRegion} from '../region/explicit.region';
 
 const map = new Map();
 map.set('explicit.region', ExplicitRegion);

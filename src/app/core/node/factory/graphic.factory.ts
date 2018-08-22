@@ -8,7 +8,7 @@ import {currentReport} from '../../../layout/app.body.component';
 import {CommentRegion} from '@core/node/region/comment.region';
 import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
 import {CommentGraphic} from '@core/node/graphic/comment.graphic';
-import {regionMap} from '@core/node/region/region.map';
+import {regionMap} from '@core/node/config/region.map';
 
 
 class GraphicFactory {

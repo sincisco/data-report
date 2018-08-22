@@ -1,4 +1,4 @@
-export interface INode {
+export interface IPage {
   destroy();
 }
 
