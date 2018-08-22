@@ -1,10 +1,10 @@
 import {Type} from '@angular/core';
 
-import {GraphicConfig} from '../../../../layout/sider/graphic.config/graphic.config';
+import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 
 
 export abstract class HtmlNode implements IContent {
-  configClass: Type<GraphicConfig>;
+  configClass: Type<ConfigModel>;
 
   abstract resize();
 

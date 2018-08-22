@@ -3,7 +3,7 @@ import {Region} from '../region/region';
 import {IGraphic} from './graphic';
 import {Chart} from '../content/chart/chart';
 
-import {GraphicConfig} from '../../../layout/sider/graphic.config/graphic.config';
+import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
@@ -25,7 +25,7 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
 
   private _region: ExplicitRegion;
   private _html: HtmlNode;
-  private _configComponentRef: ComponentRef<GraphicConfig>;
+  private _configComponentRef: ComponentRef<ConfigModel>;
 
   constructor(region: ExplicitRegion) {
     super();

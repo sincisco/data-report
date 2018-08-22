@@ -1,6 +1,6 @@
 import {Type} from '@angular/core';
 
-import {GraphicConfig} from '../../../../layout/sider/graphic.config/graphic.config';
+import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 import {ChartGraphic} from '../../graphic/chart.graphic';
 
 enum ChartState {
@@ -14,7 +14,7 @@ export abstract class Chart implements IContent {
   protected _option: any = {};
   private _state = ChartState.uninitialized;
 
-  public configClass: Type<GraphicConfig>;
+  public configClass: Type<ConfigModel>;
 
   protected constructor(private _graphic: ChartGraphic) {
     // 初始化之前  确保host已经挂载到document中

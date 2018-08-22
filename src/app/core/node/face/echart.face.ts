@@ -1,5 +1,4 @@
-import {Face} from '@core/node/face/face';
-import {GraphicConfig} from '../../../layout/sider/graphic.config/graphic.config';
+import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
 import {Type} from '@angular/core';
 
 import * as _ from 'lodash';
@@ -7,7 +6,7 @@ import * as _ from 'lodash';
 export abstract class EchartFace {
   protected _echart: Echart;
 
-  public configClass: Type<GraphicConfig>;
+  public configClass: Type<ConfigModel>;
 
   protected constructor(private _host: HTMLElement) {
     // 初始化之前  确保host已经挂载到document中

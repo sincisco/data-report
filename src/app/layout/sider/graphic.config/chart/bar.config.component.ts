@@ -15,7 +15,7 @@ import {datasetManager} from '@core/dataset/dataset.manager';
 
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '@core/dataset/dataset.interface';
-import {GraphicConfig} from '../graphic.config';
+import {ConfigModel} from '../graphic.config';
 import {ChartBarOption} from '@core/node/content/chart/bar.chart';
 import {removeUndefined} from '../../../../utils/common';
 import {debounce, debounceTime} from 'rxjs/operators';
@@ -25,7 +25,7 @@ import {debounce, debounceTime} from 'rxjs/operators';
   templateUrl: './bar.config.component.html',
   styleUrls: ['./bar.config.component.less']
 })
-export class BarConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class BarConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;

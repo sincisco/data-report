@@ -3,7 +3,7 @@ import {Region} from '../region/region';
 import {IGraphic} from './graphic';
 import {Chart} from '../content/chart/chart';
 
-import {GraphicConfig} from '../../../layout/sider/graphic.config/graphic.config';
+import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
 import {contextMenuHelper} from '../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 
@@ -26,17 +26,19 @@ const template = `
 export class ChartGraphic implements IGraphic {
   $element: JQuery;
   private readonly _$frame: JQuery;
-  private _$toolbar: JQuery;
+  private readonly _$toolbar: JQuery;
 
   private _region: Region;
   private _chart: Chart;
-  private _configComponentRef: ComponentRef<GraphicConfig>;
+  private _configComponentRef: ComponentRef<ConfigModel>;
 
   constructor(region: Region) {
     this._region = region;
+
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     this._$toolbar = this.$element.find('.m-graphic-toolbar');
+
     region.addChild(this);
   }
 

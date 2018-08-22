@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {GraphicConfig} from '../graphic.config';
+import {ConfigModel} from '../graphic.config';
 import {debounceTime} from 'rxjs/operators';
 
 @Component({
@@ -8,7 +8,7 @@ import {debounceTime} from 'rxjs/operators';
   templateUrl: './image.config.component.html',
   styleUrls: ['./image.config.component.less']
 })
-export class ImageConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class ImageConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 

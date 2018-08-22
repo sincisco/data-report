@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {DataHeaderComponent} from './graphic.config/html/header.component';
-import {GraphicConfig} from './graphic.config/graphic.config';
+import {ConfigModel} from './graphic.config/graphic.config';
 import {reportGlobal} from '@core/node/region/region';
 import {PageConfig} from './page.config/page.config';
 
@@ -48,12 +48,12 @@ export class SiderLeftComponent implements AfterViewInit {
     });
   }
 
-  createGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
-    let retComponentRef: ComponentRef<GraphicConfig>;
+  createGraphicConfig(type: Type<ConfigModel>): ComponentRef<ConfigModel> {
+    let retComponentRef: ComponentRef<ConfigModel>;
     this.zone.run(() => {
       this.container.detach();
       this.container.clear();
-      const factory: ComponentFactory<GraphicConfig> =
+      const factory: ComponentFactory<ConfigModel> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.container.createComponent(factory);
       this.componentRef.instance.type = type;
@@ -67,12 +67,12 @@ export class SiderLeftComponent implements AfterViewInit {
     return retComponentRef;
   }
 
-  forwardCreateGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
-    let retComponentRef: ComponentRef<GraphicConfig>;
+  forwardCreateGraphicConfig(type: Type<ConfigModel>): ComponentRef<ConfigModel> {
+    let retComponentRef: ComponentRef<ConfigModel>;
     this.zone.run(() => {
       this.shadowContainer.detach();
       this.shadowContainer.clear();
-      const factory: ComponentFactory<GraphicConfig> =
+      const factory: ComponentFactory<ConfigModel> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       this.componentRef.instance.type = type;

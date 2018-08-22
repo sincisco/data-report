@@ -19,7 +19,7 @@ import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {NzModalFilterComponent} from '../common/filter.modal.component';
 import {filterExecutor} from '@core/filter/filter.executor';
 import {Dimension} from '@core/dataset/dataset.interface';
-import {GraphicConfig} from '../graphic.config';
+import {ConfigModel} from '../graphic.config';
 import {ChartLineOption} from '@core/node/content/chart/line.chart';
 
 @Component({
@@ -27,7 +27,7 @@ import {ChartLineOption} from '@core/node/content/chart/line.chart';
   templateUrl: './line.config.component.html',
   styleUrls: ['./line.config.component.less']
 })
-export class LineConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class LineConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
