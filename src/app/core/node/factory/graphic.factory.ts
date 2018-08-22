@@ -1,5 +1,5 @@
 import {ExplicitRegion} from '@core/node/region/explicit.region';
-import {ReportCanvas} from '@core/node/canvas/report/report.canvas';
+import {ReportPage} from '@core/node/canvas/report/report.page';
 import {ChartGraphic} from '@core/node/graphic/chart.graphic';
 import {BarChart} from '@core/node/content/chart/bar.chart';
 import {TextGraphic} from '@core/node/graphic/text.graphic';
@@ -12,7 +12,7 @@ import {regionMap} from '@core/node/config/region.map';
 
 
 class GraphicFactory {
-  createBarChart(canvas: ReportCanvas, x: number, y: number) {
+  createBarChart(canvas: ReportPage, x: number, y: number) {
     console.log('新建图表');
     const explicitRegion = new ExplicitRegion();
     explicitRegion.setCoordinates(x, y);
@@ -27,7 +27,7 @@ class GraphicFactory {
     // 使用刚指定的配置项和数据显示图表。
   }
 
-  createTextAuxiliary(canvas: ReportCanvas, x: number, y: number) {
+  createTextAuxiliary(canvas: ReportPage, x: number, y: number) {
     console.log('新建文本段');
     const explicitRegion = new ExplicitRegion();
     explicitRegion.setCoordinates(x, y);
@@ -42,7 +42,7 @@ class GraphicFactory {
     _graphic.load();
   }
 
-  createCommentAuxiliary(canvas: ReportCanvas, x: number, y: number) {
+  createCommentAuxiliary(canvas: ReportPage, x: number, y: number) {
     console.log('新建注释');
     const commentRegion = new CommentRegion();
     commentRegion.setCoordinates(x, y);
@@ -61,7 +61,7 @@ class GraphicFactory {
     // _graphic.init(TextAuxiliary);
   }
 
-  createByName(name: string, canvas: ReportCanvas, x: number, y: number) {
+  createByName(name: string, canvas: ReportPage, x: number, y: number) {
     switch (name) {
       case 'textAuxiliary':
         this.createTextAuxiliary(canvas, x, y);

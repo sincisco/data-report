@@ -28,7 +28,7 @@ const ReportTemplate = `
     </div>
     `;
 
-export class ReportCanvas extends ChangeManager implements IPage {
+export class ReportPage extends ChangeManager implements IPage {
   private _dimensions: Dimensions = {
     width: 960,
     height: 720

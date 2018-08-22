@@ -1,5 +1,5 @@
 import {IPage} from '../interface';
-import {ReportCanvas} from '../canvas/report/report.canvas';
+import {ReportPage} from '../canvas/report/report.page';
 import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
 import {closestNum} from '../../../utils/common';
@@ -25,7 +25,7 @@ export abstract class Region implements IPage {
   protected _regionState: RegionState = RegionState.default;
 
   // 模型层
-  protected _page: ReportCanvas;
+  protected _page: ReportPage;
   protected _graphic: IGraphic;
 
   // 展现层
@@ -38,7 +38,7 @@ export abstract class Region implements IPage {
     this.$mover = this.$element.find('.u-mover');
   }
 
-  set page(param: ReportCanvas) {
+  set page(param: ReportPage) {
     this._page = param;
   }
 
