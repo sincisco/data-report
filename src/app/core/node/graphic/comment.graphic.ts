@@ -90,6 +90,12 @@ export class CommentGraphic implements IGraphic {
     }
   }
 
+  render() {
+  }
+
+  derender() {
+  }
+
   destroy() {
     if (this._html) {
       this._html.destroy();

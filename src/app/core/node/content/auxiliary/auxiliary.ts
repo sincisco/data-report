@@ -20,7 +20,13 @@ export abstract class Auxiliary implements IContent {
   abstract activate();
 
   deactivate() {
-  };
+  }
+
+  render() {
+  }
+
+  derender() {
+  }
 
   abstract destroy();
 

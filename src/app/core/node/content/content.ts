@@ -25,6 +25,10 @@ interface IContent {
 
   getOption();
 
+  render();
+
+  derender();
+
   destroy();
 }
 

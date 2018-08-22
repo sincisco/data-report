@@ -26,6 +26,13 @@ export class BarChart extends Chart {
     super(chartGraphic);
   }
 
+  derender() {
+    return {
+      contentClass: 'bar.chart',
+      option: this._option
+    };
+  }
+
   destroy() {
     delete this.configClass;
     super.destroy();

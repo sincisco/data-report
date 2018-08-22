@@ -1,5 +1,8 @@
 import {Type} from '@angular/core';
 
+enum GraphicState {
+  uninitialized, initialized, normal, destroyed
+}
 
 export interface IGraphic {
   $element: JQuery;
@@ -25,6 +28,10 @@ export interface IGraphic {
   updateGraphic(option: any);
 
   getOption();
+
+  render(option?: any);
+
+  derender();
 
   destroy();
 }

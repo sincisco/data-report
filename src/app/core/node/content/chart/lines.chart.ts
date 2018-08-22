@@ -35,6 +35,13 @@ export class LinesChart extends Chart {
     super.update(optionLines);
   }
 
+  derender() {
+    return {
+      contentClass: 'lines.chart',
+      option: this._option
+    };
+  }
+
   destroy() {
     delete this.configClass;
     super.destroy();

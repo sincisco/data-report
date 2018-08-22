@@ -118,12 +118,15 @@ export class ExplicitRegion extends Region {
   }
 
   derender() {
-    return {
+    const retObj = {
       regionClass: 'explicit.region',
       option: {
         dimensions: Object.assign({}, this._dimensions)
-      }
+      },
+      graphic: this._graphic ? this._graphic.derender() : undefined
     };
+
+    return retObj;
   }
 
   render(option) {

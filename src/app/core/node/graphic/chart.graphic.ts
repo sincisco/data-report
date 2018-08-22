@@ -8,6 +8,7 @@ import {contextMenuHelper} from '../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
+import {contentMap} from '@core/node/content/content.map';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -106,6 +107,20 @@ export class ChartGraphic implements IGraphic {
     } else {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
+  }
+
+  render(option: any) {
+    if (contentMap.has(option.contentClass)) {
+      this.init(contentMap.get(option.contentClass));
+    }
+  }
+
+  derender() {
+    return {
+      graphicClass: 'chart.graphic',
+      option: undefined,
+      content: this._chart ? this._chart.derender() : undefined
+    };
   }
 
   /**

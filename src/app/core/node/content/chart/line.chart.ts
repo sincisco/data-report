@@ -26,6 +26,13 @@ export class LineChart extends Chart {
     super(chartGraphic);
   }
 
+  derender() {
+    return {
+      contentClass: 'line.chart',
+      option: this._option
+    };
+  }
+
   destroy() {
     delete this.configClass;
     super.destroy();

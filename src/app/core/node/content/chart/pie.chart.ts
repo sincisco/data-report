@@ -26,6 +26,13 @@ export class PieChart extends Chart {
     super(chartGraphic);
   }
 
+  derender() {
+    return {
+      contentClass: 'pie.chart',
+      option: this._option
+    };
+  }
+
   destroy() {
     delete this.configClass;
     super.destroy();

@@ -122,6 +122,12 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     }
   }
 
+  render() {
+  }
+
+  derender() {
+  }
+
   destroy() {
     if (this._html) {
       this._html.destroy();

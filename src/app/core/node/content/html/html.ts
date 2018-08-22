@@ -24,6 +24,12 @@ export abstract class HtmlNode implements IContent {
   deactivate() {
   }
 
+  render() {
+  }
+
+  derender() {
+  }
+
   abstract destroy();
 
   getOption() {

@@ -16,6 +16,12 @@ export abstract class FilterNode implements IContent {
   deactivate() {
   }
 
+  render() {
+  }
+
+  derender() {
+  }
+
   abstract destroy();
 
   abstract getOption();

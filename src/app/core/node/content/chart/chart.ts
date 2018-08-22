@@ -35,6 +35,11 @@ export abstract class Chart implements IContent {
     }
   }
 
+  /**
+   * update和init的区别
+   * 在发生异常的时候 update需要回滚到上一个正常状态，而init不需要
+   * @param option
+   */
   update(option: any) {
     console.log(JSON.stringify(option));
     if (option) {
@@ -56,6 +61,10 @@ export abstract class Chart implements IContent {
     }
   }
 
+  /**
+   * 如果Echart没有加载数据
+   * @param {string} theme
+   */
   updateTheme(theme: string) {
     console.log(theme);
     if (this._theme !== theme) {
@@ -69,7 +78,7 @@ export abstract class Chart implements IContent {
   }
 
   refresh() {
-    if (!this._echart.isDisposed() && this._option) {
+    if (this._state === ChartState.normal) {
       this._echart.clear();
       this._echart.setOption(this.getOption());
     }
@@ -106,6 +115,12 @@ export abstract class Chart implements IContent {
     }
   }
 
+  render() {
+
+  }
+
+  abstract derender();
+
 
   destroy() {
     if (this._echart && !this._echart.isDisposed()) {
@@ -119,6 +134,10 @@ export abstract class Chart implements IContent {
     this._state = ChartState.destroyed;
   }
 
+  /**
+   * 恢复到初始化状态
+   * @private
+   */
   private _innerReInit() {
     if (this._echart && !this._echart.isDisposed()) {
       this._echart.dispose();
