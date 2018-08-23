@@ -1,7 +1,5 @@
 import {ComponentRef, Type} from '@angular/core';
-import {Region} from '../../region/region';
 import {IGraphic} from '../graphic';
-import {Chart} from '../../content/chart/chart';
 
 import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
@@ -10,6 +8,8 @@ import * as _ from 'lodash';
 import {HtmlNode} from '../../content/html/html';
 import {ExplicitRegion} from '../../region/explicit.region';
 import {ChangeItem, ChangeManager} from '../../utils/ChangeManager';
+import {ImageAuxiliary} from '@core/node/content/auxiliary/image.auxiliary';
+import {ImageConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/image.config.component';
 
 const template = `
 <div class="graphic m-graphic m-graphic-image z-mode-edit">
@@ -24,7 +24,7 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
   private _$frame: JQuery;
 
   private _region: ExplicitRegion;
-  private _html: HtmlNode;
+  private _content: IContent;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
   constructor(region: ExplicitRegion) {
@@ -37,13 +37,14 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     this._initForUpdate();
   }
 
-  childHost(): JQuery {
-    return this._$frame;
+  addChild(imageAuxiliary: ImageAuxiliary) {
+    this._content = imageAuxiliary;
+    this._$frame = imageAuxiliary.$element;
   }
 
-  init(contentClass: Type<HtmlNode>) {
-    this._html = new contentClass(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._html.configClass);
+  init(option: any) {
+    this._content = new ImageAuxiliary(this);
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(ImageConfigComponent);
     this._configComponentRef.instance.graphic = this;
   }
 
@@ -73,13 +74,13 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
 
   load(option?: any) {
     option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
-    this._html.init(option);
+    this._content.init(option);
   }
 
   update(option: any) {
-    if (this._html && option) {
+    if (this._content && option) {
       this._region.setDimensions(option.width, option.height);
-      this._html.update(option);
+      this._content.update(option);
     }
   }
 
@@ -96,28 +97,25 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
   }
 
   resize() {
-    if (this._html) {
-      this._html.resize();
+    if (this._content) {
+      this._content.resize();
     }
   }
 
   activate() {
-    if (this._html) {
-      this._html.activate();
+    if (this._content) {
+      this._content.activate();
     }
   }
 
   deactivate() {
-    if (this._html) {
-      (<any>this._html).deactivate();
+    if (this._content) {
+      (<any>this._content).deactivate();
     }
   }
 
   activateConfig() {
-    if (!this._configComponentRef) {
-      this._configComponentRef = siderLeftComponent.createGraphicConfig(this._html.configClass);
-      this._configComponentRef.instance.graphic = this;
-    } else {
+    if (this._configComponentRef) {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
   }
@@ -129,8 +127,8 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
   }
 
   destroy() {
-    if (this._html) {
-      this._html.destroy();
+    if (this._content) {
+      this._content.destroy();
       this._configComponentRef.destroy();
     }
   }

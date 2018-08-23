@@ -27,7 +27,6 @@ export class BarChartGraphic extends ChartGraphic {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
     if (option) {
-      console.log(option);
       this._configComponentRef.instance.writeOption(option);
     }
     this._configComponentRef.instance.graphic = this;

@@ -8,13 +8,9 @@ interface TextOption {
   text?: string;
 }
 
-const OptionDefault: TextOption = {
-  text: ''
-};
-
 const TextTemplate = `<div class="m-rect m-rect-text"
- style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, 'Microsoft YaHei', Arial,
-'Hiragino Sans GB', sans-serif; background: rgba(1, 1, 1, 0); border-radius: 0px; overflow-y: visible;">
+ style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, Arial, sans-serif; 
+ background: rgba(1, 1, 1, 0); border-radius: 0px; overflow-y: visible;">
   <div class="editor-wrap">
     <div class="editor medium-editor-element"
     contenteditable="true"
@@ -28,7 +24,7 @@ const TextTemplate = `<div class="m-rect m-rect-text"
  * region 高度自适应
  */
 export class TextAuxiliary extends Auxiliary {
-  private readonly _$element: JQuery;
+  $element: JQuery;
   private _$editor: JQuery;
   private _option: TextOption;
   private _editorInstance: any;
@@ -39,13 +35,13 @@ export class TextAuxiliary extends Auxiliary {
 
   constructor(private textGraphic: TextGraphic) {
     super();
-    this._$element = $(TextTemplate);
-    this._$editor = this._$element.find('.medium-editor-element');
-    textGraphic.childHost().append(this._$element);
+    this.$element = $(TextTemplate);
+    this._$editor = this.$element.find('.medium-editor-element');
+    textGraphic.addChild(this);
   }
 
   init(option?: TextOption) {
-    this._option = _.defaultsDeep(option, OptionDefault);
+    this._option = option;
     this._refresh();
   }
 

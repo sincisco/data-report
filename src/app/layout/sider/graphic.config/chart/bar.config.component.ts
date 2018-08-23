@@ -104,8 +104,6 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
       }
     });
 
-    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', this.output.subscribe(() => {
-    }));
   }
 
 

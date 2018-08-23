@@ -7,6 +7,8 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 import * as _ from 'lodash';
 import {HtmlNode} from '../../content/html/html';
 import {ExplicitRegion} from '../../region/explicit.region';
+import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
+import {TextConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/text.config.component';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">
@@ -20,7 +22,7 @@ export class TextGraphic implements IGraphic {
   private _$frame: JQuery;
 
   private _region: ExplicitRegion;
-  private _html: HtmlNode;
+  private _content: IContent;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
   constructor(region: ExplicitRegion) {
@@ -30,25 +32,42 @@ export class TextGraphic implements IGraphic {
     region.addChild(this);
   }
 
-  childHost(): JQuery {
-    return this._$frame;
+  get model(): ConfigModel {
+    return this._configComponentRef.instance;
   }
 
-  init(contentClass: Type<HtmlNode>) {
-    this._html = new contentClass(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._html.configClass);
-    this._configComponentRef.instance.graphic = this;
+  addChild(textAuxiliary: TextAuxiliary) {
+    this._content = textAuxiliary;
+    this._$frame.append(textAuxiliary.$element);
+  }
+
+  init(option: any) {
+    this._content = new TextAuxiliary(this);
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
+    if (option) {
+      this.model.writeOption(option);
+    }
+    this.model.graphic = this;
   }
 
   load(option?: any) {
     option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
-    this._html.init(option);
+    this._content.init(option);
+  }
+
+  getOption() {
+  }
+
+  render() {
+  }
+
+  derender() {
   }
 
   update(option: any) {
-    if (this._html) {
+    if (this._content) {
       this._region.setDimensions(option.width, option.height);
-      this._html.update(option);
+      this._content.update(option);
     }
   }
 
@@ -59,45 +78,35 @@ export class TextGraphic implements IGraphic {
 
   }
 
-  getOption() {
-  }
 
   resize() {
-    if (this._html) {
-      this._html.resize();
+    if (this._content) {
+      this._content.resize();
     }
   }
 
   activate() {
-    if (this._html) {
-      this._html.activate();
+    if (this._content) {
+      this._content.activate();
     }
   }
 
   activateConfig() {
-    if (!this._configComponentRef) {
-      this._configComponentRef = siderLeftComponent.createGraphicConfig(this._html.configClass);
-      this._configComponentRef.instance.graphic = this;
-    } else {
+    if (this._configComponentRef) {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
+
   }
 
   deactivate() {
-    if (this._html) {
-      (<any>this._html).deactivate();
+    if (this._content) {
+      (<any>this._content).deactivate();
     }
   }
 
-  render() {
-  }
-
-  derender() {
-  }
-
   destroy() {
-    if (this._html) {
-      this._html.destroy();
+    if (this._content) {
+      this._content.destroy();
       this._configComponentRef.destroy();
     }
   }
