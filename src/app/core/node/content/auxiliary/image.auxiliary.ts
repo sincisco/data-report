@@ -28,16 +28,14 @@ export class ImageAuxiliary extends Auxiliary {
 
   init(option: ImageOption) {
     if (!this._image) {
-      const image = document.createElement('img');
+      const image = this._image = document.createElement('img');
       image.alt = 'Image preview...';
-      this._image = image;
       this.$element.append(image);
     }
 
     if (this._option.dataUrl) {
       this._image.src = this._option.dataUrl;
     }
-    // this._refresh();
   }
 
   resize() {

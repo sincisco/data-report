@@ -53,7 +53,6 @@ class GraphicFactory {
     // 使用刚指定的配置项和数据显示图表。
     _graphic.init(CommentAuxiliary);
 
-    _graphic.load();
     // const _graphic = new TextGraphic(explicitRegion);
 
     // 使用刚指定的配置项和数据显示图表。

@@ -27,7 +27,7 @@ const CommentTemplate = `
 
 
 export class CommentAuxiliary extends Auxiliary {
-  private readonly _$element: JQuery;
+  $element: JQuery;
   private _$editor: JQuery;
   private _option: CommentOption;
 
@@ -38,9 +38,9 @@ export class CommentAuxiliary extends Auxiliary {
 
   constructor(private _commentGraphic: CommentGraphic) {
     super();
-    this._$element = $(CommentTemplate);
-    this._$editor = this._$element.find('.medium-editor-element');
-    _commentGraphic.childHost().append(this._$element);
+    this.$element = $(CommentTemplate);
+    this._$editor = this.$element.find('.medium-editor-element');
+    _commentGraphic.addChild(this);
   }
 
   init(option: CommentOption) {

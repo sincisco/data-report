@@ -1,12 +1,16 @@
-import {ComponentRef} from '@angular/core';
+import {ComponentRef, Type} from '@angular/core';
 import {IGraphic} from '../graphic';
 
 import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
+import * as _ from 'lodash';
+import {HtmlNode} from '../../content/html/html';
 import {CommentRegion} from '../../region/comment.region';
 import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
 import {CommentConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/comment.config.component';
+import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
+import {Region} from '@core/node/region/region';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">
@@ -15,39 +19,23 @@ const template = `
 </div>
 `;
 
-export class CommentGraphic implements IGraphic {
+export abstract class AuxiliaryGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _region: CommentRegion;
-  private _content: IContent;
+  private region: Region;
+  protected auxiliary: Auxiliary;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
-  constructor(region: CommentRegion) {
-    this._region = region;
-    this.$element = $(template);
-    this._$frame = this.$element.find('.frame');
-    region.addChild(this);
-  }
-
-  addChild(commentAuxiliary: CommentAuxiliary) {
-    this._content = commentAuxiliary;
-    this._$frame.append(commentAuxiliary.$element);
+  protected constructor(region: CommentRegion) {
 
   }
 
-  init(option?: any) {
-    this._content = new CommentAuxiliary(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(CommentConfigComponent);
-    this._configComponentRef.instance.graphic = this;
-  }
+  abstract addChild(auxiliary: Auxiliary);
 
-  update(option: any) {
-    if (this._content) {
-      this._region.setDimensions(option.width, option.height);
-      this._content.update(option);
-    }
-  }
+  abstract init(option?: any);
+
+  abstract update(option: any);
 
   updateTheme(theme: string) {
   }
@@ -59,27 +47,21 @@ export class CommentGraphic implements IGraphic {
   getOption() {
   }
 
-  render() {
-  }
-
-  derender() {
-  }
-
   resize() {
-    if (this._content) {
-      this._content.resize();
+    if (this.auxiliary) {
+      this.auxiliary.resize();
     }
   }
 
   activate() {
-    if (this._content) {
-      this._content.activate();
+    if (this.auxiliary) {
+      this.auxiliary.activate();
     }
   }
 
   deactivate() {
-    if (this._content) {
-      this._content.deactivate();
+    if (this.auxiliary) {
+      this.auxiliary.deactivate();
     }
   }
 
@@ -89,9 +71,15 @@ export class CommentGraphic implements IGraphic {
     }
   }
 
+  render() {
+  }
+
+  derender() {
+  }
+
   destroy() {
-    if (this._content) {
-      this._content.destroy();
+    if (this.auxiliary) {
+      this.auxiliary.destroy();
       this._configComponentRef.destroy();
     }
   }
