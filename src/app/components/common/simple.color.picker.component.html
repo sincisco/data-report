@@ -1,0 +1,38 @@
+<div class="m-color">
+  <div class="row row-1">
+    <div class="bgc" style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204);"
+         [style.backgroundColor]="selectedColor"></div>
+    <button class="u-btn u-btn-ghost u-btn-ghost-opacity">透明</button>
+    <div class="bgt">
+      <input type="text" [ngModel]="selectedColor">
+    </div>
+  </div>
+  <div class="row row-2">
+    <div class="ctable">
+      <div class="color-col" *ngFor="let color of colors;">
+        <div [style.backgroundColor]="color[0]"
+             style="border: 1px solid #ccc;cursor: pointer;width: 14px;height: 14px;box-sizing: border-box;margin-bottom: 6px">
+        </div>
+        <div style="border: 1px solid #ccc;width: 14px;box-sizing: border-box;">
+          <ng-container *ngFor="let item of color;index as i">
+            <div *ngIf="i!==0" [style.backgroundColor]="item" style="width: 12px;height: 13px;cursor: pointer"
+                 (click)="selectColor(item);"></div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row row-3">
+    <div class="txt">最近使用颜色</div>
+    <div style="display: flex;width: 154px;height:34px;flex-wrap:wrap;align-content:space-between;">
+      <!--Regular list-->
+      <div *ngFor="let item of mostRecentlyUsedColors;index as i"
+           style="width: 14px;height: 14px;border: 1px solid #ccc;margin-right: 6px;"
+           [style.marginRight]="((i+1)%8===0?'0px':'6px')"
+           [style.backgroundColor]="item"></div>
+    </div>
+  </div>
+  <div class="row row-4" style="display: none;">
+    <button type="button" class="u-btn u-btn-menu u-btn-menu-right">更多颜色</button>
+  </div>
+</div>

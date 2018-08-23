@@ -1,14 +1,14 @@
 <div nz-row nzType="flex">
-  <div nz-col style="margin-bottom: 8px;line-height: 28px" [nzSpan]="24">
-    <nz-select #colorModel="ngModel" [(ngModel)]="option" [nzMaxMultipleCount]="10" style="width: 100%" nzMode="multiple"
-               nzPlaceHolder="颜色">
-      <nz-option nzCustomContent *ngFor="let item of listOfColors" [nzLabel]="item" [nzValue]="item">
-        <span [style.backgroundColor]="item"
-              style="color: #eeeeee;display: inline-block;line-height: 1.5">{{item}}</span>
-      </nz-option>
-    </nz-select>
+  <div nz-col style="margin-bottom: 8px;line-height: 28px" [nzSpan]="24" >
+    <div class="color-select-button" #originFab (click)="displayMenu()">
+      颜色选择
+    </div>
   </div>
-  <div *ngIf="option" nz-col style="margin-bottom: 8px;line-height: 28px" [nzSpan]="24">
-    <div  *ngFor="let item of option" style="width: 20px;height: 20px;margin: 0 5px 5px 0;display: inline-block;border-radius: 3px;border: 1px solid #eee" [style.backgroundColor]="item"></div>
+  <div nz-col style="margin-bottom: 8px;line-height: 28px" [nzSpan]="24">
+    <div class="color-button" *ngFor="let item of option||[];index as i"
+         [style.backgroundColor]="item">
+      <span (click)="deleteColor(i)">x</span>
+    </div>
   </div>
 </div>
+

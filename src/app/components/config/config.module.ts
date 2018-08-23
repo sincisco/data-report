@@ -21,10 +21,15 @@ import {LineSeriesConfigComponent} from './series/line.series.config.component';
 import {LineSeriesManagerConfigComponent} from './line.series.manager.config.component';
 import {PieSeriesConfigComponent} from './series/pie.series.config.component';
 import {PieSeriesManagerConfigComponent} from './pie.series.manager.config.component';
+import {OverlayModule} from '@angular/cdk/overlay';
+import {SimpleColorPickerComponent} from '../common/simple.color.picker.component';
+import {MultiColorInputComponent} from '../common/multi.color.input.component';
 
 
 const COMPONENTS = [
   ControlDividerComponent,
+  SimpleColorPickerComponent,
+  MultiColorInputComponent,
   AxisConfigComponent,
   BarSeriesConfigComponent,
   LineSeriesConfigComponent,
@@ -53,7 +58,8 @@ const DIRECTIVES = [
     FormsModule,
     HttpClientModule,
     ColorPickerModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    OverlayModule
   ],
   entryComponents: [
     ...COMPONENTS

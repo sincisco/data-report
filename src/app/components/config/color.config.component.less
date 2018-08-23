@@ -1,0 +1,27 @@
+.color-select-button {
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.color-button {
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 5px 0;
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  span {
+    display: none;
+  }
+  &:hover {
+    span {
+      display: block;
+      position: absolute;
+      right: 2px;
+      top: -2px;
+      line-height: 12px;
+    }
+  }
+}
