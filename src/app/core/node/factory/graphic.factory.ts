@@ -8,6 +8,7 @@ import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
 import {CommentGraphic} from '@core/node/graphic/auxiliary.graphic/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
 import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
+import {graphicMap} from '@core/node/config/graphic.map';
 
 
 class GraphicFactory {
@@ -87,8 +88,6 @@ class GraphicFactory {
   }
 
   paste(option: any, x, y) {
-
-
     if (regionMap.has(option.regionClass)) {
       const regionClass = regionMap.get(option.regionClass);
       const region = new regionClass();
@@ -96,15 +95,18 @@ class GraphicFactory {
       region.render(option.option);
       region.refresh();
       currentReport.addChild(region);
+      if (option.graphic) {
+        if (graphicMap.has(option.graphic.graphicClass)) {
+          const _graphicClass = graphicMap.get(option.graphic.graphicClass),
+            _graphic = new _graphicClass(region);
+
+          // 使用刚指定的配置项和数据显示图表。
+          _graphic.init(option.graphic.option);
+        }
+      }
     }
 
 
-    // const _graphic = new option.graphicClass(explicitRegion);
-    //
-    // // 使用刚指定的配置项和数据显示图表。
-    // _graphic.init(option.graphic.contentClass);
-    //
-    // _graphic.update(option.graphic.option);
   }
 }
 

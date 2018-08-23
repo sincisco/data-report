@@ -3,8 +3,9 @@ import {
   Component, forwardRef, NgZone,
   ViewChild,
 } from '@angular/core';
-import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, NgForm, NgModel} from '@angular/forms';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
+import {NzSelectComponent} from 'ng-zorro-antd';
 
 export const COLOR_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,12 +20,9 @@ export const COLOR_CONFIG_VALUE_ACCESSOR: any = {
   providers: [COLOR_CONFIG_VALUE_ACCESSOR]
 })
 export class ColorConfigComponent extends CustomControlValueAccessor implements AfterViewInit {
-
-
-  @ViewChild(NgForm) ngForm: NgForm;
+  @ViewChild('colorModel') colorModel: NgModel;
 
   option: Array<string>;
-
   listOfColors = ['#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae', '#749f83', '#ca8622', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
 
 
@@ -33,11 +31,9 @@ export class ColorConfigComponent extends CustomControlValueAccessor implements 
   }
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.subscribe((value) => {
+    this.colorModel.valueChanges.subscribe((value) => {
       console.log('ColorConfigComponent valueChanges', value);
-
-      value.color && this._propagateChange(value.color);
+      this._propagateChange(value);
     });
   }
-
 }

@@ -2,12 +2,10 @@
   <nz-tab nzTitle="数据">
     <nz-collapse [nzBordered]="false" class="zijin-form">
       <nz-collapse-panel nzHeader="X 轴">
-        <app-axis-config name="xAxis" [ngModel]="option.xAxis"
-                         (axisChange)="ngAxisChange($event)"></app-axis-config>
+        <app-axis-config name="xAxis" [ngModel]="option.xAxis"></app-axis-config>
       </nz-collapse-panel>
       <nz-collapse-panel nzHeader="Y 轴">
-        <app-axis-config name="yAxis" [ngModel]="option.yAxis"
-                         (axisChange)="ngAxisChange($event)"></app-axis-config>
+        <app-axis-config name="yAxis" [ngModel]="option.yAxis"></app-axis-config>
       </nz-collapse-panel>
       <nz-collapse-panel nzHeader="系列">
         <app-bar-series-manager-config name="series" [ngModel]="option.series"></app-bar-series-manager-config>

@@ -36,21 +36,21 @@ export class AxisConfigComponent extends CustomControlValueAccessor implements A
     axisTick: {}
   };
 
-  @Output() axisChange = new EventEmitter();
-
   private _differ: KeyValueDiffer<any, any>;
   private _filterArray: Array<any> = [];
+
+  axisState = true;
+  nameState = false;
+  axisLineState = false;
+  axisTickState = false;
+  axisLabelState = false;
+
 
   constructor(private _differs: KeyValueDiffers,
               private _modalService: NzModalService,
               private _zone: NgZone) {
     super();
   }
-
-  axisState = true;
-  nameState = false;
-  labelState = false;
-  tickState = false;
 
   ngOnInit() {
     this._differ = this._differs.find(this.option).create();

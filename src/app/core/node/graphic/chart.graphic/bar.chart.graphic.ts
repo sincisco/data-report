@@ -26,13 +26,17 @@ export class BarChartGraphic extends ChartGraphic {
   init(option?: any) {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
+    if (option) {
+      console.log(option);
+      this._configComponentRef.instance.writeOption(option);
+    }
     this._configComponentRef.instance.graphic = this;
   }
 
   derender() {
     return {
       graphicClass: 'bar.chart.graphic',
-      option: this.getOption(),
+      option: this._configComponentRef.instance.readOption(),
     };
   }
 

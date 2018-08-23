@@ -45,12 +45,12 @@ export abstract class ChartGraphic implements IGraphic {
     region.addChild(this);
   }
 
+  abstract init(option?: any);
+
   addChild(chart: Chart) {
     this._chart = chart;
     this._$frame.append(chart.$element);
   }
-
-  abstract init(option?: any);
 
   load(option?: any) {
     option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);

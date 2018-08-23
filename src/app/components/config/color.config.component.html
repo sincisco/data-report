@@ -1,6 +1,6 @@
-<div nz-row nzType="flex" ngForm>
+<div nz-row nzType="flex">
   <div nz-col style="margin-bottom: 8px;line-height: 28px" [nzSpan]="24">
-    <nz-select name="color" [(ngModel)]="option" [nzMaxMultipleCount]="10" style="width: 100%" nzMode="multiple"
+    <nz-select #colorModel="ngModel" [(ngModel)]="option" [nzMaxMultipleCount]="10" style="width: 100%" nzMode="multiple"
                nzPlaceHolder="颜色">
       <nz-option nzCustomContent *ngFor="let item of listOfColors" [nzLabel]="item" [nzValue]="item">
         <span [style.backgroundColor]="item"

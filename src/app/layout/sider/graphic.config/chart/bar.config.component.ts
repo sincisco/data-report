@@ -78,11 +78,6 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
     super();
   }
 
-  ngAxisChange($event) {
-    console.log(JSON.stringify($event));
-    this._updateSeries();
-  }
-
   ngOnInit() {
     this._differ = this._differs.find(this.option).create();
   }
