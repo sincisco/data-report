@@ -1,4 +1,3 @@
-import {IPage} from '../interface';
 import {ReportPage} from '../canvas/report/report.page';
 import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';

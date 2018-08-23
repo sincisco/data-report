@@ -13,12 +13,13 @@ import {
 import {NgForm} from '@angular/forms';
 import {datasetManager} from '@core/dataset/dataset.manager';
 
-import {NzModalRef, NzModalService} from 'ng-zorro-antd';
+import {NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '@core/dataset/dataset.interface';
 import {ConfigModel} from '../graphic.config';
-import {ChartBarOption} from '@core/node/content/chart/bar.chart';
+
 import {removeUndefined} from '../../../../utils/common';
-import {debounce, debounceTime} from 'rxjs/operators';
+import {debounceTime} from 'rxjs/operators';
+import {ChartBarOption} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
 
 @Component({
   selector: 'app-bar-config',

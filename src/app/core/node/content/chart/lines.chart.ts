@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import {Title} from './echart.interface/title';
 import {Axis} from './echart.interface/axis';
 import {Grid} from './echart.interface/grid';
-import {ChartGraphic} from '../../graphic/chart.graphic';
+import {ChartGraphic} from '../../graphic/chart.graphic/chart.graphic';
 import {LineConfigComponent} from '../../../../layout/sider/graphic.config/chart/line.config.component';
 import {LineSeriesConfig} from './echart.interface/series/line.series';
 import {Chart} from '@core/node/content/chart/chart';

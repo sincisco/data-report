@@ -14,11 +14,10 @@ import {NgForm} from '@angular/forms';
 
 import {datasetManager} from '@core/dataset/dataset.manager';
 
-import {NzModalRef, NzModalService} from 'ng-zorro-antd';
+import {NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '@core/dataset/dataset.interface';
 import {ConfigModel} from '../graphic.config';
-import {ChartLineOption} from '@core/node/content/chart/line.chart';
-import {ChartPieConfig} from '@core/node/content/chart/pie.chart';
+import {ChartPieConfig} from '@core/node/graphic/chart.graphic/pie.chart.graphic';
 
 @Component({
   selector: 'app-pie-config',

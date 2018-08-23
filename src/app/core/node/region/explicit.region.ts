@@ -1,5 +1,4 @@
 import {Region, RegionState, resizeTipHelper} from './region';
-import {BarChart} from '../content/chart/bar.chart';
 import {closestNum} from '../../../utils/common';
 import {contextMenuHelper} from '../../../utils/contextMenu';
 import {fromEvent, Subscription} from 'rxjs';
@@ -7,14 +6,16 @@ import {throttleTime} from 'rxjs/internal/operators';
 import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
 import {ImageAuxiliary} from '../content/auxiliary/image.auxiliary';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
-import {ChartGraphic} from '../graphic/chart.graphic';
+import {ChartGraphic} from '../graphic/chart.graphic/chart.graphic';
 import {ImageGraphic} from '../graphic/image.graphic';
 import {IGraphic} from '../graphic/graphic';
 import {TextGraphic} from '../graphic/text.graphic';
-import {LineChart} from '@core/node/content/chart/line.chart';
-import {PieChart} from '@core/node/content/chart/pie.chart';
 import {LinesChart} from '@core/node/content/chart/lines.chart';
 import {clipboard} from '@core/node/clipboard';
+import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
+import {LineChartGraphic} from '@core/node/graphic/chart.graphic/line.chart.graphic';
+import {PieChartGraphic} from '@core/node/graphic/chart.graphic/pie.chart.graphic';
+import {LinesChartGraphic} from '@core/node/graphic/chart.graphic/lines.chart.graphic';
 
 const template = `
 <div class="m-dashbox">
@@ -286,9 +287,9 @@ export class ExplicitRegion extends Region {
         {
           displayName: '创建bar Echart',
           callback: () => {
-            const _graphic = new ChartGraphic(this);
+            const _graphic = new BarChartGraphic(this);
 
-            _graphic.init(BarChart);
+            _graphic.init();
             // 使用刚指定的配置项和数据显示图表。
             // content.init({});
 
@@ -298,9 +299,9 @@ export class ExplicitRegion extends Region {
         {
           displayName: '创建line Echart',
           callback: () => {
-            const _graphic = new ChartGraphic(this);
+            const _graphic = new LineChartGraphic(this);
 
-            _graphic.init(LineChart);
+            _graphic.init();
             // 使用刚指定的配置项和数据显示图表。
             // content.init({});
 
@@ -310,9 +311,9 @@ export class ExplicitRegion extends Region {
         {
           displayName: '创建pie Echart',
           callback: () => {
-            const _graphic = new ChartGraphic(this);
+            const _graphic = new PieChartGraphic(this);
 
-            _graphic.init(PieChart);
+            _graphic.init();
             // 使用刚指定的配置项和数据显示图表。
             // content.init({});
 
@@ -368,9 +369,9 @@ export class ExplicitRegion extends Region {
         }, {
           displayName: '创建Lines',
           callback: () => {
-            const _graphic = new ChartGraphic(this);
+            const _graphic = new LinesChartGraphic(this);
 
-            _graphic.init(LinesChart);
+            _graphic.init();
             // 使用刚指定的配置项和数据显示图表。
             // content.init({});
 

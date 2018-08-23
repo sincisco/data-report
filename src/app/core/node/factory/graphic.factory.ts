@@ -1,7 +1,5 @@
 import {ExplicitRegion} from '@core/node/region/explicit.region';
 import {ReportPage} from '@core/node/canvas/report/report.page';
-import {ChartGraphic} from '@core/node/graphic/chart.graphic';
-import {BarChart} from '@core/node/content/chart/bar.chart';
 import {TextGraphic} from '@core/node/graphic/text.graphic';
 import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
 import {currentReport} from '../../../layout/app.body.component';
@@ -9,6 +7,7 @@ import {CommentRegion} from '@core/node/region/comment.region';
 import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
 import {CommentGraphic} from '@core/node/graphic/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
+import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
 
 
 class GraphicFactory {
@@ -19,11 +18,10 @@ class GraphicFactory {
     explicitRegion.refresh();
     canvas.addChild(explicitRegion);
 
-    const _graphic = new ChartGraphic(explicitRegion);
+    const _graphic = new BarChartGraphic(explicitRegion);
 
-    _graphic.init(BarChart);
+    _graphic.init();
 
-    _graphic.load();
     // 使用刚指定的配置项和数据显示图表。
   }
 

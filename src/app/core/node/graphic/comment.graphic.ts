@@ -6,7 +6,6 @@ import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
 import {HtmlNode} from '../content/html/html';
-import {ExplicitRegion} from '../region/explicit.region';
 import {CommentRegion} from '../region/comment.region';
 
 const template = `

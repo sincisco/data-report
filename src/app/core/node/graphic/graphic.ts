@@ -1,15 +1,13 @@
-import {Type} from '@angular/core';
-
-enum GraphicState {
-  uninitialized, initialized, normal, destroyed
-}
-
 export interface IGraphic {
   $element: JQuery;
 
-  init(contentClass: Type<IContent>);
+  init(option?: any);
 
-  load(option?: any);
+  update(option: any);
+
+  updateTheme(theme: string);
+
+  updateGraphic(option: any);
 
   // 图标进入交互状态
   activate();
@@ -20,12 +18,6 @@ export interface IGraphic {
   activateConfig();
 
   resize();
-
-  update(option: any);
-
-  updateTheme(theme: string);
-
-  updateGraphic(option: any);
 
   getOption();
 

@@ -1,14 +1,15 @@
 import {Type} from '@angular/core';
 
 import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
-import {ChartGraphic} from '../../graphic/chart.graphic';
+import {ChartGraphic} from '../../graphic/chart.graphic/chart.graphic';
 
 enum ChartState {
   uninitialized, initialized, normal, destroyed
 }
 
 // chartNode
-export abstract class Chart implements IContent {
+export class Chart implements IContent {
+  $element: JQuery;
   protected _echart: Echart;
   private _theme = 'roma';
   protected _option: any = {};
@@ -16,7 +17,9 @@ export abstract class Chart implements IContent {
 
   public configClass: Type<ConfigModel>;
 
-  protected constructor(private _graphic: ChartGraphic) {
+  constructor(private _graphic: ChartGraphic) {
+    this.$element = $('<div style="width: 100%;height: 100%;"></div>');
+    _graphic.addChild(this);
     // 初始化之前  确保host已经挂载到document中
     this._innerReInit();
   }
@@ -119,7 +122,8 @@ export abstract class Chart implements IContent {
 
   }
 
-  abstract derender();
+  derender() {
+  }
 
 
   destroy() {
@@ -127,7 +131,7 @@ export abstract class Chart implements IContent {
       this._echart.dispose();
       this._echart = null;
     }
-    this._graphic.childHost().empty();
+    this.$element.empty();
     delete this._option;
     delete this._graphic;
 
@@ -143,12 +147,12 @@ export abstract class Chart implements IContent {
       this._echart.dispose();
       this._echart = null;
     }
-    this._graphic.childHost().empty();
+    this.$element.empty();
 
     const element = document.createElement('div');
     element.style.width = '100%';
     element.style.height = '100%';
-    this._graphic.childHost().append(element);
+    this.$element.append(element);
     if (this._theme) {
       this._echart = echarts.init(element, this._theme);
     } else {

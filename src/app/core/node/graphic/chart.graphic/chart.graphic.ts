@@ -1,14 +1,13 @@
 import {ComponentRef, Type} from '@angular/core';
-import {Region} from '../region/region';
-import {IGraphic} from './graphic';
-import {Chart} from '../content/chart/chart';
+import {Region} from '../../region/region';
+import {IGraphic} from '../graphic';
+import {Chart} from '../../content/chart/chart';
 
-import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
-import {contextMenuHelper} from '../../../utils/contextMenu';
-import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
+import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
+import {contextMenuHelper} from '../../../../utils/contextMenu';
+import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {contentMap} from '@core/node/config/content.map';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -23,36 +22,35 @@ const template = `
 </div>
 `;
 
-export class ChartGraphic implements IGraphic {
+export abstract class ChartGraphic implements IGraphic {
   $element: JQuery;
   private readonly _$frame: JQuery;
   private readonly _$toolbar: JQuery;
 
-  private _region: Region;
-  private _chart: Chart;
-  private _configComponentRef: ComponentRef<ConfigModel>;
+  protected _chart: Chart;
+  protected _configComponentRef: ComponentRef<ConfigModel>;
 
-  constructor(region: Region) {
-    this._region = region;
-
+  /**
+   * 1、初始化视图
+   * 2、给视图绑定事件处理函数
+   * 3、建立父子关系
+   * @param {Region} region
+   */
+  protected constructor(region: Region) {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     this._$toolbar = this.$element.find('.m-graphic-toolbar');
+    this._bindToolbarEvent();
 
     region.addChild(this);
   }
 
-  childHost(): JQuery {
-    return this._$frame;
+  addChild(chart: Chart) {
+    this._chart = chart;
+    this._$frame.append(chart.$element);
   }
 
-  init(contentClass: Type<Chart>) {
-    this._chart = new contentClass(this);
-    this._bindToolbarEvent();
-    console.log(this._chart);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._chart.configClass);
-    this._configComponentRef.instance.graphic = this;
-  }
+  abstract init(contentClass: Type<Chart>);
 
   load(option?: any) {
     option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
@@ -112,9 +110,7 @@ export class ChartGraphic implements IGraphic {
   }
 
   render(option: any) {
-    if (contentMap.has(option.contentClass)) {
-      this.init(contentMap.get(option.contentClass));
-    }
+
   }
 
   derender() {

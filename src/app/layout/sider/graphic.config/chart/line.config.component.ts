@@ -11,16 +11,14 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {draggableHeler} from '../../../../utils/draggable.helper';
 
 import {datasetManager} from '@core/dataset/dataset.manager';
 
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
-import {NzModalFilterComponent} from '../common/filter.modal.component';
-import {filterExecutor} from '@core/filter/filter.executor';
 import {Dimension} from '@core/dataset/dataset.interface';
 import {ConfigModel} from '../graphic.config';
-import {ChartLineOption} from '@core/node/content/chart/line.chart';
+import {ChartLineOption} from '@core/node/graphic/chart.graphic/line.chart.graphic';
+
 
 @Component({
   selector: 'app-line-config',
