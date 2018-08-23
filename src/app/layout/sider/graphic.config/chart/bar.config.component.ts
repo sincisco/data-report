@@ -1,8 +1,7 @@
 import {
   AfterViewInit,
-  Component, DoCheck,
+  Component,
   EventEmitter,
-  Input,
   KeyValueDiffer,
   KeyValueDiffers,
   OnInit,
@@ -14,7 +13,6 @@ import {NgForm} from '@angular/forms';
 import {datasetManager} from '@core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {Dimension} from '@core/dataset/dataset.interface';
 import {ConfigModel} from '../graphic.config';
 
 import {removeUndefined} from '../../../../utils/common';
@@ -29,7 +27,6 @@ import {ChartBarOption} from '@core/node/graphic/chart.graphic/bar.chart.graphic
 export class BarConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
-  @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
   @Output() output = new EventEmitter();
 
   option: ChartBarOption = {
@@ -70,8 +67,6 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
     }]
   };
 
-  seriesX: Array<Dimension> = [];
-  seriesY: Array<Dimension> = [];
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private modalService: NzModalService, private _differs: KeyValueDiffers) {
@@ -80,30 +75,6 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
 
   ngOnInit() {
     this._differ = this._differs.find(this.option).create();
-  }
-
-  private _updateSeries() {
-    if (this.seriesX.length === 0 || this.seriesY.length === 0) {
-      return;
-    }
-    this.option.series = [];
-    // this.option.dataset = Object.assign({},
-    //   datasetManager.current,
-    //   {source: filterExecutor.execute(datasetManager.current.source, this.filterArray)});
-    this.option.dataset = datasetManager.current;
-    this.option.series.push({
-      type: 'bar',
-      name: 'test',
-      encode: {
-        x: this.seriesX.map((value) => {
-          return value.name;
-        }),
-        y: this.seriesY.map((value) => {
-          return value.name;
-        })
-      }
-    });
-    this.output.emit(this.option);
   }
 
   ngAfterViewInit() {
@@ -132,6 +103,9 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
         console.log('BarConfigComponent  has change');
       }
     });
+
+    console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', this.output.subscribe(() => {
+    }));
   }
 
 

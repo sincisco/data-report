@@ -1,13 +1,12 @@
 import {
   AfterViewInit,
-  Component, ComponentRef, ElementRef, forwardRef, NgZone, OnInit, TemplateRef,
-  ViewChild, ViewContainerRef,
+  Component, ComponentRef, ElementRef, forwardRef, NgZone, OnInit,
+  ViewChild,
 } from '@angular/core';
-import {NG_VALUE_ACCESSOR, NgForm, NgModel} from '@angular/forms';
+import {NG_VALUE_ACCESSOR, NgModel} from '@angular/forms';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
-import {NzSelectComponent} from 'ng-zorro-antd';
 import {Overlay, OverlayRef} from '@angular/cdk/overlay';
-import {ComponentPortal, TemplatePortal} from '@angular/cdk/portal';
+import {ComponentPortal} from '@angular/cdk/portal';
 import {SimpleColorPickerComponent} from '../common/simple.color.picker.component';
 
 export const COLOR_CONFIG_VALUE_ACCESSOR: any = {
