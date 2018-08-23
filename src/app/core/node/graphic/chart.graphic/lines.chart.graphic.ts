@@ -29,4 +29,11 @@ export class LinesChartGraphic extends ChartGraphic {
     this._configComponentRef.instance.graphic = this;
   }
 
+  derender() {
+    return {
+      graphicClass: 'lines.chart.graphic',
+      option: this.getOption(),
+    };
+  }
+
 }

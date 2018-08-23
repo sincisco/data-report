@@ -1,5 +1,5 @@
-import {ChartGraphic} from '../graphic/chart.graphic/chart.graphic';
+import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
 
 const map = new Map();
-map.set('chart.graphic', ChartGraphic);
+map.set('bar.chart.graphic', BarChartGraphic);
 export const graphicMap = map;

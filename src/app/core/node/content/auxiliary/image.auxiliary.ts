@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import {HtmlNode} from '../html/html';
 import {ImageConfigComponent} from '../../../../layout/sider/graphic.config/html/image.config.component';
-import {ImageGraphic} from '../../graphic/image.graphic';
+import {ImageGraphic} from '../../graphic/auxiliary.graphic/image.graphic';
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 
 interface ImageOption {

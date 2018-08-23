@@ -21,9 +21,9 @@ export interface IGraphic {
 
   getOption();
 
-  render(option?: any);
-
   derender();
+
+  render(option?: any);
 
   destroy();
 }

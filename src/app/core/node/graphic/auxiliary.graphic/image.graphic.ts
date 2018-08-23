@@ -1,15 +1,15 @@
 import {ComponentRef, Type} from '@angular/core';
-import {Region} from '../region/region';
-import {IGraphic} from './graphic';
-import {Chart} from '../content/chart/chart';
+import {Region} from '../../region/region';
+import {IGraphic} from '../graphic';
+import {Chart} from '../../content/chart/chart';
 
-import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
-import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
+import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
+import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {HtmlNode} from '../content/html/html';
-import {ExplicitRegion} from '../region/explicit.region';
-import {ChangeItem, ChangeManager} from '@core/node/utils/ChangeManager';
+import {HtmlNode} from '../../content/html/html';
+import {ExplicitRegion} from '../../region/explicit.region';
+import {ChangeItem, ChangeManager} from '../../utils/ChangeManager';
 
 const template = `
 <div class="graphic m-graphic m-graphic-image z-mode-edit">

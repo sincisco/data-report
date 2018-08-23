@@ -1,12 +1,12 @@
 import {ComponentRef, Type} from '@angular/core';
-import {IGraphic} from './graphic';
+import {IGraphic} from '../graphic';
 
-import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
-import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
+import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
+import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {HtmlNode} from '../content/html/html';
-import {CommentRegion} from '../region/comment.region';
+import {HtmlNode} from '../../content/html/html';
+import {CommentRegion} from '../../region/comment.region';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">

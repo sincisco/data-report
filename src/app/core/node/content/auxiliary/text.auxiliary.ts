@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import {TextConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/text.config.component';
-import {TextGraphic} from '../../graphic/text.graphic';
+import {TextGraphic} from '../../graphic/auxiliary.graphic/text.graphic';
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 
 interface TextOption {

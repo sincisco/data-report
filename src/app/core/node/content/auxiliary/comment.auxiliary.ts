@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import {CommentConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/comment.config.component';
-import {CommentGraphic} from '../../graphic/comment.graphic';
+import {CommentGraphic} from '../../graphic/auxiliary.graphic/comment.graphic';
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 
 interface CommentOption {

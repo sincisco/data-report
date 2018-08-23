@@ -1,5 +1,3 @@
-import {Type} from '@angular/core/src/type';
-
 import {Region} from '../../region/region';
 import {Chart} from '../../content/chart/chart';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
@@ -25,10 +23,17 @@ export class BarChartGraphic extends ChartGraphic {
     super(region);
   }
 
-  init() {
+  init(option?: any) {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
     this._configComponentRef.instance.graphic = this;
+  }
+
+  derender() {
+    return {
+      graphicClass: 'bar.chart.graphic',
+      option: this.getOption(),
+    };
   }
 
 }

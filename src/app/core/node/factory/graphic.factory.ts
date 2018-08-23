@@ -1,11 +1,11 @@
 import {ExplicitRegion} from '@core/node/region/explicit.region';
 import {ReportPage} from '@core/node/canvas/report/report.page';
-import {TextGraphic} from '@core/node/graphic/text.graphic';
+import {TextGraphic} from '@core/node/graphic/auxiliary.graphic/text.graphic';
 import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
 import {currentReport} from '../../../layout/app.body.component';
 import {CommentRegion} from '@core/node/region/comment.region';
 import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
-import {CommentGraphic} from '@core/node/graphic/comment.graphic';
+import {CommentGraphic} from '@core/node/graphic/auxiliary.graphic/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
 import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
 

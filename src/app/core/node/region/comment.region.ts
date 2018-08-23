@@ -6,8 +6,8 @@ import {throttleTime} from 'rxjs/internal/operators';
 import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
 import {IGraphic} from '../graphic/graphic';
-import {TextGraphic} from '../graphic/text.graphic';
-import {CommentGraphic} from '../graphic/comment.graphic';
+import {TextGraphic} from '../graphic/auxiliary.graphic/text.graphic';
+import {CommentGraphic} from '../graphic/auxiliary.graphic/comment.graphic';
 import {CommentAuxiliary} from '../content/auxiliary/comment.auxiliary';
 
 const template = `

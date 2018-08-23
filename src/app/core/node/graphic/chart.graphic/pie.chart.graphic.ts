@@ -1,12 +1,13 @@
 import {Region} from '../../region/region';
 import {Chart} from '../../content/chart/chart';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
-import {Grid} from '../../content/chart/echart.interface/grid';
-import {Axis} from '../../content/chart/echart.interface/axis';
-import {Title} from '../../content/chart/echart.interface/title';
-import {PieSeriesConfig} from '../../content/chart/echart.interface/series/pie.series';
+
 import {PieConfigComponent} from '../../../../layout/sider/graphic.config/chart/pie.config.component';
 import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
+import {Title} from '@core/node/content/chart/echart.interface/title';
+import {Grid} from '@core/node/content/chart/echart.interface/grid';
+import {Axis} from '@core/node/content/chart/echart.interface/axis';
+import {PieSeriesConfig} from '@core/node/content/chart/echart.interface/series/pie.series';
 
 export interface ChartPieConfig {
   title?: Title;
@@ -23,10 +24,20 @@ export class PieChartGraphic extends ChartGraphic {
     super(region);
   }
 
-  init() {
+  init(option?: any) {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(PieConfigComponent);
+    if (option) {
+      this._configComponentRef.instance.writeOption(option);
+    }
     this._configComponentRef.instance.graphic = this;
+  }
+
+  derender() {
+    return {
+      graphicClass: 'pie.chart.graphic',
+      option: this.getOption(),
+    };
   }
 
 }

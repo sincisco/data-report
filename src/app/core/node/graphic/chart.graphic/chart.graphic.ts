@@ -50,7 +50,7 @@ export abstract class ChartGraphic implements IGraphic {
     this._$frame.append(chart.$element);
   }
 
-  abstract init(contentClass: Type<Chart>);
+  abstract init(option?: any);
 
   load(option?: any) {
     option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
@@ -71,15 +71,6 @@ export abstract class ChartGraphic implements IGraphic {
 
   updateGraphic(option: any) {
 
-  }
-
-  getOption() {
-    if (this._chart) {
-      return {
-        contentClass: this._chart.constructor,
-        option: this._chart.getOption()
-      };
-    }
   }
 
   resize() {
@@ -109,16 +100,16 @@ export abstract class ChartGraphic implements IGraphic {
     }
   }
 
-  render(option: any) {
+  abstract derender();
 
+  getOption() {
+    if (this._chart) {
+      return this._chart.getOption();
+    }
   }
 
-  derender() {
-    return {
-      graphicClass: 'chart.graphic',
-      option: undefined,
-      content: this._chart ? this._chart.derender() : undefined
-    };
+  render(option: any) {
+
   }
 
   /**
