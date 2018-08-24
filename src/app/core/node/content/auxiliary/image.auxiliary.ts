@@ -1,12 +1,9 @@
-import * as _ from 'lodash';
-
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
 
 interface ImageOption {
   alt?: string;
   backgroundColor?: string;
-  align?: 'left' | 'right' | 'center' | 'justify';
   dataUrl?: string;
 }
 
@@ -19,9 +16,10 @@ export class ImageAuxiliary extends Auxiliary {
   private _image: HTMLImageElement;
 
 
-  constructor(imageGraphic: ImageGraphic) {
+  constructor(private imageGraphic: ImageGraphic) {
     super();
     this.$element = $(`<div class="m-image"></div>`);
+
     imageGraphic.addChild(this);
   }
 
@@ -32,8 +30,8 @@ export class ImageAuxiliary extends Auxiliary {
       this.$element.append(image);
     }
 
-    if (this._option.dataUrl) {
-      this._image.src = this._option.dataUrl;
+    if (this._option && option.dataUrl) {
+      this._image.src = option.dataUrl;
     }
   }
 
@@ -49,9 +47,8 @@ export class ImageAuxiliary extends Auxiliary {
       this.$element.append(image);
     }
 
-    this._option = _.defaultsDeep(option, this._option);
-    if (this._option.dataUrl) {
-      this._image.src = this._option.dataUrl;
+    if (option.dataUrl) {
+      this._image.src = option.dataUrl;
     }
   }
 

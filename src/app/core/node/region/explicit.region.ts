@@ -342,17 +342,6 @@ export class ExplicitRegion extends Region {
             contextMenuHelper.close();
           }
         }, {
-          displayName: '创建Image',
-          callback: () => {
-            const _graphic = this._graphic = new ImageGraphic(this);
-
-            _graphic.init(ImageAuxiliary);
-            // 使用刚指定的配置项和数据显示图表。
-            // content.init({});
-
-            contextMenuHelper.close();
-          }
-        }, {
           displayName: '创建Comment',
           callback: () => {
             // var content = this._content = new CommentContent(this.$frame[0]);

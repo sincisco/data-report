@@ -1,9 +1,7 @@
 import {ExplicitRegion} from '@core/node/region/explicit.region';
 import {ReportPage} from '@core/node/canvas/report/report.page';
 import {TextGraphic} from '@core/node/graphic/auxiliary.graphic/text.graphic';
-import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
 import {CommentRegion} from '@core/node/region/comment.region';
-import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
 import {CommentGraphic} from '@core/node/graphic/auxiliary.graphic/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
 import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
@@ -11,108 +9,65 @@ import {graphicMap} from '@core/node/config/graphic.map';
 import {session} from '@core/node/utils/session';
 import {LineChartGraphic} from '@core/node/graphic/chart.graphic/line.chart.graphic';
 import {PieChartGraphic} from '@core/node/graphic/chart.graphic/pie.chart.graphic';
+import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
 
+
+interface GraphicMeta {
+  region: any;
+  graphic: any;
+}
+
+interface GraphicMetaMap {
+  [key: string]: GraphicMeta;
+}
+
+const newGraphicMeta: GraphicMetaMap = {
+  barChart: {
+    region: ExplicitRegion,
+    graphic: BarChartGraphic
+  },
+  lineChart: {
+    region: ExplicitRegion,
+    graphic: LineChartGraphic
+  },
+  pieChart: {
+    region: ExplicitRegion,
+    graphic: PieChartGraphic
+  },
+  textAuxiliary: {
+    region: ExplicitRegion,
+    graphic: TextGraphic
+  },
+  commentAuxiliary: {
+    region: CommentRegion,
+    graphic: CommentGraphic
+  },
+  imageAuxiliary: {
+    region: ExplicitRegion,
+    graphic: ImageGraphic
+  }
+};
 
 class GraphicFactory {
-  createBarChart(canvas: ReportPage, x: number, y: number) {
-    const explicitRegion = new ExplicitRegion();
-    explicitRegion.setCoordinates(x, y);
-    explicitRegion.refresh();
-    canvas.addChild(explicitRegion);
+  newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number) {
+    if (newGraphicMeta[graphicName]) {
+      const meta: GraphicMeta = newGraphicMeta[graphicName];
+      const region = new meta.region();
+      region.setCoordinates(x, y);
+      region.refresh();
+      page.addChild(region);
 
-    const _graphic = new BarChartGraphic(explicitRegion);
-    _graphic.init();
+      const graphic = new meta.graphic(region);
+      graphic.init();
 
-  }
-
-  createLineChart(canvas: ReportPage, x: number, y: number) {
-    const explicitRegion = new ExplicitRegion();
-    explicitRegion.setCoordinates(x, y);
-    explicitRegion.refresh();
-    canvas.addChild(explicitRegion);
-
-    const _graphic = new LineChartGraphic(explicitRegion);
-    _graphic.init();
-
-  }
-
-  createPieChart(canvas: ReportPage, x: number, y: number) {
-    const explicitRegion = new ExplicitRegion();
-    explicitRegion.setCoordinates(x, y);
-    explicitRegion.refresh();
-    canvas.addChild(explicitRegion);
-
-    const _graphic = new PieChartGraphic(explicitRegion);
-    _graphic.init();
-
-  }
-
-  createTextAuxiliary(canvas: ReportPage, x: number, y: number) {
-    console.log('新建文本段');
-    const explicitRegion = new ExplicitRegion();
-    explicitRegion.setCoordinates(x, y);
-    explicitRegion.refresh();
-    canvas.addChild(explicitRegion);
-
-    const _graphic = new TextGraphic(explicitRegion);
-
-    // 使用刚指定的配置项和数据显示图表。
-    _graphic.init(TextAuxiliary);
-
-  }
-
-  createCommentAuxiliary(canvas: ReportPage, x: number, y: number) {
-    console.log('新建注释');
-    const commentRegion = new CommentRegion();
-    commentRegion.setCoordinates(x, y);
-    commentRegion.refresh();
-    canvas.addChild(commentRegion);
-
-    const _graphic = new CommentGraphic(commentRegion);
-
-    // 使用刚指定的配置项和数据显示图表。
-    _graphic.init(CommentAuxiliary);
-
-    // const _graphic = new TextGraphic(explicitRegion);
-
-    // 使用刚指定的配置项和数据显示图表。
-    // _graphic.init(TextAuxiliary);
-  }
-
-  createByName(name: string, canvas: ReportPage, x: number, y: number) {
-    switch (name) {
-      case 'textAuxiliary':
-        this.createTextAuxiliary(canvas, x, y);
-        break;
-      case 'commentAuxiliary':
-        this.createCommentAuxiliary(canvas, x, y);
-        break;
-      case 'lineChart':
-        this.createLineChart(canvas, x, y);
-        break;
-      case 'pieChart':
-        this.createPieChart(canvas, x, y);
-        break;
-      case 'barChart':
-        this.createBarChart(canvas, x, y);
-        break;
+      return {
+        region, graphic
+      };
     }
   }
 
-  createFromOption(option: any, x, y) {
-    console.log('新建文本段');
-    // 建立关联
-    const explicitRegion = new ExplicitRegion();
-    explicitRegion.setCoordinates(x, y);
-    explicitRegion.refresh();
-    session.currentPage.addChild(explicitRegion);
-
-    const _graphic = new option.graphicClass(explicitRegion);
-
-    // 使用刚指定的配置项和数据显示图表。
-    _graphic.init(option.graphic.contentClass);
-
-    _graphic.update(option.graphic.option);
+  createByName(name: string, page: ReportPage, x: number, y: number) {
+    return this.newGraphicByName(name, page, x, y);
   }
 
   paste(option: any, x, y) {

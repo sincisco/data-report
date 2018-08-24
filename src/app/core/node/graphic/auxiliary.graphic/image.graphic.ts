@@ -43,7 +43,7 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
 
   addChild(imageAuxiliary: ImageAuxiliary) {
     this._content = imageAuxiliary;
-    this._$frame = imageAuxiliary.$element;
+    this._$frame.append(imageAuxiliary.$element);
   }
 
   init(option?: any) {

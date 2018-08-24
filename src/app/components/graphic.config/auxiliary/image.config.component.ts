@@ -52,7 +52,6 @@ export class ImageConfigComponent extends ConfigModel implements AfterViewInit, 
     const that = this;
     const reader = new FileReader();
     reader.onload = (evt) => {
-      console.log('qwerty', (<any>evt.target).result);
       this.option.dataUrl = (<any>evt.target).result;
       const image = new Image();
       image.src = (<any>evt.target).result;

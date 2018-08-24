@@ -10,6 +10,8 @@ import {PageConfig} from '../../../../components/page.config/page.config';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {ChangeItem, ChangeManager} from '@core/node/utils/change.manager';
+import {ImageAuxiliary} from '@core/node/content/auxiliary/image.auxiliary';
+import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -265,37 +267,32 @@ export class ReportPage extends ChangeManager implements IPage {
     this.$grid.contextmenu(($event: JQuery.Event) => {
       contextMenuHelper.open([
         {
-          displayName: '新建图表',
+          displayName: '新建 柱状图',
           callback: () => {
-            console.log('新建图表');
             // 如何建立关联
-            const explicitRegion = new ExplicitRegion();
-            explicitRegion.setCoordinates($event.offsetX, $event.offsetY);
-            explicitRegion.refresh();
-            this.addChild(explicitRegion);
+            graphicFactory.createByName('barChart', this, $event.offsetX, $event.offsetY);
             contextMenuHelper.close();
           }
         }, {
           displayName: '新建注释',
           callback: () => {
-            console.log('新建注释');
-            const commentRegion = new CommentRegion();
-            commentRegion.setCoordinates($event.offsetX, $event.offsetY);
-            commentRegion.refresh();
-            this.addChild(commentRegion);
+            graphicFactory.createByName('commentAuxiliary', this, $event.offsetX, $event.offsetY);
             contextMenuHelper.close();
           }
         }, {
           displayName: '新建文本',
           callback: () => {
-            console.log('新建图表');
-            // var graphNode = new RegionText();
-            // graphNode.coordinates($event.offsetX, $event.offsetY);
-            // graphNode.refresh();
-            // this.addChild(graphNode);
-            // contextMenuHelper.close();
+            graphicFactory.createByName('textAuxiliary', this, $event.offsetX, $event.offsetY);
+            contextMenuHelper.close();
           }
         }, {
+          displayName: '新建 Image',
+          callback: () => {
+            // 如何建立关联
+            graphicFactory.createByName('imageAuxiliary', this, $event.offsetX, $event.offsetY);
+            contextMenuHelper.close();
+          }
+        }, 'split', {
           displayName: '剪切',
           shortcut: 'Ctrl+X'
         }, {
@@ -304,14 +301,10 @@ export class ReportPage extends ChangeManager implements IPage {
           callback: () => {
             console.log('粘贴');
             graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
-            // graphicFactory.createFromOption(clipboard.getData(), $event.offsetX, $event.offsetY);
           }
         }, {
           displayName: '删除',
           shortcut: 'Backspace'
-        }, 'split',
-        {
-          displayName: '创建'
         }
       ], $event.pageX, $event.pageY, $event);
       return false;

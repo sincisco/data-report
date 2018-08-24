@@ -61,7 +61,7 @@
             <span class="text">图片</span>
           </div>
         </label>
-        <input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">
+        <input type="file" name="fileToUpload" id="fileToUpload" (change)="change($event)" style="display: none;">
       </li>
     </ul>
     <div class="cut-line"></div>
