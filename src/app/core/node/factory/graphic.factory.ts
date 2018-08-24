@@ -9,21 +9,42 @@ import {regionMap} from '@core/node/config/region.map';
 import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
 import {graphicMap} from '@core/node/config/graphic.map';
 import {session} from '@core/node/utils/session';
+import {LineChartGraphic} from '@core/node/graphic/chart.graphic/line.chart.graphic';
+import {PieChartGraphic} from '@core/node/graphic/chart.graphic/pie.chart.graphic';
 
 
 class GraphicFactory {
   createBarChart(canvas: ReportPage, x: number, y: number) {
-    console.log('新建图表');
     const explicitRegion = new ExplicitRegion();
     explicitRegion.setCoordinates(x, y);
     explicitRegion.refresh();
     canvas.addChild(explicitRegion);
 
     const _graphic = new BarChartGraphic(explicitRegion);
-
     _graphic.init();
 
-    // 使用刚指定的配置项和数据显示图表。
+  }
+
+  createLineChart(canvas: ReportPage, x: number, y: number) {
+    const explicitRegion = new ExplicitRegion();
+    explicitRegion.setCoordinates(x, y);
+    explicitRegion.refresh();
+    canvas.addChild(explicitRegion);
+
+    const _graphic = new LineChartGraphic(explicitRegion);
+    _graphic.init();
+
+  }
+
+  createPieChart(canvas: ReportPage, x: number, y: number) {
+    const explicitRegion = new ExplicitRegion();
+    explicitRegion.setCoordinates(x, y);
+    explicitRegion.refresh();
+    canvas.addChild(explicitRegion);
+
+    const _graphic = new PieChartGraphic(explicitRegion);
+    _graphic.init();
+
   }
 
   createTextAuxiliary(canvas: ReportPage, x: number, y: number) {
@@ -38,7 +59,6 @@ class GraphicFactory {
     // 使用刚指定的配置项和数据显示图表。
     _graphic.init(TextAuxiliary);
 
-    _graphic.load();
   }
 
   createCommentAuxiliary(canvas: ReportPage, x: number, y: number) {
@@ -66,6 +86,15 @@ class GraphicFactory {
         break;
       case 'commentAuxiliary':
         this.createCommentAuxiliary(canvas, x, y);
+        break;
+      case 'lineChart':
+        this.createLineChart(canvas, x, y);
+        break;
+      case 'pieChart':
+        this.createPieChart(canvas, x, y);
+        break;
+      case 'barChart':
+        this.createBarChart(canvas, x, y);
         break;
     }
   }

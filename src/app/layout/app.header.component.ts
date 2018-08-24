@@ -21,6 +21,29 @@ export class AppHeaderComponent implements AfterViewInit {
     console.log('mouseLeave');
   }
 
+  dragStart(dragEvent: DragEvent) {
+    let componentName: string;
+    const mouseMove = (event: MouseEvent) => {
+      console.log('mouseMove');
+      grabHelper.show(event.pageX - 150, event.pageY - 100);
+    };
+    const mouseUp = (event: MouseEvent) => {
+      console.log('document mouseup', event, session.currentPage.$grid.offset());
+
+      graphicFactory.createByName(componentName, session.currentPage,
+        event.pageX - session.currentPage.$grid.offset().left - 150,
+        event.pageY - session.currentPage.$grid.offset().top - 100);
+      grabHelper.hidden();
+      document.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseup', mouseUp);
+    };
+
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', mouseUp);
+    componentName = (<HTMLElement>event.target).dataset.componentName;
+    return false;
+  }
+
   ngAfterViewInit() {
     this.helperToolsPopup = helperToolsPopup;
     this.filterToolsPopup = filterToolsPopup;
@@ -105,8 +128,26 @@ const MoreTools = `
 <div class="m-overlay  bottom" style="display:none; z-index: 406; position: absolute; top: 68px; left: 342px;">
   <!--inlcude-->
   <div class="m-classMenu m-classMenu-more" style="zoom: 1;">
-    <div class="placeholder" style="height: 68px;left: 56px;right: 56px;"></div>
+    <div class="placeholder" style="height: 68px;left: 94px;right: 94px;"></div>
     <ul class="btns-box">
+    <li class="btn-item draggable" draggable="true" data-component-name="lineChart">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-chart-line"></i>
+          <span class="text">折线图</span>
+        </div>
+      </li>
+      <li class="btn-item draggable">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-chart-area"></i>
+          <span class="text">区域图</span>
+        </div>
+      </li>
+      <li class="btn-item draggable" draggable="true" data-component-name="pieChart">
+        <div class="u-tool-btn">
+          <i class="u-icn u-icn-chart-pie"></i>
+          <span class="text">饼状图</span>
+        </div>
+      </li>
       <li class="btn-item dragable">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-menubar-meter"></i>

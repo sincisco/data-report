@@ -21,8 +21,8 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     dimensionMode: 'standard',
     width: 960,
     height: 720,
-    backgroundMode: 'built-in',
-    backgroundColor: 'transparent',
+    backgroundMode: 'only-color',
+    backgroundColor: 'rgb(255,255,255)',
     backgroundClass: 'background1',
     backgroundCustom: {
       fileName: '',

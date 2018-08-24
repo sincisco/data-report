@@ -6,7 +6,6 @@ import {
   KeyValueDiffers,
   OnInit,
   Output,
-  TemplateRef,
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
@@ -18,6 +17,7 @@ import {ConfigModel} from '../graphic.config';
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
 import {ChartBarOption} from '../../../core/node/graphic/chart.graphic/bar.chart.graphic';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-bar-config',
@@ -69,8 +69,14 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
 
   private _differ: KeyValueDiffer<any, any>;
 
+  private _innerOption = {};
+
   constructor(private modalService: NzModalService, private _differs: KeyValueDiffers) {
     super();
+  }
+
+  readOption() {
+    return _.cloneDeep(this._innerOption);
   }
 
   ngOnInit() {
@@ -80,6 +86,7 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
       console.log('BarConfigComponent  valueChanges', value);
+      this._innerOption = value;
       const changes = this._differ.diff(value);
       if (this.graphic) {
         value.dataset = datasetManager.current;

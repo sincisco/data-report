@@ -9,7 +9,7 @@ export class Chart implements IContent {
   $element: JQuery;
   protected _echart: Echart;
 
-  private _theme = 'roma';
+  private _theme = 'vintage';
   protected _option: any = {};
   private _state = ChartState.uninitialized;
 
