@@ -49,13 +49,17 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
   init(option?: any) {
     this._content = new ImageAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(ImageConfigComponent);
+    this.configModel.graphic = this;
     if (option) {
       this.configModel.writeOption(option);
     }
-    this.configModel.graphic = this;
   }
 
   getOption() {
+    return {
+      graphicClass: 'image.graphic',
+      option: this.configModel.readOption()
+    };
   }
 
   private _initForUpdate() {
@@ -79,12 +83,14 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
       this._$frame.css({
         'backgroundColor': newValue
       });
+    }).register('add.image image', (key, oldValue, newValue) => {
+      this.update(newValue);
     });
   }
 
 
   update(option: any) {
-    if (this._content && option) {
+    if (this._content && option && option.dataUrl) {
       this._region.setDimensions(option.width, option.height);
       this._content.update(option);
     }
@@ -97,6 +103,10 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     changeItemArray.forEach((value, index, array) => {
       this.trigger(value);
     });
+  }
+
+  incrementalUpdate(changeItemArray: Array<ChangeItem>) {
+
   }
 
   resize() {

@@ -298,9 +298,13 @@ export class ReportPage extends ChangeManager implements IPage {
         }, {
           displayName: '粘贴',
           shortcut: 'Ctrl+X',
+          enable: clipboard.hasData(),
           callback: () => {
             console.log('粘贴');
-            graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
+            if (clipboard.hasData()) {
+              graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
+            }
+            contextMenuHelper.close();
           }
         }, {
           displayName: '删除',

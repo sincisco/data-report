@@ -267,6 +267,7 @@ export class ExplicitRegion extends Region {
             // console.log(this.getOption());
             clipboard.saveData(this.derender());
             console.log(this.derender());
+            contextMenuHelper.close();
           }
         }, {
           displayName: '剪切',

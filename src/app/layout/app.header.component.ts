@@ -23,32 +23,34 @@ export class AppHeaderComponent implements AfterViewInit {
 
   change(event: Event) {
     const option: any = {
-      alt: '我是标题',
-      name: '',
-      width: 400,
-      height: 300,
-      url: '',
-      dataUrl: '',
-      preserveAspectRatio: false
+      preserveAspectRatio: false,
+      backgroundColor: undefined,
+      borderStyle: 'solid',
+      borderColor: '#aaa',
+      borderWidth: 0,
+      borderRadius: 0,
+      image: {
+        width: 400,
+        height: 300,
+        url: '',
+        dataUrl: ''
+      }
     };
     const file: HTMLInputElement = <HTMLInputElement>event.currentTarget;
     if (!file.files || !file.files[0]) {
       return;
     }
-    option.name = file.files[0].name;
-    console.log(file.files[0]);
-    const that = this;
+    option.image.fileName = file.files[0].name;
     const reader = new FileReader();
     reader.onload = (evt) => {
-      option.dataUrl = (<any>evt.target).result;
+      option.image.dataUrl = (<any>evt.target).result;
       const image = new Image();
       image.src = (<any>evt.target).result;
       image.onload = function () {
-        option.width = (<HTMLImageElement>this).naturalWidth;
-        option.height = (<HTMLImageElement>this).naturalHeight;
+        option.image.width = (<HTMLImageElement>this).naturalWidth;
+        option.image.height = (<HTMLImageElement>this).naturalHeight;
         if (session.currentPage) {
-          const ret = graphicFactory.createByName('imageAuxiliary', session.currentPage, 200, 200);
-          ret.graphic.update(option);
+          const ret = graphicFactory.newGraphicByName('imageAuxiliary', session.currentPage, 200, 200, option);
         }
       };
     };
@@ -281,6 +283,11 @@ const helperToolsPopup = new PopupWrapper(HelperTools);
 const filterToolsPopup = new PopupWrapper(FilterTools);
 const moreToolsPopup = new PopupWrapper(MoreTools);
 
+document.addEventListener('click', (event) => {
+  helperToolsPopup.hide();
+  filterToolsPopup.hide();
+  moreToolsPopup.hide();
+});
 
 const grabTemplate = `<div class="m-chart-grabing"
  style="width: 300px; height: 200px;

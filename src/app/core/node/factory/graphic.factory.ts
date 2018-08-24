@@ -49,7 +49,7 @@ const newGraphicMeta: GraphicMetaMap = {
 };
 
 class GraphicFactory {
-  newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number) {
+  newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number, option?: any) {
     if (newGraphicMeta[graphicName]) {
       const meta: GraphicMeta = newGraphicMeta[graphicName];
       const region = new meta.region();
@@ -58,7 +58,7 @@ class GraphicFactory {
       page.addChild(region);
 
       const graphic = new meta.graphic(region);
-      graphic.init();
+      graphic.init(option);
 
       return {
         region, graphic

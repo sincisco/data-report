@@ -1,9 +1,11 @@
-import {C} from '@angular/core/src/render3';
-
 class Clipboard {
   private _data: any;
 
   constructor() {
+  }
+
+  hasData() {
+    return !!this._data;
   }
 
   saveData(param: any) {

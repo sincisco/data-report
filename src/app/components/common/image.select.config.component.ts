@@ -1,6 +1,5 @@
 import {
   Component, forwardRef,
-  KeyValueDiffers, NgZone,
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
@@ -21,17 +20,21 @@ export const IMAGE_SELECT_CONFIG_VALUE_ACCESSOR: any = {
 export class ImageSelectConfigComponent extends CustomControlValueAccessor {
 
   option = {
+    alt: '我是标题',
     fileName: null,
-    backgroundDataUrl: null
+    url: null,
+    dataUrl: null,
+    width: 0,
+    height: 0
   };
 
 
-  constructor(private _differs: KeyValueDiffers,
-              private _zone: NgZone) {
+  constructor() {
     super();
   }
 
   change(event: Event) {
+    const that = this;
     const file: HTMLInputElement = <HTMLInputElement>event.currentTarget;
     if (!file.files || !file.files[0]) {
       return;
@@ -39,8 +42,15 @@ export class ImageSelectConfigComponent extends CustomControlValueAccessor {
     this.option.fileName = file.files[0].name;
     const reader = new FileReader();
     reader.onload = (evt) => {
-      this.option.backgroundDataUrl = (<any>evt.target).result;
-      this._propagateChange(Object.assign({}, this.option));
+      this.option.dataUrl = (<any>evt.target).result;
+      const image = new Image();
+      image.src = (<any>evt.target).result;
+      image.onload = function () {
+        that.option.width = (<HTMLImageElement>this).naturalWidth;
+        that.option.height = (<HTMLImageElement>this).naturalHeight;
+        that._propagateChange(Object.assign({}, that.option));
+      };
+
     };
     reader.readAsDataURL(file.files[0]);
   }

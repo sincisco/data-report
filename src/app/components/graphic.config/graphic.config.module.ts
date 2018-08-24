@@ -22,7 +22,7 @@ import {ConfigModule} from '../config/config.module';
 import {PageConfigComponent} from '../page.config/page.config.component';
 import {LineConfigComponent} from './chart/line.config.component';
 import {BuildInConfigComponent} from '../page.config/build-in.config.component';
-import {ImageSelectConfigComponent} from '../page.config/image.select.config.component';
+import {ImageSelectConfigComponent} from '../common/image.select.config.component';
 
 const COMPONENTS = [
   PieConfigComponent,

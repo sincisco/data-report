@@ -54,6 +54,10 @@ export class CommentGraphic implements IGraphic {
   }
 
   getOption() {
+    return {
+      graphicClass: 'comment.graphic',
+      option: this.configModel.readOption()
+    };
   }
 
 

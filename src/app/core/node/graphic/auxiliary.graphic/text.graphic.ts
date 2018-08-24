@@ -41,7 +41,7 @@ export class TextGraphic implements IGraphic {
     this._$frame.append(textAuxiliary.$element);
   }
 
-  init(option: any) {
+  init(option?: any) {
     this._content = new TextAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
     if (option) {
@@ -56,6 +56,10 @@ export class TextGraphic implements IGraphic {
   }
 
   getOption() {
+    return {
+      graphicClass: 'text.graphic',
+      option: this.configModel.readOption()
+    };
   }
 
   update(option: any) {

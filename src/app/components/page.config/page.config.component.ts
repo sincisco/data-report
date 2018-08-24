@@ -26,8 +26,8 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     backgroundClass: 'background1',
     backgroundCustom: {
       fileName: '',
-      backgroundUrl: '',
-      backgroundDataUrl: ''
+      url: '',
+      dataUrl: ''
     },
     themeMode: 'dark'
   };
