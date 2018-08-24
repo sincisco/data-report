@@ -10,14 +10,14 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {datasetManager} from '@core/dataset/dataset.manager';
+import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {ConfigModel} from '../graphic.config';
 
-import {removeUndefined} from '../../../../utils/common';
+import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
-import {ChartBarOption} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
+import {ChartBarOption} from '../../../core/node/graphic/chart.graphic/bar.chart.graphic';
 
 @Component({
   selector: 'app-bar-config',

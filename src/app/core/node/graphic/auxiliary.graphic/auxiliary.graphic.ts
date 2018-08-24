@@ -1,16 +1,10 @@
 import {ComponentRef, Type} from '@angular/core';
-import {IGraphic} from '../graphic';
 
-import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
-import * as _ from 'lodash';
-import {HtmlNode} from '../../content/html/html';
-import {CommentRegion} from '../../region/comment.region';
-import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
-import {CommentConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/comment.config.component';
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 import {Region} from '@core/node/region/region';
+import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">
@@ -19,7 +13,7 @@ const template = `
 </div>
 `;
 
-export abstract class AuxiliaryGraphic implements IGraphic {
+export abstract class AuxiliaryGraphic  {
   $element: JQuery;
   private _$frame: JQuery;
 
@@ -27,8 +21,12 @@ export abstract class AuxiliaryGraphic implements IGraphic {
   protected auxiliary: Auxiliary;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
-  protected constructor(region: CommentRegion) {
+  protected constructor() {
 
+  }
+
+  get configModel() {
+    return this._configComponentRef.instance;
   }
 
   abstract addChild(auxiliary: Auxiliary);

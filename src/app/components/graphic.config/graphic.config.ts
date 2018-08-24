@@ -1,5 +1,5 @@
-import {IGraphic} from '@core/node/graphic/graphic';
-import {FaceWrapper} from '@core/node/face/face.wrapper';
+import {IGraphic} from '../../core/node/graphic/graphic';
+import {FaceWrapper} from '../../core/node/face/face.wrapper';
 import * as _ from 'lodash';
 
 export class ConfigModel {

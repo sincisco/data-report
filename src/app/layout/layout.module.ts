@@ -12,8 +12,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {ColorPickerModule} from '@shared/color-picker/color-picker.module';
 import {SchemaPillsComponent} from './sider/model/schema.component';
 import {SiderRightComponent} from './sider/sider.right.component';
-import {GraphicConfigModule} from './sider/graphic.config/graphic.config.module';
-import {ConfigModule} from "../components/config/config.module";
+import {ConfigModule} from '../components/config/config.module';
+import {GraphicConfigModule} from '../components/graphic.config/graphic.config.module';
 
 const COMPONENTS = [
   AppHeaderComponent,

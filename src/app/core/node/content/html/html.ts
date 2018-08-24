@@ -1,6 +1,5 @@
 import {Type} from '@angular/core';
-
-import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
+import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 
 
 export abstract class HtmlNode implements IContent {

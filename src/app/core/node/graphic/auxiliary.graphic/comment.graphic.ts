@@ -1,12 +1,13 @@
 import {ComponentRef} from '@angular/core';
 import {IGraphic} from '../graphic';
 
-import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
+
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import {CommentRegion} from '../../region/comment.region';
 import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
-import {CommentConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/comment.config.component';
+import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
+import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">
@@ -28,6 +29,10 @@ export class CommentGraphic implements IGraphic {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     region.addChild(this);
+  }
+
+  get configModel() {
+    return this._configComponentRef.instance;
   }
 
   addChild(commentAuxiliary: CommentAuxiliary) {

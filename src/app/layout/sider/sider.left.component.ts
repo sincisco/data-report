@@ -6,10 +6,10 @@ import {
   ViewContainerRef, ViewRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {DataHeaderComponent} from './graphic.config/html/header.component';
-import {ConfigModel} from './graphic.config/graphic.config';
 import {reportGlobal} from '@core/node/region/region';
-import {PageConfig} from './page.config/page.config';
+import {PageConfig} from '../../components/page.config/page.config';
+import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
+import {ConfigModel} from '../../components/graphic.config/graphic.config';
 
 export var siderLeftComponent: SiderLeftComponent;
 

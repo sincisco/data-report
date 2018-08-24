@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Type} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Type} from '@angular/core';
 
 import * as _ from 'lodash';
 import {filterExecutor} from '@core/filter/filter.executor';
@@ -10,6 +10,10 @@ import {filterExecutor} from '@core/filter/filter.executor';
 })
 export class AppComponent implements AfterViewInit {
   title = 'app';
+
+  constructor(private _elementRef: ElementRef) {
+
+  }
 
   ngAfterViewInit() {
     document.addEventListener('click', () => {

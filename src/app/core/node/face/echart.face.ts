@@ -1,7 +1,7 @@
-import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
 import {Type} from '@angular/core';
 
 import * as _ from 'lodash';
+import {ConfigModel} from '../../../components/graphic.config/graphic.config';
 
 export abstract class EchartFace {
   protected _echart: Echart;

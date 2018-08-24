@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import {NG_VALUE_ACCESSOR} from '@angular/forms';
 
-import {CustomControlValueAccessor} from '../../../components/config/CustomControlValueAccessor';
+import {CustomControlValueAccessor} from '../config/CustomControlValueAccessor';
 
 export const IMAGE_SELECT_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

@@ -1,14 +1,13 @@
 import {ComponentRef, Type} from '@angular/core';
 import {IGraphic} from '../graphic';
 
-import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {HtmlNode} from '../../content/html/html';
 import {ExplicitRegion} from '../../region/explicit.region';
 import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
-import {TextConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/text.config.component';
+import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
+import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">
@@ -30,6 +29,10 @@ export class TextGraphic implements IGraphic {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     region.addChild(this);
+  }
+
+  get configModel() {
+    return this._configComponentRef.instance;
   }
 
   get model(): ConfigModel {

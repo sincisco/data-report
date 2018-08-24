@@ -13,8 +13,8 @@ import {Dimension} from '@core/dataset/dataset.interface';
 import {CustomControlValueAccessor} from '../CustomControlValueAccessor';
 import {draggableHeler} from '../../../utils/draggable.helper';
 import {contextMenuHelper} from '../../../utils/contextMenu';
-import {NzModalFilterComponent} from '../../../layout/sider/graphic.config/common/filter.modal.component';
 import {LineSeriesConfig} from '@core/node/content/chart/echart.interface/series/line.series';
+import {NzModalFilterComponent} from '../../graphic.config/common/filter.modal.component';
 
 export const LINE_SERIES_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

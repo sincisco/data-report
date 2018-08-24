@@ -1,7 +1,8 @@
 import {Type} from '@angular/core';
 
-import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
+
 import {ChartGraphic} from '../../graphic/chart.graphic/chart.graphic';
+import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 
 enum ChartState {
   uninitialized, initialized, normal, destroyed

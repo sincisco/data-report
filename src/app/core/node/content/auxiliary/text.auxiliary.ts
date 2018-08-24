@@ -1,6 +1,5 @@
 import * as _ from 'lodash';
 
-import {TextConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/text.config.component';
 import {TextGraphic} from '../../graphic/auxiliary.graphic/text.graphic';
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 
@@ -26,12 +25,10 @@ const TextTemplate = `<div class="m-rect m-rect-text"
 export class TextAuxiliary extends Auxiliary {
   $element: JQuery;
   private _$editor: JQuery;
-  private _option: TextOption;
-  private _editorInstance: any;
+  private _option: TextOption = {};
+  private _editor: any;
 
   private _creating = false;
-
-  configClass = TextConfigComponent;
 
   constructor(private textGraphic: TextGraphic) {
     super();
@@ -42,20 +39,16 @@ export class TextAuxiliary extends Auxiliary {
 
   init(option?: TextOption) {
     this._option = option;
-    this._refresh();
   }
 
-  resize() {
 
-  }
 
   update(option: any) {
     this._option = _.defaultsDeep(option, this._option);
-    this._refresh();
   }
 
   activate() {
-    if (!this._editorInstance && !this._creating) {
+    if (!this._editor && !this._creating) {
       this._creating = true;
       BalloonEditor
         .create(this._$editor[0], {
@@ -124,8 +117,8 @@ export class TextAuxiliary extends Auxiliary {
         })
         .then(editor => {
           this._creating = false;
-          this._editorInstance = editor;
-          editor.setData(this._option.text);
+          this._editor = editor;
+          editor.setData(this._option.text || '');
           console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()), editor);
         })
         .catch(error => {
@@ -136,20 +129,17 @@ export class TextAuxiliary extends Auxiliary {
   }
 
   deactivate() {
-    if (this._editorInstance) {
-      this._option.text = this._editorInstance.getData();
+    if (this._editor) {
+      this._option.text = this._editor.getData();
       document.getSelection().removeAllRanges();
     }
 
   }
 
   destroy() {
-    if (this._editorInstance) {
-      this._editorInstance.destroy();
-      this._editorInstance = null;
+    if (this._editor) {
+      this._editor.destroy();
+      this._editor = null;
     }
-  }
-
-  private _refresh() {
   }
 }

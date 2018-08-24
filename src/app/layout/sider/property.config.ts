@@ -1,4 +1,4 @@
-import {DataHeaderComponent} from './graphic.config/html/header.component';
+import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
 
 export const PropertyConfigMap = {
   header: {

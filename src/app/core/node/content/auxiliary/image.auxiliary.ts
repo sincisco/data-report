@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
-import {ImageConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/image.config.component';
-import {ImageGraphic} from '../../graphic/auxiliary.graphic/image.graphic';
+
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
+import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
+import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
 
 interface ImageOption {
   alt?: string;

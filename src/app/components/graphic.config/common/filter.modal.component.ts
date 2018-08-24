@@ -6,7 +6,7 @@ import {
 
 import {NzModalRef} from 'ng-zorro-antd';
 import * as _ from 'lodash';
-import {datasetManager} from '@core/dataset/dataset.manager';
+import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 @Component({
   selector: 'nz-modal-filter',

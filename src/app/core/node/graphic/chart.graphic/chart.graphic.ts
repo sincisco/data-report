@@ -3,11 +3,11 @@ import {Region} from '../../region/region';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../content/chart/chart';
 
-import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
+import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -29,6 +29,10 @@ export abstract class ChartGraphic implements IGraphic {
 
   protected _chart: Chart;
   protected _configComponentRef: ComponentRef<ConfigModel>;
+
+  get configModel() {
+    return this._configComponentRef.instance;
+  }
 
   /**
    * 1、初始化视图

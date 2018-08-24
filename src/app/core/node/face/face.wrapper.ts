@@ -1,7 +1,7 @@
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import {ComponentRef, Type} from '@angular/core';
 import {EchartFace} from '@core/node/face/echart.face';
-import {ConfigModel} from '../../../layout/sider/graphic.config/graphic.config';
+import {ConfigModel} from '../../../components/graphic.config/graphic.config';
 
 export class FaceWrapper {
   private _face: EchartFace;

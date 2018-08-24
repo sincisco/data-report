@@ -1,5 +1,5 @@
 import {EchartFace} from '@core/node/face/echart.face';
-import {BarConfigComponent} from '../../../layout/sider/graphic.config/chart/bar.config.component';
+import {BarConfigComponent} from '../../../components/graphic.config/chart/bar.config.component';
 
 export class BarEchartFace extends EchartFace {
 

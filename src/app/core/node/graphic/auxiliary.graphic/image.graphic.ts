@@ -1,15 +1,15 @@
 import {ComponentRef, Type} from '@angular/core';
 import {IGraphic} from '../graphic';
 
-import {ConfigModel} from '../../../../layout/sider/graphic.config/graphic.config';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {HtmlNode} from '../../content/html/html';
 import {ExplicitRegion} from '../../region/explicit.region';
 import {ChangeItem, ChangeManager} from '../../utils/ChangeManager';
 import {ImageAuxiliary} from '@core/node/content/auxiliary/image.auxiliary';
-import {ImageConfigComponent} from '../../../../layout/sider/graphic.config/auxiliary/image.config.component';
+import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
+import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
+
 
 const template = `
 <div class="graphic m-graphic m-graphic-image z-mode-edit">
@@ -35,6 +35,10 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     region.addChild(this);
 
     this._initForUpdate();
+  }
+
+  get configModel() {
+    return this._configComponentRef.instance;
   }
 
   addChild(imageAuxiliary: ImageAuxiliary) {

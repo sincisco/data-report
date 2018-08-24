@@ -4,9 +4,9 @@ import {Grid} from '../../content/chart/echart.interface/grid';
 import {Axis} from '../../content/chart/echart.interface/axis';
 import {Title} from '../../content/chart/echart.interface/title';
 import {LineSeriesConfig} from '../../content/chart/echart.interface/series/line.series';
-import {LineConfigComponent} from '../../../../layout/sider/graphic.config/chart/line.config.component';
 import {LinesChart} from '../../content/chart/lines.chart';
 import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
+import {LineConfigComponent} from '../../../../components/graphic.config/chart/line.config.component';
 
 export interface ChartLineOption {
   title?: Title;
