@@ -6,11 +6,9 @@ import {throttleTime} from 'rxjs/internal/operators';
 import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
 import {ImageAuxiliary} from '../content/auxiliary/image.auxiliary';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
-import {ChartGraphic} from '../graphic/chart.graphic/chart.graphic';
 import {ImageGraphic} from '../graphic/auxiliary.graphic/image.graphic';
 import {IGraphic} from '../graphic/graphic';
 import {TextGraphic} from '../graphic/auxiliary.graphic/text.graphic';
-import {LinesChart} from '@core/node/content/chart/lines.chart';
 import {clipboard} from '@core/node/clipboard';
 import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
 import {LineChartGraphic} from '@core/node/graphic/chart.graphic/line.chart.graphic';
@@ -124,7 +122,7 @@ export class ExplicitRegion extends Region {
       option: {
         dimensions: Object.assign({}, this._dimensions)
       },
-      graphic: this._graphic ? this._graphic.derender() : undefined
+      graphic: this._graphic ? this._graphic.getOption() : undefined
     };
 
     return retObj;

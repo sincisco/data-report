@@ -44,21 +44,23 @@ export abstract class ChartGraphic implements IGraphic {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     this._$toolbar = this.$element.find('.m-graphic-toolbar');
-    this._bindToolbarEvent();
 
     region.addChild(this);
-  }
 
-  abstract init(option?: any);
+    this._bindToolbarEvent();
+  }
 
   addChild(chart: Chart) {
     this._chart = chart;
     this._$frame.append(chart.$element);
   }
 
-  load(option?: any) {
-    option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
-    this._chart.init(option);
+  abstract init(option?: any);
+
+  getOption() {
+    if (this._chart) {
+      return this._chart.getOption();
+    }
   }
 
   update(option: any) {
@@ -96,24 +98,9 @@ export abstract class ChartGraphic implements IGraphic {
   }
 
   activateConfig() {
-    if (!this._configComponentRef) {
-      this._configComponentRef = siderLeftComponent.createGraphicConfig(this._chart.configClass);
-      this._configComponentRef.instance.graphic = this;
-    } else {
+    if (this._configComponentRef) {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
-  }
-
-  abstract derender();
-
-  getOption() {
-    if (this._chart) {
-      return this._chart.getOption();
-    }
-  }
-
-  render(option: any) {
-
   }
 
   /**

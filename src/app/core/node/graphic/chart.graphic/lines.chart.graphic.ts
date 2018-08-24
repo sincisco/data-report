@@ -23,13 +23,16 @@ export class LinesChartGraphic extends ChartGraphic {
     super(region);
   }
 
-  init() {
+  init(option?: any) {
     this._chart = new LinesChart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(LineConfigComponent);
-    this._configComponentRef.instance.graphic = this;
+    if (option) {
+      this.configModel.writeOption(option);
+    }
+    this.configModel.graphic = this;
   }
 
-  derender() {
+  getOption() {
     return {
       graphicClass: 'lines.chart.graphic',
       option: this.getOption(),

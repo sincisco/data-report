@@ -30,6 +30,10 @@ export interface IGraphic {
    */
   updateGraphic(option: any);
 
+  getOption();
+
+  resize();
+
   // 图标进入交互状态
   activate();
 
@@ -37,14 +41,6 @@ export interface IGraphic {
 
   // 激活配置面板
   activateConfig();
-
-  resize();
-
-  getOption();
-
-  derender();
-
-  render(option?: any);
 
   destroy();
 }

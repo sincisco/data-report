@@ -20,15 +20,14 @@ export class CommentGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _region: CommentRegion;
   private _content: IContent;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
-  constructor(region: CommentRegion) {
-    this._region = region;
+  constructor(private _region: CommentRegion) {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
-    region.addChild(this);
+
+    _region.addChild(this);
   }
 
   get configModel() {
@@ -41,11 +40,22 @@ export class CommentGraphic implements IGraphic {
 
   }
 
+  /**
+   * 初始化graphic内容
+   * @param option
+   */
   init(option?: any) {
     this._content = new CommentAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(CommentConfigComponent);
-    this._configComponentRef.instance.graphic = this;
+    if (option) {
+      this.configModel.writeOption(option);
+    }
+    this.configModel.graphic = this;
   }
+
+  getOption() {
+  }
+
 
   update(option: any) {
     if (this._content) {
@@ -58,16 +68,6 @@ export class CommentGraphic implements IGraphic {
   }
 
   updateGraphic(option: any) {
-
-  }
-
-  getOption() {
-  }
-
-  render() {
-  }
-
-  derender() {
   }
 
   resize() {

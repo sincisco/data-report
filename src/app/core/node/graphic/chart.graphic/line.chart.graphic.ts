@@ -27,10 +27,13 @@ export class LineChartGraphic extends ChartGraphic {
   init(option?: any) {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(LineConfigComponent);
-    this._configComponentRef.instance.graphic = this;
+    if (option) {
+      this.configModel.writeOption(option);
+    }
+    this.configModel.graphic = this;
   }
 
-  derender() {
+  getOption() {
     return {
       graphicClass: 'line.chart.graphic',
       option: this.getOption(),

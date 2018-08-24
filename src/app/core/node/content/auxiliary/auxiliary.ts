@@ -19,12 +19,6 @@ export abstract class Auxiliary implements IContent {
   deactivate() {
   }
 
-  render() {
-  }
-
-  derender() {
-  }
-
   getOption() {
 
   }

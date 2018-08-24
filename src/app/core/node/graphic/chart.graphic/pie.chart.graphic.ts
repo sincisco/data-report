@@ -28,12 +28,12 @@ export class PieChartGraphic extends ChartGraphic {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(PieConfigComponent);
     if (option) {
-      this._configComponentRef.instance.writeOption(option);
+      this.configModel.writeOption(option);
     }
-    this._configComponentRef.instance.graphic = this;
+    this.configModel.graphic = this;
   }
 
-  derender() {
+  getOption() {
     return {
       graphicClass: 'pie.chart.graphic',
       option: this.getOption(),

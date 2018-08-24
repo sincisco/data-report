@@ -1,4 +1,4 @@
-import {ComponentRef, Type} from '@angular/core';
+import {ComponentRef} from '@angular/core';
 import {IGraphic} from '../graphic';
 
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
@@ -46,10 +46,16 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     this._$frame = imageAuxiliary.$element;
   }
 
-  init(option: any) {
+  init(option?: any) {
     this._content = new ImageAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(ImageConfigComponent);
-    this._configComponentRef.instance.graphic = this;
+    if (option) {
+      this.configModel.writeOption(option);
+    }
+    this.configModel.graphic = this;
+  }
+
+  getOption() {
   }
 
   private _initForUpdate() {
@@ -76,10 +82,6 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     });
   }
 
-  load(option?: any) {
-    option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
-    this._content.init(option);
-  }
 
   update(option: any) {
     if (this._content && option) {
@@ -95,9 +97,6 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     changeItemArray.forEach((value, index, array) => {
       this.trigger(value);
     });
-  }
-
-  getOption() {
   }
 
   resize() {
@@ -122,12 +121,6 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     if (this._configComponentRef) {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
-  }
-
-  render() {
-  }
-
-  derender() {
   }
 
   destroy() {

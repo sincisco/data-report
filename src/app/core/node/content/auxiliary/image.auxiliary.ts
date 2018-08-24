@@ -2,7 +2,6 @@ import * as _ from 'lodash';
 
 import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
 import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
-import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
 
 interface ImageOption {
   alt?: string;
@@ -19,7 +18,6 @@ export class ImageAuxiliary extends Auxiliary {
 
   private _image: HTMLImageElement;
 
-  configClass = ImageConfigComponent;
 
   constructor(imageGraphic: ImageGraphic) {
     super();

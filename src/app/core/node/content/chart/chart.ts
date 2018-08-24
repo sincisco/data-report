@@ -1,8 +1,4 @@
-import {Type} from '@angular/core';
-
-
 import {ChartGraphic} from '../../graphic/chart.graphic/chart.graphic';
-import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 
 enum ChartState {
   uninitialized, initialized, normal, destroyed
@@ -12,11 +8,10 @@ enum ChartState {
 export class Chart implements IContent {
   $element: JQuery;
   protected _echart: Echart;
+
   private _theme = 'roma';
   protected _option: any = {};
   private _state = ChartState.uninitialized;
-
-  public configClass: Type<ConfigModel>;
 
   constructor(private _graphic: ChartGraphic) {
     this.$element = $('<div style="width: 100%;height: 100%;"></div>');
@@ -119,14 +114,6 @@ export class Chart implements IContent {
       return option;
     }
   }
-
-  render() {
-
-  }
-
-  derender() {
-  }
-
 
   destroy() {
     if (this._echart && !this._echart.isDisposed()) {

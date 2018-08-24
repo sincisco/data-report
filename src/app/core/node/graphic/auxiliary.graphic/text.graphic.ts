@@ -8,6 +8,7 @@ import {ExplicitRegion} from '../../region/explicit.region';
 import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
+import {Region} from '@core/node/region/region';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">
@@ -20,24 +21,20 @@ export class TextGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _region: ExplicitRegion;
   private _content: IContent;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
-  constructor(region: ExplicitRegion) {
-    this._region = region;
+  constructor(private _region: Region) {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
-    region.addChild(this);
+
+    _region.addChild(this);
   }
 
   get configModel() {
-    return this._configComponentRef.instance;
+    return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
-  get model(): ConfigModel {
-    return this._configComponentRef.instance;
-  }
 
   addChild(textAuxiliary: TextAuxiliary) {
     this._content = textAuxiliary;
@@ -48,9 +45,9 @@ export class TextGraphic implements IGraphic {
     this._content = new TextAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
     if (option) {
-      this.model.writeOption(option);
+      this.configModel.writeOption(option);
     }
-    this.model.graphic = this;
+    this.configModel.graphic = this;
   }
 
   load(option?: any) {
@@ -61,15 +58,9 @@ export class TextGraphic implements IGraphic {
   getOption() {
   }
 
-  render() {
-  }
-
-  derender() {
-  }
-
   update(option: any) {
     if (this._content) {
-      this._region.setDimensions(option.width, option.height);
+      // this._region.setDimensions(option.width, option.height);
       this._content.update(option);
     }
   }
@@ -94,17 +85,17 @@ export class TextGraphic implements IGraphic {
     }
   }
 
+  deactivate() {
+    if (this._content) {
+      (<any>this._content).deactivate();
+    }
+  }
+
   activateConfig() {
     if (this._configComponentRef) {
       siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
 
-  }
-
-  deactivate() {
-    if (this._content) {
-      (<any>this._content).deactivate();
-    }
   }
 
   destroy() {
