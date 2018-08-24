@@ -35,7 +35,7 @@ export class LinesChartGraphic extends ChartGraphic {
   getOption() {
     return {
       graphicClass: 'lines.chart.graphic',
-      option: this.getOption(),
+      option: this.configModel.readOption()
     };
   }
 

@@ -1,4 +1,8 @@
+import {Region} from '@core/node/region/region';
+
 export interface IPage {
+  addChild(region: Region);
+
   destroy();
 }
 

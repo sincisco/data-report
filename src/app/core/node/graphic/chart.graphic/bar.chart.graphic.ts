@@ -35,7 +35,7 @@ export class BarChartGraphic extends ChartGraphic {
   getOption() {
     return {
       graphicClass: 'bar.chart.graphic',
-      option: this._configComponentRef.instance.readOption(),
+      option: this.configModel.readOption()
     };
   }
 

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {currentReport} from './app.body.component';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
+import {session} from '@core/node/utils/session';
 
 @Component({
   selector: 'app-header',
@@ -182,11 +182,11 @@ class PopupWrapper {
       grabHelper.show(event.pageX - 150, event.pageY - 100);
     };
     const mouseUp = (event: MouseEvent) => {
-      console.log('document mouseup', event, currentReport.$grid.offset());
+      console.log('document mouseup', event, session.currentPage.$grid.offset());
 
-      graphicFactory.createByName(componentName, currentReport,
-        event.pageX - currentReport.$grid.offset().left - 150,
-        event.pageY - currentReport.$grid.offset().top - 100);
+      graphicFactory.createByName(componentName, session.currentPage,
+        event.pageX - session.currentPage.$grid.offset().left - 150,
+        event.pageY - session.currentPage.$grid.offset().top - 100);
       grabHelper.hidden();
       document.removeEventListener('mousemove', mouseMove);
       document.removeEventListener('mouseup', mouseUp);

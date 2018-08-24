@@ -5,7 +5,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 
 import * as _ from 'lodash';
 import {ExplicitRegion} from '../../region/explicit.region';
-import {ChangeItem, ChangeManager} from '../../utils/ChangeManager';
+import {ChangeItem, ChangeManager} from '../../utils/change.manager';
 import {ImageAuxiliary} from '@core/node/content/auxiliary/image.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';

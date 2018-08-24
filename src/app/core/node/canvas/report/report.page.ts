@@ -9,7 +9,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 import {PageConfig} from '../../../../components/page.config/page.config';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
-import {ChangeItem, ChangeManager} from '@core/node/utils/ChangeManager';
+import {ChangeItem, ChangeManager} from '@core/node/utils/change.manager';
 
 const ReportTemplate = `
     <div class="report-region">

@@ -2,13 +2,13 @@ import {ExplicitRegion} from '@core/node/region/explicit.region';
 import {ReportPage} from '@core/node/canvas/report/report.page';
 import {TextGraphic} from '@core/node/graphic/auxiliary.graphic/text.graphic';
 import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
-import {currentReport} from '../../../layout/app.body.component';
 import {CommentRegion} from '@core/node/region/comment.region';
 import {CommentAuxiliary} from '@core/node/content/auxiliary/comment.auxiliary';
 import {CommentGraphic} from '@core/node/graphic/auxiliary.graphic/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
 import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
 import {graphicMap} from '@core/node/config/graphic.map';
+import {session} from '@core/node/utils/session';
 
 
 class GraphicFactory {
@@ -76,7 +76,7 @@ class GraphicFactory {
     const explicitRegion = new ExplicitRegion();
     explicitRegion.setCoordinates(x, y);
     explicitRegion.refresh();
-    currentReport.addChild(explicitRegion);
+    session.currentPage.addChild(explicitRegion);
 
     const _graphic = new option.graphicClass(explicitRegion);
 
@@ -93,7 +93,7 @@ class GraphicFactory {
       region.setCoordinates(x, y);
       region.render(option.option);
       region.refresh();
-      currentReport.addChild(region);
+      session.currentPage.addChild(region);
       if (option.graphic) {
         if (graphicMap.has(option.graphic.graphicClass)) {
           const _graphicClass = graphicMap.get(option.graphic.graphicClass),
