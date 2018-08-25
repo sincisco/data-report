@@ -18,7 +18,7 @@ const ReportTemplate = `
     <div class="report-region">
         <div class="report-canvas">
           <div class="report-box">
-             <div class="report-grid help-lines" draggable="true">
+             <div class="report-grid" draggable="true">
              <div class="u-edit-mask">
                 <div class="mask mask-left" tabindex="-1"></div>
                 <div class="mask mask-right" tabindex="-1"></div>
@@ -365,7 +365,8 @@ export class ReportPage extends ChangeManager implements IPage {
 
 
 class RegionSelectHelper {
-  private _template = `<div style="position:absolute;border:2px rgba(11,133,191,0.7) dashed;z-index: 999;
+  private _template = `<div style="background-color: rgba(55,179,255,0.5);
+position:absolute;border:2px rgba(11,133,191,0.7) dashed;z-index: 999;
 left:300px;top:300px;display: none;"></div>`;
 
   private readonly _$element: JQuery;

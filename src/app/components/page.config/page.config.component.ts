@@ -17,7 +17,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   option = {
     text: '页面标题',
-    auxiliaryLine: true,
+    auxiliaryLine: false,
     dimensionMode: 'standard',
     width: 960,
     height: 720,
