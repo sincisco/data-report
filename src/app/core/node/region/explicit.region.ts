@@ -4,9 +4,7 @@ import {contextMenuHelper} from '../../../utils/contextMenu';
 import {fromEvent, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/internal/operators';
 import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
-import {ImageAuxiliary} from '../content/auxiliary/image.auxiliary';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
-import {ImageGraphic} from '../graphic/auxiliary.graphic/image.graphic';
 import {IGraphic} from '../graphic/graphic';
 import {TextGraphic} from '../graphic/auxiliary.graphic/text.graphic';
 import {clipboard} from '@core/node/clipboard';
@@ -276,10 +274,15 @@ export class ExplicitRegion extends Region {
           displayName: '删除',
           shortcut: 'Backspace',
           callback: () => {
-            if (this._graphic) {
-              this._graphic.destroy();
+            if (this.page.selectManager.isRegionMultiSelected(this)) {
+              const arr = this.page.selectManager.multiSelectArray.slice(0);
+              arr.forEach((value) => {
+                value.destroy();
+              });
+            } else {
+              this.destroy();
             }
-            this.destroy();
+
             contextMenuHelper.close();
           }
         }, 'split',

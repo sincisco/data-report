@@ -12,12 +12,13 @@ import {clipboard} from '@core/node/clipboard';
 import {ChangeItem, ChangeManager} from '@core/node/utils/change.manager';
 import {ImageAuxiliary} from '@core/node/content/auxiliary/image.auxiliary';
 import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
+import {SelectManager} from '@core/node/utils/select.manager';
 
 const ReportTemplate = `
     <div class="report-region">
         <div class="report-canvas">
           <div class="report-box">
-             <div class="report-grid help-lines">
+             <div class="report-grid help-lines" draggable="true">
              <div class="u-edit-mask">
                 <div class="mask mask-left" tabindex="-1"></div>
                 <div class="mask mask-right" tabindex="-1"></div>
@@ -39,6 +40,8 @@ export class ReportPage extends ChangeManager implements IPage {
   private _children: Array<Region> = [];
 
   private _activatedRegion: Region;
+
+  public selectManager = new SelectManager();
 
   $element: JQuery;
   $region: JQuery;
@@ -81,7 +84,28 @@ export class ReportPage extends ChangeManager implements IPage {
         this.select();
         this.activateConfig();
       }
+    }).on('dragstart', ($event: JQuery.Event) => {
+      const startPageX = $event.pageX, startPageY = $event.pageY;
+      let left: number, top: number, width: number, height: number;
+      const mousemove = (event: MouseEvent) => {
+        left = Math.min(startPageX, event.pageX);
+        top = Math.min(startPageY, event.pageY);
+        width = Math.abs(event.pageX - startPageX);
+        height = Math.abs(event.pageY - startPageY);
+        regionSelectHelper.show(left, top, width, height);
+      }, mouseup = (event: MouseEvent) => {
+        document.removeEventListener('mousemove', mousemove);
+        document.removeEventListener('mouseup', mouseup);
+        regionSelectHelper.hide();
+        this._regionSelect(left, top, width, height);
+      };
+      regionSelectHelper.start($event.pageX, $event.pageY);
+
+      document.addEventListener('mousemove', mousemove);
+      document.addEventListener('mouseup', mouseup);
+      return false;
     });
+
 
     this.$grid.on('dragover', ($event: JQuery.Event) => {
       const dragEvent = <DragEvent>$event.originalEvent;
@@ -100,6 +124,24 @@ export class ReportPage extends ChangeManager implements IPage {
         this._configComponentRef.instance.page = this;
       }
     }, 100);
+  }
+
+  private _regionSelect(left, top, width, height) {
+    const array = this._children.filter((value: Region) => {
+      const $element = value.$element, offset = $element.offset(), width1 = $element.outerWidth(), height1 = $element.outerHeight();
+      return this._judge(left, top, left + width, top + height, offset.left, offset.top, offset.left + width1, offset.top + height1);
+    });
+    this.selectManager.clear();
+    array.forEach((value) => {
+      this.selectManager.ctrlSelect(value);
+    });
+  }
+
+  private _judge(x1, y1, x2, y2, x3, y3, x4, y4) {
+    if (x3 > x1 && y3 > y1 && x2 > x4 && y2 > y4) {
+      return true;
+    }
+    return false;
   }
 
   private _initForUpdate() {
@@ -214,9 +256,7 @@ export class ReportPage extends ChangeManager implements IPage {
   }
 
   select() {
-    this._children.forEach((value) => {
-      value.unselect();
-    });
+    this.selectManager.clear();
   }
 
   unselect() {
@@ -227,6 +267,13 @@ export class ReportPage extends ChangeManager implements IPage {
     child.page = this;
     this._children.push(child);
     this.$grid.append(child.$element);
+  }
+
+  deleteChild(child: Region) {
+    if (this._children.includes(child)) {
+      this.selectManager.delete(child);
+      this._children.splice(this._children.indexOf(child), 1);
+    }
   }
 
   set width(width: number) {
@@ -315,3 +362,30 @@ export class ReportPage extends ChangeManager implements IPage {
     });
   }
 }
+
+
+class RegionSelectHelper {
+  private _template = `<div style="position:absolute;border:2px rgba(11,133,191,0.7) dashed;z-index: 999;
+left:300px;top:300px;display: none;"></div>`;
+
+  private readonly _$element: JQuery;
+
+  constructor() {
+    this._$element = $(this._template);
+  }
+
+  start(left: number, top: number) {
+    $('body').append(this._$element);
+    this._$element.css({left, top, width: 0, height: 0}).show();
+  }
+
+  show(left: number, top: number, width: number, height: number) {
+    this._$element.css({left, top, width, height});
+  }
+
+  hide() {
+    this._$element.hide();
+  }
+}
+
+const regionSelectHelper = new RegionSelectHelper();

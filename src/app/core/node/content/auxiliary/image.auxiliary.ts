@@ -56,6 +56,9 @@ export class ImageAuxiliary extends Auxiliary {
   }
 
   destroy() {
+    this.imageGraphic = null;
+    this.$element.remove();
+    this.$element = null;
   }
 }
 

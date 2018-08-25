@@ -137,7 +137,12 @@ export class ImageGraphic extends ChangeManager implements IGraphic {
     if (this._content) {
       this._content.destroy();
       this._configComponentRef.destroy();
+      this._content = null;
+      this._configComponentRef = null;
     }
+    this.$element.remove();
+    this.$element = null;
+
   }
 
 }

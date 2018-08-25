@@ -69,12 +69,20 @@ export abstract class Region {
     }
   }
 
+  multiSelect() {
+    this.$element.addClass('multi-selected');
+  }
+
   /**
    * 点击画布  所有的region、调用unselect方法
    */
   unselect() {
     this._regionState = RegionState.default;
     this.$element.removeClass('selected');
+  }
+
+  multiUnselect() {
+    this.$element.removeClass('multi-selected');
   }
 
   /**
@@ -114,6 +122,12 @@ export abstract class Region {
    * 3、解除当前对象的属性引用
    */
   destroy() {
+    if (this._graphic) {
+      this._graphic.destroy();
+      this._graphic = null;
+    }
+    this._page.deleteChild(this);
+    this._page = null;
     this.$element.remove();
   }
 
@@ -140,6 +154,7 @@ export abstract class Region {
       }
     };
 
+    let timeoutHandle;
     this.$mover
       .on('dragstart', ($event: JQuery.Event) => {
         count = 0;
@@ -164,11 +179,30 @@ export abstract class Region {
         return false;
       })
       .on('click', ($event: JQuery.Event) => {
-        this.select();
-      })
-      .on('dblclick', ($event: JQuery.Event) => {
-        this.page.activateRegion(this);
-      });
+        // console.log('click');
+        if (timeoutHandle) {
+          clearTimeout(timeoutHandle);
+          timeoutHandle = null;
+        } else {
+          timeoutHandle = setTimeout(() => {
+            $($event.currentTarget).triggerHandler('singleClick', [$event]);
+            timeoutHandle = null;
+          }, 200);
+        }
+        $event.stopPropagation();
+      }).on('singleClick', ($event: JQuery.Event, $singleClickEvent: JQuery.Event) => {
+      console.log('singleClick');
+      if ($singleClickEvent.ctrlKey) {
+        console.log('ctrl');
+        this._page.selectManager.ctrlSelect(this);
+      } else {
+        this._page.selectManager.select(this);
+      }
+
+    }).on('dblclick', ($event: JQuery.Event) => {
+      console.log('dblclick');
+      this.page.activateRegion(this);
+    });
   }
 
 
