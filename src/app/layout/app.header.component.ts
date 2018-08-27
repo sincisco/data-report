@@ -64,11 +64,11 @@ export class AppHeaderComponent implements AfterViewInit {
       grabHelper.show(event.pageX - 150, event.pageY - 100);
     };
     const mouseUp = (event: MouseEvent) => {
-      console.log('document mouseup', event, session.currentPage.$grid.offset());
+      console.log('document mouseup', event, session.currentPage.offset());
 
       graphicFactory.createByName(componentName, session.currentPage,
-        event.pageX - session.currentPage.$grid.offset().left - 150,
-        event.pageY - session.currentPage.$grid.offset().top - 100);
+        event.pageX - session.currentPage.offset().left - 150,
+        event.pageY - session.currentPage.offset().top - 100);
       grabHelper.hidden();
       document.removeEventListener('mousemove', mouseMove);
       document.removeEventListener('mouseup', mouseUp);
@@ -259,11 +259,11 @@ class PopupWrapper {
       grabHelper.show(event.pageX - 150, event.pageY - 100);
     };
     const mouseUp = (event: MouseEvent) => {
-      console.log('document mouseup', event, session.currentPage.$grid.offset());
+      console.log('document mouseup', event, session.currentPage.offset());
 
       graphicFactory.createByName(componentName, session.currentPage,
-        event.pageX - session.currentPage.$grid.offset().left - 150,
-        event.pageY - session.currentPage.$grid.offset().top - 100);
+        event.pageX - session.currentPage.offset().left - 150,
+        event.pageY - session.currentPage.offset().top - 100);
       grabHelper.hidden();
       document.removeEventListener('mousemove', mouseMove);
       document.removeEventListener('mouseup', mouseUp);

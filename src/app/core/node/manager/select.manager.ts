@@ -1,4 +1,4 @@
-import {Region} from '@core/node/region/region';
+import {Region} from '../region/region';
 
 enum SelectStatus {
   default, single, multi

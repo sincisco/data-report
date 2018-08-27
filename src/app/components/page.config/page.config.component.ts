@@ -1,19 +1,26 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {PageConfig} from './page.config';
+import {PageModel} from './page.model';
 import {debounceTime} from 'rxjs/operators';
+import {ChangeItem} from '@core/node/manager/change.manager';
 
+enum ReportStatus {
+  default, selected, activated, multiSelected
+}
 
 @Component({
   selector: 'app-page-config',
   templateUrl: './page.config.component.html',
   styleUrls: ['./page.config.component.less']
 })
-export class PageConfigComponent extends PageConfig implements AfterViewInit, OnInit {
+export class PageConfigComponent extends PageModel implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
-
   @Output() output = new EventEmitter();
+
+  private _status = ReportStatus.default;
+  private _scale = 1;
+
 
   option = {
     text: '页面标题',
@@ -47,6 +54,31 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   constructor(private _differs: KeyValueDiffers) {
     super();
+  }
+
+  set width(width: number) {
+    this.option.width = width;
+  }
+
+  set height(height: number) {
+    this.option.height = height;
+  }
+
+  get width() {
+    return this.option.width;
+  }
+
+  get height() {
+    return this.option.height;
+  }
+
+  get scale() {
+    return this._scale;
+  }
+
+  set scale(param: number) {
+    this._scale = param / 100;
+    // this.refresh();
   }
 
   dimensionModeChange(value) {
@@ -113,10 +145,16 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
       }
       if (array.length > 0) {
         console.log('do page update');
-        this.page.update(array);
+        this._update(array);
       }
     });
 
+  }
+
+  private _update(changeItemArray: Array<ChangeItem>) {
+    changeItemArray.forEach((value, index, array) => {
+      this.trigger(value);
+    });
   }
 
 }
