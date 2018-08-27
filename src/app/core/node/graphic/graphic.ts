@@ -45,3 +45,11 @@ export interface IGraphic {
   destroy();
 }
 
+export interface IGraphicView {
+
+}
+
+export interface IGraphicModel {
+
+}
+

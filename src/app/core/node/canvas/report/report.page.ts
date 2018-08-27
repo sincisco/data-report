@@ -1,8 +1,6 @@
 import {Dimensions, IPage} from '../../interface';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {ExplicitRegion} from '../../region/explicit.region';
 import {Region} from '../../region/region';
-import {CommentRegion} from '../../region/comment.region';
 import {ComponentRef} from '@angular/core';
 import {PageConfigComponent} from '../../../../components/page.config/page.config.component';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
@@ -10,9 +8,8 @@ import {PageConfig} from '../../../../components/page.config/page.config';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {ChangeItem, ChangeManager} from '@core/node/utils/change.manager';
-import {ImageAuxiliary} from '@core/node/content/auxiliary/image.auxiliary';
-import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
-import {SelectManager} from '@core/node/utils/select.manager';
+import {ISelectManager, SelectManager} from '@core/node/utils/select.manager';
+import {regionSelectHelper} from '@core/node/helper/region.select.helper';
 
 const ReportTemplate = `
     <div class="report-region">
@@ -41,7 +38,7 @@ export class ReportPage extends ChangeManager implements IPage {
 
   private _activatedRegion: Region;
 
-  public selectManager = new SelectManager();
+  public selectManager: ISelectManager = new SelectManager();
 
   $element: JQuery;
   $region: JQuery;
@@ -363,30 +360,3 @@ export class ReportPage extends ChangeManager implements IPage {
   }
 }
 
-
-class RegionSelectHelper {
-  private _template = `<div style="background-color: rgba(55,179,255,0.5);
-position:absolute;border:2px rgba(11,133,191,0.7) dashed;z-index: 999;
-left:300px;top:300px;display: none;"></div>`;
-
-  private readonly _$element: JQuery;
-
-  constructor() {
-    this._$element = $(this._template);
-  }
-
-  start(left: number, top: number) {
-    $('body').append(this._$element);
-    this._$element.css({left, top, width: 0, height: 0}).show();
-  }
-
-  show(left: number, top: number, width: number, height: number) {
-    this._$element.css({left, top, width, height});
-  }
-
-  hide() {
-    this._$element.hide();
-  }
-}
-
-const regionSelectHelper = new RegionSelectHelper();

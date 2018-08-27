@@ -274,8 +274,8 @@ export class ExplicitRegion extends Region {
           displayName: '删除',
           shortcut: 'Backspace',
           callback: () => {
-            if (this.page.selectManager.isRegionMultiSelected(this)) {
-              const arr = this.page.selectManager.multiSelectArray.slice(0);
+            if (this.page.selectManager.include(this)) {
+              const arr = this.page.selectManager.selectedArray;
               arr.forEach((value) => {
                 value.destroy();
               });
