@@ -18,7 +18,7 @@ export class ChangeManager {
     return this;
   }
 
-  public trigger(item: ChangeItem) {
+  protected trigger(item: ChangeItem) {
     if (this._map.has(item.key)) {
       console.log('handle: ', item.key);
       const listener = this._map.get(item.key);

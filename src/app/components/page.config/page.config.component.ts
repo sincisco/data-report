@@ -21,7 +21,6 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
   private _status = ReportStatus.default;
   private _scale = 1;
 
-
   option = {
     text: '页面标题',
     auxiliaryLine: false,
@@ -56,14 +55,6 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
     super();
   }
 
-  set width(width: number) {
-    this.option.width = width;
-  }
-
-  set height(height: number) {
-    this.option.height = height;
-  }
-
   get width() {
     return this.option.width;
   }
@@ -76,10 +67,10 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
     return this._scale;
   }
 
-  set scale(param: number) {
-    this._scale = param / 100;
-    // this.refresh();
-  }
+  // set scale(param: number) {
+  //   this._scale = param / 100;
+  //   // this.refresh();
+  // }
 
   dimensionModeChange(value) {
     switch (value) {
@@ -101,7 +92,6 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
   }
 
   ngOnInit() {
-    console.log('PageConfigComponent ngOnInit');
     this._differ = this._differs.find(this.option).create();
   }
 
@@ -140,8 +130,6 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
             option: value
           });
         });
-      } else {
-        console.log('has no changes');
       }
       if (array.length > 0) {
         console.log('do page update');

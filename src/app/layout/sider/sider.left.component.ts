@@ -95,7 +95,7 @@ export class SiderLeftComponent implements AfterViewInit {
       const factory: ComponentFactory<PageModel> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
-      this.componentRef.instance.type = type;
+      // this.componentRef.instance.type = type;
       // this.shadowContainer.detach();
       // this.componentRef.instance.output.subscribe((msg: string) => {
       //   console.log('我是', msg);

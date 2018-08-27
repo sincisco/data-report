@@ -14,8 +14,11 @@ export class AppBodyComponent implements AfterViewInit {
   report;
 
   ngAfterViewInit() {
-    const report = this.report = session.currentPage = ReportPage.builder();
-    $('.app-content').prepend(report.$element);
+    setTimeout(() => {
+      const report = this.report = session.currentPage = ReportPage.builder();
+      $('.app-content').prepend(report.$element);
+    }, 100);
+
 
     // const dashboardCanvas = new DashboardCanvas();
     // $('.app-content').prepend(dashboardCanvas.$element);

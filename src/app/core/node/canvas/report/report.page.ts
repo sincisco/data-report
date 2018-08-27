@@ -19,7 +19,7 @@ export class ReportPage extends ReportPageView implements IPage {
   public selectManager: ISelectManager;
   public regionManager;
 
-  static builder() {
+  static builder(): ReportPage {
     const componentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
 
     return new ReportPage(componentRef);
@@ -107,6 +107,10 @@ export class ReportPage extends ReportPageView implements IPage {
 
   offset() {
     return this.$grid.offset();
+  }
+
+  set scale(param) {
+
   }
 
   get scale() {
