@@ -16,14 +16,23 @@ import {RegionManager} from '@core/node/manager/region.manager';
 
 export class ReportPage extends ReportPageView implements IPage {
 
-  public selectManager: ISelectManager = new SelectManager();
-  public regionManager = new RegionManager(this);
+  public selectManager: ISelectManager;
+  public regionManager;
 
-  private _configComponentRef: ComponentRef<PageModel>;
+  static builder() {
+    const componentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
 
-  constructor() {
+    return new ReportPage(componentRef);
+  }
+
+  constructor(private _configComponentRef: ComponentRef<PageModel>) {
     super();
+    this.selectManager = new SelectManager();
+    this.regionManager = new RegionManager(this);
+    this.addListener(this.model);
     this._init();
+
+    this.refresh(this.model);
   }
 
   private _init() {
@@ -43,59 +52,51 @@ export class ReportPage extends ReportPageView implements IPage {
         this.regionManager.deactivate();
       });
 
-    setTimeout(() => {
-      if (!this._configComponentRef) {
-        this._configComponentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
-        this._configComponentRef.instance.page = this;
-        this.refresh(this.model);
-      }
-    }, 10);
-
     this.appendContext([
-      // {
-      //   displayName: '新建 柱状图',
-      //   callback: () => {
-      //     // 如何建立关联
-      //     graphicFactory.createByName('barChart', this, $event.offsetX, $event.offsetY);
-      //     contextMenuHelper.close();
-      //   }
-      // }, {
-      //   displayName: '新建注释',
-      //   callback: () => {
-      //     graphicFactory.createByName('commentAuxiliary', this, $event.offsetX, $event.offsetY);
-      //     contextMenuHelper.close();
-      //   }
-      // }, {
-      //   displayName: '新建文本',
-      //   callback: () => {
-      //     graphicFactory.createByName('textAuxiliary', this, $event.offsetX, $event.offsetY);
-      //     contextMenuHelper.close();
-      //   }
-      // }, {
-      //   displayName: '新建 Image',
-      //   callback: () => {
-      //     // 如何建立关联
-      //     graphicFactory.createByName('imageAuxiliary', this, $event.offsetX, $event.offsetY);
-      //     contextMenuHelper.close();
-      //   }
-      // }, 'split', {
-      //   displayName: '剪切',
-      //   shortcut: 'Ctrl+X'
-      // }, {
-      //   displayName: '粘贴',
-      //   shortcut: 'Ctrl+X',
-      //   enable: clipboard.hasData(),
-      //   callback: () => {
-      //     console.log('粘贴');
-      //     if (clipboard.hasData()) {
-      //       graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
-      //     }
-      //     contextMenuHelper.close();
-      //   }
-      // }, {
-      //   displayName: '删除',
-      //   shortcut: 'Backspace'
-      // }
+      {
+        displayName: '新建 柱状图',
+        callback: ($event) => {
+          // 如何建立关联
+          graphicFactory.createByName('barChart', this, $event.offsetX, $event.offsetY);
+          contextMenuHelper.close();
+        }
+      }, {
+        displayName: '新建注释',
+        callback: ($event) => {
+          graphicFactory.createByName('commentAuxiliary', this, $event.offsetX, $event.offsetY);
+          contextMenuHelper.close();
+        }
+      }, {
+        displayName: '新建文本',
+        callback: ($event) => {
+          graphicFactory.createByName('textAuxiliary', this, $event.offsetX, $event.offsetY);
+          contextMenuHelper.close();
+        }
+      }, {
+        displayName: '新建 Image',
+        callback: ($event) => {
+          // 如何建立关联
+          graphicFactory.createByName('imageAuxiliary', this, $event.offsetX, $event.offsetY);
+          contextMenuHelper.close();
+        }
+      }, 'split', {
+        displayName: '剪切',
+        shortcut: 'Ctrl+X'
+      }, {
+        displayName: '粘贴',
+        shortcut: 'Ctrl+X',
+        enable: clipboard.hasData(),
+        callback: ($event) => {
+          console.log('粘贴');
+          if (clipboard.hasData()) {
+            graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
+          }
+          contextMenuHelper.close();
+        }
+      }, {
+        displayName: '删除',
+        shortcut: 'Backspace'
+      }
     ]);
 
   }

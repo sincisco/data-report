@@ -105,8 +105,10 @@ class ContextMenu {
 
     this.$menu.on('click', 'li.z-clickable', ($itemEvent) => {
       console.log($itemEvent.currentTarget.dataset.callbackNo);
-      var callbackNo = $itemEvent.currentTarget.dataset.callbackNo;
-      if (callbackNo === 'undefined') return false;
+      const callbackNo = $itemEvent.currentTarget.dataset.callbackNo;
+      if (callbackNo === 'undefined') {
+        return false;
+      }
       visit(array, (item) => {
         if (typeof item !== 'string' && item._callbackNo === callbackNo) {
           item.callback($event);

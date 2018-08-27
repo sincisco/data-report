@@ -104,10 +104,7 @@ export class ReportPageView implements IEventSource {
       });
   }
 
-  private _initForModelUpdate(model: PageModel) {
-    model.register('backgroundMode', (key, oldValue, newValue, option) => {
-    });
-
+  public addListener(model: PageModel) {
     model.register('remove.backgroundClass', (key, oldValue, newValue) => {
       this._$box.removeClass('background1 background2 background3 background4');
     });
@@ -134,7 +131,9 @@ export class ReportPageView implements IEventSource {
         backgroundColor: newValue
       });
     });
-
+    model.register('auxiliaryLine', (key, oldValue, newValue) => {
+      this.$grid.toggleClass('help-lines', newValue);
+    });
     model.register('width', (key, oldValue, newValue) => {
       // this.$
     });
@@ -142,9 +141,7 @@ export class ReportPageView implements IEventSource {
       // this.height = newValue;
       // this.refresh();
     });
-    model.register('auxiliaryLine', (key, oldValue, newValue) => {
-      this.$grid.toggleClass('help-lines', newValue);
-    });
+
   }
 
   public appendContext(array: Array<any>) {
