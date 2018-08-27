@@ -1,5 +1,5 @@
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {Event, IEventSource} from '@core/node/canvas/report/event';
+import {ViewEventTarget, IEventSource, IView} from '@core/node/canvas/report/event';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
@@ -23,8 +23,8 @@ const TEMPLATE = `
     </div>
 `;
 
-export class ReportPageView implements IEventSource {
-  private _event = new Event();
+export class ReportPageView implements IView {
+  private _event = new ViewEventTarget();
 
   $element: JQuery;
   private readonly _$canvas: JQuery;
@@ -74,7 +74,7 @@ export class ReportPageView implements IEventSource {
     this.$grid
       .on('click', ($event) => {
         if ($event.target === this.$grid[0]) {
-          this._event.emit('select');
+          this._event.dispatchEvent('select');
         }
       })
       .on('dragstart', ($event: JQuery.Event) => {
@@ -90,7 +90,7 @@ export class ReportPageView implements IEventSource {
           document.removeEventListener('mousemove', mousemove);
           document.removeEventListener('mouseup', mouseup);
           regionSelectHelper.hide();
-          this._event.emit('regionSelect', left, top, width, height);
+          this._event.dispatchEvent('regionSelect', left, top, width, height);
         };
         document.addEventListener('mousemove', mousemove);
         document.addEventListener('mouseup', mouseup);
@@ -104,7 +104,7 @@ export class ReportPageView implements IEventSource {
       });
   }
 
-  public addListener(model: PageModel) {
+  public listenToModel(model: PageModel) {
     model.register('remove.backgroundClass', (key, oldValue, newValue) => {
       this._$box.removeClass('background1 background2 background3 background4');
     });
@@ -156,12 +156,12 @@ export class ReportPageView implements IEventSource {
   }
 
   on(eventName: string, callback: Function) {
-    this._event.on(eventName, callback);
+    this._event.addEventListener(eventName, callback);
     return this;
   }
 
   off(eventName: string, fn?: Function) {
-    this._event.off(eventName, fn);
+    this._event.removeEventListener(eventName, fn);
     return this;
   }
 }

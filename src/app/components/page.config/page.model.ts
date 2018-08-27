@@ -1,8 +1,12 @@
-import {ChangeManager} from '@core/node/manager/change.manager';
+import {ModelEventTarget} from '@core/node/manager/change.manager';
 
-export class PageModel extends ChangeManager {
+export class PageModel extends ModelEventTarget {
   option: any;
   width: number;
   height: number;
   scale: number;
+}
+
+export interface IModel {
+
 }

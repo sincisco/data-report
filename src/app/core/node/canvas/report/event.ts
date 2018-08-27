@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import {IModel} from '../../../../components/page.config/page.model';
 
 /**
  * 只能先“订阅”再“发布”
@@ -10,14 +11,14 @@ import * as _ from 'lodash';
  它应用广泛，但是也有缺点
  创建这个函数同样需要内存，过度使用会导致难以跟踪维护
  * */
-export class Event {
+export class ViewEventTarget {
   private _callbacks: { [key: string]: Array<Function> } = {};
 
   constructor() {
 
   }
 
-  on(eventName: string, callback: Function) {
+  addEventListener(eventName: string, callback: Function) {
     if (!this._callbacks[eventName]) {
       this._callbacks[eventName] = [callback];
     } else {
@@ -26,7 +27,7 @@ export class Event {
 
   }
 
-  emit(eventName1: string, param1?: any, param2?: any, param3?: any, param4?: any) {
+  dispatchEvent(eventName1: string, param1?: any, param2?: any, param3?: any, param4?: any) {
     const params = arguments,
       eventName = Array.prototype.shift.call(params); // 第一个参数指定“键”
     if (!this._callbacks[eventName]) {
@@ -37,7 +38,7 @@ export class Event {
     });
   }
 
-  off(eventName: string, fn?: Function) {
+  removeEventListener(eventName: string, fn?: Function) {
     const fns = this._callbacks[eventName];
     if (!fns) {
       return false;
@@ -54,9 +55,23 @@ export class Event {
   }
 }
 
+export interface IView extends IEventSource {
+  // 试图到模型
+  bind();
+
+  // 模型到视图
+  listenToModel(model: IModel);
+
+  destroy();
+}
+
 export interface IEventSource {
   on(eventName: string, callback: Function);
 
   off(eventName: string, fn?: Function);
+}
+
+export interface IModelObserver {
+  addModelListener(model);
 }
 

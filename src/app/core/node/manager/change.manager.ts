@@ -7,7 +7,7 @@ export interface ChangeItem {
   option: any;
 }
 
-export class ChangeManager {
+export class ModelEventTarget {
   private _map = new Map();
 
   public register(eventType: string, listener: KeyValueListener) {

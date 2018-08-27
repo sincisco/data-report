@@ -7,7 +7,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 import {PageModel} from '../../../../components/page.config/page.model';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
-import {ChangeItem, ChangeManager} from '@core/node/manager/change.manager';
+import {ChangeItem, ModelEventTarget} from '@core/node/manager/change.manager';
 import {ISelectManager, SelectManager} from '@core/node/manager/select.manager';
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
 import {ReportPageView} from '@core/node/canvas/report/report.page.view';
