@@ -43,4 +43,10 @@ export class RegionManager {
     });
   }
 
+  save() {
+    return JSON.stringify(this._children.map((item) => {
+      return item.derender();
+    }), null, 2);
+  }
+
 }

@@ -116,6 +116,8 @@ export abstract class Region {
 
   public abstract addChild(child: IGraphic);
 
+  abstract derender();
+
   /**
    * 1、销毁内部对象
    * 2、解除事件绑定
@@ -206,11 +208,6 @@ export abstract class Region {
   }
 
 
-}
-
-class RegionManager {
-  constructor() {
-  }
 }
 
 

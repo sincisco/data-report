@@ -1,4 +1,6 @@
-interface IGraphicView {
+import {IEventTarget} from '@core/node/event/event';
+
+export interface IGraphicView extends IEventTarget {
   init(option: any);
 
   /**

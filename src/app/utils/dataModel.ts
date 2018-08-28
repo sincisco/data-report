@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import {datasetManager} from "@core/dataset/dataset.manager";
+import {datasetManager} from '@core/dataset/dataset.manager';
 
 const windowMask = `
 <div class="m-window m-window-mask mask-transparent" style="z-index: 405;">

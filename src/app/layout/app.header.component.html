@@ -2,7 +2,7 @@
 <div class="app-header-toolbar">
   <div class="box-wrapper-left">
     <ul class="btns-box">
-      <li class="btn-item">
+      <li class="btn-item" (click)="doSave()">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-save"></i>
         </div>
@@ -18,9 +18,12 @@
         </div>
       </li>
       <li class="btn-item">
-        <div class="u-tool-btn">
+        <label for="templateToUpload" class="u-tool-btn">
           <i class="u-icn u-icn-refresh"></i>
-        </div>
+          <input type="file" name="templateToUpload" id="templateToUpload"
+                 (change)="templateChange($event)"
+                 style="display: none;">
+        </label>
       </li>
     </ul>
   </div>

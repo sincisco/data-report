@@ -1,5 +1,7 @@
- export interface Dimension {
+export interface Dimension {
   name: string;
+  displayName?: string;
+  comment?: string;
   type: 'number' | 'ordinal' | 'float' | 'int' | 'time';
 }
 

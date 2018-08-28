@@ -18,7 +18,8 @@
       <div class="group group-dimensions group-auto">
         <div class="m-schemaList">
           <ul class="list list-item">
-            <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName" (click)="tableClick($event,'dimensions')">
+            <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
+                (click)="tableClick($event,'dimensions')">
               <i class="u-icn u-icn-angle-down"></i>{{datasetWrapper?.displayName}}
             </li>
             <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
@@ -27,7 +28,7 @@
                   (dragstart)="doDragStart($event,item)"
                   [attr.fieldid]="item" [attr.datasetname]="'dimensions'+datasetWrapper.name">
                 <span class="txt handle">
-                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item.name}}</b>
+                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item.comment||item.name}}</b>
                 </span>
                 <div class="menu">
                   <i></i>
@@ -55,7 +56,8 @@
       <div class="group group-measures group-">
         <div class="m-schemaList">
           <ul class="list list-item">
-            <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName" (click)="tableClick($event,'measures')" data-switch="true">
+            <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
+                (click)="tableClick($event,'measures')" data-switch="true">
               <i class="u-icn u-icn-angle-down"></i>{{datasetWrapper?.displayName}}
             </li>
             <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
@@ -64,7 +66,7 @@
                   (dragstart)="doDragStart($event,item)"
                   [attr.fieldid]="item" [attr.datasetname]="'measures'+datasetWrapper.name">
                 <span class="txt handle">
-                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">{{item.name}}</b>
+                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">{{item.comment||item.name}}</b>
                 </span>
                 <div class="menu">
                   <i></i>

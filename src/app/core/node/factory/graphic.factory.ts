@@ -70,7 +70,7 @@ class GraphicFactory {
     return this.newGraphicByName(name, page, x, y);
   }
 
-  paste(option: any, x, y) {
+  paste(option: any, x?: number, y?: number) {
     if (regionMap.has(option.regionClass)) {
       const regionClass = regionMap.get(option.regionClass);
       const region = new regionClass();

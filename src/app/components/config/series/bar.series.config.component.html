@@ -6,7 +6,7 @@
           <div *ngFor="let item of seriesX;index as i;" [title]="item.name" [class.u-item-1]="item.type==='ordinal'" [class.u-item-2]="item.type!=='ordinal'"
                class="m-Pill m-Pill-DimensionPill u-item animated">
             <div class="text">
-              <span>{{item.name}}</span>
+              <span>{{item.comment||item.name}}</span>
               <span class="u-icn u-icn-"></span>
             </div>
             <i class="sel" (click)="axisClick($event,seriesX,i)" [attr.fieldName]="item.name"></i>
@@ -27,7 +27,7 @@
           <div *ngFor="let item of seriesY;index as i;" [title]="item.name" [class.u-item-1]="item.type==='ordinal'" [class.u-item-2]="item.type!=='ordinal'"
                class="m-Pill m-Pill-DimensionPill u-item animated">
             <div class="text">
-              <span>{{item.name}}</span>
+              <span>{{item.comment||item.name}}</span>
               <span class="u-icn u-icn-"></span>
             </div>
             <i class="sel" (click)="axisClick($event,seriesY,i)" [attr.fieldName]="item.name"></i>

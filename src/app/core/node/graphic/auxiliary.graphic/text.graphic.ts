@@ -8,6 +8,7 @@ import {TextAuxiliary} from '@core/node/graphic.view/auxiliary/text.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
 import {Region} from '@core/node/region/region';
+import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">

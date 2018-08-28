@@ -1,4 +1,6 @@
 import {ChartGraphic} from '../../graphic/chart.graphic/chart.graphic';
+import {ViewEventTarget} from '@core/node/event/view.event';
+import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
 enum ChartState {
   uninitialized, initialized, normal, destroyed
@@ -6,6 +8,8 @@ enum ChartState {
 
 // chartNode
 export class Chart implements IGraphicView {
+  private _event: ViewEventTarget = new ViewEventTarget();
+
   $element: JQuery;
   protected _echart: Echart;
 
@@ -20,6 +24,8 @@ export class Chart implements IGraphicView {
     // 初始化之前  确保host已经挂载到document中
     this._innerReInit();
   }
+
+
 
   init(option: any) {
     if (this._state === ChartState.initialized) {
@@ -80,7 +86,7 @@ export class Chart implements IGraphicView {
   refresh() {
     if (this._state === ChartState.normal) {
       this._echart.clear();
-      this._echart.setOption(this.getOption());
+      // this._echart.setOption(this.getOption());
     }
   }
 
@@ -100,21 +106,6 @@ export class Chart implements IGraphicView {
     }
   }
 
-  /**
-   * 获取当前实例中维护的option对象，
-   * 返回的option对象中包含了用户多次setOption合并得到的配置项和数据，
-   * 也记录了用户交互的状态，例如图例的开关，数据区域缩放选择的范围等等。
-   * 所以从这份 option 可以恢复或者得到一个新的一模一样的实例。
-   * @returns {any}
-   */
-  getOption() {
-    if (this._echart) {
-      const option = this._echart.getOption();
-      delete option.timeline;
-      return option;
-    }
-  }
-
   destroy() {
     if (this._echart && !this._echart.isDisposed()) {
       this._echart.dispose();
@@ -125,6 +116,16 @@ export class Chart implements IGraphicView {
     delete this._graphic;
 
     this._state = ChartState.destroyed;
+  }
+
+  addEventListener(eventName: string, callback: Function) {
+    this._event.addEventListener(eventName, callback);
+    return this;
+  }
+
+  removeEventListener(eventName: string, fn?: Function) {
+    this._event.removeEventListener(eventName, fn);
+    return this;
   }
 
   /**

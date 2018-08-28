@@ -8,6 +8,7 @@ import {CommentRegion} from '../../region/comment.region';
 import {CommentAuxiliary} from '@core/node/graphic.view/auxiliary/comment.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
+import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">

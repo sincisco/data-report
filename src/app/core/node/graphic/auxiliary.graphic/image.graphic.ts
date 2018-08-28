@@ -9,6 +9,7 @@ import {ChangeItem, ModelEventTarget} from '../../event/model.event';
 import {ImageAuxiliary} from '@core/node/graphic.view/auxiliary/image.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
+import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
 
 const template = `

@@ -35,6 +35,15 @@ export class ReportPage extends PageView implements IPage {
     this._init();
   }
 
+  load(array: Array<any>) {
+    array.forEach((value) => {
+      graphicFactory.paste(value);
+    });
+  }
+
+  save() {
+    return this.regionManager.save();
+  }
 
 
   private _init() {

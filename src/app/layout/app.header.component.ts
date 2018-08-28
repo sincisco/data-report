@@ -1,6 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {session} from '@core/node/utils/session';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,27 @@ export class AppHeaderComponent implements AfterViewInit {
 
   mouseLeave() {
     console.log('mouseLeave');
+  }
+
+  doSave() {
+    const blob = new Blob([session.currentPage.save()], {type: 'text/plain;charset=utf-8'});
+    FileSaver.saveAs(blob, 'demo.zijin.template');
+  }
+
+  templateChange(event: Event) {
+    const that = this;
+    const file: HTMLInputElement = <HTMLInputElement>event.currentTarget;
+    if (!file.files || !file.files[0]) {
+      return;
+    }
+    // this.option.fileName = file.files[0].name;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      const text = (<any>evt.target).result;
+      console.log(text);
+      session.currentPage.load(JSON.parse(text));
+    };
+    reader.readAsText(file.files[0]);
   }
 
   change(event: Event) {

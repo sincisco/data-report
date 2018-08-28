@@ -118,6 +118,7 @@ export class ExplicitRegion extends Region {
     const retObj = {
       regionClass: 'explicit.region',
       option: {
+        coordinates: Object.assign({}, this._coordinates),
         dimensions: Object.assign({}, this._dimensions)
       },
       graphic: this._graphic ? this._graphic.getOption() : undefined
@@ -127,6 +128,9 @@ export class ExplicitRegion extends Region {
   }
 
   render(option) {
+    if (option.coordinates) {
+      this._coordinates = option.coordinates;
+    }
     this._dimensions = option.dimensions;
   }
 

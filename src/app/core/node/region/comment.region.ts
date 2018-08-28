@@ -143,6 +143,9 @@ export class CommentRegion extends Region {
     this.$fill.append(graphic.$element);
   }
 
+  derender() {
+  }
+
   private _bindEvent() {
     let count = 0,
       offsetX, offsetY,
