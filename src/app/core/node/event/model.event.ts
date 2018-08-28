@@ -9,7 +9,7 @@ export interface ChangeItem {
 
 export class ModelEventTarget {
   private _map = new Map();
-
+  
   public register(eventType: string, listener: KeyValueListener) {
     const eventArray = eventType.trim().replace(/\s+/g, ' ').split(' ');
     eventArray.forEach((value, index, array) => {

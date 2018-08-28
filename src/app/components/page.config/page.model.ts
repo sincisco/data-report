@@ -1,4 +1,4 @@
-import {ModelEventTarget} from '@core/node/manager/change.manager';
+import {ModelEventTarget} from '@core/node/event/model.event';
 
 export class PageModel extends ModelEventTarget {
   option: any;

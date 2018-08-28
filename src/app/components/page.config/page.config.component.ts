@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers,
 import {NgForm} from '@angular/forms';
 import {PageModel} from './page.model';
 import {debounceTime} from 'rxjs/operators';
-import {ChangeItem} from '@core/node/manager/change.manager';
+import {ChangeItem} from '@core/node/event/model.event';
 
 enum ReportStatus {
   default, selected, activated, multiSelected

@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
-import {IModel} from '../../../../components/page.config/page.model';
+import {IModel} from '../../../components/page.config/page.model';
+import {IEventTarget} from '@core/node/event/event';
 
 /**
  * 只能先“订阅”再“发布”
@@ -65,12 +66,6 @@ export interface IView extends IEventTarget {
   listenToModel(model: IModel);
 
   destroy();
-}
-
-export interface IEventTarget {
-  addEventListener(eventName: string, callback: Function);
-
-  removeEventListener(eventName: string, fn?: Function);
 }
 
 export interface IModelObserver {

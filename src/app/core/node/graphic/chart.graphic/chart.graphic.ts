@@ -1,4 +1,4 @@
-import {ComponentRef, Type} from '@angular/core';
+import {ComponentRef} from '@angular/core';
 import {Region} from '../../region/region';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../content/chart/chart';
@@ -6,7 +6,6 @@ import {Chart} from '../../content/chart/chart';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
-import * as _ from 'lodash';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 
 const template = `
