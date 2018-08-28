@@ -9,16 +9,15 @@ import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {ISelectManager, SelectManager} from '@core/node/manager/select.manager';
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {ReportPageView} from '@core/node/page/report/report.page.view';
+import {PageView} from '@core/node/page/report/page.view';
 import {RegionManager} from '@core/node/manager/region.manager';
 import {ActivateManager} from '@core/node/manager/activate.manager';
 
-export class ReportPage extends ReportPageView implements IPage {
+export class ReportPage extends PageView implements IPage {
 
   public regionManager: RegionManager;
   public selectManager: ISelectManager;
   public activateManager: ActivateManager;
-
 
   static builder(): ReportPage {
     const componentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
@@ -32,10 +31,11 @@ export class ReportPage extends ReportPageView implements IPage {
     this.selectManager = new SelectManager();
     this.activateManager = new ActivateManager(this);
     this.listenToModel(this.model);
+    this.regionManager.listenToModel(this.model);
     this._init();
-
-    this.refresh(this.model);
   }
+
+
 
   private _init() {
     this
@@ -87,7 +87,7 @@ export class ReportPage extends ReportPageView implements IPage {
       }, {
         displayName: '粘贴',
         shortcut: 'Ctrl+X',
-        enable: clipboard.hasData(),
+        // enable: clipboard.hasData(),
         callback: ($event) => {
           console.log('粘贴');
           if (clipboard.hasData()) {
@@ -109,14 +109,6 @@ export class ReportPage extends ReportPageView implements IPage {
 
   offset() {
     return this.$grid.offset();
-  }
-
-  set scale(param) {
-
-  }
-
-  get scale() {
-    return 1;
   }
 
   addChild(child: Region) {

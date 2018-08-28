@@ -1,5 +1,5 @@
 import {Region} from '../region/region';
-import {ReportPage} from '../page/report/report.page';
+import {ReportPage} from '../page/report/page';
 import {PageModel} from '../../../components/page.config/page.model';
 
 export class ActivateManager {

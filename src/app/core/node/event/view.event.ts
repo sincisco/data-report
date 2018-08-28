@@ -59,9 +59,6 @@ export class ViewEventTarget {
 export interface IView extends IEventTarget {
   $element: JQuery;
 
-  // 试图到模型
-  bind();
-
   // 模型到视图
   listenToModel(model: IModel);
 

@@ -1,5 +1,5 @@
 import {ExplicitRegion} from '@core/node/region/explicit.region';
-import {ReportPage} from '@core/node/page/report/report.page';
+import {ReportPage} from '@core/node/page/report/page';
 import {TextGraphic} from '@core/node/graphic/auxiliary.graphic/text.graphic';
 import {CommentRegion} from '@core/node/region/comment.region';
 import {CommentGraphic} from '@core/node/graphic/auxiliary.graphic/comment.graphic';

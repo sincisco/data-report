@@ -1,4 +1,4 @@
-import {ReportPage} from '../page/report/report.page';
+import {ReportPage} from '../page/report/page';
 import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
 import {closestNum} from '../../../utils/common';

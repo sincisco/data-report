@@ -4,10 +4,6 @@ import {PageModel} from './page.model';
 import {debounceTime} from 'rxjs/operators';
 import {ChangeItem} from '@core/node/event/model.event';
 
-enum ReportStatus {
-  default, selected, activated, multiSelected
-}
-
 @Component({
   selector: 'app-page-config',
   templateUrl: './page.config.component.html',
@@ -18,8 +14,7 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
   @ViewChild(NgForm) ngForm: NgForm;
   @Output() output = new EventEmitter();
 
-  private _status = ReportStatus.default;
-  private _scale = 1;
+  private _differ: KeyValueDiffer<any, any>;
 
   option = {
     text: '页面标题',
@@ -44,8 +39,6 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
     lineHeight: '30px'
   };
 
-  private _differ: KeyValueDiffer<any, any>;
-
   formatterWidth = value => `宽度 ${value}`;
   parserWidth = value => value.replace('宽度 ', '');
   formatterHeight = value => `高度 ${value}`;
@@ -62,15 +55,6 @@ export class PageConfigComponent extends PageModel implements AfterViewInit, OnI
   get height() {
     return this.option.height;
   }
-
-  get scale() {
-    return this._scale;
-  }
-
-  // set scale(param: number) {
-  //   this._scale = param / 100;
-  //   // this.refresh();
-  // }
 
   dimensionModeChange(value) {
     switch (value) {

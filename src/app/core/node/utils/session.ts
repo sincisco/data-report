@@ -1,4 +1,4 @@
-import {ReportPage} from '@core/node/page/report/report.page';
+import {ReportPage} from '@core/node/page/report/page';
 
 class Session {
   currentPage: ReportPage;

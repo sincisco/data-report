@@ -23,7 +23,7 @@ const TEMPLATE = `
     </div>
 `;
 
-export class ReportPageView implements IView {
+export class PageView implements IView {
   private _event = new ViewEventTarget();
 
   $element: JQuery;
@@ -33,6 +33,9 @@ export class ReportPageView implements IView {
 
   maskHelper: MaskHelper;
 
+  private _scale = 1;
+  private _width: number;
+  private _height: number;
   private _contextArray = [];
 
   constructor() {
@@ -45,33 +48,45 @@ export class ReportPageView implements IView {
 
     this.maskHelper = new MaskHelper($element.find('.u-edit-mask'));
 
-    this._bindEvent();
+    this._bind();
+  }
+
+  get scale() {
+    return this._scale;
+  }
+
+  set scale(param: number) {
+    this._scale = param / 100;
+    this._refresh();
   }
 
   repaintMask($element) {
     this.maskHelper.repaint($element);
   }
 
-  refresh(model: PageModel) {
-    const width = model.width, height = model.height;
-
-    this.$element.css({
-      'width': width * model.scale + 50,
-      'height': height * model.scale + 30
-    });
-    this._$canvas.css({
-      width: width * model.scale,
-      height: height * model.scale
-    });
-    this._$box.css('transform', `translate(-50%, -50%) scale(${model.scale})`);
-    this.$grid.css({
-      width,
-      height
-    });
+  private _refresh() {
+    if (this._width && this._height) {
+      this.$element.css({
+        'width': this._width * this.scale + 50,
+        'height': this._height * this.scale + 30
+      });
+      this._$canvas.css({
+        width: this._width * this.scale,
+        height: this._height * this.scale
+      });
+      this._$box.css('transform', `translate(-50%, -50%) scale(${this.scale})`);
+      this.$grid.css({
+        width: this._width,
+        height: this._height
+      })
+      ;
+    }
   }
 
-  public bind() {
+  // 试图到模型
+  private _bind() {
     this._bindEvent();
+    this._bindContextEvent();
   }
 
   private _bindEvent() {
@@ -128,8 +143,9 @@ export class ReportPageView implements IView {
       });
     });
     model.register('add.backgroundCustom backgroundCustom', (key, oldValue, newValue) => {
-      newValue.backgroundDataUrl && this._$box.css({
-        backgroundImage: `url(${newValue.backgroundDataUrl})`
+      console.log(newValue);
+      newValue.dataUrl && this._$box.css({
+        backgroundImage: `url(${newValue.dataUrl})`
       });
     });
     model.register('remove.backgroundColor', (key, oldValue, newValue) => {
@@ -145,12 +161,13 @@ export class ReportPageView implements IView {
     model.register('auxiliaryLine', (key, oldValue, newValue) => {
       this.$grid.toggleClass('help-lines', newValue);
     });
-    model.register('width', (key, oldValue, newValue) => {
-      // this.$
+    model.register('width add.width', (key, oldValue, newValue) => {
+      this._width = newValue;
+      this._refresh();
     });
-    model.register('height', (key, oldValue, newValue) => {
-      // this.height = newValue;
-      // this.refresh();
+    model.register('height add.height', (key, oldValue, newValue) => {
+      this._height = newValue;
+      this._refresh();
     });
 
   }

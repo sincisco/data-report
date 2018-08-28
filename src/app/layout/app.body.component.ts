@@ -1,5 +1,5 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {ReportPage} from '@core/node/page/report/report.page';
+import {ReportPage} from '@core/node/page/report/page';
 import {Split} from '@core/node/page/dashboard/split';
 import {DashboardCanvas} from '@core/node/page/dashboard/dashboard.canvas';
 import {session} from '@core/node/utils/session';
