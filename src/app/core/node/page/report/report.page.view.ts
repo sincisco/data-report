@@ -48,7 +48,7 @@ export class ReportPageView implements IView {
     this._bindEvent();
   }
 
-  maskRepaint($element) {
+  repaintMask($element) {
     this.maskHelper.repaint($element);
   }
 
