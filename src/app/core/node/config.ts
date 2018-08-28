@@ -5,5 +5,5 @@ import {IGraphic} from '@core/node/graphic/graphic';
 interface GraphicItem {
   regionClass: Type<Region>;
   graphicClass: Type<IGraphic>;
-  contentClass: Type<IContent>;
+  contentClass: Type<IGraphicView>;
 }

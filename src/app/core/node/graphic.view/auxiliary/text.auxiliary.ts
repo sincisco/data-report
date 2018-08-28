@@ -1,11 +1,7 @@
 import * as _ from 'lodash';
 
 import {TextGraphic} from '../../graphic/auxiliary.graphic/text.graphic';
-import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
-
-interface TextOption {
-  text?: string;
-}
+import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
 
 const TextTemplate = `<div class="m-rect m-rect-text"
  style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, Arial, sans-serif; 
@@ -25,10 +21,10 @@ const TextTemplate = `<div class="m-rect m-rect-text"
 export class TextAuxiliary extends Auxiliary {
   $element: JQuery;
   private _$editor: JQuery;
-  private _option: TextOption = {};
-  private _editor: any;
 
+  private _text: string;
   private _creating = false;
+  private _editor: any;
 
   constructor(private textGraphic: TextGraphic) {
     super();
@@ -37,14 +33,17 @@ export class TextAuxiliary extends Auxiliary {
     textGraphic.addChild(this);
   }
 
-  init(option?: TextOption) {
-    this._option = option;
+  init(option?: any) {
+    if (option && option.text) {
+      this._$editor.html(option.text);
+    }
   }
 
 
-
   update(option: any) {
-    this._option = _.defaultsDeep(option, this._option);
+    if (option.text) {
+      this._$editor.html(option.text);
+    }
   }
 
   activate() {
@@ -118,7 +117,7 @@ export class TextAuxiliary extends Auxiliary {
         .then(editor => {
           this._creating = false;
           this._editor = editor;
-          editor.setData(this._option.text || '');
+          // editor.setData();
           console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()), editor);
         })
         .catch(error => {
@@ -130,7 +129,7 @@ export class TextAuxiliary extends Auxiliary {
 
   deactivate() {
     if (this._editor) {
-      this._option.text = this._editor.getData();
+      console.log(this._editor.getData());
       document.getSelection().removeAllRanges();
     }
 

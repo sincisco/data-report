@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import {CommentGraphic} from '../../graphic/auxiliary.graphic/comment.graphic';
-import {Auxiliary} from '@core/node/content/auxiliary/auxiliary';
+import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
 
 interface CommentOption {
@@ -30,8 +30,6 @@ export class CommentAuxiliary extends Auxiliary {
   $element: JQuery;
   private _$editor: JQuery;
   private _option: CommentOption;
-
-  configClass = CommentConfigComponent;
 
   private _editorInstance: any;
   private _creating = false;

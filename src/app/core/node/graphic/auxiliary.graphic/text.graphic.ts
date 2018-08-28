@@ -4,8 +4,7 @@ import {IGraphic} from '../graphic';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {ExplicitRegion} from '../../region/explicit.region';
-import {TextAuxiliary} from '@core/node/content/auxiliary/text.auxiliary';
+import {TextAuxiliary} from '@core/node/graphic.view/auxiliary/text.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
 import {Region} from '@core/node/region/region';
@@ -21,7 +20,7 @@ export class TextGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _content: IContent;
+  private _content: IGraphicView;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
   constructor(private _region: Region) {
@@ -47,6 +46,7 @@ export class TextGraphic implements IGraphic {
     if (option) {
       this.configModel.writeOption(option);
     }
+    this._content.init({});
     this.configModel.graphic = this;
   }
 
@@ -64,7 +64,6 @@ export class TextGraphic implements IGraphic {
 
   update(option: any) {
     if (this._content) {
-      // this._region.setDimensions(option.width, option.height);
       this._content.update(option);
     }
   }

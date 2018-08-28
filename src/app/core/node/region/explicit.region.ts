@@ -3,7 +3,7 @@ import {closestNum} from '../../../utils/common';
 import {contextMenuHelper} from '../../../utils/contextMenu';
 import {fromEvent, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/internal/operators';
-import {TextAuxiliary} from '../content/auxiliary/text.auxiliary';
+import {TextAuxiliary} from '../graphic.view/auxiliary/text.auxiliary';
 import {CoordinatesAndDimensions, Dimensions} from '../interface';
 import {IGraphic} from '../graphic/graphic';
 import {TextGraphic} from '../graphic/auxiliary.graphic/text.graphic';

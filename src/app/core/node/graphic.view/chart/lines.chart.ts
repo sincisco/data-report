@@ -5,7 +5,7 @@ import {Axis} from './echart.interface/axis';
 import {Grid} from './echart.interface/grid';
 import {ChartGraphic} from '../../graphic/chart.graphic/chart.graphic';
 import {LineSeriesConfig} from './echart.interface/series/line.series';
-import {Chart} from '@core/node/content/chart/chart';
+import {Chart} from '@core/node/graphic.view/chart/chart';
 import {LineConfigComponent} from '../../../../components/graphic.config/chart/line.config.component';
 
 export interface ChartLineOption {

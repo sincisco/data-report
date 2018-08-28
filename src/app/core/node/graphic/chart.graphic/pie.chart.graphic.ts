@@ -1,12 +1,12 @@
 import {Region} from '../../region/region';
-import {Chart} from '../../content/chart/chart';
+import {Chart} from '../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
-import {Title} from '@core/node/content/chart/echart.interface/title';
-import {Grid} from '@core/node/content/chart/echart.interface/grid';
-import {Axis} from '@core/node/content/chart/echart.interface/axis';
-import {PieSeriesConfig} from '@core/node/content/chart/echart.interface/series/pie.series';
+import {Title} from '@core/node/graphic.view/chart/echart.interface/title';
+import {Grid} from '@core/node/graphic.view/chart/echart.interface/grid';
+import {Axis} from '@core/node/graphic.view/chart/echart.interface/axis';
+import {PieSeriesConfig} from '@core/node/graphic.view/chart/echart.interface/series/pie.series';
 import {PieConfigComponent} from '../../../../components/graphic.config/chart/pie.config.component';
 
 export interface ChartPieConfig {

@@ -1,5 +1,5 @@
 
-export abstract class Auxiliary implements IContent {
+export abstract class Auxiliary implements IGraphicView {
   abstract init(option: any);
 
   abstract update(option: any);
@@ -17,10 +17,6 @@ export abstract class Auxiliary implements IContent {
   }
 
   deactivate() {
-  }
-
-  getOption() {
-
   }
 
   abstract destroy();

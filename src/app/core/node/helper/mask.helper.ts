@@ -9,16 +9,8 @@ export class MaskHelper {
     this._$maskRight = _$mask.find('.mask-right');
     this._$maskTop = _$mask.find('.mask-top');
     this._$maskBottom = _$mask.find('.mask-bottom');
-
-    this._init();
   }
 
-  private _init() {
-    this._$mask.click(() => {
-      console.log('$mask  click');
-      // this._event.emit('deactivateRegion');
-    });
-  }
 
   public repaint($activateElement: JQuery) {
     const left = $activateElement.position().left,

@@ -48,8 +48,4 @@ export class ListFilter extends FilterNode {
 
   destroy() {
   }
-
-  getOption() {
-
-  }
 }

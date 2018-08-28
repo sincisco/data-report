@@ -10,7 +10,7 @@ import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
-import {PieSeriesConfig} from '@core/node/content/chart/echart.interface/series/pie.series';
+import {PieSeriesConfig} from '@core/node/graphic.view/chart/echart.interface/series/pie.series';
 
 export const PIE_SERIES_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,

@@ -5,7 +5,7 @@ enum ChartState {
 }
 
 // chartNode
-export class Chart implements IContent {
+export class Chart implements IGraphicView {
   $element: JQuery;
   protected _echart: Echart;
 

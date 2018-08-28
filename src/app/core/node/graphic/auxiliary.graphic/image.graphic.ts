@@ -6,7 +6,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 import * as _ from 'lodash';
 import {ExplicitRegion} from '../../region/explicit.region';
 import {ChangeItem, ModelEventTarget} from '../../event/model.event';
-import {ImageAuxiliary} from '@core/node/content/auxiliary/image.auxiliary';
+import {ImageAuxiliary} from '@core/node/graphic.view/auxiliary/image.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
 
@@ -24,7 +24,7 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   private _$frame: JQuery;
 
   private _region: ExplicitRegion;
-  private _content: IContent;
+  private _content: IGraphicView;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
   constructor(region: ExplicitRegion) {

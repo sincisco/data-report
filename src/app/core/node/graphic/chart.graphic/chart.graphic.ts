@@ -1,7 +1,7 @@
 import {ComponentRef} from '@angular/core';
 import {Region} from '../../region/region';
 import {IGraphic} from '../graphic';
-import {Chart} from '../../content/chart/chart';
+import {Chart} from '../../graphic.view/chart/chart';
 
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
@@ -41,6 +41,7 @@ export abstract class ChartGraphic implements IGraphic {
    */
   protected constructor(region: Region) {
     this.$element = $(template);
+
     this._$frame = this.$element.find('.frame');
     this._$toolbar = this.$element.find('.m-graphic-toolbar');
 
@@ -49,18 +50,15 @@ export abstract class ChartGraphic implements IGraphic {
     this._bindToolbarEvent();
   }
 
+  abstract init(option?: any);
+
+  abstract getOption();
+
   addChild(chart: Chart) {
     this._chart = chart;
     this._$frame.append(chart.$element);
   }
 
-  abstract init(option?: any);
-
-  getOption() {
-    if (this._chart) {
-      return this._chart.getOption();
-    }
-  }
 
   update(option: any) {
     if (this._chart) {

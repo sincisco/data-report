@@ -6,7 +6,7 @@ import {
 import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
 
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
-import {Grid} from '@core/node/content/chart/echart.interface/grid';
+import {Grid} from '@core/node/graphic.view/chart/echart.interface/grid';
 import {debounceTime} from 'rxjs/operators';
 import {removeUndefined} from '../../utils/common';
 

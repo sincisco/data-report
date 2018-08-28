@@ -1,4 +1,4 @@
-interface IContent {
+interface IGraphicView {
   init(option: any);
 
   /**
@@ -8,8 +8,6 @@ interface IContent {
   update(option: any);
 
   updateTheme(theme: string);
-
-  getOption();
 
   /**
    * 全量刷新内容区域，防止长时间操作，导致内容状态不一致；
@@ -26,10 +24,4 @@ interface IContent {
   deactivate();
 
   destroy();
-}
-
-interface ContentOption {
-  type: string;
-
-  [key: string]: any;
 }

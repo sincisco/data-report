@@ -1,10 +1,10 @@
 import {Region} from '../../region/region';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
-import {Grid} from '../../content/chart/echart.interface/grid';
-import {Axis} from '../../content/chart/echart.interface/axis';
-import {Title} from '../../content/chart/echart.interface/title';
-import {LineSeriesConfig} from '../../content/chart/echart.interface/series/line.series';
-import {LinesChart} from '../../content/chart/lines.chart';
+import {Grid} from '../../graphic.view/chart/echart.interface/grid';
+import {Axis} from '../../graphic.view/chart/echart.interface/axis';
+import {Title} from '../../graphic.view/chart/echart.interface/title';
+import {LineSeriesConfig} from '../../graphic.view/chart/echart.interface/series/line.series';
+import {LinesChart} from '../../graphic.view/chart/lines.chart';
 import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
 import {LineConfigComponent} from '../../../../components/graphic.config/chart/line.config.component';
 

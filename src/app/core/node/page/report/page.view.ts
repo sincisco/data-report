@@ -90,6 +90,11 @@ export class PageView implements IView {
   }
 
   private _bindEvent() {
+    this.$element.find('.u-edit-mask').click(() => {
+      console.log('$mask  click');
+      this._event.dispatchEvent('deactivateRegion');
+    });
+
     this.$grid
       .on('click', ($event) => {
         if ($event.target === this.$grid[0]) {
