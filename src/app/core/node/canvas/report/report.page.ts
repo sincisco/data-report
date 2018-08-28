@@ -29,7 +29,7 @@ export class ReportPage extends ReportPageView implements IPage {
     super();
     this.selectManager = new SelectManager();
     this.regionManager = new RegionManager(this);
-    this.addListener(this.model);
+    this.listenToModel(this.model);
     this._init();
 
     this.refresh(this.model);
@@ -37,18 +37,18 @@ export class ReportPage extends ReportPageView implements IPage {
 
   private _init() {
     this
-      .on('select', () => {
+      .addEventListener('select', () => {
         this.select();
         this.activateConfig();
       })
-      .on('regionSelect', (left, top, width, height) => {
+      .addEventListener('regionSelect', (left, top, width, height) => {
         const array = this.regionManager.selectByBox(left, top, width, height);
         this.selectManager.clear();
         array.forEach((value) => {
           this.selectManager.ctrlSelect(value);
         });
       })
-      .on('deactivateRegion', () => {
+      .addEventListener('deactivateRegion', () => {
         this.regionManager.deactivate();
       });
 

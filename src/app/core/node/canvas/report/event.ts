@@ -55,7 +55,9 @@ export class ViewEventTarget {
   }
 }
 
-export interface IView extends IEventSource {
+export interface IView extends IEventTarget {
+  $element: JQuery;
+
   // 试图到模型
   bind();
 
@@ -65,10 +67,10 @@ export interface IView extends IEventSource {
   destroy();
 }
 
-export interface IEventSource {
-  on(eventName: string, callback: Function);
+export interface IEventTarget {
+  addEventListener(eventName: string, callback: Function);
 
-  off(eventName: string, fn?: Function);
+  removeEventListener(eventName: string, fn?: Function);
 }
 
 export interface IModelObserver {

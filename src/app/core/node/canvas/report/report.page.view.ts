@@ -1,5 +1,5 @@
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {ViewEventTarget, IEventSource, IView} from '@core/node/canvas/report/event';
+import {ViewEventTarget, IEventTarget, IView} from '@core/node/canvas/report/event';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
@@ -70,6 +70,10 @@ export class ReportPageView implements IView {
     });
   }
 
+  public bind() {
+    this._bindEvent();
+  }
+
   private _bindEvent() {
     this.$grid
       .on('click', ($event) => {
@@ -102,6 +106,13 @@ export class ReportPageView implements IView {
         (<DragEvent>$event.originalEvent).dataTransfer.dropEffect = 'copyMove';
         $event.preventDefault();
       });
+  }
+
+  private _bindContextEvent() {
+    this.$grid.contextmenu(($event: JQuery.Event) => {
+      contextMenuHelper.open(this._contextArray, $event.pageX, $event.pageY, $event);
+      return false;
+    });
   }
 
   public listenToModel(model: PageModel) {
@@ -148,20 +159,17 @@ export class ReportPageView implements IView {
     this._contextArray = this._contextArray.concat(array);
   }
 
-  private _bindContextEvent() {
-    this.$grid.contextmenu(($event: JQuery.Event) => {
-      contextMenuHelper.open(this._contextArray, $event.pageX, $event.pageY, $event);
-      return false;
-    });
-  }
-
-  on(eventName: string, callback: Function) {
+  addEventListener(eventName: string, callback: Function) {
     this._event.addEventListener(eventName, callback);
     return this;
   }
 
-  off(eventName: string, fn?: Function) {
+  removeEventListener(eventName: string, fn?: Function) {
     this._event.removeEventListener(eventName, fn);
     return this;
+  }
+
+  destroy() {
+
   }
 }
