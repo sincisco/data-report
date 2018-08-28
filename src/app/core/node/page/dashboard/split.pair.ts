@@ -1,7 +1,7 @@
-import {SplitGutter} from '@core/node/canvas/dashboard/split.gutter';
-import {SplitArea} from '@core/node/canvas/dashboard/split.area';
-import {getBoundingClientRect} from '@core/node/canvas/dashboard/dashboard.canvas';
-import {Split} from '@core/node/canvas/dashboard/split';
+import {SplitGutter} from '@core/node/page/dashboard/split.gutter';
+import {SplitArea} from '@core/node/page/dashboard/split.area';
+import {getBoundingClientRect} from '@core/node/page/dashboard/dashboard.canvas';
+import {Split} from '@core/node/page/dashboard/split';
 
 
 export class SplitPair {

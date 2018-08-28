@@ -10,7 +10,7 @@ import {clipboard} from '@core/node/clipboard';
 import {ChangeItem, ModelEventTarget} from '@core/node/manager/change.manager';
 import {ISelectManager, SelectManager} from '@core/node/manager/select.manager';
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {ReportPageView} from '@core/node/canvas/report/report.page.view';
+import {ReportPageView} from '@core/node/page/report/report.page.view';
 import {RegionManager} from '@core/node/manager/region.manager';
 
 

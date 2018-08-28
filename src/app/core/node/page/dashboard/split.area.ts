@@ -1,7 +1,7 @@
-import {addEventListener1, isString, NOOP} from '@core/node/canvas/dashboard/dashboard.canvas';
+import {addEventListener1, isString, NOOP} from '@core/node/page/dashboard/dashboard.canvas';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {Split} from '@core/node/canvas/dashboard/split';
-import {SplitPair} from '@core/node/canvas/dashboard/split.pair';
+import {Split} from '@core/node/page/dashboard/split';
+import {SplitPair} from '@core/node/page/dashboard/split.pair';
 import {Container} from '@core/node/container/container.interface';
 import {Card} from '@core/node/container/card.container';
 import {Cube} from '@core/node/container/cube.container';

@@ -1,5 +1,5 @@
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {ViewEventTarget, IEventTarget, IView} from '@core/node/canvas/report/event';
+import {ViewEventTarget, IEventTarget, IView} from '@core/node/page/report/event';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {contextMenuHelper} from '../../../../utils/contextMenu';

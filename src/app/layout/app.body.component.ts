@@ -1,7 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
-import {ReportPage} from '@core/node/canvas/report/report.page';
-import {Split} from '@core/node/canvas/dashboard/split';
-import {DashboardCanvas} from '@core/node/canvas/dashboard/dashboard.canvas';
+import {ReportPage} from '@core/node/page/report/report.page';
+import {Split} from '@core/node/page/dashboard/split';
+import {DashboardCanvas} from '@core/node/page/dashboard/dashboard.canvas';
 import {session} from '@core/node/utils/session';
 
 @Component({

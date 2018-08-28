@@ -1,4 +1,4 @@
-import {Split} from '@core/node/canvas/dashboard/split';
+import {Split} from '@core/node/page/dashboard/split';
 
 export const NOOP = () => false;
 
