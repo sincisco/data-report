@@ -68,6 +68,24 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
         console.log(dimensions);
       });
+    this.http.post('http://10.2.78.207:8080/table/query', {tableName: 'young_people_list'})
+      .subscribe((data: any) => {
+        console.log(data);
+        let dimensions = data.data.dimensions;
+        dimensions = dimensions.map((value) => {
+          value.type = value.type === 'INT' ? 'int' : 'ordinal';
+          return value;
+        });
+
+        datasetManager.addDataset(data.data.id, '各大学国家杰出青年入选数量', {
+          dimensions,
+          source: data.data.source
+        });
+
+        console.log(dimensions);
+      });
+
+
 
 
   }
