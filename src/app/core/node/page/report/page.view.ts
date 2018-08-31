@@ -1,10 +1,11 @@
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {ViewEventTarget, IView} from '@core/node/event/view.event';
+import {ViewEventTarget} from '@core/node/event/view.event';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {MaskHelper} from '@core/node/helper/mask.helper';
 import {PageModel} from '../../../../components/page.config/page.model';
+import {IView} from '@core/node/structure/view';
 
 const TEMPLATE = `
     <div class="report-region">
@@ -58,6 +59,14 @@ export class PageView implements IView {
   set scale(param: number) {
     this._scale = param / 100;
     this._refresh();
+  }
+
+  /**
+   * 获取画布相对于文档的偏移值
+   * @returns {JQuery.Coordinates | undefined}
+   */
+  offset() {
+    return this.$grid.offset();
   }
 
   repaintMask($element) {

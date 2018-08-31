@@ -56,15 +56,6 @@ export class ViewEventTarget {
   }
 }
 
-export interface IView extends IEventTarget {
-  $element: JQuery;
-
-  // 模型到视图
-  listenToModel(model: IModel);
-
-  destroy();
-}
-
 export interface IModelObserver {
   addModelListener(model);
 }

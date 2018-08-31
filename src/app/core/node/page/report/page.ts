@@ -116,17 +116,13 @@ export class ReportPage extends PageView implements IPage {
     return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
-  offset() {
-    return this.$grid.offset();
-  }
-
   addChild(child: Region) {
     child.page = this;
     this.regionManager.add(child);
     this.$grid.append(child.$element);
   }
 
-  deleteChild(child: Region) {
+  removeChild(child: Region) {
     this.selectManager.delete(child);
     this.regionManager.remove(child);
   }

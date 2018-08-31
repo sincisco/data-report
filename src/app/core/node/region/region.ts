@@ -128,7 +128,7 @@ export abstract class Region {
       this._graphic.destroy();
       this._graphic = null;
     }
-    this._page.deleteChild(this);
+    this._page.removeChild(this);
     this._page = null;
     this.$element.remove();
   }
