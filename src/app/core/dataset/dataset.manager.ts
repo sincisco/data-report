@@ -1,12 +1,11 @@
 import {Dataset, DatasetWrapper} from '@core/dataset/dataset.interface';
 
 class DatasetManager {
-  private _map: { [key: string]: Dataset } = {};
-  private _array: Array<DatasetWrapper> = [];
+  private _map: Map<string, DatasetWrapper> = new Map();
   private _currentDatasetWrapper: DatasetWrapper;
 
   addDataset(name: string, displayName: string, dataset: Dataset) {
-    this._array.push({
+    this._map.set(displayName, {
       name,
       displayName,
       dataset
@@ -15,17 +14,19 @@ class DatasetManager {
   }
 
   get list(): Array<string> {
-    return this._array.map((value: DatasetWrapper) => {
-      return value.displayName;
+    const retArray = [];
+    this._map.forEach((value: DatasetWrapper, key, map) => {
+      retArray.push(value.displayName);
     });
+    return retArray;
+  }
+
+  has(name: string): boolean {
+    return this._map.has(name);
   }
 
   getDataset(name: string): DatasetWrapper {
-    return this._currentDatasetWrapper = this._array.find((value: DatasetWrapper) => {
-      if (value.displayName === name) {
-        return true;
-      }
-    });
+    return this._currentDatasetWrapper = this._map.get(name);
   }
 
   get current(): Dataset {
@@ -33,7 +34,7 @@ class DatasetManager {
   }
 
   getDefaultDataset(): DatasetWrapper {
-    return this._array[0];
+    return this._map.entries().next().value[1];
   }
 }
 

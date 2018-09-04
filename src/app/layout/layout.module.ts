@@ -14,13 +14,17 @@ import {SchemaPillsComponent} from './sider/model/schema.component';
 import {SiderRightComponent} from './sider/sider.right.component';
 import {ConfigModule} from '../components/config/config.module';
 import {GraphicConfigModule} from '../components/graphic.config/graphic.config.module';
+import {DimensionAreaComponent} from './sider/model/dimension.area.component';
+import {MeasureAreaComponent} from './sider/model/measure.area.component';
 
 const COMPONENTS = [
   AppHeaderComponent,
   AppBodyComponent,
   SiderLeftComponent,
   SiderRightComponent,
-  SchemaPillsComponent
+  // SchemaPillsComponent,
+  DimensionAreaComponent,
+  MeasureAreaComponent
 ];
 
 @NgModule({

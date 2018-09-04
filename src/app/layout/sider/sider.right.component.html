@@ -8,6 +8,7 @@
   <div class="list">
     <div class="u-btn u-btn-menu" (click)="doClick($event)" [title]="modelName">{{modelName}}</div>
   </div>
-  <div class="m-schema-pills" schema-pills [modelName]="modelName">
-  </div>
+  <!--<div class="m-schema-pills" schema-pills [modelName]="modelName"> </div>-->
+  <app-dimension-area [modelName]="modelName"></app-dimension-area>
+  <app-measure-area [modelName]="modelName"></app-measure-area>
 </div>

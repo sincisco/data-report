@@ -1,0 +1,40 @@
+<div class="head">
+  <h4>度量</h4>
+  <i class="u-icn u-icn-add"></i>
+</div>
+<div class="body">
+  <div class="group group-measures">
+    <div class="m-schemaList">
+      <ul class="list list-item">
+        <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
+            (click)="tableClick($event,'measures')" data-switch="true">
+          <i class="u-icn u-icn-angle-down"></i>{{datasetWrapper?.displayName}}
+        </li>
+        <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
+          <li *ngIf="item.type!=='ordinal'"
+              class="u-bitem j-pill-item j-item u-bitem-2 draggable" draggable="true"
+              (dragstart)="doDragStart($event,item)"
+              [attr.fieldid]="item" [attr.datasetname]="datasetWrapper.name">
+                <span class="txt handle">
+                  <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">{{item.comment||item.name}}</b>
+                </span>
+            <div class="menu">
+              <i></i>
+            </div>
+          </li>
+        </ng-container>
+        <li class="u-bitem u-bitem-table" title="自定义度量">
+          <i class="u-icn u-icn-angle-down"></i>自定义度量
+        </li>
+        <li class="u-bitem j-pill-item j-item u-bitem-2 dragable" data-fieldid="567098">
+                    <span class="txt handle">
+                      <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-whole"></i><b class="j-text">记录数</b>
+                    </span>
+          <div class="menu">
+            <i></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
