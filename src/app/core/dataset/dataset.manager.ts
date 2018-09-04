@@ -8,6 +8,7 @@ class DatasetManager {
     this._map.set(displayName, {
       name,
       displayName,
+      state: {collapsed: false},
       dataset
     });
     return this;

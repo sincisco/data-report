@@ -60,17 +60,13 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
     draggableHeler.dragInfo = item;
   }
 
-  tableClick($event: MouseEvent, tableType: string) {
-    console.log($event);
-    const $target = $($event.target);
-    if ($target.data('switch') === 'true') {
-      $target.find('i').addClass('u-icn-angle-right').removeClass('u-icn-angle-right');
-      $target.data('switch', 'false');
+  tableClick(event: MouseEvent) {
+    this.datasetWrapper.state.collapsed = !this.datasetWrapper.state.collapsed;
+    if (this.datasetWrapper.state.collapsed) {
+      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
     } else {
-      $target.find('i').removeClass('u-icn-angle-right').addClass('u-icn-angle-right');
-      $target.data('switch', 'true');
+      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();
     }
-    this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).toggle();
   }
 
   ngOnDestroy() {

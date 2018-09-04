@@ -15,6 +15,9 @@ import {draggableHeler} from '../../../utils/draggable.helper';
 import {DataSet} from '../../../core/adapter/groupBy';
 import {DatasetWrapper} from '@core/dataset/dataset.interface';
 import {datasetManager} from '@core/dataset/dataset.manager';
+import {filter, throttleTime} from 'rxjs/internal/operators';
+import {resizeTipHelper} from '@core/node/region/region';
+import {fromEvent} from 'rxjs';
 
 
 @Component({
@@ -57,22 +60,38 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
     draggableHeler.dragInfo = item;
   }
 
-  tableClick($event: MouseEvent, tableType: string) {
-    console.log($event);
-    const $target = $($event.target);
-    if ($target.data('switch') === 'true') {
-      $target.find('i').addClass('u-icn-angle-right').removeClass('u-icn-angle-right');
-      $target.data('switch', 'false');
+
+  tableClick(event: MouseEvent) {
+    this.datasetWrapper.state.collapsed = !this.datasetWrapper.state.collapsed;
+    if (this.datasetWrapper.state.collapsed) {
+      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
     } else {
-      $target.find('i').removeClass('u-icn-angle-right').addClass('u-icn-angle-right');
-      $target.data('switch', 'true');
+      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();
     }
-    this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).toggle();
   }
 
   ngOnDestroy() {
     this._elementRef = null;
     this._$element = null;
+  }
+
+  dragStartForDragBar(event: DragEvent) {
+
+    const subscription = fromEvent(document, 'mousemove')
+      /*.pipe(throttleTime(30))*/
+      .subscribe((mouseEvent: MouseEvent) => {
+        console.log(this._$element.offset());
+        console.log(mouseEvent.pageX, mouseEvent.pageY);
+        this._$element.height(Math.max(36, mouseEvent.pageY - this._$element.offset().top));
+      });
+    const mouseupHandler = () => {
+      subscription.unsubscribe();
+      document.removeEventListener('mouseup', mouseupHandler);
+    };
+    document.addEventListener('mouseup', mouseupHandler);
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
   }
 
 }

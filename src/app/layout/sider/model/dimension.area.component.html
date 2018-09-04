@@ -17,8 +17,8 @@
     <div class="m-schemaList">
       <ul class="list list-item">
         <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
-            (click)="tableClick($event,'dimensions')">
-          <i class="u-icn u-icn-angle-down"></i>{{datasetWrapper?.displayName}}
+            (click)="tableClick($event)">
+          <i class="u-icn u-icn-angle-down" [class.u-icn-angle-right]="datasetWrapper.state.collapsed"></i>{{datasetWrapper?.displayName}}
         </li>
         <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
           <li *ngIf="item.type==='ordinal'"
@@ -39,7 +39,7 @@
     </div>
   </div>
 </div>
-<div class="u-dragBar u-dragBar-v">
+<div class="u-dragBar u-dragBar-v" (dragstart)="dragStartForDragBar($event)" draggable="true">
   <div class="icon">
     <div class="line"></div>
   </div>

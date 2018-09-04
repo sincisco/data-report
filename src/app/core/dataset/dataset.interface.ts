@@ -24,5 +24,6 @@ export interface Dataset {
 export interface DatasetWrapper {
   name: string;
   displayName: string;
+  state: { collapsed: boolean };
   dataset: Dataset;
 }
