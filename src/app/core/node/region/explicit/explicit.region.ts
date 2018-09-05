@@ -42,6 +42,9 @@ export class ExplicitRegion extends Region {
         if (this._graphic) {
           this._graphic.resize();
         }
+      })
+      .addEventListener('activateRegion', () => {
+        this._page.activateRegion(this);
       });
   }
 
@@ -95,9 +98,6 @@ export class ExplicitRegion extends Region {
     this._view.destroy();
 
   }
-
-
-
 
 
   getOption() {

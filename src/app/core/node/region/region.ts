@@ -55,6 +55,8 @@ export abstract class Region {
   }
 
   setDimensions(width: number, height: number) {
+    this._model.setDimensions(width, height);
+    this._view.refresh();
   }
 
   abstract derender();

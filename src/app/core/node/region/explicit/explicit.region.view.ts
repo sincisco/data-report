@@ -66,6 +66,7 @@ export class ExplicitRegionView extends RegionView {
         }
         switch (newValue) {
           case RegionState.default:
+            this.$element.removeClass('selected multi-selected');
             break;
           case RegionState.selected:
             this.$element.addClass('selected');
@@ -285,7 +286,6 @@ export class ExplicitRegionView extends RegionView {
       .on('dblclick', ($event: JQuery.Event) => {
         console.log('dblclick');
         this._event.dispatchEvent('activateRegion');
-        // this.page.activateRegion(this);
       });
   }
 

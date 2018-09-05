@@ -81,7 +81,11 @@ export class CommentRegion extends Region {
     // this.refresh();
   }
 
+  setDimensions(width: number, height: number) {
+  }
 
+  derender() {
+  }
 
   /**
    * 1、销毁内部对象
@@ -96,17 +100,5 @@ export class CommentRegion extends Region {
     this._page.removeChild(this);
     this._page = null;
     this._view.destroy();
-  }
-
-
-  setDimensions(width: number, height: number) {
-    // this.width = width;
-    // this.height = height;
-    // this.refresh();
-  }
-
-
-
-  derender() {
   }
 }
