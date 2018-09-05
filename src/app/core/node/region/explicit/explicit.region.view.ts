@@ -44,6 +44,7 @@ export class ExplicitRegionView extends RegionView {
     this.$fill = this.$element.find('.g-fill');
     this._$mover = this.$element.find('.u-mover');
 
+    // 监听model变化
     this.listenToModel(_model);
     this.refresh();
     setTimeout(() => {
@@ -53,6 +54,7 @@ export class ExplicitRegionView extends RegionView {
 
   listenToModel(model: IRegionModel) {
     model.register('state', (key, oldValue, newValue, option) => {
+      console.log(key, oldValue, newValue);
       switch (oldValue) {
         case RegionState.selected:
           this.$element.removeClass('selected');
@@ -93,15 +95,15 @@ export class ExplicitRegionView extends RegionView {
   }
 
   private _bindEventForResize() {
-    let count = 0,
-      offsetX, offsetY,
+    let offsetX, offsetY,
       offset: JQuery.Coordinates,
       snapshot: CoordinatesAndDimensions,
-      _which: string;
+      which: string,
+      subscription: Subscription;
 
-    const _handleResize = (pageX, pageY) => {
+    const handleResize = (pageX, pageY) => {
       const model = this._model;
-      switch (_which) {
+      switch (which) {
         case 'resize-left':
           if (pageX < (offset.left + snapshot.width)) {
             offsetX = closestNum(pageX - offset.left);
@@ -168,37 +170,37 @@ export class ExplicitRegionView extends RegionView {
 
       }
     };
-
-    let subscription: Subscription;
-    const dragEndHelper = (event: MouseEvent) => {
+    const dragEndHandler = (event: MouseEvent) => {
       if (subscription) {
         subscription.unsubscribe();
         subscription = null;
-        document.removeEventListener('mouseup', dragEndHelper);
+        document.removeEventListener('mouseup', dragEndHandler);
         this.$element.removeClass('no-transition');
         resizeTipHelper.hide();
-        _handleResize(event.pageX, event.pageY);
+        handleResize(event.pageX, event.pageY);
         this._event.dispatchEvent('resizeEnd');
       }
     };
 
     this.$element.find('div.u-resize>.draggable')
       .on('dragstart', ($event: JQuery.Event) => {
-        count = 0;
         offset = this.$element.offset();
         snapshot = Object.assign(this._model.coordinates, this._model.dimensions);
-        _which = (<HTMLElement>$event.currentTarget).dataset.which;
+        which = (<HTMLElement>$event.currentTarget).dataset.which;
         resizeTipHelper.show($event.pageX, $event.pageY, this._model.width, this._model.height);
         this.$element.addClass('no-transition');
 
+        // 监听鼠标移动
         subscription = fromEvent(document, 'mousemove')
           .pipe(throttleTime(30))
           .subscribe((mouseEvent: MouseEvent) => {
-            _handleResize(mouseEvent.pageX, mouseEvent.pageY);
+            handleResize(mouseEvent.pageX, mouseEvent.pageY);
             resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._model.width, this._model.height);
             this.refresh();
           });
-        document.addEventListener('mouseup', dragEndHelper);
+        // 解除对伸缩事件的监听
+        document.addEventListener('mouseup', dragEndHandler);
+
         return false;
       });
     // 事件对象

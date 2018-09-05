@@ -56,7 +56,7 @@ class Store {
       return;
     } else {
       this.clearSelected();
-      region.select();
+      // region.select();
       this._selected = region;
     }
   }
@@ -67,14 +67,14 @@ class Store {
    */
   addMultiSelected(region: Region) {
     if (!this.include(region)) {
-      region.multiSelect();
+      // region.multiSelect();
       this._multiSelectArray.push(region);
     }
   }
 
   removeMultiSelected(region: Region) {
     if (this._multiSelectArray.includes(region)) {
-      region.multiUnselect();
+      // region.multiUnselect();
       this._multiSelectArray.splice(this._multiSelectArray.indexOf(region), 1);
 
       if (this._multiSelectArray.length === 1) {
@@ -88,14 +88,14 @@ class Store {
   clearSelected(): Region {
     const retRegion = this._selected;
     this._selected = null;
-    retRegion && retRegion.unselect();
+    // retRegion && retRegion.unselect();
     return retRegion;
   }
 
   clearTotalMultiSelected() {
     while (this._multiSelectArray.length > 0) {
       const region = this._multiSelectArray.pop();
-      region.multiUnselect();
+      // region.multiUnselect();
     }
   }
 

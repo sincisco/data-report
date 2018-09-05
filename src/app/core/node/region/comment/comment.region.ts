@@ -18,13 +18,6 @@ import {CommentRegionView} from './comment.region.view';
 
 export class CommentRegion extends Region {
 
-  private readonly _model: RegionModel;
-  private readonly _view: RegionView;
-
-  // 模型层
-  protected _page: ReportPage;
-  protected _graphic: IGraphic;
-
   constructor() {
     super();
     this._model = new RegionModel();

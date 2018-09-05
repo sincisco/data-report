@@ -1,4 +1,5 @@
 import {Region} from '../region/region';
+import {RegionState} from '@core/node/region/region.model';
 
 enum SelectStatus {
   default, single, multi
@@ -54,7 +55,7 @@ class Store {
       return;
     } else {
       this.clearSelected();
-      region.select();
+      region.state = RegionState.selected;
       this._selected = region;
     }
   }
@@ -65,14 +66,14 @@ class Store {
    */
   addMultiSelected(region: Region) {
     if (!this.include(region)) {
-      region.multiSelect();
+      region.state = RegionState.multiSelected;
       this._multiSelectArray.push(region);
     }
   }
 
   removeMultiSelected(region: Region) {
     if (this._multiSelectArray.includes(region)) {
-      region.multiUnselect();
+      region.state = RegionState.default;
       this._multiSelectArray.splice(this._multiSelectArray.indexOf(region), 1);
 
       if (this._multiSelectArray.length === 1) {
@@ -86,14 +87,16 @@ class Store {
   clearSelected(): Region {
     const retRegion = this._selected;
     this._selected = null;
-    retRegion && retRegion.unselect();
+    if (retRegion) {
+      retRegion.state = RegionState.default;
+    }
     return retRegion;
   }
 
   clearTotalMultiSelected() {
     while (this._multiSelectArray.length > 0) {
       const region = this._multiSelectArray.pop();
-      region.multiUnselect();
+      region.state = RegionState.default;
     }
   }
 

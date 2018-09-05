@@ -20,12 +20,6 @@ import {ExplicitRegionView} from './explicit.region.view';
 
 export class ExplicitRegion extends Region {
 
-  // 模型层
-  private readonly _model: RegionModel;
-  private readonly _view: RegionView;
-  protected _graphic: IGraphic;
-
-
   constructor(protected _page: ReportPage) {
     super();
     this._model = new RegionModel();
@@ -33,10 +27,10 @@ export class ExplicitRegion extends Region {
 
     this._page.addChild(this);
 
-    this.init();
+    this._init();
   }
 
-  public init() {
+  private _init() {
     this._view
       .addEventListener('select', () => {
         this._page.selectManager.select(this);
@@ -57,28 +51,15 @@ export class ExplicitRegion extends Region {
 
   /**
    * 用户单击mover的时候调用select，进入选中状态
+   *
+   * unselect 点击画布  所有的region、调用unselect方法
    */
-  select() {
-    this._model.state = RegionState.selected;
-    if (this._graphic) {
+  set state(param: RegionState) {
+    if (param === RegionState.selected && this._graphic) {
       reportGlobal.instance = this._graphic;
       this._graphic.activateConfig();
     }
-  }
-
-  /**
-   * 点击画布  所有的region、调用unselect方法
-   */
-  unselect() {
-    this._model.state = RegionState.default;
-  }
-
-  multiSelect() {
-    this._model.state = RegionState.multiSelected;
-  }
-
-  multiUnselect() {
-    this._model.state = RegionState.default;
+    this._model.state = param;
   }
 
   /**
