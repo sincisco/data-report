@@ -4,7 +4,7 @@ import {IGraphic} from '../graphic';
 
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
-import {CommentRegion} from '../../region/comment.region';
+import {CommentRegion} from '../../region/comment/comment.region';
 import {CommentAuxiliary} from '@core/node/graphic.view/auxiliary/comment.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';

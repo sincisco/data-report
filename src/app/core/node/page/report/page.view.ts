@@ -1,11 +1,10 @@
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {ViewEventTarget} from '@core/node/event/view.event';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {MaskHelper} from '@core/node/helper/mask.helper';
 import {PageModel} from '../../../../components/page.config/page.model';
-import {IView} from '@core/node/structure/view';
+import {View} from '@core/node/structure/view';
 
 const TEMPLATE = `
     <div class="report-region">
@@ -24,9 +23,7 @@ const TEMPLATE = `
     </div>
 `;
 
-export class PageView implements IView {
-  private _event = new ViewEventTarget();
-
+export class PageView extends View {
   $element: JQuery;
   private readonly _$canvas: JQuery;
   private readonly _$box: JQuery;
@@ -40,6 +37,7 @@ export class PageView implements IView {
   private _contextArray = [];
 
   constructor() {
+    super();
     const $element = this.$element = $(TEMPLATE);
 
     this._$canvas = $element.find('.report-canvas');
@@ -188,16 +186,6 @@ export class PageView implements IView {
 
   public appendContext(array: Array<any>) {
     this._contextArray = this._contextArray.concat(array);
-  }
-
-  addEventListener(eventName: string, callback: Function) {
-    this._event.addEventListener(eventName, callback);
-    return this;
-  }
-
-  removeEventListener(eventName: string, fn?: Function) {
-    this._event.removeEventListener(eventName, fn);
-    return this;
   }
 
   destroy() {

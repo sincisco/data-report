@@ -117,7 +117,7 @@ export class ReportPage extends PageView implements IPage {
   }
 
   addChild(child: Region) {
-    child.page = this;
+    // child.page = this;
     this.regionManager.add(child);
     this.$grid.append(child.$element);
   }

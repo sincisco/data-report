@@ -16,7 +16,6 @@ import {DataSet} from '../../../core/adapter/groupBy';
 import {DatasetWrapper} from '@core/dataset/dataset.interface';
 import {datasetManager} from '@core/dataset/dataset.manager';
 import {filter, throttleTime} from 'rxjs/internal/operators';
-import {resizeTipHelper} from '@core/node/region/region';
 import {fromEvent} from 'rxjs';
 
 

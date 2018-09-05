@@ -1,7 +1,7 @@
-import {ExplicitRegion} from '@core/node/region/explicit.region';
+import {ExplicitRegion} from '@core/node/region/explicit/explicit.region';
 import {ReportPage} from '@core/node/page/report/page';
 import {TextGraphic} from '@core/node/graphic/auxiliary.graphic/text.graphic';
-import {CommentRegion} from '@core/node/region/comment.region';
+import {CommentRegion} from '@core/node/region/comment/comment.region';
 import {CommentGraphic} from '@core/node/graphic/auxiliary.graphic/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
 import {BarChartGraphic} from '@core/node/graphic/chart.graphic/bar.chart.graphic';
@@ -10,6 +10,7 @@ import {session} from '@core/node/utils/session';
 import {LineChartGraphic} from '@core/node/graphic/chart.graphic/line.chart.graphic';
 import {PieChartGraphic} from '@core/node/graphic/chart.graphic/pie.chart.graphic';
 import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
+import {Region} from '@core/node/region/region';
 
 
 interface GraphicMeta {
@@ -52,9 +53,9 @@ class GraphicFactory {
   newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number, option?: any) {
     if (newGraphicMeta[graphicName]) {
       const meta: GraphicMeta = newGraphicMeta[graphicName];
-      const region = new meta.region();
+      const region: Region = new meta.region();
       region.setCoordinates(x, y);
-      region.refresh();
+      // region.refresh();
       page.addChild(region);
 
       const graphic = new meta.graphic(region);

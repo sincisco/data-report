@@ -4,7 +4,7 @@ import {IGraphic} from '../graphic';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {ExplicitRegion} from '../../region/explicit.region';
+import {ExplicitRegion} from '../../region/explicit/explicit.region';
 import {ChangeItem, ModelEventTarget} from '../../event/model.event';
 import {ImageAuxiliary} from '@core/node/graphic.view/auxiliary/image.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
