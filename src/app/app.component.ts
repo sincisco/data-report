@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, ElementRef, Type} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, KeyValueDiffers, Type} from '@angular/core';
 
 import * as _ from 'lodash';
 import {filterExecutor} from '@core/filter/filter.executor';
+import {session} from '@core/node/utils/session';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,8 @@ import {filterExecutor} from '@core/filter/filter.executor';
 export class AppComponent implements AfterViewInit {
   title = 'app';
 
-  constructor(private _elementRef: ElementRef) {
-
+  constructor(private _elementRef: ElementRef, private _differs: KeyValueDiffers) {
+    session.differs = _differs;
   }
 
   ngAfterViewInit() {

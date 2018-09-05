@@ -1,8 +1,21 @@
+import {EventEmitter, KeyValueDiffer} from '@angular/core';
 import {closestNum} from '../../../utils/common';
 import {Dimensions} from '@core/node/interface';
+import {session} from '@core/node/utils/session';
+import {debounceTime} from 'rxjs/operators';
+import {ModelEventTarget} from '@core/node/event/model.event';
+
 
 export enum RegionState {
   default, selected, multiSelected, activated
+}
+
+interface RegionOption {
+  zIndex: number;
+  left: number;
+  top: number;
+  width: number;
+  height: number;
 }
 
 export interface IRegionModel {
@@ -13,72 +26,115 @@ export interface IRegionModel {
   [key: string]: any;
 }
 
-export class RegionModel implements IRegionModel {
-  protected _zIndex: number;
-  protected _coordinates: JQuery.Coordinates;
-  protected _dimensions: Dimensions;
+export class RegionModel extends ModelEventTarget implements IRegionModel {
+  protected option: RegionOption;
   // 非持久化状态层
   protected _state: RegionState;
 
+  private _eventEmitter: EventEmitter<string>;
+  private _differ: KeyValueDiffer<any, any>;
+
   constructor(left: number = 100, top: number = 100, width: number = 300, height: number = 200) {
-    this._coordinates = {
+    super();
+    this.option = {
+      zIndex: 1,
       left,
-      top
-    };
-    this._dimensions = {
+      top,
       width,
       height
     };
+
     this._state = RegionState.default;
+
+    this._eventEmitter = new EventEmitter<string>();
+    this._differ = session.differs.find(this).create();
+
+    this._eventEmitter.pipe(debounceTime(50)).subscribe((value) => {
+      const changes = this._differ.diff(this.option), array = [];
+      if (changes) {
+        changes.forEachRemovedItem((record) => {
+          console.log('removedItem', JSON.stringify(record.key));
+          array.push({
+            key: `remove.${record.key}`,
+            oldValue: record.previousValue,
+            newValue: record.currentValue,
+            option: value
+          });
+        });
+        changes.forEachAddedItem((record) => {
+          array.push({
+            key: `add.${record.key}`,
+            oldValue: record.previousValue,
+            newValue: record.currentValue,
+            option: value
+          });
+          console.log('addedItem', JSON.stringify(record.key));
+        });
+        changes.forEachChangedItem((record) => {
+          console.log('changedItem', JSON.stringify(record.key));
+          array.push({
+            key: record.key,
+            oldValue: record.previousValue,
+            newValue: record.currentValue,
+            option: value
+          });
+        });
+        array.forEach((item) => {
+          this.trigger(item);
+        });
+      }
+    });
   }
 
   get zIndex(): number {
-    return this._zIndex;
+    return this.option.zIndex;
   }
 
   get coordinates(): JQuery.Coordinates {
-    return Object.assign({}, this._coordinates);
+    const {left, top} = this.option;
+    return {left, top};
   }
 
   get dimensions(): Dimensions {
-    return Object.assign({}, this._dimensions);
+    const {width, height} = this.option;
+    return {width, height};
   }
 
   set left(param: number) {
-    this._coordinates.left = closestNum(param);
+    this.option.left = closestNum(param);
   }
 
   set top(param: number) {
-    this._coordinates.top = closestNum(param);
+    this.option.top = closestNum(param);
   }
 
   get left(): number {
-    return this._coordinates.left;
+    return this.option.left;
   }
 
   get top(): number {
-    return this._coordinates.top;
+    return this.option.top;
   }
 
   set width(width: number) {
-    this._dimensions.width = closestNum(width);
+    this.option.width = closestNum(width);
   }
 
   set height(height: number) {
-    this._dimensions.height = closestNum(height);
+    this.option.height = closestNum(height);
   }
 
   get width() {
-    return this._dimensions.width;
+    return this.option.width;
   }
 
   get height() {
-    return this._dimensions.height;
+    return this.option.height;
   }
 
   setCoordinates(left: number, top: number) {
-    this._coordinates.left = left;
-    this._coordinates.top = top;
+    this.option.left = left;
+    this.option.top = top;
   }
 
   setDimensions(width: number, height: number) {
@@ -105,23 +161,14 @@ export class RegionModel implements IRegionModel {
   }
 
   importModel(option: any) {
-    const {zIndex, coordinates, dimensions} = option;
-    if (zIndex) {
-      this._zIndex = zIndex;
-    }
-    if (coordinates) {
-      this._coordinates = coordinates;
-    }
-    if (dimensions) {
-      this._dimensions = dimensions;
-    }
+    this.option = option;
   }
 
   exportModel() {
-    return {
-      zIndex: this._zIndex,
-      coordinates: this.coordinates,
-      dimensions: this.dimensions
-    };
+    return Object.assign({}, this.option);
+  }
+
+  private digest() {
+    const changes = this._differ.diff(this);
   }
 }

@@ -53,7 +53,7 @@ class GraphicFactory {
   newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number, option?: any) {
     if (newGraphicMeta[graphicName]) {
       const meta: GraphicMeta = newGraphicMeta[graphicName];
-      const region: Region = new meta.region();
+      const region: Region = new meta.region(page);
       region.setCoordinates(x, y);
       // region.refresh();
       page.addChild(region);

@@ -78,6 +78,7 @@ export class ExplicitRegionView extends RegionView {
       offset: JQuery.Coordinates,
       snapshot: CoordinatesAndDimensions,
       _which: string;
+
     const _handleResize = (pageX, pageY) => {
       const model = this._model;
       switch (_which) {
@@ -165,7 +166,7 @@ export class ExplicitRegionView extends RegionView {
       .on('dragstart', ($event: JQuery.Event) => {
         count = 0;
         offset = this.$element.offset();
-        snapshot = Object.assign({}, this._model.coordinates, this._model.dimensions);
+        snapshot = Object.assign(this._model.coordinates, this._model.dimensions);
         _which = (<HTMLElement>$event.currentTarget).dataset.which;
         resizeTipHelper.show($event.pageX, $event.pageY, this._model.width, this._model.height);
         this.$element.addClass('no-transition');

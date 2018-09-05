@@ -24,17 +24,14 @@ export class ExplicitRegion extends Region {
   private readonly _view: RegionView;
 
   // 模型层
-  protected _page: ReportPage;
   protected _graphic: IGraphic;
 
-  constructor(page: ReportPage) {
+  constructor(protected _page: ReportPage) {
     super();
     this._model = new RegionModel();
     this._view = new ExplicitRegionView(this, this._model);
-  }
 
-  set page(param: ReportPage) {
-    this._page = param;
+    this._page.addChild(this);
   }
 
   get page() {
