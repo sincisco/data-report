@@ -16,6 +16,8 @@ interface RegionOption {
   top: number;
   width: number;
   height: number;
+  // 非持久化状态层
+  state: RegionState;
 }
 
 export interface IRegionModel {
@@ -28,8 +30,6 @@ export interface IRegionModel {
 
 export class RegionModel extends ModelEventTarget implements IRegionModel {
   protected option: RegionOption;
-  // 非持久化状态层
-  protected _state: RegionState;
 
   private _eventEmitter: EventEmitter<string>;
   private _differ: KeyValueDiffer<any, any>;
@@ -41,15 +41,14 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
       left,
       top,
       width,
-      height
+      height,
+      state: RegionState.default
     };
-
-    this._state = RegionState.default;
 
     this._eventEmitter = new EventEmitter<string>();
     this._differ = session.differs.find(this).create();
 
-    this._eventEmitter.pipe(debounceTime(50)).subscribe((value) => {
+    this._eventEmitter.pipe(debounceTime(30)).subscribe((value) => {
       const changes = this._differ.diff(this.option), array = [];
       if (changes) {
         changes.forEachRemovedItem((record) => {
@@ -100,14 +99,6 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     return {width, height};
   }
 
-  set left(param: number) {
-    this.option.left = closestNum(param);
-  }
-
-  set top(param: number) {
-    this.option.top = closestNum(param);
-  }
-
   get left(): number {
     return this.option.left;
   }
@@ -116,20 +107,41 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     return this.option.top;
   }
 
-  set width(width: number) {
-    this.option.width = closestNum(width);
-  }
-
-  set height(height: number) {
-    this.option.height = closestNum(height);
-  }
-
   get width() {
     return this.option.width;
   }
 
   get height() {
     return this.option.height;
+  }
+
+  get state(): RegionState {
+    return this.option.state;
+  }
+
+  set left(param: number) {
+    this.option.left = closestNum(param);
+    this._eventEmitter.emit(null);
+  }
+
+  set top(param: number) {
+    this.option.top = closestNum(param);
+    this._eventEmitter.emit(null);
+  }
+
+  set width(width: number) {
+    this.option.width = closestNum(width);
+    this._eventEmitter.emit(null);
+  }
+
+  set height(height: number) {
+    this.option.height = closestNum(height);
+    this._eventEmitter.emit(null);
+  }
+
+  set state(param: RegionState) {
+    this.option.state = param;
+    this._eventEmitter.emit(null);
   }
 
   setCoordinates(left: number, top: number) {
@@ -141,14 +153,6 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     this.width = width;
     this.height = height;
     // this.refresh();
-  }
-
-  set state(param: RegionState) {
-    this._state = param;
-  }
-
-  get state(): RegionState {
-    return this._state;
   }
 
   zoom(width: number, height: number, preserveAspectRatio?: boolean) {
@@ -168,7 +172,6 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     return Object.assign({}, this.option);
   }
 
-  private digest() {
-    const changes = this._differ.diff(this);
+  destroy() {
   }
 }

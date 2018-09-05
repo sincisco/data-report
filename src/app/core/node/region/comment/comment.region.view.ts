@@ -14,6 +14,7 @@ import {PieChartGraphic} from '../../graphic/chart.graphic/pie.chart.graphic';
 import {resizeTipHelper} from '../../helper/resize.tip.helper';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {Region} from '../region';
+import {RegionModel} from '@core/node/region/region.model';
 
 const template = `
 <div class="m-dashbox">
@@ -49,14 +50,36 @@ export class CommentRegionView extends RegionView {
     this.$fill = this.$element.find('.g-fill');
     this._$mover = this.$element.find('.u-mover');
 
+    this.listenToModel(_model);
     this.refresh();
     setTimeout(() => {
       this._bindEvent();
     }, 10);
   }
 
-  listenToModel(model) {
-
+  listenToModel(model: IRegionModel) {
+    model.register('state', (key, oldValue, newValue, option) => {
+      switch (oldValue) {
+        case RegionState.selected:
+          this.$element.removeClass('selected');
+          break;
+        case RegionState.multiSelected:
+          this.$element.removeClass('multi-selected');
+          break;
+      }
+      switch (newValue) {
+        case RegionState.default:
+          this.refresh();
+          break;
+        case RegionState.selected:
+          this.$element.addClass('selected');
+          this.refresh();
+          break;
+        case RegionState.multiSelected:
+          this.$element.addClass('multi-selected');
+          break;
+      }
+    });
   }
 
   refresh() {

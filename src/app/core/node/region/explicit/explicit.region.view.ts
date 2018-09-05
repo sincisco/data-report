@@ -1,5 +1,5 @@
 import {RegionView} from '../region.view';
-import {IRegionModel, RegionState} from '../region.model';
+import {IRegionModel, RegionModel, RegionState} from '../region.model';
 import {Region} from '../region';
 import {fromEvent, Subscription} from 'rxjs';
 import {BarChartGraphic} from '../../graphic/chart.graphic/bar.chart.graphic';
@@ -44,14 +44,34 @@ export class ExplicitRegionView extends RegionView {
     this.$fill = this.$element.find('.g-fill');
     this._$mover = this.$element.find('.u-mover');
 
+    this.listenToModel(_model);
     this.refresh();
     setTimeout(() => {
       this._bindEvent();
     }, 10);
   }
 
-  listenToModel(model) {
-
+  listenToModel(model: IRegionModel) {
+    model.register('state', (key, oldValue, newValue, option) => {
+      switch (oldValue) {
+        case RegionState.selected:
+          this.$element.removeClass('selected');
+          break;
+        case RegionState.multiSelected:
+          this.$element.removeClass('multi-selected');
+          break;
+      }
+      switch (newValue) {
+        case RegionState.default:
+          break;
+        case RegionState.selected:
+          this.$element.addClass('selected');
+          break;
+        case RegionState.multiSelected:
+          this.$element.addClass('multi-selected');
+          break;
+      }
+    });
   }
 
   refresh() {

@@ -61,7 +61,6 @@ export class CommentRegion extends Region {
    */
   select() {
     this._model.state = RegionState.selected;
-    this._view.select();
     if (this._graphic) {
       reportGlobal.instance = this._graphic;
       this._graphic.activateConfig();
@@ -71,7 +70,6 @@ export class CommentRegion extends Region {
 
   multiSelect() {
     this._model.state = RegionState.multiSelected;
-    this._view.multiUnselect();
   }
 
   /**
@@ -79,13 +77,10 @@ export class CommentRegion extends Region {
    */
   unselect() {
     this._model.state = RegionState.default;
-    this._view.unselect();
-    // this.refresh();
   }
 
   multiUnselect() {
     this._model.state = RegionState.default;
-    this._view.multiUnselect();
   }
 
   /**
@@ -104,7 +99,7 @@ export class CommentRegion extends Region {
    */
   deactivate() {
     this._model.state = RegionState.default;
-    this._view.unselect();
+    // this._view.unselect();
     if (this._graphic) {
       (<any>this._graphic).deactivate();
     }
