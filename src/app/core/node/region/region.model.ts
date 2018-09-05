@@ -3,7 +3,7 @@ import {closestNum} from '../../../utils/common';
 import {Dimensions} from '@core/node/interface';
 import {session} from '@core/node/utils/session';
 import {debounceTime} from 'rxjs/operators';
-import {ModelEventTarget} from '@core/node/event/model.event';
+import {IModelEventTarget, ModelEventTarget} from '@core/node/event/model.event';
 
 
 export enum RegionState {
@@ -20,7 +20,7 @@ interface RegionOption {
   state: RegionState;
 }
 
-export interface IRegionModel {
+export interface IRegionModel extends IModelEventTarget {
   zIndex: number;
   coordinates: JQuery.Coordinates;
   dimensions: Dimensions;
@@ -48,6 +48,8 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     this._eventEmitter = new EventEmitter<string>();
     this._differ = session.differs.find(this).create();
 
+    // 避免出现添加项
+    this._differ.diff(this.option);
     this._eventEmitter.pipe(debounceTime(30)).subscribe((value) => {
       const changes = this._differ.diff(this.option), array = [];
       if (changes) {
@@ -121,22 +123,18 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
 
   set left(param: number) {
     this.option.left = closestNum(param);
-    this._eventEmitter.emit(null);
   }
 
   set top(param: number) {
     this.option.top = closestNum(param);
-    this._eventEmitter.emit(null);
   }
 
   set width(width: number) {
     this.option.width = closestNum(width);
-    this._eventEmitter.emit(null);
   }
 
   set height(height: number) {
     this.option.height = closestNum(height);
-    this._eventEmitter.emit(null);
   }
 
   set state(param: RegionState) {
@@ -145,14 +143,14 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   setCoordinates(left: number, top: number) {
-    this.option.left = left;
-    this.option.top = top;
+    console.log('setCoordinates', left, top);
+    this.left = left;
+    this.top = top;
   }
 
   setDimensions(width: number, height: number) {
     this.width = width;
     this.height = height;
-    // this.refresh();
   }
 
   zoom(width: number, height: number, preserveAspectRatio?: boolean) {

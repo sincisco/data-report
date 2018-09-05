@@ -28,10 +28,6 @@ export class CommentRegion extends Region {
     // }, 10);
   }
 
-  get $element() {
-    return this._view.$element;
-  }
-
   init() {
     this._view.addEventListener('resizeEnd', () => {
       if (this._graphic) {
@@ -61,20 +57,6 @@ export class CommentRegion extends Region {
     // this.refresh();
   }
 
-  multiSelect() {
-    this._model.state = RegionState.multiSelected;
-  }
-
-  /**
-   * 点击画布  所有的region、调用unselect方法
-   */
-  unselect() {
-    this._model.state = RegionState.default;
-  }
-
-  multiUnselect() {
-    this._model.state = RegionState.default;
-  }
 
   /**
    * 用户双击mover，进入激活状态   此时已经调用了select
@@ -99,11 +81,7 @@ export class CommentRegion extends Region {
     // this.refresh();
   }
 
-  updateTheme(theme: string) {
-    if (this._graphic) {
-      this._graphic.updateTheme(theme);
-    }
-  }
+
 
   /**
    * 1、销毁内部对象
@@ -127,10 +105,7 @@ export class CommentRegion extends Region {
     // this.refresh();
   }
 
-  addChild(graphic: IGraphic) {
-    this._graphic = graphic;
-    this._view.$fill.append(graphic.$element);
-  }
+
 
   derender() {
   }

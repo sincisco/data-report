@@ -12,31 +12,46 @@ export const reportGlobal: {
 
 export abstract class Region {
 
-  $element: JQuery;
-
   // 模型层
   protected _page: ReportPage;
   protected _model: RegionModel;
   protected _view: RegionView;
   protected _graphic: IGraphic;
 
-  get state() {
-    return this._model.state;
+  get $element() {
+    return this._view.$element;
   }
 
   set state(param: RegionState) {
     this._model.state = param;
   }
 
-  abstract updateTheme(theme: string);
+  get state() {
+    return this._model.state;
+  }
+
+  updateTheme(theme: string) {
+    if (this._graphic) {
+      this._graphic.updateTheme(theme);
+    }
+  }
 
   abstract activate();
 
   abstract deactivate();
 
-  abstract addChild(graphic: IGraphic);
+  /**
+   * 模型层关联，展现层关联
+   * @param {IGraphic} graphic
+   */
+  addChild(graphic: IGraphic) {
+    this._graphic = graphic;
+    this._view.$fill.append(graphic.$element);
+  }
 
-  setCoordinates(x, y) {
+  setCoordinates(left, top) {
+    this._model.setCoordinates(left, top);
+    this._view.refresh();
   }
 
   setDimensions(width: number, height: number) {

@@ -53,30 +53,35 @@ export class ExplicitRegionView extends RegionView {
   }
 
   listenToModel(model: IRegionModel) {
-    model.register('state', (key, oldValue, newValue, option) => {
-      console.log(key, oldValue, newValue);
-      switch (oldValue) {
-        case RegionState.selected:
-          this.$element.removeClass('selected');
-          break;
-        case RegionState.multiSelected:
-          this.$element.removeClass('multi-selected');
-          break;
-      }
-      switch (newValue) {
-        case RegionState.default:
-          break;
-        case RegionState.selected:
-          this.$element.addClass('selected');
-          break;
-        case RegionState.multiSelected:
-          this.$element.addClass('multi-selected');
-          break;
-      }
-    });
+    model
+      .register('state', (key, oldValue, newValue, option) => {
+        console.log(key, oldValue, newValue);
+        switch (oldValue) {
+          case RegionState.selected:
+            this.$element.removeClass('selected');
+            break;
+          case RegionState.multiSelected:
+            this.$element.removeClass('multi-selected');
+            break;
+        }
+        switch (newValue) {
+          case RegionState.default:
+            break;
+          case RegionState.selected:
+            this.$element.addClass('selected');
+            break;
+          case RegionState.multiSelected:
+            this.$element.addClass('multi-selected');
+            break;
+        }
+      })
+      .register('left top width height', (key, oldValue, newValue, option) => {
+        this.refresh();
+      });
   }
 
   refresh() {
+    console.log('refresh');
     this.$element.css({
       width: this._model.width,
       height: this._model.height,

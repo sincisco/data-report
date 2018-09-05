@@ -45,10 +45,6 @@ export class ExplicitRegion extends Region {
       });
   }
 
-  get $element() {
-    return this._view.$element;
-  }
-
   /**
    * 用户单击mover的时候调用select，进入选中状态
    *
@@ -83,12 +79,6 @@ export class ExplicitRegion extends Region {
     }
   }
 
-  updateTheme(theme: string) {
-    if (this._graphic) {
-      this._graphic.updateTheme(theme);
-    }
-  }
-
   /**
    * 1、销毁内部对象
    * 2、解除事件绑定
@@ -107,14 +97,8 @@ export class ExplicitRegion extends Region {
   }
 
 
-  /**
-   * 模型层关联，展现层关联
-   * @param {IGraphic} graphic
-   */
-  addChild(graphic: IGraphic) {
-    this._graphic = graphic;
-    this._view.$fill.append(graphic.$element);
-  }
+
+
 
   getOption() {
     // if (this._graphic) {
