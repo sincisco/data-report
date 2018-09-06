@@ -22,10 +22,6 @@ export class CommentRegion extends Region {
     super();
     this._model = new RegionModel();
     this._view = new CommentRegionView(this, this._model);
-    // this.refresh();
-    // setTimeout(() => {
-    //   this._bindEvent();
-    // }, 10);
   }
 
   init() {

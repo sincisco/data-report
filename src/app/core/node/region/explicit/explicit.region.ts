@@ -52,53 +52,23 @@ export class ExplicitRegion extends Region {
    * 用户单击mover的时候调用select，进入选中状态
    *
    * unselect 点击画布  所有的region、调用unselect方法
+   *
+   * 用户双击mover，进入激活状态   此时已经调用了select
+   *
+   * 点击mask  当前激活的region调用deactivate
    */
   set state(param: RegionState) {
     if (param === RegionState.selected && this._graphic) {
       reportGlobal.instance = this._graphic;
       this._graphic.activateConfig();
+    } else if (param === RegionState.activated && this._graphic) {
+      reportGlobal.instance = this._graphic;
+      this._graphic.activate();
+    } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphic) {
+      (<any>this._graphic).deactivate();
     }
     this._model.state = param;
   }
-
-  /**
-   * 用户双击mover，进入激活状态   此时已经调用了select
-   */
-  activate() {
-    this._model.state = RegionState.activated;
-    if (this._graphic) {
-      reportGlobal.instance = this._graphic;
-      this._graphic.activate();
-    }
-  }
-
-  /**
-   * 点击mask  当前激活的region调用deactivate
-   */
-  deactivate() {
-    this._model.state = RegionState.default;
-    if (this._graphic) {
-      (<any>this._graphic).deactivate();
-    }
-  }
-
-  /**
-   * 1、销毁内部对象
-   * 2、解除事件绑定
-   * 3、解除当前对象的属性引用
-   */
-  destroy() {
-    if (this._graphic) {
-      this._graphic.destroy();
-      this._graphic = null;
-    }
-    this._page.removeChild(this);
-    this._page = null;
-
-    this._view.destroy();
-
-  }
-
 
   getOption() {
     // if (this._graphic) {
@@ -121,6 +91,22 @@ export class ExplicitRegion extends Region {
     //   this._coordinates = option.coordinates;
     // }
     // this._dimensions = option.dimensions;
+  }
+
+  /**
+   * 1、销毁内部对象
+   * 2、解除事件绑定
+   * 3、解除当前对象的属性引用
+   */
+  destroy() {
+    if (this._graphic) {
+      this._graphic.destroy();
+      this._graphic = null;
+    }
+    this._page.removeChild(this);
+    this._page = null;
+
+    this._view.destroy();
   }
 
 }

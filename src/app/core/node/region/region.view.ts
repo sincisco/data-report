@@ -4,6 +4,9 @@ import {filter, throttleTime} from 'rxjs/internal/operators';
 import {resizeTipHelper} from '@core/node/helper/resize.tip.helper';
 import {Region} from '@core/node/region/region';
 import {IRegionModel} from '@core/node/region/region.model';
+import {CoordinatesAndDimensions} from '@core/node/interface';
+import {closestNum} from '../../../utils/common';
+import {contextMenuHelper, ContextMenuItem} from '../../../utils/contextMenu';
 
 export abstract class RegionView extends View {
   $fill: JQuery;
@@ -12,7 +15,125 @@ export abstract class RegionView extends View {
   protected _controller: Region;
   protected _model: IRegionModel;
 
+  private _contextMenuArray: Array<ContextMenuItem|'split'> = [];
+
   abstract refresh();
+
+  public addContextMenu(array: Array<ContextMenuItem|'split'>) {
+    this._contextMenuArray.push(...array);
+  }
+
+  protected _bindEventForResize() {
+    let offsetX, offsetY,
+      offset: JQuery.Coordinates,
+      snapshot: CoordinatesAndDimensions,
+      which: string,
+      subscription: Subscription;
+
+    const handleResize = (pageX, pageY) => {
+      const model = this._model;
+      switch (which) {
+        case 'resize-left':
+          if (pageX < (offset.left + snapshot.width)) {
+            offsetX = closestNum(pageX - offset.left);
+            model.left = snapshot.left + offsetX;
+            model.width = snapshot.width - offsetX;
+          }
+          break;
+        case 'resize-top':
+          if (pageY < (offset.top + snapshot.height)) {
+            offsetY = closestNum(pageY - offset.top);
+            model.top = snapshot.top + offsetY;
+            model.height = snapshot.height - offsetY;
+          }
+          break;
+        case 'resize-right':
+          if (pageX > offset.left) {
+            model.width = closestNum(pageX - offset.left);
+            // this.zoom(closestNum(pageX - offset.left), 0, true);
+          }
+          break;
+        case 'resize-topLeft':
+          if (pageY < (offset.top + snapshot.height) && pageX < (offset.left + snapshot.width)) {
+            offsetX = closestNum(pageX - offset.left),
+              offsetY = closestNum(pageY - offset.top);
+            model.left = snapshot.left + offsetX;
+            model.width = snapshot.width - offsetX;
+            model.top = snapshot.top + offsetY;
+            model.height = snapshot.height - offsetY;
+          }
+          break;
+        case 'resize-topRight':
+          if (pageY < (offset.top + snapshot.height)) {
+            offsetY = closestNum(pageY - offset.top);
+            model.top = snapshot.top + offsetY;
+            model.height = snapshot.height - offsetY;
+          }
+          if (pageX > offset.left) {
+            model.width = closestNum(pageX - offset.left);
+          }
+          break;
+        case 'resize-bottomRight':
+          if (pageX > offset.left) {
+            model.width = pageX - offset.left;
+          }
+          if (pageY > offset.top) {
+            model.height = pageY - offset.top;
+          }
+          break;
+        case 'resize-bottomLeft':
+          if (pageX < (offset.left + snapshot.width)) {
+            offsetX = closestNum(pageX - offset.left);
+            model.left = snapshot.left + offsetX;
+            model.width = snapshot.width - offsetX;
+          }
+          if (pageY > offset.top) {
+            model.height = pageY - offset.top;
+          }
+          break;
+        case 'resize-bottom':
+          if (pageY > offset.top) {
+            model.height = pageY - offset.top;
+          }
+          break;
+
+      }
+    };
+    const dragEndHandler = (event: MouseEvent) => {
+      if (subscription) {
+        subscription.unsubscribe();
+        subscription = null;
+        document.removeEventListener('mouseup', dragEndHandler);
+        this.$element.removeClass('no-transition');
+        resizeTipHelper.hide();
+        handleResize(event.pageX, event.pageY);
+        this._event.dispatchEvent('resizeEnd');
+      }
+    };
+
+    this.$element.find('div.u-resize>.draggable')
+      .on('dragstart', ($event: JQuery.Event) => {
+        offset = this.$element.offset();
+        snapshot = Object.assign(this._model.coordinates, this._model.dimensions);
+        which = (<HTMLElement>$event.currentTarget).dataset.which;
+        resizeTipHelper.show($event.pageX, $event.pageY, this._model.width, this._model.height);
+        this.$element.addClass('no-transition');
+
+        // 监听鼠标移动
+        subscription = fromEvent(document, 'mousemove')
+          .pipe(throttleTime(30))
+          .subscribe((mouseEvent: MouseEvent) => {
+            handleResize(mouseEvent.pageX, mouseEvent.pageY);
+            resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._model.width, this._model.height);
+            this.refresh();
+          });
+        // 解除对伸缩事件的监听
+        document.addEventListener('mouseup', dragEndHandler);
+
+        return false;
+      });
+    // 事件对象
+  }
 
   /**
    * tips:
@@ -90,4 +211,10 @@ export abstract class RegionView extends View {
       });
   }
 
+  protected _bindContextEvent() {
+    this._$mover.contextmenu(($event: JQuery.Event) => {
+      contextMenuHelper.open(this._contextMenuArray, $event.pageX, $event.pageY, $event);
+      return false;
+    });
+  }
 }

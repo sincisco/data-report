@@ -1,16 +1,16 @@
 import {Region} from '../region/region';
 import {ReportPage} from '../page/report/page';
-import {PageModel} from '../../../components/page.config/page.model';
+import {RegionState} from '@core/node/region/region.model';
 
 export class ActivateManager {
-  private _activatedRegion;
+  private _activatedRegion: Region;
 
   constructor(private _page: ReportPage) {
 
   }
 
   activate(region: Region) {
-    region.activate();
+    region.state = RegionState.activated;
     this._page.$element.addClass('activated');
     this._page.repaintMask(region.$element);
     this._activatedRegion = region;
@@ -18,7 +18,7 @@ export class ActivateManager {
 
   deactivate() {
     if (this._activatedRegion) {
-      this._activatedRegion.deactivate();
+      this._activatedRegion.state = RegionState.default;
       this._page.$element.removeClass('activated');
       this._activatedRegion = null;
 

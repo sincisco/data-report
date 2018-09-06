@@ -36,10 +36,6 @@ export abstract class Region {
     }
   }
 
-  abstract activate();
-
-  abstract deactivate();
-
   /**
    * 模型层关联，展现层关联
    * @param {IGraphic} graphic

@@ -7,7 +7,7 @@ const windowMask = `
 </div>
 `;
 
-interface ContextMenuItem {
+export interface ContextMenuItem {
   displayName: string;
   icon?: string;
   position?: string;
