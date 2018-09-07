@@ -1,7 +1,7 @@
-import {Region} from '@core/node/region/region';
+import {RegionController} from '@core/node/region/region.controller';
 
 export interface IPage {
-  addChild(region: Region);
+  addChild(region: RegionController);
 
   destroy();
 }

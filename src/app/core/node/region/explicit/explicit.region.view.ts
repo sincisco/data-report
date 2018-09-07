@@ -1,6 +1,6 @@
 import {RegionView} from '../region.view';
 import {IRegionModel, RegionModel, RegionState} from '../region.model';
-import {Region} from '../region';
+import {RegionController} from '../region.controller';
 import {fromEvent, Subscription} from 'rxjs';
 import {BarChartGraphic} from '../../graphic/chart.graphic/bar.chart.graphic';
 import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
@@ -34,7 +34,7 @@ const template = `
 
 export class ExplicitRegionView extends RegionView {
 
-  constructor(protected _controller: Region, protected _model: IRegionModel) {
+  constructor(protected _controller: RegionController, protected _model: IRegionModel) {
     super();
 
     this.$element = $(template);
@@ -50,17 +50,6 @@ export class ExplicitRegionView extends RegionView {
   private _initContextMenu() {
     this.addContextMenu([
       {
-        displayName: '复制',
-        shortcut: 'Ctrl+C',
-        callback: () => {
-          console.log('复制');
-          // clipboard.saveData(this.getOption());
-          // console.log(this.getOption());
-          // clipboard.saveData(this.derender());
-          // console.log(this.derender());
-          // contextMenuHelper.close();
-        }
-      }, {
         displayName: '剪切',
         shortcut: 'Ctrl+X'
       }, {
@@ -76,7 +65,7 @@ export class ExplicitRegionView extends RegionView {
           //   this.destroy();
           // }
 
-          contextMenuHelper.close();
+          return false;
         }
       }, 'split',
       {

@@ -10,7 +10,7 @@ import {session} from '@core/node/utils/session';
 import {LineChartGraphic} from '@core/node/graphic/chart.graphic/line.chart.graphic';
 import {PieChartGraphic} from '@core/node/graphic/chart.graphic/pie.chart.graphic';
 import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
-import {Region} from '@core/node/region/region';
+import {RegionController} from '@core/node/region/region.controller';
 
 
 interface GraphicMeta {
@@ -53,7 +53,7 @@ class GraphicFactory {
   newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number, option?: any) {
     if (newGraphicMeta[graphicName]) {
       const meta: GraphicMeta = newGraphicMeta[graphicName];
-      const region: Region = new meta.region(page);
+      const region: RegionController = new meta.region(page);
       region.setCoordinates(x, y);
       page.addChild(region);
 

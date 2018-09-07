@@ -1,4 +1,4 @@
-import {Region} from '../../region/region';
+import {RegionController} from '../../region/region.controller';
 import {Chart} from '../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
@@ -20,7 +20,7 @@ export interface ChartPieConfig {
 }
 
 export class PieChartGraphic extends ChartGraphic {
-  constructor(region: Region) {
+  constructor(region: RegionController) {
     super(region);
   }
 

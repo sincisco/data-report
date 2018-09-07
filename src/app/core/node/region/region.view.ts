@@ -2,7 +2,7 @@ import {View} from '@core/node/structure/view';
 import {fromEvent, Subscription} from 'rxjs';
 import {filter, throttleTime} from 'rxjs/internal/operators';
 import {resizeTipHelper} from '@core/node/helper/resize.tip.helper';
-import {Region} from '@core/node/region/region';
+import {RegionController} from '@core/node/region/region.controller';
 import {IRegionModel} from '@core/node/region/region.model';
 import {CoordinatesAndDimensions} from '@core/node/interface';
 import {closestNum} from '../../../utils/common';
@@ -12,7 +12,7 @@ export abstract class RegionView extends View {
   $fill: JQuery;
 
   protected _$mover: JQuery;
-  protected _controller: Region;
+  protected _controller: RegionController;
   protected _model: IRegionModel;
 
   private _contextMenuArray: Array<ContextMenuItem|'split'> = [];

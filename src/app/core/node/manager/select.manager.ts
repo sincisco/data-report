@@ -1,4 +1,4 @@
-import {Region} from '../region/region';
+import {RegionController} from '../region/region.controller';
 import {RegionState} from '@core/node/region/region.model';
 
 enum SelectStatus {
@@ -9,8 +9,8 @@ enum SelectStatus {
  * 被删除的region如何剔除
  */
 class Store {
-  private _selected: Region = null;
-  private _multiSelectArray: Array<Region> = [];
+  private _selected: RegionController = null;
+  private _multiSelectArray: Array<RegionController> = [];
 
   get status(): SelectStatus {
     if (this._selected === null) {
@@ -30,10 +30,10 @@ class Store {
 
   /**
    * 判断传入region是否被选中
-   * @param {Region} region
+   * @param {RegionController} region
    * @returns {boolean}
    */
-  isSelected(region: Region) {
+  isSelected(region: RegionController) {
     return this._selected === region ? true : false;
   }
 
@@ -43,14 +43,14 @@ class Store {
    * 删除元素的时候，判断该Region是否被选中
    * 如果没有被选中 那么只删除当前region
    * 否则删除r被选中的region组
-   * @param {Region} region
+   * @param {RegionController} region
    * @returns {boolean}
    */
-  include(region: Region) {
+  include(region: RegionController) {
     return this._multiSelectArray.includes(region);
   }
 
-  addSelected(region: Region) {
+  addSelected(region: RegionController) {
     if (this._selected === region) {
       return;
     } else {
@@ -64,14 +64,14 @@ class Store {
    * multiselected的数目不能低于二   这个规则在添加方法最后不需要校验，但在删除方法最后需要校验
    * @param region
    */
-  addMultiSelected(region: Region) {
+  addMultiSelected(region: RegionController) {
     if (!this.include(region)) {
       region.state = RegionState.multiSelected;
       this._multiSelectArray.push(region);
     }
   }
 
-  removeMultiSelected(region: Region) {
+  removeMultiSelected(region: RegionController) {
     if (this._multiSelectArray.includes(region)) {
       region.state = RegionState.default;
       this._multiSelectArray.splice(this._multiSelectArray.indexOf(region), 1);
@@ -84,7 +84,7 @@ class Store {
     }
   }
 
-  clearSelected(): Region {
+  clearSelected(): RegionController {
     const retRegion = this._selected;
     this._selected = null;
     if (retRegion) {
@@ -109,7 +109,7 @@ class Store {
    * 当元素从页面删除的时候 需要清空selectManager对它的引用
    * @param region
    */
-  delete(region: Region) {
+  delete(region: RegionController) {
     if (this._selected === region) {
       this._selected = null;
     } else if (this.include(region)) {
@@ -122,9 +122,9 @@ abstract class State {
   protected constructor(protected store: Store) {
   }
 
-  abstract select(region: Region);
+  abstract select(region: RegionController);
 
-  abstract ctrlSelect(region: Region);
+  abstract ctrlSelect(region: RegionController);
 }
 
 class StateDefault extends State {
@@ -132,11 +132,11 @@ class StateDefault extends State {
     super(store);
   }
 
-  select(region: Region) {
+  select(region: RegionController) {
     this.store.addSelected(region);
   }
 
-  ctrlSelect(region: Region) {
+  ctrlSelect(region: RegionController) {
     this.select(region);
   }
 }
@@ -146,11 +146,11 @@ class StateSelected extends State {
     super(store);
   }
 
-  select(region: Region) {
+  select(region: RegionController) {
     this.store.addSelected(region);
   }
 
-  ctrlSelect(region: Region) {
+  ctrlSelect(region: RegionController) {
     if (this.store.isSelected(region)) {
       return;
     } else {
@@ -165,12 +165,12 @@ class StateMultiSelected extends State {
     super(store);
   }
 
-  select(region: Region) {
+  select(region: RegionController) {
     this.store.clearTotalMultiSelected();
     this.store.addSelected(region);
   }
 
-  ctrlSelect(region: Region) {
+  ctrlSelect(region: RegionController) {
     if (this.store.include(region)) {
       this.store.removeMultiSelected(region);
     } else {
@@ -202,11 +202,11 @@ export class SelectManager extends Store implements ISelectManager {
     }
   }
 
-  select(region: Region) {
+  select(region: RegionController) {
     this.state.select(region);
   }
 
-  ctrlSelect(region: Region) {
+  ctrlSelect(region: RegionController) {
     this.state.ctrlSelect(region);
   }
 }
@@ -214,13 +214,13 @@ export class SelectManager extends Store implements ISelectManager {
 export interface ISelectManager {
   selectedArray;
 
-  select(region: Region);
+  select(region: RegionController);
 
-  ctrlSelect(region: Region);
+  ctrlSelect(region: RegionController);
 
-  include(region: Region): boolean;
+  include(region: RegionController): boolean;
 
-  delete(region: Region);
+  delete(region: RegionController);
 
   clear();
 }

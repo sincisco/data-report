@@ -1,4 +1,4 @@
-import {Region} from '@core/node/region/region';
+import {RegionController} from '@core/node/region/region.controller';
 import {IPage} from '@core/node/interface';
 
 type ICallback = (event: EventMessage) => void;
@@ -96,7 +96,7 @@ export class EventMessage {
   eventName: string;
   tags: Array<string> = [];
 
-  private _target: Region;
+  private _target: RegionController;
 
   constructor() {
 

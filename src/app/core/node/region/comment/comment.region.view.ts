@@ -13,7 +13,7 @@ import {closestNum} from '../../../../utils/common';
 import {PieChartGraphic} from '../../graphic/chart.graphic/pie.chart.graphic';
 import {resizeTipHelper} from '../../helper/resize.tip.helper';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {Region} from '../region';
+import {RegionController} from '../region.controller';
 import {RegionModel} from '@core/node/region/region.model';
 
 const template = `
@@ -40,7 +40,7 @@ export class CommentRegionView extends RegionView {
     height: 30
   };
 
-  constructor(protected _controller: Region, protected _model: IRegionModel) {
+  constructor(protected _controller: RegionController, protected _model: IRegionModel) {
     super();
 
     this.$element = $(template);

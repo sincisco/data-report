@@ -1,15 +1,15 @@
-import {Region} from '../region/region';
+import {RegionController} from '../region/region.controller';
 import {ReportPage} from '../page/report/page';
 import {RegionState} from '@core/node/region/region.model';
 
 export class ActivateManager {
-  private _activatedRegion: Region;
+  private _activatedRegion: RegionController;
 
   constructor(private _page: ReportPage) {
 
   }
 
-  activate(region: Region) {
+  activate(region: RegionController) {
     region.state = RegionState.activated;
     this._page.$element.addClass('activated');
     this._page.repaintMask(region.$element);
@@ -25,7 +25,7 @@ export class ActivateManager {
     }
   }
 
-  regionResize(region: Region) {
+  regionResize(region: RegionController) {
     this._page.repaintMask(region.$element);
   }
 

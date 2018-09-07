@@ -12,6 +12,7 @@ export interface ContextMenuItem {
   icon?: string;
   position?: string;
   _callbackNo?: string;
+  // callback如果return false的话 自动关闭右键上下文菜单
   callback?: Function;
   enable?: boolean;
   shortcut?: string;
@@ -111,7 +112,9 @@ class ContextMenu {
       }
       visit(array, (item) => {
         if (typeof item !== 'string' && item._callbackNo === callbackNo) {
-          item.callback($event);
+          if (item.callback($event) === false) {
+            this.close();
+          }
         }
       });
       return false;
@@ -134,7 +137,9 @@ class ContextMenu {
       }
       visit(array, (item) => {
         if (typeof item !== 'string' && item._callbackNo === callbackNo) {
-          item.callback($event);
+          if (item.callback($event) === false) {
+            this.close();
+          }
         }
       });
       return false;

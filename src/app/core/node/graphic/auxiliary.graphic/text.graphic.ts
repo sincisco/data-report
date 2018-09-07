@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 import {TextAuxiliary} from '@core/node/graphic.view/auxiliary/text.auxiliary';
 import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
 import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
-import {Region} from '@core/node/region/region';
+import {RegionController} from '@core/node/region/region.controller';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
 const template = `
@@ -24,7 +24,7 @@ export class TextGraphic implements IGraphic {
   private _content: IGraphicView;
   private _configComponentRef: ComponentRef<ConfigModel>;
 
-  constructor(private _region: Region) {
+  constructor(private _region: RegionController) {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
 

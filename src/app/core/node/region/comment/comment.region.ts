@@ -1,4 +1,4 @@
-import {Region, reportGlobal} from '../region';
+import {RegionController, reportGlobal} from '../region.controller';
 import {closestNum} from '../../../../utils/common';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {fromEvent, Subscription} from 'rxjs';
@@ -16,7 +16,7 @@ import {ExplicitRegionView} from '../explicit/explicit.region.view';
 import {CommentRegionView} from './comment.region.view';
 
 
-export class CommentRegion extends Region {
+export class CommentRegion extends RegionController {
 
   constructor() {
     super();

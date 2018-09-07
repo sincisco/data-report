@@ -10,7 +10,7 @@ export const reportGlobal: {
   instance: null
 };
 
-export abstract class Region {
+export abstract class RegionController {
 
   // 模型层
   protected _page: ReportPage;

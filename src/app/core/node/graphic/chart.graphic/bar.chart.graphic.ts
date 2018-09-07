@@ -1,4 +1,4 @@
-import {Region} from '../../region/region';
+import {RegionController} from '../../region/region.controller';
 import {Chart} from '../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 import {Grid} from '../../graphic.view/chart/echart.interface/grid';
@@ -19,7 +19,7 @@ export interface ChartBarOption {
 }
 
 export class BarChartGraphic extends ChartGraphic {
-  constructor(region: Region) {
+  constructor(region: RegionController) {
     super(region);
   }
 

@@ -28,6 +28,17 @@ export interface IRegionModel extends IModelEventTarget {
   [key: string]: any;
 }
 
+
+/**
+ * 首先，$scope本身是一个普通的JavaScript对象；其次，$scope是一个表达式的执行环境
+ * $scope是一个树形结构，与DOM标签平行，子$scope对象可以对父$scope对象的变量、函数等进行操作。
+ *
+ * 作用域能做什么
+ 提供观察者以监视数据模型的变化
+ 可以将数据模型的变化通知给整个应用,甚至是系统外的组件
+ 可以进行嵌套,隔离业务功能和数据
+ 给表达式提供运算时所需的执行环境
+ */
 export class RegionModel extends ModelEventTarget implements IRegionModel {
   protected option: RegionOption;
 

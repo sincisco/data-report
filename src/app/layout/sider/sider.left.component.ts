@@ -6,7 +6,7 @@ import {
   ViewContainerRef, ViewRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {reportGlobal} from '@core/node/region/region';
+import {reportGlobal} from '@core/node/region/region.controller';
 import {PageModel} from '../../components/page.config/page.model';
 import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
 import {ConfigModel} from '../../components/graphic.config/graphic.config';

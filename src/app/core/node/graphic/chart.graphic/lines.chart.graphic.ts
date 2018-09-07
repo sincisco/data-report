@@ -1,4 +1,4 @@
-import {Region} from '../../region/region';
+import {RegionController} from '../../region/region.controller';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 import {Grid} from '../../graphic.view/chart/echart.interface/grid';
 import {Axis} from '../../graphic.view/chart/echart.interface/axis';
@@ -19,7 +19,7 @@ export interface ChartLineOption {
 }
 
 export class LinesChartGraphic extends ChartGraphic {
-  constructor(region: Region) {
+  constructor(region: RegionController) {
     super(region);
   }
 

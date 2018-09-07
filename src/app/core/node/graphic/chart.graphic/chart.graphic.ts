@@ -1,5 +1,5 @@
 import {ComponentRef} from '@angular/core';
-import {Region} from '../../region/region';
+import {RegionController} from '../../region/region.controller';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
 
@@ -37,9 +37,9 @@ export abstract class ChartGraphic implements IGraphic {
    * 1、初始化视图
    * 2、给视图绑定事件处理函数
    * 3、建立父子关系
-   * @param {Region} region
+   * @param {RegionController} region
    */
-  protected constructor(region: Region) {
+  protected constructor(region: RegionController) {
     this.$element = $(template);
 
     this._$frame = this.$element.find('.frame');

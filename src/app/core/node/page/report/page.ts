@@ -1,6 +1,6 @@
 import {IPage} from '../../interface';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {Region} from '../../region/region';
+import {RegionController} from '../../region/region.controller';
 import {ComponentRef} from '@angular/core';
 import {PageConfigComponent} from '../../../../components/page.config/page.config.component';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
@@ -116,13 +116,13 @@ export class ReportPage extends PageView implements IPage {
     return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
-  addChild(child: Region) {
+  addChild(child: RegionController) {
     // child.page = this;
     this.regionManager.add(child);
     this.$grid.append(child.$element);
   }
 
-  removeChild(child: Region) {
+  removeChild(child: RegionController) {
     this.selectManager.delete(child);
     this.regionManager.remove(child);
   }
@@ -131,7 +131,7 @@ export class ReportPage extends PageView implements IPage {
     this.activateManager.activate(region);
   }
 
-  regionResize(region: Region) {
+  regionResize(region: RegionController) {
     this.activateManager.regionResize(region);
   }
 

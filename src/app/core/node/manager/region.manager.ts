@@ -1,19 +1,19 @@
-import {Region} from '../region/region';
+import {RegionController} from '../region/region.controller';
 import {ReportPage} from '../page/report/page';
 import {PageModel} from '../../../components/page.config/page.model';
 
 export class RegionManager {
-  private _children: Array<Region> = [];
+  private _children: Array<RegionController> = [];
 
   constructor() {
 
   }
 
-  add(region: Region) {
+  add(region: RegionController) {
     this._children.push(region);
   }
 
-  remove(region: Region) {
+  remove(region: RegionController) {
     if (this._children.includes(region)) {
       this._children.splice(this._children.indexOf(region), 1);
     }
@@ -23,8 +23,8 @@ export class RegionManager {
     return this._children.slice(0);
   }
 
-  public selectByBox(left, top, width, height): Array<Region> {
-    return this._children.filter((value: Region) => {
+  public selectByBox(left, top, width, height): Array<RegionController> {
+    return this._children.filter((value: RegionController) => {
       const $element = value.$element,
         offset = $element.offset(),
         x1 = left, y1 = top,
