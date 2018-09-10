@@ -1,10 +1,7 @@
 import {
   AfterViewInit,
-  Component, DoCheck,
+  Component,
   EventEmitter,
-  Input,
-  KeyValueDiffer,
-  KeyValueDiffers,
   OnInit,
   Output,
   TemplateRef,
@@ -14,10 +11,10 @@ import {NgForm} from '@angular/forms';
 
 import {datasetManager} from '../../../core/dataset/dataset.manager';
 
-import {NzModalRef, NzModalService} from 'ng-zorro-antd';
-import {Dimension} from '../../../core/dataset/dataset.interface';
 import {GraphicConfig} from '../graphic.config';
 import {ChartLineOption} from '../../../core/node/graphic/chart.graphic/line.chart.graphic';
+import {debounceTime} from 'rxjs/operators';
+import {removeUndefined} from '../../../utils/common';
 
 
 @Component({
@@ -70,83 +67,36 @@ export class LineConfigComponent extends GraphicConfig implements AfterViewInit,
     }]
   };
 
-  seriesX: Array<Dimension> = [];
-  seriesY: Array<Dimension> = [];
-  private _differ: KeyValueDiffer<any, any>;
+  private _innerOption = {};
 
-  constructor(private modalService: NzModalService, private _differs: KeyValueDiffers) {
+  constructor() {
     super();
   }
 
-  ngAxisChange($event) {
-    console.log(JSON.stringify($event));
-    this._updateSeries();
-  }
-
   ngOnInit() {
-    this._differ = this._differs.find(this.option).create();
+
   }
 
   private _updateSeries() {
-    if (this.seriesX.length === 0 || this.seriesY.length === 0) {
-      return;
-    }
-    this.option.series = [];
     // this.option.dataset = Object.assign({},
     //   datasetManager.current,
     //   {source: filterExecutor.execute(datasetManager.current.source, this.filterArray)});
-    this.option.dataset = datasetManager.current;
-    this.option.series.push({
-      type: 'line',
-      name: 'test',
-      encode: {
-        x: this.seriesX.map((value) => {
-          return value.name;
-        }),
-        y: this.seriesY.map((value) => {
-          return value.name;
-        })
-      }
-    });
-    this.output.emit(this.option);
+    // this.option.dataset = datasetManager.current;
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.ngForm.valueChanges.subscribe((value) => {
-        console.log('BarConfigComponent  valueChanges');
-        console.log(value);
-        const changes = this._differ.diff(value);
-        if (this.graphic) {
-          value.dataset = datasetManager.current;
-          this.graphic.update(value);
-        }
-
-        if (this.face) {
-          value.dataset = datasetManager.current;
-          this.face.update(value);
-        }
-        if (changes) {
-          console.log('BarConfigComponent  has change');
-        }
+    this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
+      console.log('LineConfigComponent  valueChanges');
+      value.dataset = datasetManager.current;
+      value = removeUndefined(value);
+      this.trigger({
+        key: 'option',
+        oldValue: this._innerOption,
+        newValue: value,
+        option: value
       });
-    }, 10);
+      this._innerOption = value;
+    });
   }
-
-//   console.log(this.ngForm);
-//   this.ngForm.valueChanges.subscribe((value) => {
-//   console.log('***************************SiderLeftComponent valueChanges');
-//   console.log(value);
-//   console.log(this.option);
-//   const changes = this._differ.diff(value);
-//   if (changes) {
-//     console.log('has change');
-//     if (reportGlobal.instance) {
-//       reportGlobal.instance.update(value);
-//     }
-//   }
-//
-// });
-
 }
 

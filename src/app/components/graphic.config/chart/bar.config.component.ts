@@ -1,11 +1,9 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   KeyValueDiffer,
   KeyValueDiffers,
   OnInit,
-  Output,
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
@@ -27,7 +25,6 @@ import * as _ from 'lodash';
 export class BarConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
-  @Output() output = new EventEmitter();
 
   option: ChartBarOption = {
     title: {
@@ -84,31 +81,19 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
   }
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
+    this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       console.log('BarConfigComponent  valueChanges', value);
-      this._innerOption = value;
-      const changes = this._differ.diff(value);
-      if (this.graphic) {
-        value.dataset = datasetManager.current;
-        this.graphic.update(removeUndefined(value));
-      }
 
-      if (this.face) {
-        value.dataset = datasetManager.current;
-        this.face.update(value);
-      }
-      if (changes) {
-        changes.forEachRemovedItem((record) => {
-          console.log('removedItem', JSON.stringify(record.key));
-        });
-        changes.forEachAddedItem((record) => {
-          console.log('addedItem', JSON.stringify(record.key));
-        });
-        changes.forEachChangedItem((record) => {
-          console.log('changedItem', JSON.stringify(record.key));
-        });
-        console.log('BarConfigComponent  has change');
-      }
+      value.dataset = datasetManager.current;
+      value = removeUndefined(value);
+      this.trigger({
+        key: 'option',
+        oldValue: this._innerOption,
+        newValue: value,
+        option: value
+      });
+      this._innerOption = value;
+
     });
 
   }

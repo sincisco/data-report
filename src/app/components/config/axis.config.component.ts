@@ -32,7 +32,8 @@ export class AxisConfigComponent extends CustomControlValueAccessor implements A
   @ViewChild(NgForm) ngForm: NgForm;
 
   @Input() option: Axis = {
-    axisLabel: {},
+    axisLabel: {
+    },
     axisTick: {}
   };
 

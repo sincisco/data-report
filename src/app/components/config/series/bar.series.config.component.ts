@@ -16,6 +16,7 @@ import {contextMenuHelper} from '../../../utils/contextMenu';
 
 import {BarSeriesConfig} from '@core/node/graphic.view/chart/echart.interface/series/bar.series';
 import {NzModalFilterComponent} from '../../graphic.config/common/filter.modal.component';
+import {debounceTime} from 'rxjs/operators';
 
 export const BAR_SERIES_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -45,7 +46,6 @@ export class BarSeriesConfigComponent extends CustomControlValueAccessor impleme
 
   // @HostBinding('attr.seriesName') role = 'button';
 
-  private _differ: KeyValueDiffer<any, any>;
   private _filterArray: Array<any> = [];
 
   constructor(private _differs: KeyValueDiffers,
@@ -77,20 +77,15 @@ export class BarSeriesConfigComponent extends CustomControlValueAccessor impleme
 
     target.push(draggableHeler.dragInfo);
 
-    this._emit();
-  }
-
-  private _emit() {
-    this._updateEncode();
-    this.seriesChange.emit();
-  }
-
-  private _updateEncode() {
     this.option.encode = {
       x: this.seriesX.map(item => item.name),
       y: this.seriesY.map(item => item.name),
     };
+
+    this._propagateChange(this.option);
+
   }
+
 
   axisClick($event: MouseEvent, target: Array<Dimension>, index: number) {
     contextMenuHelper.open([
@@ -187,18 +182,10 @@ export class BarSeriesConfigComponent extends CustomControlValueAccessor impleme
   }
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.subscribe((value) => {
-      // const changes = this._differ.diff(value);
-      // if (changes) {
-      //   console.log('AxisConfigComponent valueChanges');
-      //   console.log(value);
-      // }
-
+    this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       setTimeout(() => {
-        this.seriesChange.emit();
+        this._propagateChange(this.option);
       }, 10);
-
-
     });
   }
 

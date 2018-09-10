@@ -189,14 +189,8 @@ export class PieSeriesConfigComponent extends CustomControlValueAccessor impleme
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.subscribe((value) => {
-      // const changes = this._differ.diff(value);
-      // if (changes) {
-      //   console.log('AxisConfigComponent valueChanges');
-      //   console.log(value);
-      // }
-
       setTimeout(() => {
-        this.seriesChange.emit();
+        this._propagateChange(this.option);
       }, 10);
 
 

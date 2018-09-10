@@ -30,7 +30,9 @@ export class LineChartGraphic extends ChartGraphic {
     if (option) {
       this.configModel.importOption(option);
     }
-    this.configModel.graphic = this;
+    this.configModel.register('option', (key, oldValue, newValue) => {
+      this.update(newValue);
+    });
   }
 
   getOption() {

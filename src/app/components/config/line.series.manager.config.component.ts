@@ -6,7 +6,7 @@ import {
   Output, TemplateRef,
   ViewChild,
 } from '@angular/core';
-import {NG_VALUE_ACCESSOR} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
@@ -26,42 +26,36 @@ export const SERIES_CONFIG_VALUE_ACCESSOR: any = {
 })
 export class LineSeriesManagerConfigComponent extends CustomControlValueAccessor implements AfterViewInit {
 
-  option: Array<LineSeriesConfig> = [];
-
-  @Output() axisChange = new EventEmitter();
-
-
-  private _differ: KeyValueDiffer<any, any>;
-  private _filterArray: Array<any> = [];
-
-  constructor(private _differs: KeyValueDiffers,
-              private _modalService: NzModalService,
-              private _zone: NgZone) {
+  form = new FormGroup({
+    seriesArray: new FormArray([]),
+  });
+  constructor(private _zone: NgZone) {
     super();
   }
 
+  writeValue(value: any) {
+    if (value !== undefined && Array.isArray(value)) {
+      value.forEach((item) => {
+        this.seriesArray.push(new FormControl(item));
+      });
+    }
+  }
+
+  get seriesArray(): FormArray {
+    return this.form.get('seriesArray') as FormArray;
+  }
+
   addSerious() {
-    this.option.push({
+    this.seriesArray.push(new FormControl({
       type: 'line',
-      name: `系列${this.option.length + 1}`
-    });
+      name: `系列${this.seriesArray.length + 1}`
+    }));
   }
-
-  seriesChange($event) {
-    this._propagateChange(this.option);
-    console.log('LineSeriesManagerConfigComponent seriesChange', JSON.stringify(this.option));
-  }
-
   ngAfterViewInit() {
-    // this.ngForm.valueChanges.subscribe((value) => {
-    //   const changes = this._differ.diff(value);
-    //   if (changes) {
-    //     console.log('AxisConfigComponent valueChanges');
-    //     console.log(value);
-    //     this.seriesChange.emit();
-    //   }
-    //
-    // });
+    this.form.valueChanges.subscribe((value) => {
+      console.log(value);
+      this._propagateChange(value.seriesArray);
+    });
   }
 
 }

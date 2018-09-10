@@ -1,16 +1,10 @@
 import {
   AfterViewInit,
-  Component, EventEmitter, forwardRef, Input,
-  KeyValueDiffer,
-  KeyValueDiffers, NgZone,
-  Output, TemplateRef,
-  ViewChild,
+  Component, forwardRef, NgZone,
 } from '@angular/core';
-import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
 
-import {NzModalService} from 'ng-zorro-antd';
 import {CustomControlValueAccessor} from './CustomControlValueAccessor';
-import {BarSeriesConfig} from '@core/node/graphic.view/chart/echart.interface/series/bar.series';
 
 export const SERIES_CONFIG_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -26,42 +20,38 @@ export const SERIES_CONFIG_VALUE_ACCESSOR: any = {
 })
 export class BarSeriesManagerConfigComponent extends CustomControlValueAccessor implements AfterViewInit {
 
-  option: Array<BarSeriesConfig> = [];
+  form = new FormGroup({
+    seriesArray: new FormArray([]),
+  });
 
-  @Output() axisChange = new EventEmitter();
-
-
-  private _differ: KeyValueDiffer<any, any>;
-  private _filterArray: Array<any> = [];
-
-  constructor(private _differs: KeyValueDiffers,
-              private _modalService: NzModalService,
-              private _zone: NgZone) {
+  constructor(private _zone: NgZone) {
     super();
   }
 
-  addSerious() {
-    this.option.push({
-      type: 'bar',
-      name: `系列${this.option.length + 1}`
-    });
+  writeValue(value: any) {
+    if (value !== undefined && Array.isArray(value)) {
+      value.forEach((item) => {
+        this.seriesArray.push(new FormControl(item));
+      });
+    }
   }
 
-  seriesChange($event) {
-    this._propagateChange(this.option);
-    console.log('BarSeriesManagerConfigComponent seriesChange', JSON.stringify(this.option));
+  get seriesArray(): FormArray {
+    return this.form.get('seriesArray') as FormArray;
+  }
+
+  addSerious() {
+    this.seriesArray.push(new FormControl({
+      type: 'bar',
+      name: `系列${this.seriesArray.length + 1}`
+    }));
   }
 
   ngAfterViewInit() {
-    // this.ngForm.valueChanges.subscribe((value) => {
-    //   const changes = this._differ.diff(value);
-    //   if (changes) {
-    //     console.log('AxisConfigComponent valueChanges');
-    //     console.log(value);
-    //     this.seriesChange.emit();
-    //   }
-    //
-    // });
+    this.form.valueChanges.subscribe((value) => {
+      console.log(value);
+      this._propagateChange(value.seriesArray);
+    });
   }
 
 }
