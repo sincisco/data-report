@@ -42,7 +42,7 @@ export class ExplicitRegionView extends RegionView {
     this._$mover = this.$element.find('.u-mover');
 
     // 监听model变化
-    this.listenToModel(_model);
+    this._listenToModel(_model);
     this.refresh();
     this._bindEvent();
   }
@@ -158,7 +158,7 @@ export class ExplicitRegionView extends RegionView {
     ]);
   }
 
-  listenToModel(model: IRegionModel) {
+  private _listenToModel(model: IRegionModel) {
     model
       .register('state', (key, oldValue, newValue, option) => {
         console.log(key, oldValue, newValue);

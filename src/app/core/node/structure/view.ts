@@ -1,12 +1,8 @@
 import {IEventTarget} from '@core/node/event/event';
-import {IModel} from '../../../components/page.config/page.model';
 import {ViewEventTarget} from '@core/node/event/view.event';
 
 export interface IView extends IEventTarget {
   $element: JQuery;
-
-  // 模型到视图
-  listenToModel(model: IModel);
 
   destroy();
 }
@@ -25,8 +21,6 @@ export abstract class View implements IView {
     this._event.removeEventListener(eventName, fn);
     return this;
   }
-
-  abstract listenToModel(model: IModel);
 
   /**
    * 1、销毁内部对象

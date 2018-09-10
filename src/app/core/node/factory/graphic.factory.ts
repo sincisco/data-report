@@ -55,7 +55,6 @@ class GraphicFactory {
       const meta: GraphicMeta = newGraphicMeta[graphicName];
       const region: RegionController = new meta.region(page);
       region.setCoordinates(x, y);
-      page.addChild(region);
 
       const graphic = new meta.graphic(region);
       graphic.init(option);

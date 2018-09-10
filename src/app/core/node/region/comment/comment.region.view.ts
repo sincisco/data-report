@@ -47,7 +47,7 @@ export class CommentRegionView extends RegionView {
     this.$fill = this.$element.find('.g-fill');
     this._$mover = this.$element.find('.u-mover');
 
-    this.listenToModel(_model);
+    this._listenToModel(_model);
     this.refresh();
     this._bindEvent();
   }
@@ -89,7 +89,7 @@ export class CommentRegionView extends RegionView {
     ]);
   }
 
-  listenToModel(model: IRegionModel) {
+  private _listenToModel(model: IRegionModel) {
     model.register('state', (key, oldValue, newValue, option) => {
       console.log(key, oldValue, newValue, option);
       switch (oldValue) {
@@ -116,7 +116,7 @@ export class CommentRegionView extends RegionView {
   }
 
   refresh() {
-    if (this._model.state === RegionState.default) {
+    if (this._model.state === RegionState.default || this._model.state === RegionState.multiSelected) {
       this.$element.css({
         width: this._defaultDimensions.width,
         height: this._defaultDimensions.height,

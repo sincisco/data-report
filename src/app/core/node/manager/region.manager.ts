@@ -14,7 +14,9 @@ export class RegionManager {
   }
 
   add(region: RegionController) {
-    this._children.push(region);
+    if (!this.has(region)) {
+      this._children.push(region);
+    }
   }
 
   remove(region: RegionController) {

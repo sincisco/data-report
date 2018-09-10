@@ -55,6 +55,7 @@ export class ReportPage extends PageView implements IPage {
       .addEventListener('regionSelect', (left, top, width, height) => {
         const array = this.regionManager.selectByBox(left, top, width, height);
         this.selectManager.clear();
+        console.log(array.length);
         array.forEach((value) => {
           this.selectManager.ctrlSelect(value);
         });

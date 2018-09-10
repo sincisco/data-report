@@ -15,11 +15,11 @@ export abstract class RegionView extends View {
   protected _controller: RegionController;
   protected _model: IRegionModel;
 
-  private _contextMenuArray: Array<ContextMenuItem|'split'> = [];
+  private _contextMenuArray: Array<ContextMenuItem | 'split'> = [];
 
   abstract refresh();
 
-  public addContextMenu(array: Array<ContextMenuItem|'split'>) {
+  public addContextMenu(array: Array<ContextMenuItem | 'split'>) {
     this._contextMenuArray.push(...array);
   }
 
@@ -169,13 +169,13 @@ export abstract class RegionView extends View {
         resizeTipHelper.show(originPageX, originPageY, snapshot.left, snapshot.top);
 
         subscription = fromEvent(document, 'mousemove')
-          .pipe(filter(event1 => count++ > 2), throttleTime(30))
+          .pipe(throttleTime(30))
           .subscribe((mouseEvent: MouseEvent) => {
             const offsetLeft = mouseEvent.pageX - originPageX,
               offsetTop = mouseEvent.pageY - originPageY;
             this._model.left = snapshot.left + Math.round(offsetLeft / this._controller.scale);
             this._model.top = snapshot.top + Math.round(offsetTop / this._controller.scale);
-
+            console.log(this._model.left, this._model.top);
             resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._model.left, this._model.top);
             this.refresh();
           });

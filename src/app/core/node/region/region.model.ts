@@ -38,7 +38,7 @@ export interface IRegionModel extends IModelEventTarget {
  给表达式提供运算时所需的执行环境
  */
 export class RegionModel extends ModelEventTarget implements IRegionModel {
-  protected option: RegionOption;
+  protected _option: RegionOption;
   // 非持久化状态层
   private _state: RegionState;
 
@@ -47,7 +47,7 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
 
   constructor(left: number = 100, top: number = 100, width: number = 300, height: number = 200) {
     super();
-    this.option = {
+    this._option = {
       zIndex: 1,
       left,
       top,
@@ -60,9 +60,9 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     this._differ = session.differs.find(this).create();
 
     // 避免出现添加项
-    this._differ.diff(this.option);
+    this._differ.diff(this._option);
     this._eventEmitter.pipe(debounceTime(30)).subscribe((value) => {
-      const changes = this._differ.diff(this.option), array = [];
+      const changes = this._differ.diff(this._option), array = [];
       if (changes) {
         changes.forEachRemovedItem((record) => {
           console.log('removedItem', JSON.stringify(record.key));
@@ -99,33 +99,33 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   get zIndex(): number {
-    return this.option.zIndex;
+    return this._option.zIndex;
   }
 
   get coordinates(): JQuery.Coordinates {
-    const {left, top} = this.option;
+    const {left, top} = this._option;
     return {left, top};
   }
 
   get dimensions(): Dimensions {
-    const {width, height} = this.option;
+    const {width, height} = this._option;
     return {width, height};
   }
 
   get left(): number {
-    return this.option.left;
+    return this._option.left;
   }
 
   get top(): number {
-    return this.option.top;
+    return this._option.top;
   }
 
   get width() {
-    return this.option.width;
+    return this._option.width;
   }
 
   get height() {
-    return this.option.height;
+    return this._option.height;
   }
 
   get state(): RegionState {
@@ -133,19 +133,19 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   set left(param: number) {
-    this.option.left = closestNum(param);
+    this._option.left = closestNum(param);
   }
 
   set top(param: number) {
-    this.option.top = closestNum(param);
+    this._option.top = closestNum(param);
   }
 
   set width(width: number) {
-    this.option.width = closestNum(width);
+    this._option.width = closestNum(width);
   }
 
   set height(height: number) {
-    this.option.height = closestNum(height);
+    this._option.height = closestNum(height);
   }
 
   set state(param: RegionState) {
@@ -177,11 +177,11 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   importModel(option: any) {
-    this.option = option;
+    this._option = option;
   }
 
   exportModel() {
-    return Object.assign({}, this.option);
+    return Object.assign({}, this._option);
   }
 
   destroy() {
