@@ -31,7 +31,6 @@ export class ReportPage extends PageView implements IPage {
     this.selectManager = new SelectManager();
     this.activateManager = new ActivateManager(this);
     this.listenToModel(this.model);
-    this.regionManager.listenToModel(this.model);
     this._init();
   }
 
@@ -43,6 +42,15 @@ export class ReportPage extends PageView implements IPage {
 
   save() {
     return this.regionManager.save();
+  }
+
+  listenToModel(model: PageModel) {
+    super.listenToModel(model);
+    model.register('themeMode', (key, oldValue, newValue) => {
+      this.regionManager.regionArray.forEach((item) => {
+        item.updateTheme(newValue);
+      });
+    });
   }
 
 
@@ -64,52 +72,52 @@ export class ReportPage extends PageView implements IPage {
         this.activateManager.deactivate();
       });
 
-    this.appendContext([
-      {
-        displayName: '新建 柱状图',
-        callback: ($event) => {
-          // 如何建立关联
-          graphicFactory.createByName('barChart', this, $event.offsetX, $event.offsetY);
-          contextMenuHelper.close();
-        }
-      }, {
-        displayName: '新建注释',
-        callback: ($event) => {
-          graphicFactory.createByName('commentAuxiliary', this, $event.offsetX, $event.offsetY);
-          contextMenuHelper.close();
-        }
-      }, {
-        displayName: '新建文本',
-        callback: ($event) => {
-          graphicFactory.createByName('textAuxiliary', this, $event.offsetX, $event.offsetY);
-          contextMenuHelper.close();
-        }
-      }, {
-        displayName: '新建 Image',
-        callback: ($event) => {
-          // 如何建立关联
-          graphicFactory.createByName('imageAuxiliary', this, $event.offsetX, $event.offsetY);
-          contextMenuHelper.close();
-        }
-      }, 'split', {
-        displayName: '剪切',
-        shortcut: 'Ctrl+X'
-      }, {
-        displayName: '粘贴',
-        shortcut: 'Ctrl+X',
-        // enable: clipboard.hasData(),
-        callback: ($event) => {
-          console.log('粘贴');
-          if (clipboard.hasData()) {
-            graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
+    this.contextMenuGenerator = () => {
+      return [
+        {
+          displayName: '新建 柱状图',
+          callback: ($event) => {
+            // 如何建立关联
+            graphicFactory.createByName('barChart', this, $event.offsetX, $event.offsetY);
+            contextMenuHelper.close();
           }
-          contextMenuHelper.close();
+        }, {
+          displayName: '新建注释',
+          callback: ($event) => {
+            graphicFactory.createByName('commentAuxiliary', this, $event.offsetX, $event.offsetY);
+            contextMenuHelper.close();
+          }
+        }, {
+          displayName: '新建文本',
+          callback: ($event) => {
+            graphicFactory.createByName('textAuxiliary', this, $event.offsetX, $event.offsetY);
+            contextMenuHelper.close();
+          }
+        }, {
+          displayName: '新建 Image',
+          callback: ($event) => {
+            // 如何建立关联
+            graphicFactory.createByName('imageAuxiliary', this, $event.offsetX, $event.offsetY);
+            contextMenuHelper.close();
+          }
+        }, 'split', {
+          displayName: '剪切',
+          shortcut: 'Ctrl+X'
+        }, {
+          displayName: '粘贴',
+          shortcut: 'Ctrl+X',
+          enable: clipboard.hasData(),
+          callback: ($event) => {
+            console.log('粘贴');
+            graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
+            return false;
+          }
+        }, {
+          displayName: '删除',
+          shortcut: 'Backspace'
         }
-      }, {
-        displayName: '删除',
-        shortcut: 'Backspace'
-      }
-    ]);
+      ];
+    };
 
   }
 

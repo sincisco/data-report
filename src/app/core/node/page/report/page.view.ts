@@ -34,7 +34,7 @@ export class PageView extends View {
   private _scale = 1;
   private _width: number;
   private _height: number;
-  private _contextArray = [];
+  private _contextMenuGenerator: Function;
 
   constructor() {
     super();
@@ -48,6 +48,10 @@ export class PageView extends View {
     this.maskHelper = new MaskHelper($element.find('.u-edit-mask'));
 
     this._bind();
+  }
+
+  set contextMenuGenerator(generator: Function) {
+    this._contextMenuGenerator = generator;
   }
 
   get scale() {
@@ -137,7 +141,7 @@ export class PageView extends View {
 
   private _bindContextEvent() {
     this.$grid.contextmenu(($event: JQuery.Event) => {
-      contextMenuHelper.open(this._contextArray, $event.pageX, $event.pageY, $event);
+      this._contextMenuGenerator && contextMenuHelper.open(this._contextMenuGenerator(), $event.pageX, $event.pageY, $event);
       return false;
     });
   }
@@ -182,10 +186,6 @@ export class PageView extends View {
       this._refresh();
     });
 
-  }
-
-  public appendContext(array: Array<any>) {
-    this._contextArray = this._contextArray.concat(array);
   }
 
   destroy() {

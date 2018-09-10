@@ -13,6 +13,10 @@ export class RegionManager {
     return this._children.includes(region);
   }
 
+  /**
+   * 如果重复调用该方法 需要避免重复添加
+   * @param {RegionController} region
+   */
   add(region: RegionController) {
     if (!this.has(region)) {
       this._children.push(region);
@@ -29,6 +33,14 @@ export class RegionManager {
     return this._children.slice(0);
   }
 
+  /**
+   * 传入指定区域，返回包含在该区域内的region
+   * @param left
+   * @param top
+   * @param width
+   * @param height
+   * @returns {Array<RegionController>}
+   */
   public selectByBox(left, top, width, height): Array<RegionController> {
     return this._children.filter((value: RegionController) => {
       const $element = value.$element,
@@ -38,14 +50,6 @@ export class RegionManager {
         x3 = offset.left, y3 = offset.top,
         x4 = offset.left + $element.outerWidth(), y4 = offset.top + $element.outerHeight();
       return (x3 > x1 && y3 > y1 && x2 > x4 && y2 > y4);
-    });
-  }
-
-  public listenToModel(model: PageModel) {
-    model.register('themeMode', (key, oldValue, newValue) => {
-      this._children.forEach((item) => {
-        item.updateTheme(newValue);
-      });
     });
   }
 
