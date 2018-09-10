@@ -17,6 +17,7 @@ import {ReportPage} from '../../page/report/page';
 import {RegionModel, RegionState} from '../region.model';
 import {RegionView} from '../region.view';
 import {ExplicitRegionView} from './explicit.region.view';
+import {graphicMap} from '@core/node/config/graphic.map';
 
 /**
  *
@@ -78,11 +79,8 @@ export class ExplicitRegion extends RegionController {
       shortcut: 'Ctrl+C',
       callback: () => {
         console.log('复制');
-        // clipboard.saveData(this.getOption());
-        // console.log(this.getOption());
-        // clipboard.saveData(this.derender());
-        // console.log(this.derender());
-        // contextMenuHelper.close();
+        clipboard.saveData(this.derender());
+        console.log(this.derender());
         return false;
       }
     }]);
@@ -110,43 +108,27 @@ export class ExplicitRegion extends RegionController {
     this._model.state = param;
   }
 
-  getOption() {
-    // if (this._graphic) {
-    //   return Object.assign({graphic: this._graphic.getOption(), graphicClass: this._graphic.constructor}, this._dimensions);
-    // }
-  }
-
   derender() {
     const retObj = {
       regionClass: 'explicit.region',
-      option: this._model.exportModel(),
-      graphic: this._graphic ? this._graphic.getOption() : undefined
+      option: {
+        model: this._model.exportModel(),
+        graphic: this._graphic ? this._graphic.getOption() : undefined
+      }
     };
-
     return retObj;
   }
 
   render(option) {
-    // if (option.coordinates) {
-    //   this._coordinates = option.coordinates;
-    // }
-    // this._dimensions = option.dimensions;
-  }
-
-  /**
-   * 1、销毁内部对象
-   * 2、解除事件绑定
-   * 3、解除当前对象的属性引用
-   */
-  destroy() {
-    if (this._graphic) {
-      this._graphic.destroy();
-      this._graphic = null;
+    this._model.importModel(option.model);
+    if (option.graphic) {
+      if (graphicMap.has(option.graphic.graphicClass)) {
+        const _graphicClass = graphicMap.get(option.graphic.graphicClass),
+          _graphic = new _graphicClass(this);
+        // 使用刚指定的配置项和数据显示图表。
+        _graphic.init(option.graphic.option);
+      }
     }
-    this._page.removeChild(this);
-    this._page = null;
-
-    this._view.destroy();
   }
 
 }

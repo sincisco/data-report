@@ -91,6 +91,7 @@ export class CommentRegionView extends RegionView {
 
   listenToModel(model: IRegionModel) {
     model.register('state', (key, oldValue, newValue, option) => {
+      console.log(key, oldValue, newValue, option);
       switch (oldValue) {
         case RegionState.selected:
           this.$element.removeClass('selected');

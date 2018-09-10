@@ -73,23 +73,10 @@ class GraphicFactory {
   paste(option: any, x?: number, y?: number) {
     if (regionMap.has(option.regionClass)) {
       const regionClass = regionMap.get(option.regionClass);
-      const region = new regionClass();
-      region.setCoordinates(x, y);
+      const region: RegionController = new regionClass(session.currentPage);
       region.render(option.option);
-      region.refresh();
-      session.currentPage.addChild(region);
-      if (option.graphic) {
-        if (graphicMap.has(option.graphic.graphicClass)) {
-          const _graphicClass = graphicMap.get(option.graphic.graphicClass),
-            _graphic = new _graphicClass(region);
-
-          // 使用刚指定的配置项和数据显示图表。
-          _graphic.init(option.graphic.option);
-        }
-      }
+      region.setCoordinates(x, y);
     }
-
-
   }
 }
 

@@ -30,10 +30,8 @@ export abstract class RegionController {
     return this._model.state;
   }
 
-  updateTheme(theme: string) {
-    if (this._graphic) {
-      this._graphic.updateTheme(theme);
-    }
+  get page() {
+    return this._page;
   }
 
   /**
@@ -43,6 +41,12 @@ export abstract class RegionController {
   addChild(graphic: IGraphic) {
     this._graphic = graphic;
     this._view.$fill.append(graphic.$element);
+  }
+
+  updateTheme(theme: string) {
+    if (this._graphic) {
+      this._graphic.updateTheme(theme);
+    }
   }
 
   setCoordinates(left, top) {
@@ -57,12 +61,30 @@ export abstract class RegionController {
 
   abstract derender();
 
+  abstract render(option: any);
+
   get scale() {
     return this._page.scale;
   }
 
   regionResize() {
     this._page.regionResize(this);
+  }
+
+  /**
+   * 1、销毁内部对象
+   * 2、解除事件绑定
+   * 3、解除当前对象的属性引用
+   */
+  destroy() {
+    if (this._graphic) {
+      this._graphic.destroy();
+      this._graphic = null;
+    }
+    this._page.removeChild(this);
+    this._page = null;
+
+    this._view.destroy();
   }
 }
 

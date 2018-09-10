@@ -9,6 +9,10 @@ export class RegionManager {
 
   }
 
+  has(region: RegionController) {
+    return this._children.includes(region);
+  }
+
   add(region: RegionController) {
     this._children.push(region);
   }

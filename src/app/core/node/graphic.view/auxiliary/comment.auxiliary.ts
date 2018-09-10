@@ -29,7 +29,7 @@ const CommentTemplate = `
 export class CommentAuxiliary extends Auxiliary {
   $element: JQuery;
   private _$editor: JQuery;
-  private _option: CommentOption;
+  private _option: CommentOption = {};
 
   private _editorInstance: any;
   private _creating = false;

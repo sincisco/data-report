@@ -16,8 +16,6 @@ interface RegionOption {
   top: number;
   width: number;
   height: number;
-  // 非持久化状态层
-  state: RegionState;
 }
 
 export interface IRegionModel extends IModelEventTarget {
@@ -41,6 +39,8 @@ export interface IRegionModel extends IModelEventTarget {
  */
 export class RegionModel extends ModelEventTarget implements IRegionModel {
   protected option: RegionOption;
+  // 非持久化状态层
+  private _state: RegionState;
 
   private _eventEmitter: EventEmitter<string>;
   private _differ: KeyValueDiffer<any, any>;
@@ -52,9 +52,9 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
       left,
       top,
       width,
-      height,
-      state: RegionState.default
+      height
     };
+    this._state = RegionState.default;
 
     this._eventEmitter = new EventEmitter<string>();
     this._differ = session.differs.find(this).create();
@@ -129,7 +129,7 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   get state(): RegionState {
-    return this.option.state;
+    return this._state;
   }
 
   set left(param: number) {
@@ -149,8 +149,11 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   set state(param: RegionState) {
-    this.option.state = param;
-    this._eventEmitter.emit(null);
+    if (this._state !== param) {
+      const changedItem = {key: 'state', oldValue: this._state, newValue: param, option: null};
+      this._state = param;
+      this.trigger(changedItem);
+    }
   }
 
   setCoordinates(left: number, top: number) {

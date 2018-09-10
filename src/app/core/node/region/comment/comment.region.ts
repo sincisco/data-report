@@ -14,55 +14,70 @@ import {RegionModel, RegionState} from '../region.model';
 import {RegionView} from '../region.view';
 import {ExplicitRegionView} from '../explicit/explicit.region.view';
 import {CommentRegionView} from './comment.region.view';
+import {clipboard} from '@core/node/clipboard';
 
 
 export class CommentRegion extends RegionController {
 
-  constructor() {
+  constructor(protected _page: ReportPage) {
     super();
     this._model = new RegionModel();
     this._view = new CommentRegionView(this, this._model);
+
+    this._page.addChild(this);
+
+    this._init();
   }
 
-  init() {
-    this._view.addEventListener('resizeEnd', () => {
-      if (this._graphic) {
-        this._graphic.resize();
+  private _init() {
+    this._view
+      .addEventListener('select', () => {
+        this._page.selectManager.select(this);
+      })
+      .addEventListener('ctrlSelect', () => {
+        this._page.selectManager.ctrlSelect(this);
+      })
+      .addEventListener('resizeEnd', () => {
+        if (this._graphic) {
+          this._graphic.resize();
+        }
+      })
+      .addEventListener('activateRegion', () => {
+        this._page.activateRegion(this);
+      });
+
+    this._view.addContextMenu([{
+      displayName: '复制',
+      shortcut: 'Ctrl+C',
+      callback: () => {
+        console.log('复制');
+        clipboard.saveData(this.derender());
+        console.log(this.derender());
+        return false;
       }
-    });
-  }
-
-
-  set page(param: ReportPage) {
-    this._page = param;
-  }
-
-  get page() {
-    return this._page;
+    }]);
   }
 
   /**
    * 用户单击mover的时候调用select，进入选中状态
+   *
+   * unselect 点击画布  所有的region、调用unselect方法
+   *
+   * 用户双击mover，进入激活状态   此时已经调用了select
+   *
+   * 点击mask  当前激活的region调用deactivate
    */
-  select() {
-    this._model.state = RegionState.selected;
-    if (this._graphic) {
+  set state(param: RegionState) {
+    if (param === RegionState.selected && this._graphic) {
       reportGlobal.instance = this._graphic;
       this._graphic.activateConfig();
-    }
-    // this.refresh();
-  }
-
-
-  /**
-   * 用户双击mover，进入激活状态   此时已经调用了select
-   */
-  activate() {
-    this._model.state = RegionState.activated;
-    if (this._graphic) {
+    } else if (param === RegionState.activated && this._graphic) {
       reportGlobal.instance = this._graphic;
       this._graphic.activate();
+    } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphic) {
+      (<any>this._graphic).deactivate();
     }
+    this._model.state = param;
   }
 
   /**
@@ -77,24 +92,10 @@ export class CommentRegion extends RegionController {
     // this.refresh();
   }
 
-  setDimensions(width: number, height: number) {
-  }
-
   derender() {
   }
 
-  /**
-   * 1、销毁内部对象
-   * 2、解除事件绑定
-   * 3、解除当前对象的属性引用
-   */
-  destroy() {
-    if (this._graphic) {
-      this._graphic.destroy();
-      this._graphic = null;
-    }
-    this._page.removeChild(this);
-    this._page = null;
-    this._view.destroy();
+  render() {
   }
+
 }
