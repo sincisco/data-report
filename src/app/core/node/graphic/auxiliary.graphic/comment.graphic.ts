@@ -1,14 +1,13 @@
 import {ComponentRef} from '@angular/core';
 import {IGraphic} from '../graphic';
 
-
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
-import {CommentRegion} from '../../region/comment/comment.region';
 import {CommentAuxiliary} from '@core/node/graphic.view/auxiliary/comment.auxiliary';
-import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
+import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
 import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
+import {RegionController} from '@core/node/region/region.controller';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">
@@ -21,10 +20,10 @@ export class CommentGraphic implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _content: IGraphicView;
-  private _configComponentRef: ComponentRef<ConfigModel>;
+  private _view: IGraphicView;
+  private _configComponentRef: ComponentRef<GraphicConfig>;
 
-  constructor(private _region: CommentRegion) {
+  constructor(private _region: RegionController) {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
 
@@ -36,9 +35,8 @@ export class CommentGraphic implements IGraphic {
   }
 
   addChild(commentAuxiliary: CommentAuxiliary) {
-    this._content = commentAuxiliary;
+    this._view = commentAuxiliary;
     this._$frame.append(commentAuxiliary.$element);
-
   }
 
   /**
@@ -46,10 +44,10 @@ export class CommentGraphic implements IGraphic {
    * @param option
    */
   init(option?: any) {
-    this._content = new CommentAuxiliary(this);
+    this._view = new CommentAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(CommentConfigComponent);
     if (option) {
-      this.configModel.writeOption(option);
+      this.configModel.importOption(option);
     }
     this.configModel.graphic = this;
   }
@@ -57,15 +55,15 @@ export class CommentGraphic implements IGraphic {
   getOption() {
     return {
       graphicClass: 'comment.graphic',
-      option: this.configModel.readOption()
+      option: this.configModel.exportOption()
     };
   }
 
 
   update(option: any) {
-    if (this._content) {
+    if (this._view) {
       this._region.setDimensions(option.width, option.height);
-      this._content.update(option);
+      this._view.update(option);
     }
   }
 
@@ -76,20 +74,20 @@ export class CommentGraphic implements IGraphic {
   }
 
   resize() {
-    if (this._content) {
-      this._content.resize();
+    if (this._view) {
+      this._view.resize();
     }
   }
 
   activate() {
-    if (this._content) {
-      this._content.activate();
+    if (this._view) {
+      this._view.activate();
     }
   }
 
   deactivate() {
-    if (this._content) {
-      this._content.deactivate();
+    if (this._view) {
+      this._view.deactivate();
     }
   }
 
@@ -100,8 +98,8 @@ export class CommentGraphic implements IGraphic {
   }
 
   destroy() {
-    if (this._content) {
-      this._content.destroy();
+    if (this._view) {
+      this._view.destroy();
       this._configComponentRef.destroy();
     }
   }

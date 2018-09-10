@@ -1,6 +1,6 @@
 import {ModelEventTarget} from '@core/node/event/model.event';
 
-export class PageModel extends ModelEventTarget {
+export class PageConfig extends ModelEventTarget {
   option: any;
 }
 

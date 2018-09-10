@@ -4,7 +4,7 @@ import {RegionController} from '../../region/region.controller';
 import {ComponentRef} from '@angular/core';
 import {PageConfigComponent} from '../../../../components/page.config/page.config.component';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
-import {PageModel} from '../../../../components/page.config/page.model';
+import {PageConfig} from '../../../../components/page.config/page.config';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {ISelectManager, SelectManager} from '@core/node/manager/select.manager';
@@ -25,7 +25,7 @@ export class ReportPage extends PageView implements IPage {
     return new ReportPage(componentRef);
   }
 
-  constructor(private _configComponentRef: ComponentRef<PageModel>) {
+  constructor(private _configComponentRef: ComponentRef<PageConfig>) {
     super();
     this.regionManager = new RegionManager();
     this.selectManager = new SelectManager();
@@ -44,7 +44,7 @@ export class ReportPage extends PageView implements IPage {
     return this.regionManager.save();
   }
 
-  listenToModel(model: PageModel) {
+  listenToModel(model: PageConfig) {
     super.listenToModel(model);
     model.register('themeMode', (key, oldValue, newValue) => {
       this.regionManager.regionArray.forEach((item) => {

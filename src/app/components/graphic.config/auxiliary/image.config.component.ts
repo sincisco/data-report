@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {ConfigModel} from '../graphic.config';
+import {GraphicConfig} from '../graphic.config';
 import {debounceTime} from 'rxjs/operators';
 
 @Component({
@@ -17,7 +17,7 @@ import {debounceTime} from 'rxjs/operators';
   templateUrl: './image.config.component.html',
   styleUrls: ['./image.config.component.less']
 })
-export class ImageConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
+export class ImageConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -86,8 +86,7 @@ export class ImageConfigComponent extends ConfigModel implements AfterViewInit, 
         console.log('has no changes');
       }
       if (array.length > 0) {
-        console.log('do page update');
-        this.graphic.updateGraphic(array);
+        this._update(array);
       }
     });
   }

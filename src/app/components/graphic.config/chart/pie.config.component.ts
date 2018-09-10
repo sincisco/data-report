@@ -16,7 +16,7 @@ import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '../../../core/dataset/dataset.interface';
-import {ConfigModel} from '../graphic.config';
+import {GraphicConfig} from '../graphic.config';
 import {ChartPieConfig} from '../../../core/node/graphic/chart.graphic/pie.chart.graphic';
 
 @Component({
@@ -24,7 +24,7 @@ import {ChartPieConfig} from '../../../core/node/graphic/chart.graphic/pie.chart
   templateUrl: './pie.config.component.html',
   styleUrls: ['./pie.config.component.less']
 })
-export class PieConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
+export class PieConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;

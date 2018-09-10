@@ -27,7 +27,7 @@ export class LinesChartGraphic extends ChartGraphic {
     this._chart = new LinesChart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(LineConfigComponent);
     if (option) {
-      this.configModel.writeOption(option);
+      this.configModel.importOption(option);
     }
     this.configModel.graphic = this;
   }
@@ -35,7 +35,7 @@ export class LinesChartGraphic extends ChartGraphic {
   getOption() {
     return {
       graphicClass: 'lines.chart.graphic',
-      option: this.configModel.readOption()
+      option: this.configModel.exportOption()
     };
   }
 

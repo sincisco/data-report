@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {reportGlobal} from '@core/node/region/region.controller';
-import {PageModel} from '../../components/page.config/page.model';
+import {PageConfig} from '../../components/page.config/page.config';
 import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
-import {ConfigModel} from '../../components/graphic.config/graphic.config';
+import {GraphicConfig} from '../../components/graphic.config/graphic.config';
 
 export var siderLeftComponent: SiderLeftComponent;
 
@@ -48,12 +48,12 @@ export class SiderLeftComponent implements AfterViewInit {
     });
   }
 
-  createGraphicConfig(type: Type<ConfigModel>): ComponentRef<ConfigModel> {
-    let retComponentRef: ComponentRef<ConfigModel>;
+  createGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
+    let retComponentRef: ComponentRef<GraphicConfig>;
     this.zone.run(() => {
       this.container.detach();
       this.container.clear();
-      const factory: ComponentFactory<ConfigModel> =
+      const factory: ComponentFactory<GraphicConfig> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.container.createComponent(factory);
       this.componentRef.instance.type = type;
@@ -67,12 +67,12 @@ export class SiderLeftComponent implements AfterViewInit {
     return retComponentRef;
   }
 
-  forwardCreateGraphicConfig(type: Type<ConfigModel>): ComponentRef<ConfigModel> {
-    let retComponentRef: ComponentRef<ConfigModel>;
+  forwardCreateGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
+    let retComponentRef: ComponentRef<GraphicConfig>;
     this.zone.run(() => {
       this.shadowContainer.detach();
       this.shadowContainer.clear();
-      const factory: ComponentFactory<ConfigModel> =
+      const factory: ComponentFactory<GraphicConfig> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       this.componentRef.instance.type = type;
@@ -87,12 +87,12 @@ export class SiderLeftComponent implements AfterViewInit {
     return retComponentRef;
   }
 
-  forwardCreateCanvasConfig(type: Type<PageModel>): ComponentRef<PageModel> {
-    let retComponentRef: ComponentRef<PageModel>;
+  forwardCreateCanvasConfig(type: Type<PageConfig>): ComponentRef<PageConfig> {
+    let retComponentRef: ComponentRef<PageConfig>;
     this.zone.run(() => {
       this.shadowContainer.detach();
       this.shadowContainer.clear();
-      const factory: ComponentFactory<PageModel> =
+      const factory: ComponentFactory<PageConfig> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       // this.componentRef.instance.type = type;

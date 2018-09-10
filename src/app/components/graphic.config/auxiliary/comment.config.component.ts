@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {ConfigModel} from '../graphic.config';
+import {GraphicConfig} from '../graphic.config';
 
 @Component({
   selector: 'app-comment-config',
   templateUrl: './comment.config.component.html',
   styleUrls: ['./comment.config.component.less']
 })
-export class CommentConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
+export class CommentConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 

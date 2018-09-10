@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import {IModel} from '../../../components/page.config/page.model';
+import {IModel} from '../../../components/page.config/page.config';
 import {IEventTarget} from '@core/node/event/event';
 
 /**

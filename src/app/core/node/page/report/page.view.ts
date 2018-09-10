@@ -3,7 +3,7 @@ import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {MaskHelper} from '@core/node/helper/mask.helper';
-import {PageModel} from '../../../../components/page.config/page.model';
+import {PageConfig} from '../../../../components/page.config/page.config';
 import {View} from '@core/node/structure/view';
 
 const TEMPLATE = `
@@ -146,7 +146,7 @@ export class PageView extends View {
     });
   }
 
-  public listenToModel(model: PageModel) {
+  public listenToModel(model: PageConfig) {
     model.register('remove.backgroundClass', (key, oldValue, newValue) => {
       this._$box.removeClass('background1 background2 background3 background4');
     });

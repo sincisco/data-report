@@ -1,9 +1,9 @@
-import {ConfigModel} from '../../../components/graphic.config/graphic.config';
+import {GraphicConfig} from '../../../components/graphic.config/graphic.config';
 
 export interface IGraphic {
   $element: JQuery;
 
-  configModel: ConfigModel;
+  configModel: GraphicConfig;
 
   /**
    * 一般用于初始化  新建Graphic的时候调用

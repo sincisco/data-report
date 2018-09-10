@@ -16,7 +16,7 @@ import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalRef, NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '../../../core/dataset/dataset.interface';
-import {ConfigModel} from '../graphic.config';
+import {GraphicConfig} from '../graphic.config';
 import {ChartLineOption} from '../../../core/node/graphic/chart.graphic/line.chart.graphic';
 
 
@@ -25,7 +25,7 @@ import {ChartLineOption} from '../../../core/node/graphic/chart.graphic/line.cha
   templateUrl: './line.config.component.html',
   styleUrls: ['./line.config.component.less']
 })
-export class LineConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
+export class LineConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;

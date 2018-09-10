@@ -27,7 +27,7 @@ export class BarChartGraphic extends ChartGraphic {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
     if (option) {
-      this.configModel.writeOption(option);
+      this.configModel.importOption(option);
     }
     this.configModel.graphic = this;
   }
@@ -35,7 +35,7 @@ export class BarChartGraphic extends ChartGraphic {
   getOption() {
     return {
       graphicClass: 'bar.chart.graphic',
-      option: this.configModel.readOption()
+      option: this.configModel.exportOption()
     };
   }
 

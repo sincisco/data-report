@@ -4,12 +4,12 @@ import {IGraphic} from '../graphic';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {ExplicitRegion} from '../../region/explicit/explicit.region';
 import {ChangeItem, ModelEventTarget} from '../../event/model.event';
 import {ImageAuxiliary} from '@core/node/graphic.view/auxiliary/image.auxiliary';
-import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
+import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
 import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
+import {RegionController} from '@core/node/region/region.controller';
 
 
 const template = `
@@ -24,11 +24,11 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _region: ExplicitRegion;
-  private _content: IGraphicView;
-  private _configComponentRef: ComponentRef<ConfigModel>;
+  private _region: RegionController;
+  private _view: IGraphicView;
+  private _configComponentRef: ComponentRef<GraphicConfig>;
 
-  constructor(region: ExplicitRegion) {
+  constructor(region: RegionController) {
     super();
     this._region = region;
     this.$element = $(template);
@@ -43,23 +43,23 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   }
 
   addChild(imageAuxiliary: ImageAuxiliary) {
-    this._content = imageAuxiliary;
+    this._view = imageAuxiliary;
     this._$frame.append(imageAuxiliary.$element);
   }
 
   init(option?: any) {
-    this._content = new ImageAuxiliary(this);
+    this._view = new ImageAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(ImageConfigComponent);
     this.configModel.graphic = this;
     if (option) {
-      this.configModel.writeOption(option);
+      this.configModel.importOption(option);
     }
   }
 
   getOption() {
     return {
       graphicClass: 'image.graphic',
-      option: this.configModel.readOption()
+      option: this.configModel.exportOption()
     };
   }
 
@@ -91,9 +91,9 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
 
 
   update(option: any) {
-    if (this._content && option && option.dataUrl) {
+    if (this._view && option && option.dataUrl) {
       this._region.setDimensions(option.width, option.height);
-      this._content.update(option);
+      this._view.update(option);
     }
   }
 
@@ -111,20 +111,20 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   }
 
   resize() {
-    if (this._content) {
-      this._content.resize();
+    if (this._view) {
+      this._view.resize();
     }
   }
 
   activate() {
-    if (this._content) {
-      this._content.activate();
+    if (this._view) {
+      this._view.activate();
     }
   }
 
   deactivate() {
-    if (this._content) {
-      (<any>this._content).deactivate();
+    if (this._view) {
+      (<any>this._view).deactivate();
     }
   }
 
@@ -135,10 +135,10 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   }
 
   destroy() {
-    if (this._content) {
-      this._content.destroy();
+    if (this._view) {
+      this._view.destroy();
       this._configComponentRef.destroy();
-      this._content = null;
+      this._view = null;
       this._configComponentRef = null;
     }
     this.$element.remove();

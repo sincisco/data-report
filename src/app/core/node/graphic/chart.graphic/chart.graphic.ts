@@ -6,7 +6,7 @@ import {Chart} from '../../graphic.view/chart/chart';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
-import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
+import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -27,7 +27,7 @@ export abstract class ChartGraphic implements IGraphic {
   private readonly _$toolbar: JQuery;
 
   protected _chart: Chart;
-  protected _configComponentRef: ComponentRef<ConfigModel>;
+  protected _configComponentRef: ComponentRef<GraphicConfig>;
 
   get configModel() {
     return this._configComponentRef.instance;

@@ -5,7 +5,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 
 import * as _ from 'lodash';
 import {TextAuxiliary} from '@core/node/graphic.view/auxiliary/text.auxiliary';
-import {ConfigModel} from '../../../../components/graphic.config/graphic.config';
+import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
 import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
 import {RegionController} from '@core/node/region/region.controller';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
@@ -22,7 +22,7 @@ export class TextGraphic implements IGraphic {
   private _$frame: JQuery;
 
   private _content: IGraphicView;
-  private _configComponentRef: ComponentRef<ConfigModel>;
+  private _configComponentRef: ComponentRef<GraphicConfig>;
 
   constructor(private _region: RegionController) {
     this.$element = $(template);
@@ -45,7 +45,7 @@ export class TextGraphic implements IGraphic {
     this._content = new TextAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
     if (option) {
-      this.configModel.writeOption(option);
+      this.configModel.importOption(option);
     }
     this._content.init({});
     this.configModel.graphic = this;
@@ -59,7 +59,7 @@ export class TextGraphic implements IGraphic {
   getOption() {
     return {
       graphicClass: 'text.graphic',
-      option: this.configModel.readOption()
+      option: this.configModel.exportOption()
     };
   }
 

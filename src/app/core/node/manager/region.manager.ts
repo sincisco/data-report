@@ -1,6 +1,6 @@
 import {RegionController} from '../region/region.controller';
 import {ReportPage} from '../page/report/page';
-import {PageModel} from '../../../components/page.config/page.model';
+import {PageConfig} from '../../../components/page.config/page.config';
 
 export class RegionManager {
   private _children: Array<RegionController> = [];

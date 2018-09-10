@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
 import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {ConfigModel} from '../graphic.config';
+import {GraphicConfig} from '../graphic.config';
 
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
@@ -24,7 +24,7 @@ import * as _ from 'lodash';
   templateUrl: './bar.config.component.html',
   styleUrls: ['./bar.config.component.less']
 })
-export class BarConfigComponent extends ConfigModel implements AfterViewInit, OnInit {
+export class BarConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @Output() output = new EventEmitter();
@@ -75,7 +75,7 @@ export class BarConfigComponent extends ConfigModel implements AfterViewInit, On
     super();
   }
 
-  readOption() {
+  exportOption() {
     return _.cloneDeep(this._innerOption);
   }
 
