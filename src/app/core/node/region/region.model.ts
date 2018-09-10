@@ -176,8 +176,13 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     }
   }
 
+  /**
+   * 不可以直接将option赋值给model对象
+   * 因为多次粘贴的情况 会导致多个region公用一个model对象
+   * @param option
+   */
   importModel(option: any) {
-    this._option = option;
+    this._option = Object.assign({}, option);
   }
 
   exportModel() {
