@@ -53,40 +53,40 @@ export class CommentRegionView extends RegionView {
   }
 
   private _initContextMenu() {
-    this.addContextMenu([
-      {
-        displayName: '复制',
-        shortcut: 'Ctrl+C',
-        callback: () => {
-          console.log('复制');
-        }
-      }, {
-        displayName: '剪切',
-        shortcut: 'Ctrl+X'
-      }, {
-        displayName: '删除',
-        shortcut: 'Backspace',
-        callback: () => {
-          // if (this._graphic) {
-          //   this._graphic.destroy();
-          // }
-          // this.destroy();
-          // contextMenuHelper.close();
-        }
-      }, 'split', {
-        displayName: '创建Paragraph',
-        callback: () => {
-          // const _graphic = this._graphic = new CommentGraphic(this);
-          // const option = {
-          //   text: '英特尔 Xeon(至强)'
-          // };
-          //
-          // // 使用刚指定的配置项和数据显示图表。
-          // _graphic.init(CommentAuxiliary);
-          // contextMenuHelper.close();
-        }
-      }
-    ]);
+    // this.addContextMenu([
+    //   {
+    //     displayName: '复制',
+    //     shortcut: 'Ctrl+C',
+    //     callback: () => {
+    //       console.log('复制');
+    //     }
+    //   }, {
+    //     displayName: '剪切',
+    //     shortcut: 'Ctrl+X'
+    //   }, {
+    //     displayName: '删除',
+    //     shortcut: 'Backspace',
+    //     callback: () => {
+    //       // if (this._graphic) {
+    //       //   this._graphic.destroy();
+    //       // }
+    //       // this.destroy();
+    //       // contextMenuHelper.close();
+    //     }
+    //   }, 'split', {
+    //     displayName: '创建Paragraph',
+    //     callback: () => {
+    //       // const _graphic = this._graphic = new CommentGraphic(this);
+    //       // const option = {
+    //       //   text: '英特尔 Xeon(至强)'
+    //       // };
+    //       //
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // _graphic.init(CommentAuxiliary);
+    //       // contextMenuHelper.close();
+    //     }
+    //   }
+    // ]);
   }
 
   private _listenToModel(model: IRegionModel) {

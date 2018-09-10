@@ -1,12 +1,14 @@
 import {View} from '@core/node/structure/view';
 import {fromEvent, Subscription} from 'rxjs';
-import {filter, throttleTime} from 'rxjs/internal/operators';
+import {throttleTime} from 'rxjs/internal/operators';
 import {resizeTipHelper} from '@core/node/helper/resize.tip.helper';
 import {RegionController} from '@core/node/region/region.controller';
 import {IRegionModel} from '@core/node/region/region.model';
 import {CoordinatesAndDimensions} from '@core/node/interface';
 import {closestNum} from '../../../utils/common';
 import {contextMenuHelper, ContextMenuItem} from '../../../utils/contextMenu';
+
+type IContextMenuGenerator = () => Array<ContextMenuItem | 'split'>;
 
 export abstract class RegionView extends View {
   $fill: JQuery;
@@ -15,13 +17,14 @@ export abstract class RegionView extends View {
   protected _controller: RegionController;
   protected _model: IRegionModel;
 
-  private _contextMenuArray: Array<ContextMenuItem | 'split'> = [];
+
+  private _contextMenuGenerator: IContextMenuGenerator;
+
+  set contextMenuGenerator(generator: IContextMenuGenerator) {
+    this._contextMenuGenerator = generator;
+  }
 
   abstract refresh();
-
-  public addContextMenu(array: Array<ContextMenuItem | 'split'>) {
-    this._contextMenuArray.push(...array);
-  }
 
   protected _bindEventForResize() {
     let offsetX, offsetY,
@@ -213,7 +216,7 @@ export abstract class RegionView extends View {
 
   protected _bindContextEvent() {
     this._$mover.contextmenu(($event: JQuery.Event) => {
-      contextMenuHelper.open(this._contextMenuArray, $event.pageX, $event.pageY, $event);
+      contextMenuHelper.open(this._contextMenuGenerator(), $event.pageX, $event.pageY, $event);
       return false;
     });
   }

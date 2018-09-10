@@ -74,16 +74,37 @@ export class ExplicitRegion extends RegionController {
         this._page.activateRegion(this);
       });
 
-    this._view.addContextMenu([{
-      displayName: '复制',
-      shortcut: 'Ctrl+C',
-      callback: () => {
-        console.log('复制');
-        clipboard.saveData(this.derender());
-        console.log(this.derender());
-        return false;
-      }
-    }]);
+    this._view.contextMenuGenerator = () => {
+      return [{
+        displayName: '复制',
+        shortcut: 'Ctrl+C',
+        callback: () => {
+          console.log('复制');
+          clipboard.saveData(this.derender());
+          console.log(this.derender());
+          return false;
+        }
+      },
+        {
+          displayName: '剪切',
+          shortcut: 'Ctrl+X'
+        }, {
+          displayName: '删除',
+          shortcut: 'Backspace',
+          callback: () => {
+            if (this.page.selectManager.include(this)) {
+              const arr = this.page.selectManager.selectedArray;
+              arr.forEach((value) => {
+                value.destroy();
+              });
+            } else {
+              this.destroy();
+            }
+
+            return false;
+          }
+        }, 'split'];
+    };
   }
 
   /**

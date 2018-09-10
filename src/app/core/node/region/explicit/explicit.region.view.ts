@@ -48,114 +48,95 @@ export class ExplicitRegionView extends RegionView {
   }
 
   private _initContextMenu() {
-    this.addContextMenu([
-      {
-        displayName: '剪切',
-        shortcut: 'Ctrl+X'
-      }, {
-        displayName: '删除',
-        shortcut: 'Backspace',
-        callback: () => {
-          // if (this.page.selectManager.include(this)) {
-          //   const arr = this.page.selectManager.selectedArray;
-          //   arr.forEach((value) => {
-          //     value.destroy();
-          //   });
-          // } else {
-          //   this.destroy();
-          // }
-
-          return false;
-        }
-      }, 'split',
-      {
-        displayName: '创建bar Echart',
-        callback: () => {
-          // const _graphic = new BarChartGraphic(this);
-          //
-          // _graphic.init();
-          // // 使用刚指定的配置项和数据显示图表。
-          // // content.init({});
-          //
-          // contextMenuHelper.close();
-        }
-      },
-      {
-        displayName: '创建line Echart',
-        callback: () => {
-          // const _graphic = new LineChartGraphic(this);
-          //
-          // _graphic.init();
-          // // 使用刚指定的配置项和数据显示图表。
-          // // content.init({});
-          //
-          // contextMenuHelper.close();
-        }
-      },
-      {
-        displayName: '创建pie Echart',
-        callback: () => {
-          // const _graphic = new PieChartGraphic(this);
-          //
-          // _graphic.init();
-          // // 使用刚指定的配置项和数据显示图表。
-          // // content.init({});
-          //
-          // contextMenuHelper.close();
-        }
-      }, {
-        displayName: '创建Header',
-        callback: () => {
-          // var content = this._content = new HeaderHtml(this.$frame[0]);
-          // console.log(content);
-          // var option = {
-          //   text: '英特尔 Xeon(至强)'
-          // };
-          //
-          // // 使用刚指定的配置项和数据显示图表。
-          // content.init(option);
-        }
-      }, {
-        displayName: '创建Paragraph',
-        callback: () => {
-          // const _graphic = this._graphic = new TextGraphic(this);
-          // const option = {
-          //   text: '英特尔 Xeon(至强)'
-          // };
-          //
-          // // 使用刚指定的配置项和数据显示图表。
-          // _graphic.init(TextAuxiliary);
-          // contextMenuHelper.close();
-        }
-      }, {
-        displayName: '创建Comment',
-        callback: () => {
-          // var content = this._content = new CommentContent(this.$frame[0]);
-          // console.log(content);
-          // var option = {
-          //   text: '英特尔 Xeon(至强)'
-          // };
-          //
-          // // 使用刚指定的配置项和数据显示图表。
-          // content.init(option);
-        }
-      }, {
-        displayName: '创建Lines',
-        callback: () => {
-          // const _graphic = new LinesChartGraphic(this);
-          //
-          // _graphic.init();
-          // // 使用刚指定的配置项和数据显示图表。
-          // // content.init({});
-          //
-          // contextMenuHelper.close();
-          // // var content = this._content = new TextContent(this.$frame[0]);
-          // //
-          // // // 使用刚指定的配置项和数据显示图表。
-          // // content.init(option);
-        }
-      }
-    ]);
+    // this.addContextMenu([
+    //   {
+    //     displayName: '创建bar Echart',
+    //     callback: () => {
+    //       // const _graphic = new BarChartGraphic(this);
+    //       //
+    //       // _graphic.init();
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // // content.init({});
+    //       //
+    //       // contextMenuHelper.close();
+    //     }
+    //   },
+    //   {
+    //     displayName: '创建line Echart',
+    //     callback: () => {
+    //       // const _graphic = new LineChartGraphic(this);
+    //       //
+    //       // _graphic.init();
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // // content.init({});
+    //       //
+    //       // contextMenuHelper.close();
+    //     }
+    //   },
+    //   {
+    //     displayName: '创建pie Echart',
+    //     callback: () => {
+    //       // const _graphic = new PieChartGraphic(this);
+    //       //
+    //       // _graphic.init();
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // // content.init({});
+    //       //
+    //       // contextMenuHelper.close();
+    //     }
+    //   }, {
+    //     displayName: '创建Header',
+    //     callback: () => {
+    //       // var content = this._content = new HeaderHtml(this.$frame[0]);
+    //       // console.log(content);
+    //       // var option = {
+    //       //   text: '英特尔 Xeon(至强)'
+    //       // };
+    //       //
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // content.init(option);
+    //     }
+    //   }, {
+    //     displayName: '创建Paragraph',
+    //     callback: () => {
+    //       // const _graphic = this._graphic = new TextGraphic(this);
+    //       // const option = {
+    //       //   text: '英特尔 Xeon(至强)'
+    //       // };
+    //       //
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // _graphic.init(TextAuxiliary);
+    //       // contextMenuHelper.close();
+    //     }
+    //   }, {
+    //     displayName: '创建Comment',
+    //     callback: () => {
+    //       // var content = this._content = new CommentContent(this.$frame[0]);
+    //       // console.log(content);
+    //       // var option = {
+    //       //   text: '英特尔 Xeon(至强)'
+    //       // };
+    //       //
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // content.init(option);
+    //     }
+    //   }, {
+    //     displayName: '创建Lines',
+    //     callback: () => {
+    //       // const _graphic = new LinesChartGraphic(this);
+    //       //
+    //       // _graphic.init();
+    //       // // 使用刚指定的配置项和数据显示图表。
+    //       // // content.init({});
+    //       //
+    //       // contextMenuHelper.close();
+    //       // // var content = this._content = new TextContent(this.$frame[0]);
+    //       // //
+    //       // // // 使用刚指定的配置项和数据显示图表。
+    //       // // content.init(option);
+    //     }
+    //   }
+    // ]);
   }
 
   private _listenToModel(model: IRegionModel) {
