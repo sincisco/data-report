@@ -1,7 +1,6 @@
-import * as _ from 'lodash';
-
 import {TextGraphic} from '../../graphic/auxiliary.graphic/text.graphic';
 import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
+import {IGraphic} from '@core/node/graphic/graphic';
 
 const TextTemplate = `<div class="m-rect m-rect-text"
  style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, Arial, sans-serif; 
@@ -22,15 +21,14 @@ export class TextAuxiliary extends Auxiliary {
   $element: JQuery;
   private _$editor: JQuery;
 
-  private _text: string;
   private _creating = false;
   private _editor: any;
 
-  constructor(private textGraphic: TextGraphic) {
+  constructor(private _graphic: IGraphic) {
     super();
     this.$element = $(TextTemplate);
     this._$editor = this.$element.find('.medium-editor-element');
-    textGraphic.addChild(this);
+    _graphic.addChild(this);
   }
 
   init(option?: any) {
@@ -118,7 +116,8 @@ export class TextAuxiliary extends Auxiliary {
           this._creating = false;
           this._editor = editor;
           // editor.setData();
-          console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()), editor);
+          console.log('Editor was initialized',
+            Array.from(editor.ui.componentFactory.names()), editor);
         })
         .catch(error => {
           this._creating = false;
@@ -129,10 +128,9 @@ export class TextAuxiliary extends Auxiliary {
 
   deactivate() {
     if (this._editor) {
-      console.log(this._editor.getData());
+      this._event.dispatchEvent('textChanged', this._editor.getData());
       document.getSelection().removeAllRanges();
     }
-
   }
 
   destroy() {

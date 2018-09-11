@@ -43,7 +43,6 @@ export class ExplicitRegionView extends RegionView {
 
     // 监听model变化
     this._listenToModel(_model);
-    this.refresh();
     this._bindEvent();
   }
 
@@ -150,16 +149,21 @@ export class ExplicitRegionView extends RegionView {
           case RegionState.multiSelected:
             this.$element.removeClass('multi-selected');
             break;
+          case RegionState.activated:
+            this.$element.removeClass('activated');
         }
         switch (newValue) {
           case RegionState.default:
-            this.$element.removeClass('selected multi-selected');
+            this.$element.removeClass('selected multi-selected activated');
             break;
           case RegionState.selected:
             this.$element.addClass('selected');
             break;
           case RegionState.multiSelected:
             this.$element.addClass('multi-selected');
+            break;
+          case RegionState.activated:
+            this.$element.addClass('activated');
             break;
         }
       })
@@ -180,6 +184,8 @@ export class ExplicitRegionView extends RegionView {
       left: this._model.left,
       top: this._model.top
     });
+    console.log('aaa', this._model.width, this._model.height,
+      this.$element.width(), this.$element.height());
     if (this._model.state === RegionState.activated) {
       this._controller.regionResize();
     }

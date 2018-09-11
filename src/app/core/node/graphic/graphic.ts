@@ -3,8 +3,9 @@ import {GraphicConfig} from '../../../components/graphic.config/graphic.config';
 export interface IGraphic {
   $element: JQuery;
 
-  configModel: GraphicConfig;
+  model: GraphicConfig;
 
+  addChild(child);
   /**
    * 一般用于初始化  新建Graphic的时候调用
    * 如果有content的，则创建相应的content；负责配置面板的创建

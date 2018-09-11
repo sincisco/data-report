@@ -143,6 +143,7 @@ export class Chart implements IGraphicView {
     element.style.width = '100%';
     element.style.height = '100%';
     this.$element.append(element);
+    console.log($(element).width(),$(element).height());
     if (this._theme) {
       this._echart = echarts.init(element, this._theme);
     } else {

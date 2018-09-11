@@ -30,7 +30,7 @@ export class CommentGraphic implements IGraphic {
     _region.addChild(this);
   }
 
-  get configModel() {
+  get model() {
     return this._configComponentRef.instance;
   }
 
@@ -47,15 +47,15 @@ export class CommentGraphic implements IGraphic {
     this._view = new CommentAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(CommentConfigComponent);
     if (option) {
-      this.configModel.importOption(option);
+      this.model.importOption(option);
     }
-    this.configModel.graphic = this;
+    this.model.graphic = this;
   }
 
   getOption() {
     return {
       graphicClass: 'comment.graphic',
-      option: this.configModel.exportOption()
+      option: this.model.exportOption()
     };
   }
 

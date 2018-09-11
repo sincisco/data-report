@@ -36,7 +36,7 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
     region.addChild(this);
   }
 
-  get configModel() {
+  get model() {
     return this._configComponentRef.instance;
   }
 
@@ -48,9 +48,9 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   init(option?: any) {
     this._view = new ImageAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(ImageConfigComponent);
-    this.configModel.graphic = this;
+    this.model.graphic = this;
     if (option) {
-      this.configModel.importOption(option);
+      this.model.importOption(option);
     }
     this._initForUpdate();
   }
@@ -58,12 +58,12 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   getOption() {
     return {
       graphicClass: 'image.graphic',
-      option: this.configModel.exportOption()
+      option: this.model.exportOption()
     };
   }
 
   private _initForUpdate() {
-    this.configModel.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
+    this.model.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
       this._$frame.css({
         'borderRadius': newValue
       });

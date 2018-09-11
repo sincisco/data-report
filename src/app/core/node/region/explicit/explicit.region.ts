@@ -142,6 +142,9 @@ export class ExplicitRegion extends RegionController {
 
   render(option) {
     this._model.importModel(option.model);
+    this._view.refresh();
+    console.log(this._model.width, this._model.height);
+    console.log(this._view.$element.width(), this._view.$element.height());
     if (option.graphic) {
       if (graphicMap.has(option.graphic.graphicClass)) {
         const _graphicClass = graphicMap.get(option.graphic.graphicClass),
@@ -150,7 +153,6 @@ export class ExplicitRegion extends RegionController {
         _graphic.init(option.graphic.option);
       }
     }
-    this._view.refresh();
   }
 
 }

@@ -29,7 +29,7 @@ export abstract class ChartGraphic implements IGraphic {
   protected _chart: Chart;
   protected _configComponentRef: ComponentRef<GraphicConfig>;
 
-  get configModel() {
+  get model() {
     return this._configComponentRef.instance;
   }
 

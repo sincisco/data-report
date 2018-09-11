@@ -19,53 +19,47 @@ const template = `
 
 export class TextGraphic implements IGraphic {
   $element: JQuery;
-  private _$frame: JQuery;
 
-  private _content: IGraphicView;
+  private _view: IGraphicView;
   private _configComponentRef: ComponentRef<GraphicConfig>;
 
   constructor(private _region: RegionController) {
     this.$element = $(template);
-    this._$frame = this.$element.find('.frame');
-
     _region.addChild(this);
   }
 
-  get configModel() {
+  get model() {
     return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
-
   addChild(textAuxiliary: TextAuxiliary) {
-    this._content = textAuxiliary;
-    this._$frame.append(textAuxiliary.$element);
+    this._view = textAuxiliary;
+    this.$element.find('.frame').append(textAuxiliary.$element);
   }
 
   init(option?: any) {
-    this._content = new TextAuxiliary(this);
+    this._view = new TextAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
     if (option) {
-      this.configModel.importOption(option);
+      this.model.importOption(option);
     }
-    this._content.init({});
-    this.configModel.graphic = this;
-  }
-
-  load(option?: any) {
-    option = _.defaultsDeep(option || {}, this._configComponentRef.instance.option);
-    this._content.init(option);
+    this._view.addEventListener('textChanged', (text) => {
+      console.log(text);
+    });
+    this._view.init({});
+    this.model.graphic = this;
   }
 
   getOption() {
     return {
       graphicClass: 'text.graphic',
-      option: this.configModel.exportOption()
+      option: this.model.exportOption()
     };
   }
 
   update(option: any) {
-    if (this._content) {
-      this._content.update(option);
+    if (this._view) {
+      this._view.update(option);
     }
   }
 
@@ -76,22 +70,21 @@ export class TextGraphic implements IGraphic {
 
   }
 
-
   resize() {
-    if (this._content) {
-      this._content.resize();
+    if (this._view) {
+      this._view.resize();
     }
   }
 
   activate() {
-    if (this._content) {
-      this._content.activate();
+    if (this._view) {
+      this._view.activate();
     }
   }
 
   deactivate() {
-    if (this._content) {
-      (<any>this._content).deactivate();
+    if (this._view) {
+      (<any>this._view).deactivate();
     }
   }
 
@@ -103,8 +96,8 @@ export class TextGraphic implements IGraphic {
   }
 
   destroy() {
-    if (this._content) {
-      this._content.destroy();
+    if (this._view) {
+      this._view.destroy();
       this._configComponentRef.destroy();
     }
   }

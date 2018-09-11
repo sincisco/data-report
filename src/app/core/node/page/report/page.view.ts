@@ -5,6 +5,7 @@ import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {MaskHelper} from '@core/node/helper/mask.helper';
 import {PageConfig} from '../../../../components/page.config/page.config';
 import {View} from '@core/node/structure/view';
+import {session} from '@core/node/utils/session';
 
 const TEMPLATE = `
     <div class="report-region">
@@ -113,20 +114,25 @@ export class PageView extends View {
         }
       })
       .on('dragstart', ($event: JQuery.Event) => {
+        if (session.currentPage.activateManager.regionActivated) {
+          return false;
+        }
         const startPageX = $event.pageX, startPageY = $event.pageY;
         let left: number, top: number, width: number, height: number;
-        const mousemove = (event: MouseEvent) => {
-          regionSelectHelper.show(
-            left = Math.min(startPageX, event.pageX),
-            top = Math.min(startPageY, event.pageY),
-            width = Math.abs(event.pageX - startPageX),
-            height = Math.abs(event.pageY - startPageY));
-        }, mouseup = (event: MouseEvent) => {
-          document.removeEventListener('mousemove', mousemove);
-          document.removeEventListener('mouseup', mouseup);
-          regionSelectHelper.hide();
-          this._event.dispatchEvent('regionSelect', left, top, width, height);
-        };
+        const
+          mousemove = (event: MouseEvent) => {
+            regionSelectHelper.show(
+              left = Math.min(startPageX, event.pageX),
+              top = Math.min(startPageY, event.pageY),
+              width = Math.abs(event.pageX - startPageX),
+              height = Math.abs(event.pageY - startPageY));
+          },
+          mouseup = (event: MouseEvent) => {
+            document.removeEventListener('mousemove', mousemove);
+            document.removeEventListener('mouseup', mouseup);
+            regionSelectHelper.hide();
+            this._event.dispatchEvent('regionSelect', left, top, width, height);
+          };
         document.addEventListener('mousemove', mousemove);
         document.addEventListener('mouseup', mouseup);
 
@@ -185,7 +191,6 @@ export class PageView extends View {
       this._height = newValue;
       this._refresh();
     });
-
   }
 
   destroy() {
