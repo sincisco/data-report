@@ -120,7 +120,6 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
         this._update(array);
       }
     });
-
   }
 
   private _update(changeItemArray: Array<ChangeItem>) {

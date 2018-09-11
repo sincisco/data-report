@@ -53,10 +53,11 @@ export class RegionManager {
     });
   }
 
-  save() {
-    return JSON.stringify(this._children.map((item) => {
+  saveAs(param?: 'string' | 'object') {
+    const arr = this._children.map((item) => {
       return item.derender();
-    }), null, 2);
+    });
+    return param === 'string' ? JSON.stringify(arr, null, 2) : arr;
   }
 
 }

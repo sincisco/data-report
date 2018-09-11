@@ -23,7 +23,7 @@ export class AppHeaderComponent implements AfterViewInit {
   }
 
   doSave() {
-    const blob = new Blob([session.currentPage.save()], {type: 'text/plain;charset=utf-8'});
+    const blob = new Blob([JSON.stringify(session.currentPage.save(), null, 2)], {type: 'text/plain;charset=utf-8'});
     FileSaver.saveAs(blob, 'demo.zijin.template');
   }
 

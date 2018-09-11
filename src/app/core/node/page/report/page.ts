@@ -34,14 +34,18 @@ export class ReportPage extends PageView implements IPage {
     this._init();
   }
 
-  load(array: Array<any>) {
-    array.forEach((value) => {
+  load(option: any) {
+    this.model.importOption(option.option);
+    option.children.forEach((value) => {
       graphicFactory.paste(value);
     });
   }
 
   save() {
-    return this.regionManager.save();
+    return {
+      option: this.model.exportOption(),
+      children: this.regionManager.saveAs()
+    };
   }
 
   listenToModel(model: PageConfig) {

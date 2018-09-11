@@ -74,7 +74,9 @@ class GraphicFactory {
       const regionClass = regionMap.get(option.regionClass);
       const region: RegionController = new regionClass(session.currentPage);
       region.render(option.option);
-      region.setCoordinates(x, y);
+      if (Number.isInteger(x) && Number.isInteger(y)) {
+        region.setCoordinates(x, y);
+      }
     }
   }
 }

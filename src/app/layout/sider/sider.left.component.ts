@@ -70,8 +70,8 @@ export class SiderLeftComponent implements AfterViewInit {
   forwardCreateGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
     let retComponentRef: ComponentRef<GraphicConfig>;
     this.zone.run(() => {
-      this.shadowContainer.detach();
-      this.shadowContainer.clear();
+      // this.shadowContainer.detach();
+      // this.shadowContainer.clear();
       const factory: ComponentFactory<GraphicConfig> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
@@ -90,8 +90,8 @@ export class SiderLeftComponent implements AfterViewInit {
   forwardCreateCanvasConfig(type: Type<PageConfig>): ComponentRef<PageConfig> {
     let retComponentRef: ComponentRef<PageConfig>;
     this.zone.run(() => {
-      this.shadowContainer.detach();
-      this.shadowContainer.clear();
+      // this.shadowContainer.detach();
+      // this.shadowContainer.clear();
       const factory: ComponentFactory<PageConfig> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);

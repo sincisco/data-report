@@ -150,6 +150,7 @@ export class ExplicitRegion extends RegionController {
         _graphic.init(option.graphic.option);
       }
     }
+    this._view.refresh();
   }
 
 }
