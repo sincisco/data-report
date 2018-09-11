@@ -34,8 +34,6 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
     region.addChild(this);
-
-    this._initForUpdate();
   }
 
   get configModel() {
@@ -54,6 +52,7 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
     if (option) {
       this.configModel.importOption(option);
     }
+    this._initForUpdate();
   }
 
   getOption() {
@@ -64,7 +63,7 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   }
 
   private _initForUpdate() {
-    this.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
+    this.configModel.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
       this._$frame.css({
         'borderRadius': newValue
       });
@@ -104,10 +103,6 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
     changeItemArray.forEach((value, index, array) => {
       this.trigger(value);
     });
-  }
-
-  incrementalUpdate(changeItemArray: Array<ChangeItem>) {
-
   }
 
   resize() {
