@@ -14,6 +14,8 @@ export class AppBodyComponent implements AfterViewInit {
 
   report;
 
+  leftPanelState = false;
+
   ngAfterViewInit() {
     setTimeout(() => {
       const report = this.report = session.currentPage = ReportPage.builder();

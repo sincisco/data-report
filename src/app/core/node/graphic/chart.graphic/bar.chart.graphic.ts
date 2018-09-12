@@ -1,15 +1,15 @@
 import {RegionController} from '../../region/region.controller';
-import {Chart} from '../../graphic.view/chart/chart';
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 import {Grid} from '../../graphic.view/chart/echart.interface/grid';
 import {BarSeriesConfig} from '../../graphic.view/chart/echart.interface/series/bar.series';
 import {Axis} from '../../graphic.view/chart/echart.interface/axis';
 import {Title} from '../../graphic.view/chart/echart.interface/title';
 import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
+import {ChartDataSubject} from '@core/data/data.source';
 
 export interface ChartBarOption {
   title?: Title;
+  tooltip?: any;
   dataset?: any;
   grid?: Grid;
   xAxis?: Axis;
@@ -24,14 +24,14 @@ export class BarChartGraphic extends ChartGraphic {
   }
 
   init(option?: any) {
-    this._chart = new Chart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
-    if (option) {
-      this.model.importOption(option);
-    }
-    this.model.register('option', (key, oldValue, newValue) => {
-      this.update(newValue);
+    this._init(BarConfigComponent, option);
+
+    new ChartDataSubject().register((data: any) => {
+      this.update({
+        dataset: data
+      });
     });
+
   }
 
   getOption() {

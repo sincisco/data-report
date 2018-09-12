@@ -1,4 +1,11 @@
-<div class="app-body-left">
+<div class="app-body-left" [class.activated]="leftPanelState">
+  <div class="toggle-bar" (click)="leftPanelState=!leftPanelState">
+    <i *ngIf="leftPanelState" class="u-icn u-icn-panel-open"></i>
+    <i *ngIf="!leftPanelState" class="u-icn u-icn-panel-close"></i>
+  </div>
+
+</div>
+<div class="app-body-center">
   <div class="app-content">
 
   </div>

@@ -18,6 +18,8 @@ import {NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '../../../core/dataset/dataset.interface';
 import {GraphicConfig} from '../graphic.config';
 import {ChartPieConfig} from '../../../core/node/graphic/chart.graphic/pie.chart.graphic';
+import {debounceTime} from 'rxjs/operators';
+import {removeUndefined} from '../../../utils/common';
 
 @Component({
   selector: 'app-pie-config',
@@ -62,6 +64,8 @@ export class PieConfigComponent extends GraphicConfig implements AfterViewInit, 
   seriesY: Array<Dimension> = [];
   private _differ: KeyValueDiffer<any, any>;
 
+  private _innerOption;
+
   constructor(private modalService: NzModalService, private _differs: KeyValueDiffers) {
     super();
   }
@@ -92,41 +96,23 @@ export class PieConfigComponent extends GraphicConfig implements AfterViewInit, 
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.ngForm.valueChanges.subscribe((value) => {
-        console.log('BarConfigComponent  valueChanges');
-        console.log(value);
-        const changes = this._differ.diff(value);
-        if (this.graphic) {
-          value.dataset = datasetManager.current;
-          this.graphic.update(value);
-        }
-
-        if (this.face) {
-          value.dataset = datasetManager.current;
-          this.face.update(value);
-        }
-        if (changes) {
-          console.log('BarConfigComponent  has change');
-        }
+    this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
+      console.log('PieConfigComponent  valueChanges');
+      value.dataset = datasetManager.current;
+      value = removeUndefined(value);
+      this.trigger({
+        key: 'option',
+        oldValue: this._innerOption,
+        newValue: value,
+        option: value
       });
-    }, 10);
+      this._innerOption = value;
+
+      // if (this.face) {
+      //   value.dataset = datasetManager.current;
+      //   this.face.update(value);
+      // }
+    });
   }
-
-//   console.log(this.ngForm);
-//   this.ngForm.valueChanges.subscribe((value) => {
-//   console.log('***************************SiderLeftComponent valueChanges');
-//   console.log(value);
-//   console.log(this.option);
-//   const changes = this._differ.diff(value);
-//   if (changes) {
-//     console.log('has change');
-//     if (reportGlobal.instance) {
-//       reportGlobal.instance.update(value);
-//     }
-//   }
-//
-// });
-
 }
 

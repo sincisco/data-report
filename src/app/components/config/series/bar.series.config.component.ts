@@ -99,7 +99,7 @@ export class BarSeriesConfigComponent extends CustomControlValueAccessor impleme
         icon: 'u-icn-filter',
         callback: () => {
           this.createComponentModal((<HTMLElement>$event.target).getAttribute('fieldName'));
-          contextMenuHelper.close();
+          return false;
         }
       }, {
         displayName: '设置数轴',

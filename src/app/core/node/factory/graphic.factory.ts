@@ -11,6 +11,7 @@ import {LineChartGraphic} from '@core/node/graphic/chart.graphic/line.chart.grap
 import {PieChartGraphic} from '@core/node/graphic/chart.graphic/pie.chart.graphic';
 import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
 import {RegionController} from '@core/node/region/region.controller';
+import {ClockGraphic} from '@core/node/graphic/custom.graphic/clock.graphic';
 
 
 interface GraphicMeta {
@@ -46,6 +47,10 @@ const newGraphicMeta: GraphicMetaMap = {
   imageAuxiliary: {
     region: ExplicitRegion,
     graphic: ImageGraphic
+  },
+  clock: {
+    region: ExplicitRegion,
+    graphic: ClockGraphic
   }
 };
 

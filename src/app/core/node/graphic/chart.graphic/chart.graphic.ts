@@ -1,4 +1,4 @@
-import {ComponentRef} from '@angular/core';
+import {ComponentRef, Type} from '@angular/core';
 import {RegionController} from '../../region/region.controller';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
@@ -7,6 +7,7 @@ import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
+import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -51,6 +52,17 @@ export abstract class ChartGraphic implements IGraphic {
   }
 
   abstract init(option?: any);
+
+  protected _init(graphicConfigClass: Type<GraphicConfig>, option?: any) {
+    this._chart = new Chart(this);
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
+    if (option) {
+      this.model.importOption(option);
+    }
+    this.model.register('option', (key, oldValue, newValue) => {
+      this.update(newValue);
+    });
+  }
 
   abstract getOption();
 

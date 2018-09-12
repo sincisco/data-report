@@ -6,6 +6,33 @@
 }
 
 .app-body-left {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 220px;
+  background-color: #f5f5f5;
+  position: relative;
+  margin-left: -220px;
+  border-right: 1px solid #ccc;
+  transition: margin-left 0.2s ease-in-out;
+  .toggle-bar {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    top: 0px;
+    right: -30px;
+    z-index: 10;
+    .u-icn{
+      font-size: 18px;
+    }
+  }
+}
+
+.app-body-left.activated {
+  margin-left: 0px;
+}
+
+.app-body-center {
   flex-grow: 1;
   flex-basis: 1px;
   display: flex;
@@ -13,52 +40,13 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
-  .scale-slide-wrapper{
+  .scale-slide-wrapper {
     right: 40px;
     bottom: 20px;
     position: absolute;
     width: 200px;
     height: 40px;
   }
-}
-
-.app-content {
-  height: 100%;
-  overflow: auto;
-  background-color: #f5f5f5;
-  position: relative;
-}
-
-.canvas-region {
-  position: relative;
-  padding: 15px 25px;
-  min-width: 100%;
-  min-height: 100%;
-}
-
-.m-canvas {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  text-align: center;
-  .box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    overflow: hidden;
-    backface-visibility: hidden !important;
-    -webkit-font-smoothing: subpixel-antialiased !important;
-  }
-}
-
-.g-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
 }
 
 .app-body-right {
@@ -147,3 +135,52 @@
     border-left: 1px solid #ccc;
   }
 }
+
+.custom-component-container {
+  position: absolute;
+  width: 200px;
+  height: 100%;
+  top: 0px;
+  background-color: #8f8f8f;
+}
+
+.app-content {
+  height: 100%;
+  overflow: auto;
+  background-color: #f5f5f5;
+  position: relative;
+}
+
+.canvas-region {
+  position: relative;
+  padding: 15px 25px;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.m-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    backface-visibility: hidden !important;
+    -webkit-font-smoothing: subpixel-antialiased !important;
+  }
+}
+
+.g-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+

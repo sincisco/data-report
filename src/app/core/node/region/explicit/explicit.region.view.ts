@@ -184,8 +184,6 @@ export class ExplicitRegionView extends RegionView {
       left: this._model.left,
       top: this._model.top
     });
-    console.log('aaa', this._model.width, this._model.height,
-      this.$element.width(), this.$element.height());
     if (this._model.state === RegionState.activated) {
       this._controller.regionResize();
     }

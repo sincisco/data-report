@@ -194,7 +194,7 @@ const MoreTools = `
           <span class="text">折线图</span>
         </div>
       </li>
-      <li class="btn-item draggable">
+      <li class="btn-item draggable" draggable="true" data-component-name="clock">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-chart-area"></i>
           <span class="text">区域图</span>

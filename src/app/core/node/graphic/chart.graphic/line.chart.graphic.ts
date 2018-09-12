@@ -25,14 +25,7 @@ export class LineChartGraphic extends ChartGraphic {
   }
 
   init(option?: any) {
-    this._chart = new Chart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(LineConfigComponent);
-    if (option) {
-      this.model.importOption(option);
-    }
-    this.model.register('option', (key, oldValue, newValue) => {
-      this.update(newValue);
-    });
+    this._init(LineConfigComponent, option);
   }
 
   getOption() {

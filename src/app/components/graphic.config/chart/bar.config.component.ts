@@ -39,6 +39,7 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
         align: 'left'
       }
     },
+    tooltip: {},
     grid: {
       show: false,
       borderColor: '#ccc',
@@ -85,6 +86,7 @@ export class BarConfigComponent extends GraphicConfig implements AfterViewInit, 
       console.log('BarConfigComponent  valueChanges', value);
 
       value.dataset = datasetManager.current;
+      value.tooltip = {};
       value = removeUndefined(value);
       this.trigger({
         key: 'option',

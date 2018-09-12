@@ -25,12 +25,7 @@ export class PieChartGraphic extends ChartGraphic {
   }
 
   init(option?: any) {
-    this._chart = new Chart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(PieConfigComponent);
-    if (option) {
-      this.model.importOption(option);
-    }
-    this.model.graphic = this;
+    this._init(PieConfigComponent, option);
   }
 
   getOption() {
