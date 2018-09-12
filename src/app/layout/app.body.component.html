@@ -3,7 +3,11 @@
     <i *ngIf="leftPanelState" class="u-icn u-icn-panel-open"></i>
     <i *ngIf="!leftPanelState" class="u-icn u-icn-panel-close"></i>
   </div>
-
+  <ul>
+    <li *ngFor="let item of customComponentList" draggable="true" (dragstart)="dragstart($event)"
+        [attr.componentName]="item[0]">{{item[1].displayName}}
+    </li>
+  </ul>
 </div>
 <div class="app-body-center">
   <div class="app-content">

@@ -12,18 +12,20 @@ import {PieChartGraphic} from '@core/node/graphic/chart.graphic/pie.chart.graphi
 import {ImageGraphic} from '@core/node/graphic/auxiliary.graphic/image.graphic';
 import {RegionController} from '@core/node/region/region.controller';
 import {ClockGraphic} from '@core/node/graphic/custom.graphic/clock.graphic';
+import {Info1Graphic} from '@core/node/graphic/custom.graphic/info1.graphic';
 
 
 interface GraphicMeta {
   region: any;
   graphic: any;
+  displayName?: string;
 }
 
 interface GraphicMetaMap {
   [key: string]: GraphicMeta;
 }
 
-const newGraphicMeta: GraphicMetaMap = {
+const stdGraphicMeta: GraphicMetaMap = {
   barChart: {
     region: ExplicitRegion,
     graphic: BarChartGraphic
@@ -47,12 +49,23 @@ const newGraphicMeta: GraphicMetaMap = {
   imageAuxiliary: {
     region: ExplicitRegion,
     graphic: ImageGraphic
-  },
-  clock: {
-    region: ExplicitRegion,
-    graphic: ClockGraphic
   }
 };
+
+export const customGraphicMeta: GraphicMetaMap = {
+  clock: {
+    displayName: '当前时间',
+    region: ExplicitRegion,
+    graphic: ClockGraphic
+  },
+  info1: {
+    displayName: 'demo',
+    region: ExplicitRegion,
+    graphic: Info1Graphic
+  }
+};
+
+const newGraphicMeta = Object.assign({}, stdGraphicMeta, customGraphicMeta);
 
 class GraphicFactory {
   newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number, option?: any) {

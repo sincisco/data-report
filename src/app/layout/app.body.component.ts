@@ -4,6 +4,9 @@ import {Split} from '@core/node/page/dashboard/split';
 import {DashboardCanvas} from '@core/node/page/dashboard/dashboard.canvas';
 import {session} from '@core/node/utils/session';
 import {Runtime} from '@core/runtime/runtime';
+import {customGraphicMeta, graphicFactory} from '@core/node/factory/graphic.factory';
+import * as _ from 'lodash';
+import {grabHelper} from './app.header.component';
 
 @Component({
   selector: 'app-body',
@@ -16,6 +19,34 @@ export class AppBodyComponent implements AfterViewInit {
 
   leftPanelState = false;
 
+  get customComponentList() {
+    return _.toPairs(customGraphicMeta);
+  }
+
+  dragstart(dragEvent: DragEvent) {
+    const mouseMove = (event: MouseEvent) => {
+      console.log('mouseMove');
+      grabHelper.show(event.pageX - 150, event.pageY - 100);
+    };
+    const mouseUp = (event: MouseEvent) => {
+      console.log('document mouseup', event, session.currentPage.offset());
+
+      graphicFactory.createByName(componentName, session.currentPage,
+        event.pageX - session.currentPage.offset().left - 150,
+        event.pageY - session.currentPage.offset().top - 100);
+      grabHelper.hidden();
+      document.removeEventListener('mousemove', mouseMove);
+      document.removeEventListener('mouseup', mouseUp);
+    };
+
+    let componentName: string;
+    document.addEventListener('mousemove', mouseMove);
+    document.addEventListener('mouseup', mouseUp);
+    componentName = (<HTMLElement>dragEvent.target).getAttribute('componentName');
+
+    return false;
+  }
+
   ngAfterViewInit() {
     setTimeout(() => {
       const report = this.report = session.currentPage = ReportPage.builder();
@@ -27,6 +58,8 @@ export class AppBodyComponent implements AfterViewInit {
     // runtime.loadPage(aaa);
     // const dashboardCanvas = new DashboardCanvas();
     // $('.app-content').prepend(dashboardCanvas.$element);
+
+
     return;
   }
 
