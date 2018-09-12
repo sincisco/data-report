@@ -66,6 +66,23 @@ export class Chart implements IGraphicView {
     }
   }
 
+  updateData(data: any) {
+    if (data) {
+      if (this._state === ChartState.normal) {
+        try {
+          this._echart.setOption({dataset: data});
+          this._option = Object.assign(this._option, {dataset: data});
+        } catch (e) {
+          console.log(e);
+
+          this._innerReInit();
+          this._echart.setOption(this._option);
+          this._state = ChartState.normal;
+        }
+      }
+    }
+  }
+
   /**
    * 如果Echart没有加载数据
    * @param {string} theme
@@ -76,6 +93,7 @@ export class Chart implements IGraphicView {
       this._theme = theme;
       this._innerReInit();
       if (this._option) {
+        console.log('**********************', this._option);
         this._echart.setOption(this._option);
         this._state = ChartState.normal;
       }

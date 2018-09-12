@@ -78,6 +78,12 @@ export abstract class ChartGraphic implements IGraphic {
     }
   }
 
+  updateDate(data: any) {
+    if (this._chart) {
+      this._chart.updateData(data);
+    }
+  }
+
   updateTheme(theme) {
     if (this._chart) {
       this._chart.updateTheme(theme);

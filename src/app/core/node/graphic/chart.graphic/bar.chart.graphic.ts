@@ -27,9 +27,7 @@ export class BarChartGraphic extends ChartGraphic {
     this._init(BarConfigComponent, option);
 
     new ChartDataSubject().register((data: any) => {
-      this.update({
-        dataset: data
-      });
+      this.updateDate(data);
     });
 
   }

@@ -9,6 +9,8 @@ export interface IGraphicView extends IEventTarget {
    */
   update(option: any);
 
+  updateData(data: any);
+
   updateTheme(theme: string);
 
   /**

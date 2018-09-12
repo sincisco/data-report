@@ -11,6 +11,9 @@ export abstract class HtmlNode implements IGraphicView {
 
   abstract update(option: any);
 
+  updateData(data) {
+  }
+
   updateTheme(theme: string) {
 
   }

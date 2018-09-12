@@ -10,6 +10,10 @@ export abstract class FilterNode implements IGraphicView {
 
   abstract update(option: any);
 
+  updateData(data) {
+
+  }
+
   updateTheme(theme: string) {
   }
 

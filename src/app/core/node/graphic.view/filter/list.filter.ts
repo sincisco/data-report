@@ -39,7 +39,6 @@ export class ListFilter extends FilterNode {
 
   private _refresh() {
 
-
   }
 
   activate() {

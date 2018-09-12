@@ -8,6 +8,10 @@ export abstract class Auxiliary implements IGraphicView {
 
   abstract update(option: any);
 
+  updateData() {
+
+  }
+
   updateTheme() {
   }
 
