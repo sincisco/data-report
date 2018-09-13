@@ -8,10 +8,10 @@
 .app-body-left {
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: 220px;
+  flex-basis: 200px;
   background-color: #f5f5f5;
   position: relative;
-  margin-left: -220px;
+  margin-left: -200px;
   border-right: 1px solid #ccc;
   transition: margin-left 0.2s ease-in-out;
   .toggle-bar {
@@ -27,13 +27,57 @@
       font-size: 18px;
     }
   }
+
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  padding: 4px;
+  color: #58666e;
+
   ul {
     li {
-      height: 32px;
-      line-height: 32px;
       cursor: pointer;
+      float: left;
+      margin: 0 5px 2px;
+      .tool-item {
+        display: inline-block;
+        width: 79px;
+        white-space: nowrap;
+        overflow: hidden;
+        cursor: pointer;
+        text-align: center;
+        &:hover {
+          background-color: rgba(153,153,153,.2);
+        }
+        .tool-item__icon {
+          background-size: 100% 100%;
+          background-repeat: no-repeat;
+          display: inline-block;
+          height: 38px;
+          width: 38px;
+          margin: 8px 12px 0;
+          border-radius: 2px;
+        }
+        .tool-item__name {
+          line-height: 16px;
+          font-size: 12px;
+          margin-bottom: 4px;
+          color: #333;
+          text-align: center;
+        }
+      }
     }
   }
+}
+
+.clearfix:after {
+  display: table;
+  content: " ";
+}
+
+.clearfix:after {
+  clear: both;
+  display: block;
+  content: "";
+  height: 0;
 }
 
 .app-body-left.activated {
@@ -189,6 +233,33 @@
   left: 0;
   bottom: 0;
   right: 0;
+}
+
+.baidu-chart-line {
+  background-image: url("../../assets/images/baidu/line_23ca204.png");
+}
+
+.baidu-chart-bar {
+  background-image: url("../../assets/images/baidu/bar.png");
+}
+
+.baidu-chart-radar {
+  background-image: url("../../assets/images/baidu/radar.png");
+}
+.baidu-chart-funnel {
+  background-image: url("../../assets/images/baidu/funnel.png");
+}
+.baidu-chart-dashboard {
+  background-image: url("../../assets/images/baidu/dashboard.png");
+}
+.baidu-chart-scatter {
+  background-image: url("../../assets/images/baidu/scatter.png");
+}
+.baidu-chart-flip-bar {
+  background-image: url("../../assets/images/baidu/flip-bar.png");
+}
+.baidu-chart-flip-number {
+  background-image: url("../../assets/images/baidu/flip-number.png");
 }
 
 

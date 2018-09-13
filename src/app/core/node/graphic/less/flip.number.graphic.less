@@ -1,0 +1,43 @@
+.flip-number-warpper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.flip-number-warpper .flip-number {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.flip-number-warpper .flip-number-number {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.flip-single-number{
+  font-family: 'Microsoft Yahei';
+  font-size: 42px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+
+  margin-left: 6.3px;
+  margin-right: 6.3px;
+  padding: 0px 0.1em;
+  &.only-comma{
+    margin-top: 10px;
+  }
+  &.only-number{
+    box-sizing: content-box;
+    width: 0.6em;
+    text-align: center;
+    border-image-source: url('https://sugar.baidu.com/static/img-templet/border-2.png');
+    border-image-slice: 10 16 15 10 fill;
+    border-width: 10px 16px 15px 10px;
+    border-style: solid;
+  }
+}

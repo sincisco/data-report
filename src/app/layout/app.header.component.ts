@@ -83,7 +83,7 @@ export class AppHeaderComponent implements AfterViewInit {
     let componentName: string;
     const mouseMove = (event: MouseEvent) => {
       console.log('mouseMove');
-      grabHelper.show(event.pageX - 150, event.pageY - 100);
+      grabHelper.refresh(event.pageX, event.pageY);
     };
     const mouseUp = (event: MouseEvent) => {
       console.log('document mouseup', event, session.currentPage.offset());
@@ -99,6 +99,7 @@ export class AppHeaderComponent implements AfterViewInit {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('mouseup', mouseUp);
     componentName = (<HTMLElement>event.target).dataset.componentName;
+    grabHelper.show(dragEvent.pageX, dragEvent.pageY);
     return false;
   }
 
@@ -314,7 +315,7 @@ document.addEventListener('click', (event) => {
 const grabTemplate = `<div class="m-chart-grabing"
  style="width: 300px; height: 200px;
  background-color: rgb(36, 148, 232);
- background-image: url(&quot;https://ydcdn.nosdn.127.net/dash-online/img/holder-automatic.8f656e5b7d.svg&quot;);
+ background-image: url('https://ydcdn.nosdn.127.net/dash-online/img/holder-automatic.8f656e5b7d.svg');
  background-repeat: no-repeat; background-position: center center;
  background-size: 320px 224px; z-index: 1000; position: absolute;opacity: 0.5;cursor: grabbing;
  left: 122px; top: 206px;">
@@ -326,23 +327,49 @@ class GrabHelper {
   private readonly _$element: JQuery;
 
   private _state = false;
+  private _defaultOption = {
+    width: 300,
+    height: 200,
+    backgroundImage: 'url("https://ydcdn.nosdn.127.net/dash-online/img/holder-automatic.8f656e5b7d.svg")',
+    backgroundSize: '320px 224px'
+  };
+  private _option;
 
   constructor(template: string) {
     this._$element = $(template);
   }
 
-  show(left: number, top: number) {
+  get offsetX() {
+    return this._option.width / 2;
+  }
+
+  get offsetY() {
+    return this._option.height / 2;
+  }
+
+  show(left: number, top: number, option?: { width: number, height: number, backgroundImage: string }) {
+    this._option = option ? option : this._defaultOption;
+    this._$element.css(this._option);
+    this._$element.css({backgroundSize: `${this._option.width}px ${this._option.height}px`});
     if (!this._state) {
       $('body').append(this._$element);
       this._state = true;
     }
     this._$element.css({
-      left,
-      top
+      left: left - this.offsetX,
+      top: top - this.offsetY
+    });
+  }
+
+  refresh(left: number, top: number) {
+    this._$element.css({
+      left: left - this.offsetX,
+      top: top - this.offsetY
     });
   }
 
   hidden() {
+    this._option = null;
     this._$element.detach();
     this._state = false;
   }

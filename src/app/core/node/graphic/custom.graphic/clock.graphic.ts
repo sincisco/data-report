@@ -14,7 +14,7 @@ const template = `
 style='font-family: "Microsoft Yahei", Arial, sans-serif; 
 font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content: center;'>
 <i class="anticon anticon-clock-circle-o" style="padding-right: 12px"></i>
-<span></span></div>
+<span>1970-01-01 00:00:00</span></div>
 `;
 
 export class ClockGraphic implements IGraphic {
