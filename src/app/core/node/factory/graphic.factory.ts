@@ -83,7 +83,7 @@ export const customGraphicMeta: GraphicMetaMap = {
     graphic: Info1Graphic
   },
   info2: {
-    displayName: 'demo',
+    displayName: '数字翻牌器',
     imageClass: 'baidu-chart-flip-number',
     region: ExplicitRegion,
     graphic: FlipNumberGraphic
