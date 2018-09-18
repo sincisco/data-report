@@ -33,33 +33,36 @@ export abstract class RegionView extends View {
       which: string,
       subscription: Subscription;
 
+    // 进行缩放转换
+    const getReal = (num) => Math.round(num / this._controller.scale);
+
     const handleResize = (pageX, pageY) => {
       const model = this._model;
       switch (which) {
         case 'resize-left':
           if (pageX < (offset.left + snapshot.width)) {
-            offsetX = closestNum(pageX - offset.left);
+            offsetX = closestNum(getReal(pageX - offset.left));
             model.left = snapshot.left + offsetX;
             model.width = snapshot.width - offsetX;
           }
           break;
         case 'resize-top':
           if (pageY < (offset.top + snapshot.height)) {
-            offsetY = closestNum(pageY - offset.top);
+            offsetY = closestNum(getReal(pageY - offset.top));
             model.top = snapshot.top + offsetY;
             model.height = snapshot.height - offsetY;
           }
           break;
         case 'resize-right':
           if (pageX > offset.left) {
-            model.width = closestNum(pageX - offset.left);
+            model.width = closestNum(getReal(pageX - offset.left));
             // this.zoom(closestNum(pageX - offset.left), 0, true);
           }
           break;
         case 'resize-topLeft':
           if (pageY < (offset.top + snapshot.height) && pageX < (offset.left + snapshot.width)) {
-            offsetX = closestNum(pageX - offset.left),
-              offsetY = closestNum(pageY - offset.top);
+            offsetX = closestNum(getReal(pageX - offset.left)),
+              offsetY = closestNum(getReal(pageY - offset.top));
             model.left = snapshot.left + offsetX;
             model.width = snapshot.width - offsetX;
             model.top = snapshot.top + offsetY;
@@ -68,35 +71,35 @@ export abstract class RegionView extends View {
           break;
         case 'resize-topRight':
           if (pageY < (offset.top + snapshot.height)) {
-            offsetY = closestNum(pageY - offset.top);
+            offsetY = closestNum(getReal(pageY - offset.top));
             model.top = snapshot.top + offsetY;
             model.height = snapshot.height - offsetY;
           }
           if (pageX > offset.left) {
-            model.width = closestNum(pageX - offset.left);
+            model.width = closestNum(getReal(pageX - offset.left));
           }
           break;
         case 'resize-bottomRight':
           if (pageX > offset.left) {
-            model.width = pageX - offset.left;
+            model.width = getReal(pageX - offset.left);
           }
           if (pageY > offset.top) {
-            model.height = pageY - offset.top;
+            model.height = getReal(pageY - offset.top);
           }
           break;
         case 'resize-bottomLeft':
           if (pageX < (offset.left + snapshot.width)) {
-            offsetX = closestNum(pageX - offset.left);
+            offsetX = closestNum(getReal(pageX - offset.left));
             model.left = snapshot.left + offsetX;
             model.width = snapshot.width - offsetX;
           }
           if (pageY > offset.top) {
-            model.height = pageY - offset.top;
+            model.height = getReal(pageY - offset.top);
           }
           break;
         case 'resize-bottom':
           if (pageY > offset.top) {
-            model.height = pageY - offset.top;
+            model.height = getReal(pageY - offset.top);
           }
           break;
 
