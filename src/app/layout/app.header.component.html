@@ -20,9 +20,11 @@
       <li class="btn-item">
         <label for="templateToUpload" class="u-tool-btn">
           <i class="u-icn u-icn-refresh"></i>
-          <input type="file" name="templateToUpload" id="templateToUpload"
-                 (change)="templateChange($event)"
-                 style="display: none;">
+          <form>
+            <input type="file" name="templateToUpload" id="templateToUpload"
+                   (change)="templateChange($event)"
+                   style="display: none;">
+          </form>
         </label>
       </li>
     </ul>
@@ -64,7 +66,9 @@
             <span class="text">图片</span>
           </div>
         </label>
-        <input type="file" name="fileToUpload" id="fileToUpload" (change)="change($event)" style="display: none;">
+        <form>
+          <input type="file" name="fileToUpload" id="fileToUpload" (change)="change($event)" style="display: none;">
+        </form>
       </li>
     </ul>
     <div class="cut-line"></div>

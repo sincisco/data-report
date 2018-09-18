@@ -39,6 +39,7 @@ export class AppHeaderComponent implements AfterViewInit {
       const text = (<any>evt.target).result;
       console.log(text);
       session.currentPage.load(JSON.parse(text));
+      (<HTMLFormElement>file.parentElement).reset();
     };
     reader.readAsText(file.files[0]);
   }
@@ -75,6 +76,9 @@ export class AppHeaderComponent implements AfterViewInit {
           const ret = graphicFactory.newGraphicByName('imageAuxiliary', session.currentPage, 200, 200, option);
         }
       };
+
+      (<HTMLFormElement>file.parentElement).reset();
+
     };
     reader.readAsDataURL(file.files[0]);
   }
