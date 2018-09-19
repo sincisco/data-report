@@ -27,6 +27,7 @@ import {MapConfigComponent} from './chart/map.config.component';
 import {RingConfigComponent} from './chart/ring.config.component';
 import {FlipBarConfigComponent} from './chart/flip.bar.config.component';
 import {GaugeConfigComponent} from './chart/gauge.config.component';
+import {WordCloudConfigComponent} from './chart/word.cloud.config.component';
 
 const COMPONENTS = [
   PieConfigComponent,
@@ -35,6 +36,7 @@ const COMPONENTS = [
   GaugeConfigComponent,
   MapConfigComponent,
   RingConfigComponent,
+  WordCloudConfigComponent,
   LineConfigComponent,
   DataHeaderComponent,
   TextConfigComponent,

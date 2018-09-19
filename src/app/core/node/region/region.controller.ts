@@ -57,6 +57,7 @@ export abstract class RegionController {
   setDimensions(width: number, height: number) {
     this._model.setDimensions(width, height);
     this._view.refresh();
+    this._graphic && this._graphic.resize();
   }
 
   abstract derender();

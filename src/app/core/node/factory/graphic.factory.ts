@@ -19,6 +19,7 @@ import {MapChartGraphic} from '@core/node/graphic/chart.graphic/map/map.chart.gr
 import {RingChartGraphic} from '@core/node/graphic/chart.graphic/ring.chart.graphic';
 import {FlipBarChartGraphic} from '@core/node/graphic/chart.graphic/flip.bar.chart.graphic';
 import {GaugeChartGraphic} from '@core/node/graphic/chart.graphic/gauge.chart.graphic';
+import {WordCloudChartGraphic} from '@core/node/graphic/chart.graphic/word.cloud.chart.graphic';
 
 
 interface GraphicMeta {
@@ -100,6 +101,10 @@ export const customGraphicMeta: GraphicMetaMap = {
   mapProvince: {
     displayName: '省份数据',
     imageClass: 'baidu-map-province',
+    regionOption: {
+      width: 550,
+      height: 450
+    },
     region: ExplicitRegion,
     graphic: MapChartGraphic
   },
@@ -133,7 +138,7 @@ export const customGraphicMeta: GraphicMetaMap = {
     region: ExplicitRegion,
     graphic: RingChartGraphic
   },
-  info7: {
+  gauge: {
     displayName: '仪表盘',
     imageClass: 'baidu-chart-dashboard',
     region: ExplicitRegion,
@@ -150,6 +155,12 @@ export const customGraphicMeta: GraphicMetaMap = {
     imageClass: 'baidu-chart-scatter',
     region: ExplicitRegion,
     graphic: Info1Graphic
+  },
+  wordCloud: {
+    displayName: '词云',
+    imageClass: 'baidu-chart-word-cloud',
+    region: ExplicitRegion,
+    graphic: WordCloudChartGraphic
   },
   dashboard: {
     displayName: 'demo',
@@ -174,6 +185,10 @@ class GraphicFactory {
 
       const graphic = new meta.graphic(region);
       graphic.init(option);
+
+      setTimeout(() => {
+        graphic.resize();
+      }, 200);
 
       return {
         region, graphic

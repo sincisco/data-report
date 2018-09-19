@@ -27,9 +27,9 @@ export class GaugeConfigComponent extends GraphicConfig implements AfterViewInit
   @ViewChild(NgForm) ngForm: NgForm;
 
   option: any = {
-    backgroundColor: '#062a44',
+    backgroundColor: 'rgba(13, 16, 41, 0.12)',
     title: {
-      show: true,
+      show: false,
       text: '默认标题',
       left: 'auto',
       top: 'auto',
@@ -44,6 +44,7 @@ export class GaugeConfigComponent extends GraphicConfig implements AfterViewInit
       name: '刻度',
       type: 'gauge',
       radius: '90%',
+      center: ['50%', '55%'],
       min: 0,
       max: 1000,
       splitNumber: 10, // 刻度数量
@@ -59,7 +60,7 @@ export class GaugeConfigComponent extends GraphicConfig implements AfterViewInit
       axisLabel: {
         show: true,
         color: '#fff',
-        distance: 30
+        distance: 20
       }, // 刻度标签。
       axisTick: {
         show: true,
@@ -87,8 +88,8 @@ export class GaugeConfigComponent extends GraphicConfig implements AfterViewInit
 
 
         type: 'gauge',
-        radius: '80%',
-        center: ['50%', '50%'],
+        radius: '70%',
+        center: ['50%', '55%'],
 
         splitNumber: 0, // 刻度数量
         startAngle: 220,
@@ -135,7 +136,7 @@ export class GaugeConfigComponent extends GraphicConfig implements AfterViewInit
           offsetCenter: [0, '-20%'], // x, y，单位px
           textStyle: {
             color: '#ddd',
-            fontSize: 50
+            fontSize: 24
           }
         },
         // 仪表盘详情，用于显示数据。
@@ -147,7 +148,7 @@ export class GaugeConfigComponent extends GraphicConfig implements AfterViewInit
             return params;
           },
           textStyle: {
-            fontSize: 40
+            fontSize: 18
           }
         },
         data: [{

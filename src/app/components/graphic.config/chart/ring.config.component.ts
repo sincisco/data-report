@@ -47,9 +47,10 @@ export class RingConfigComponent extends GraphicConfig implements AfterViewInit,
   @ViewChild(NgForm) ngForm: NgForm;
 
   option: any = {
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(13, 16, 41, 0.12)',
     color: ['#FE0404', '#00DC58', '#FBA200', '#00CEFF'],
     title: {
+      show: false,
       top: 20,
       text: '会员活跃度” - 山东省',
       subtext: '',

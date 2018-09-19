@@ -31,7 +31,7 @@ export class FlipBarConfigComponent extends GraphicConfig implements AfterViewIn
   @ViewChild(NgForm) ngForm: NgForm;
 
   option: any = {
-    backgroundColor: '#000',
+    backgroundColor: 'rgba(13, 16, 41, 0.12)',
     title: {
       text: '',
       textStyle: {

@@ -73,7 +73,10 @@ export class TableGraphic implements IGraphic {
   }
 
   getOption() {
-
+    return {
+      graphicClass: 'table.graphic',
+      option: this.model.exportOption()
+    };
   }
 
   addChild(chart: Chart) {

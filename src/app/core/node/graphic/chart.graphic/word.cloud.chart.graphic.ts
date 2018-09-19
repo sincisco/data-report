@@ -6,7 +6,7 @@ import {RegionController} from '@core/node/region/region.controller';
 import {LineSeriesConfig} from '@core/node/graphic.view/chart/echart.interface/series/line.series';
 import {Chart} from '@core/node/graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
-import {GaugeConfigComponent} from '../../../../components/graphic.config/chart/gauge.config.component';
+import {WordCloudConfigComponent} from '../../../../components/graphic.config/chart/word.cloud.config.component';
 
 
 export interface ChartLineOption {
@@ -19,7 +19,7 @@ export interface ChartLineOption {
   color?: Array<string>;
 }
 
-export class GaugeChartGraphic extends ChartGraphic {
+export class WordCloudChartGraphic extends ChartGraphic {
   constructor(region: RegionController) {
     super(region);
   }
@@ -27,7 +27,7 @@ export class GaugeChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     this._chart = new Chart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(GaugeConfigComponent);
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(WordCloudConfigComponent);
     if (option) {
       this.model.importOption(option);
     }
@@ -38,7 +38,7 @@ export class GaugeChartGraphic extends ChartGraphic {
 
   getOption() {
     return {
-      graphicClass: 'gauge.chart.graphic',
+      graphicClass: 'wordCloud.chart.graphic',
       option: this.model.exportOption()
     };
   }

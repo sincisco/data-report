@@ -50,7 +50,7 @@ export class MapConfigComponent extends GraphicConfig implements AfterViewInit, 
     backgroundColor: '#020933',
     title: {
       top: 20,
-      text: '“会员活跃度” - 山东省',
+      text: '会员活跃度 - 山东省',
       subtext: '',
       x: 'center',
       textStyle: {
@@ -68,15 +68,6 @@ export class MapConfigComponent extends GraphicConfig implements AfterViewInit, 
         }
       }
     },
-    /*   legend: {
-           orient: 'vertical',
-           y: 'bottom',
-           x: 'right',
-            data:['pm2.5'],
-           textStyle: {
-               color: '#fff'
-           }
-       },*/
     legend: {
       orient: 'vertical',
       y: 'bottom',
@@ -110,17 +101,6 @@ export class MapConfigComponent extends GraphicConfig implements AfterViewInit, 
 
       }
     },
-    // toolbox: {
-    //     show: true,
-    //     orient: 'vertical',
-    //     left: 'right',
-    //     top: 'center',
-    //     feature: {
-    //             dataView: {readOnly: false},
-    //             restore: {},
-    //             saveAsImage: {}
-    //             }
-    // },
     geo: {
       show: true,
       map: '山东',
@@ -139,7 +119,7 @@ export class MapConfigComponent extends GraphicConfig implements AfterViewInit, 
           borderColor: '#3fdaff',
           borderWidth: 2,
           shadowColor: 'rgba(63, 218, 255, 0.5)',
-          shadowBlur: 30
+          shadowBlur: 20
         },
         emphasis: {
           areaColor: '#2B91B7',
@@ -153,7 +133,7 @@ export class MapConfigComponent extends GraphicConfig implements AfterViewInit, 
         coordinateSystem: 'geo',
         data: convertData(data, provinceCityMap['山东']),
         symbolSize: function (val) {
-          return val[2] / 10;
+          return val[2] / 20;
         },
         label: {
           normal: {
@@ -209,7 +189,7 @@ export class MapConfigComponent extends GraphicConfig implements AfterViewInit, 
           return b.value - a.value;
         }).slice(0, 5), provinceCityMap['山东']),
         symbolSize: function (val) {
-          return val[2] / 10;
+          return val[2] / 15;
         },
         showEffectOn: 'render',
         rippleEffect: {

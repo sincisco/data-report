@@ -32,6 +32,7 @@
               "src/lib/fullscreen/fullscreen-api-polyfill.js",
               "src/lib/ckeditor/ckeditor.js",
               "src/lib/echarts/echarts.min.js",
+              "src/lib/echarts/plugins/echarts-wordcloud.min.js",
               "src/lib/echarts/china.js",
               "src/lib/echarts/province/guangdong.js",
               "src/lib/echarts/province/shandong.js",
