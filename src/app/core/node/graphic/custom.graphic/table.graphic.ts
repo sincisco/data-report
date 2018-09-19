@@ -6,23 +6,19 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 
 import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
 
-import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 
-const template = `
-<div class="time-chart-container" 
-style='font-family: "Microsoft Yahei", Arial, sans-serif; 
-font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content: center;'>
-<i class="anticon anticon-clock-circle-o" style="padding-right: 12px"></i>
-<span>1970-01-01 00:00:00</span></div>
-`;
+const template = `<div class="demo">
+<table class="bordered">
+  <thead></thead>
+  <tbody></tbody>
+</table>
+</div>`;
 
-export class ClockGraphic implements IGraphic {
+export class TableGraphic implements IGraphic {
   $element: JQuery;
 
   private _configComponentRef: ComponentRef<GraphicConfig>;
-
-  private _internal;
 
   get model() {
     return this._configComponentRef.instance;
@@ -49,16 +45,35 @@ export class ClockGraphic implements IGraphic {
       this.update(newValue);
     });
 
-    this._internal = setInterval(() => {
-      this.$element.find('span').text(moment().format('YYYY-MM-DD HH:mm:ss'));
-    }, 1000);
+    this.$element.find('thead').html(this._generateHead(['学校', '院士人数', '综合排名']));
+    this.$element.find('tbody').html(this._generateBody(['学校', '院士人数', '综合排名'],
+      [
+        {'学校': '北京大学', '院士人数': '100', '综合排名': '2'},
+        {'学校': '清华大学', '院士人数': '120', '综合排名': '1'},
+        {'学校': '南京大学', '院士人数': '30', '综合排名': '7'},
+        {'学校': '上海交通大学', '院士人数': '30', '综合排名': '6'},
+        {'学校': '复旦大学', '院士人数': '20', '综合排名': '5'},
+        {'学校': '浙江大学', '院士人数': '45', '综合排名': '3'},
+      ]));
+
+  }
+
+  private _generateHead(meta: Array<string>) {
+    return `<tr>${meta.map((key) => {
+      return `<th>${key}</th>`;
+    }).join('')}</tr>`;
+  }
+
+  private _generateBody(meta: Array<string>, rows: Array<any>) {
+    return rows.map((value, index, array) => {
+      return `<tr>${meta.map((key) => {
+        return `<td>${value[key]}</td>`;
+      }).join('')}</tr>`;
+    }).join('');
   }
 
   getOption() {
-    return {
-      graphicClass: 'clock.graphic',
-      option: this.model.exportOption()
-    };
+
   }
 
   addChild(chart: Chart) {
@@ -101,9 +116,5 @@ export class ClockGraphic implements IGraphic {
   destroy() {
     this._configComponentRef.destroy();
     this._configComponentRef = null;
-    if (this._internal) {
-      clearInterval(this._internal);
-      this._internal = null;
-    }
   }
 }

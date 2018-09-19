@@ -6,7 +6,7 @@
 
   <nz-tabset ngForm>
     <nz-tab nzTitle="组件库">
-      <ul>
+      <ul class="component-lib">
         <li *ngFor="let item of customComponentList" draggable="true" (dragstart)="dragstart($event)"
             [attr.componentName]="item[0]">
       <span class="tool-item"><div class="tool-item__icon {{item[1].imageClass}}"></div><div
@@ -16,7 +16,9 @@
       </ul>
     </nz-tab>
     <nz-tab nzTitle="概览">
-
+        <ul>
+          <li></li>
+        </ul>
     </nz-tab>
   </nz-tabset>
 

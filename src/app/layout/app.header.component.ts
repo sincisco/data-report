@@ -2,6 +2,7 @@ import {AfterViewInit, Component} from '@angular/core';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {session} from '@core/node/utils/session';
 import * as FileSaver from 'file-saver';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-header',
@@ -24,7 +25,7 @@ export class AppHeaderComponent implements AfterViewInit {
 
   doSave() {
     const blob = new Blob([JSON.stringify(session.currentPage.save(), null, 2)], {type: 'text/plain;charset=utf-8'});
-    FileSaver.saveAs(blob, 'demo.zijin.template');
+    FileSaver.saveAs(blob, `zijin.template.${moment().format('YYYYMMDDHHmmss')}.json`);
   }
 
   templateChange(event: Event) {

@@ -42,13 +42,16 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
     this._differ = this._differs.find(this.option).create();
   }
 
+  closeRightPanel() {
+    this.appBody.closeRightPanel();
+  }
+
 
   ngAfterViewInit() {
-    console.log('http://10.2.78.207:8080/table/total');
     this.http.get('http://10.2.78.207:8080/table/total')
       .subscribe((data: any) => console.log(data));
 
-    //, {
+    // , {
     //       headers: new HttpHeaders({'Content-Type': 'application/json'}),
     //       withCredentials: true
     //     }
@@ -84,8 +87,6 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
         console.log(dimensions);
       });
-
-
 
 
   }

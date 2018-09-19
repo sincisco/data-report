@@ -1,9 +1,12 @@
 import {RegionController} from '../region/region.controller';
 import {ReportPage} from '../page/report/page';
 import {PageConfig} from '../../../components/page.config/page.config';
+import {BehaviorSubject} from 'rxjs';
 
 export class RegionManager {
+
   private _children: Array<RegionController> = [];
+  private _subject = new BehaviorSubject(null);
 
   constructor() {
 
@@ -21,16 +24,22 @@ export class RegionManager {
     if (!this.has(region)) {
       this._children.push(region);
     }
+    this._subject.next(this.regionArray);
   }
 
   remove(region: RegionController) {
     if (this._children.includes(region)) {
       this._children.splice(this._children.indexOf(region), 1);
     }
+    this._subject.next(this.regionArray);
   }
 
   get regionArray() {
     return this._children.slice(0);
+  }
+
+  get regionArrayAsOberserve() {
+    return this._subject.asObservable();
   }
 
   /**

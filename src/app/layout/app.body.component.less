@@ -32,7 +32,7 @@
   padding: 4px;
   color: #58666e;
 
-  ul {
+  ul.component-lib {
     li {
       cursor: pointer;
       float: left;
@@ -109,6 +109,9 @@
   .side-left {
     width: 220px;
     min-width: 200px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 220px;
     border-left: 1px solid #ccc;
     background-color: #f5f5f5;
     // overflow: hidden;
@@ -182,9 +185,13 @@
     }
   }
   .side-right {
-    width: 200px;
+    flex-grow: 1;
+    flex-shrink: 1;
+    // width: 200px;
+    flex-basis: 0px;
     background-color: #fff;
     border-left: 1px solid #ccc;
+    overflow-y: hidden;
   }
 }
 
@@ -235,8 +242,26 @@
   right: 0;
 }
 
+.baidu-time {
+  background-image: url("../../assets/images/baidu/time.png");
+}
+
+.baidu-table {
+  background-image: url("../../assets/images/baidu/table.png");
+}
+
+.baidu-map-province {
+  background-image: url("../../assets/images/baidu/map_province.png");
+}
+.baidu-map-city {
+  background-image: url("../../assets/images/baidu/map-city.png");
+}
+.baidu-map-city-heat {
+  background-image: url("../../assets/images/baidu/map-city-heat.png");
+}
+
 .baidu-chart-line {
-  background-image: url("../../assets/images/baidu/line_23ca204.png");
+  background-image: url("../../assets/images/baidu/line.png");
 }
 
 .baidu-chart-bar {

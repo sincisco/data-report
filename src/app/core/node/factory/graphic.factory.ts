@@ -14,6 +14,8 @@ import {RegionController} from '@core/node/region/region.controller';
 import {ClockGraphic} from '@core/node/graphic/custom.graphic/clock.graphic';
 import {Info1Graphic} from '@core/node/graphic/custom.graphic/info1.graphic';
 import {FlipNumberGraphic} from '@core/node/graphic/custom.graphic/flip.number.graphic';
+import {TableGraphic} from '@core/node/graphic/custom.graphic/table.graphic';
+import {MapChartGraphic} from '@core/node/graphic/chart.graphic/map/map.chart.graphic';
 
 
 interface GraphicMeta {
@@ -62,8 +64,8 @@ const stdGraphicMeta: GraphicMetaMap = {
 
 export const customGraphicMeta: GraphicMetaMap = {
   clock: {
-    displayName: '当前时间',
-    imageClass: 'baidu-chart-line',
+    displayName: '实时时间',
+    imageClass: 'baidu-time',
     regionOption: {
       width: 240,
       height: 50
@@ -76,32 +78,54 @@ export const customGraphicMeta: GraphicMetaMap = {
     region: ExplicitRegion,
     graphic: ClockGraphic
   },
-  info1: {
-    displayName: 'demo',
-    imageClass: 'baidu-chart-line',
-    region: ExplicitRegion,
-    graphic: Info1Graphic
-  },
   info2: {
     displayName: '数字翻牌器',
+    regionOption: {
+      width: 660,
+      height: 120
+    },
     imageClass: 'baidu-chart-flip-number',
     region: ExplicitRegion,
     graphic: FlipNumberGraphic
   },
-  info3: {
-    displayName: 'demo',
-    imageClass: 'baidu-chart-funnel',
+  table: {
+    displayName: '带边框表格',
+    imageClass: 'baidu-table',
+    region: ExplicitRegion,
+    graphic: TableGraphic
+  },
+  mapProvince: {
+    displayName: '省份数据',
+    imageClass: 'baidu-map-province',
+    region: ExplicitRegion,
+    graphic: MapChartGraphic
+  },
+  mapCity: {
+    displayName: '城市数据',
+    imageClass: 'baidu-map-city',
     region: ExplicitRegion,
     graphic: Info1Graphic
   },
+  mapCityHeat: {
+    displayName: '热力地图',
+    imageClass: 'baidu-map-city-heat',
+    region: ExplicitRegion,
+    graphic: Info1Graphic
+  },
+  info3: {
+    displayName: '漏斗图',
+    imageClass: 'baidu-chart-funnel',
+    region: ExplicitRegion,
+    graphic: MapChartGraphic
+  },
   info4: {
-    displayName: 'demo',
+    displayName: '散点图',
     imageClass: 'baidu-chart-scatter',
     region: ExplicitRegion,
     graphic: Info1Graphic
   },
   info5: {
-    displayName: 'demo',
+    displayName: '横向柱图',
     imageClass: 'baidu-chart-flip-bar',
     region: ExplicitRegion,
     graphic: Info1Graphic

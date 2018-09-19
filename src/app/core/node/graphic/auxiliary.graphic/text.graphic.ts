@@ -45,8 +45,9 @@ export class TextGraphic implements IGraphic {
     }
     this._view.addEventListener('textChanged', (text) => {
       console.log(text);
+      this.model.importOption({text});
     });
-    this._view.init({});
+    this._view.init({text: option ? option.text : ''});
     this.model.graphic = this;
   }
 

@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, ElementRef} from '@angular/core';
 import {ReportPage} from '@core/node/page/report/page';
 import {Split} from '@core/node/page/dashboard/split';
 import {DashboardCanvas} from '@core/node/page/dashboard/dashboard.canvas';
@@ -18,6 +18,20 @@ export class AppBodyComponent implements AfterViewInit {
   report;
 
   leftPanelState = false;
+
+  constructor(private _elementRef: ElementRef) {
+
+  }
+
+  openRightPanel() {
+    $(this._elementRef.nativeElement).find('.app-body-right')[0].style.width = '420px';
+    $(this._elementRef.nativeElement).find('.app-body-right')[0].style.flexBasis = '420px';
+  }
+
+  closeRightPanel() {
+    $(this._elementRef.nativeElement).find('.app-body-right')[0].style.width = '220px';
+    $(this._elementRef.nativeElement).find('.app-body-right')[0].style.flexBasis = '220px';
+  }
 
   get customComponentList() {
     return _.toPairs(customGraphicMeta);

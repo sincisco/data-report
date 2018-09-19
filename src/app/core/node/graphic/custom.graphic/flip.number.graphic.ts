@@ -13,7 +13,8 @@ const template = `
 <div class="flip-number-warpper" style="justify-content: center;">
   <div class="flip-number" style="flex-direction: row;">
     <div class="flip-number-prefix"
-         style="font-family: 'Microsoft Yahei'; font-size: 14px; color: rgb(115, 170, 229); align-self: flex-end; margin-right: 0px; margin-bottom: 0px;"></div>
+         style="font-family: 'Microsoft Yahei'; font-size: 14px; color: rgb(115, 170, 229); 
+         align-self: flex-end; margin-right: 0px; margin-bottom: 0px;"></div>
     <div class="flip-number-number" style="align-self: right;">
       <div class="flip-single-number">
         1
@@ -47,7 +48,8 @@ const template = `
       </div>
     </div>
     <div class="flip-number-suffix"
-         style="font-family: 'Microsoft Yahei'; font-size: 20px; color: rgb(115, 170, 229); align-self: flex-end; margin-left: 7px; margin-top: 0px;">
+         style="font-family: 'Microsoft Yahei'; font-size: 20px; color: rgb(115, 170, 229); 
+         align-self: flex-end; margin-left: 7px; margin-top: 0px;">
       元
     </div>
   </div>
@@ -116,7 +118,10 @@ export class FlipNumberGraphic implements IGraphic {
   }
 
   getOption() {
-
+    return {
+      graphicClass: 'flip.number.graphic',
+      option: this.model.exportOption()
+    };
   }
 
   addChild(chart: Chart) {

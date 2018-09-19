@@ -52,7 +52,7 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
     if (option) {
       this.model.importOption(option);
     }
-    this._initForUpdate();
+    this._initForUpdate(!!option);
   }
 
   getOption() {
@@ -62,7 +62,7 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
     };
   }
 
-  private _initForUpdate() {
+  private _initForUpdate(load?: boolean) {
     this.model.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
       this._$frame.css({
         'borderRadius': newValue

@@ -1,0 +1,93 @@
+.demo {
+  margin: 0px auto;
+  font-family: 'trebuchet MS', 'Lucida sans', Arial;
+  font-size: 14px;
+  color: #f0f0f0;
+}
+
+table {
+  *border-collapse: collapse; /* IE7 and lower */
+  border-spacing: 0;
+  width: 100%;
+}
+/*========bordered table========*/
+.bordered {
+  border: solid #ccc 1px;
+  border-radius: 6px;
+  box-shadow: 0 1px 1px #ccc;
+  tr {
+    transition: all 0.1s ease-in-out;
+    &:hover {
+      background: #fbf8e9;
+    }
+  }
+}
+
+.bordered .highlight{
+  background: #fbf8e9;
+}
+.bordered td,
+.bordered th {
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+.bordered th {
+  color: #444;
+  background-color: #dce9f9;
+  // background-image: linear-gradient(top, #ebf3fc, #dce9f9);
+  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+  border-top: none;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+.bordered td:first-child,
+.bordered th:first-child {
+  border-left: none;
+}
+.bordered th:first-child {
+  border-radius: 6px 0 0 0;
+}
+.bordered th:last-child {
+  border-radius: 0 6px 0 0;
+}
+.bordered tr:last-child td:first-child {
+  border-radius: 0 0 0 6px;
+}
+.bordered tr:last-child td:last-child {
+  border-radius: 0 0 6px 0;
+}
+
+/** Table 表格样式 **/
+.qgg-table{
+  border-collapse: collapse;
+  width:100%;
+  border:1px solid #c6c6c6 !important;
+  margin-bottom:20px;
+}
+.qgg-table th{
+  border-collapse: collapse;
+  border-right:1px solid #c6c6c6 !important;
+  border-bottom:1px solid #c6c6c6 !important;
+  background-color:#ddeeff !important;
+  padding:5px 9px;
+  font-size:14px;
+  font-weight:normal;
+  text-align:center;
+}
+.qgg-table td{
+  border-collapse: collapse;
+  border-right:1px solid #c6c6c6 !important;
+  border-bottom:1px solid #c6c6c6 !important;
+  padding:5px 9px;
+  font-size:12px;
+  font-weight:normal;
+  text-align:center;
+  word-break: break-all;
+}
+.qgg-table tr:nth-child(odd){
+  background-color:#fff !important;
+}
+.qgg-table tr:nth-child(even){
+  background-color: #f8f8f8 !important;
+}
