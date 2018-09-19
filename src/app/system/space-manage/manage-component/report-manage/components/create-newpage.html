@@ -1,0 +1,60 @@
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3">名称</nz-form-label>
+    <nz-form-control nzValidateStatus="success" [nzSpan]="21">
+      <input nz-input [ngModel]="'unavailable choice'" name="errorValid" />
+      <!-- <nz-form-explain>Should be combination of numbers & alphabets</nz-form-explain> -->
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3">父目录</nz-form-label>
+    <nz-form-control nzValidateStatus="success" [nzSpan]="21">
+      <!-- <input nz-input [ngModel]="'Warning'" name="warningValid" /> -->
+      <nz-tree-select name="warningValid" [nzDefaultExpandedKeys]="expandKeys" [nzNodes]="nodes" nzShowSearch
+        nzPlaceHolder="Please select" [(ngModel)]="value" (ngModelChange)="onChange($event)">
+      </nz-tree-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3">类型</nz-form-label>
+    <nz-form-control [nzSpan]="21" nzValidateStatus="success">
+      <!-- <input nz-input [ngModel]="'The content is being validating'" name="validating" />
+      <nz-form-explain>I'm the content is being validating</nz-form-explain> -->
+      <nz-radio-group [(ngModel)]="radioValue" name="redioValue">
+        <label nz-radio nzValue="A">文件夹</label>
+        <label nz-radio nzValue="B">报表页面</label>
+        <label nz-radio nzValue="C">iframe页面</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3">公开</nz-form-label>
+    <nz-form-control [nzSpan]="21" nzValidateStatus="success">
+      <nz-switch [(ngModel)]="switchValue" name="switchValue"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3">开发者模式</nz-form-label>
+    <nz-form-control [nzSpan]="21" nzValidateStatus="warning">
+      <nz-switch [(ngModel)]="switchValue" name="switchValue2"></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3">简介</nz-form-label>
+    <nz-form-control [nzSpan]="21" nzValidateStatus="success">
+      <textarea row="4" nz-input [(ngModel)]="inputValue" name="textarea"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <!-- <nz-form-item>
+    <nz-form-label [nzSpan]="3">Success</nz-form-label>
+    <nz-form-control [nzSpan]="21" nzValidateStatus="success" nzHasFeedback>
+      <nz-date-picker name="date-picker-success" style="width: 100%"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="3">Warning</nz-form-label>
+    <nz-form-control [nzSpan]="21" nzValidateStatus="warning" nzHasFeedback>
+      <nz-time-picker name="time-picker-warning" style="width: 100%"></nz-time-picker>
+    </nz-form-control>
+  </nz-form-item> -->
+</form>

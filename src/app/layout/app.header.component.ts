@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Output} from '@angular/core';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {session} from '@core/node/utils/session';
 import * as FileSaver from 'file-saver';
@@ -14,6 +14,7 @@ export class AppHeaderComponent implements AfterViewInit {
   helperToolsPopup: PopupWrapper;
   filterToolsPopup: PopupWrapper;
   moreToolsPopup: PopupWrapper;
+  @Output() switch = new EventEmitter();
 
   mouseEnter(event: MouseEvent, popupWrapper: PopupWrapper, offsetLeft: number) {
     popupWrapper.show($(event.currentTarget).offset().left - offsetLeft);
@@ -106,6 +107,9 @@ export class AppHeaderComponent implements AfterViewInit {
     componentName = (<HTMLElement>event.target).dataset.componentName;
     grabHelper.show(dragEvent.pageX, dragEvent.pageY);
     return false;
+  }
+  doSwitch(event){
+    this.switch.emit();
   }
 
   ngAfterViewInit() {

@@ -1,0 +1,54 @@
+
+<div nz-row style="background-color: rgb(246,248,248) ;border-bottom: 1px solid rgb(222,230,231);padding: 8px;">
+  <div nz-col nzSpan="4" class="title-tab">
+    大屏管理
+  </div>
+  <div nz-col>
+   <button nz-button nzType="primary">添加新大屏</button>
+  </div>
+</div>
+<div style="padding: 16px">
+  <nz-card>
+    <div nz-row>
+      <div nz-col nzSpan="24">
+        大屏列表
+      </div>
+    </div>
+    <div nz-row style="padding-top:16px">
+      <div nz-col nzSpan="24">
+        <button nz-button><i class="anticon anticon-appstore"></i></button>
+        <button nz-button><i class="anticon anticon-filter"></i></button>
+        <nz-select style="width: 80px;" nzAllowClear nzPlaceHolder="请选择">
+          <nz-option nzValue="jack" nzLabel="全部删除"></nz-option>
+          <nz-option nzValue="lucy" nzLabel="全部完成"></nz-option>
+        </nz-select>
+        <button nz-button>操作</button>
+      </div>
+    </div>
+    <div nz-row style="padding-top: 16px">
+        <nz-table
+        #rowSelectionTable
+        [nzData]="data"
+        (nzCurrentPageDataChange)="currentPageDataChange($event)"
+        (nzPageIndexChange)="refreshStatus()"
+        (nzPageSizeChange)="refreshStatus()">
+        <thead>
+          <tr>
+            <th nzShowCheckbox [(nzChecked)]="allChecked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="checkAll($event)"></th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of rowSelectionTable.data">
+            <td nzShowCheckbox [(nzChecked)]="data.checked" [nzDisabled]="data.disabled" (nzCheckedChange)="refreshStatus($event)"></td>
+            <td>{{data.name}}</td>
+            <td>{{data.age}}</td>
+            <td>{{data.address}}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </nz-card>
+</div>

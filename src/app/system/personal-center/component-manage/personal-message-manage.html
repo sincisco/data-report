@@ -1,0 +1,42 @@
+<div style="padding: 16px">
+  <nz-card style="width:700px;" nzTitle="修改个人信息">
+    <div nz-row>
+      <div nz-col nzSpan="2">
+        邮箱
+      </div>
+    </div>
+    <div nz-row style="padding-top:8px">
+      <div nz-col nzSpan="24">
+        <input nz-input [ngModel]="'cyzhu@zjft.com'" disabled="true" />
+      </div>
+    </div>
+    <nz-divider [nzDashed]="true"></nz-divider>
+    <div nz-row>
+      <div nz-col nzSpan="2">
+        姓名
+      </div>
+    </div>
+    <div nz-row style="padding-top:8px">
+      <div nz-col nzSpan="24">
+        <input nz-input [ngModel]="'cyzhu'" />
+      </div>
+    </div>
+    <nz-divider [nzDashed]="true"></nz-divider>
+    <div nz-row>
+      <div nz-col nzSpan="2">
+        头像
+      </div>
+    </div>
+    <div nz-row style="padding-top:8px">
+      <div nz-col nzSpan="24">
+        <nz-avatar [nzShape]="'square'" [nzSize]="'large'" [nzIcon]="'anticon anticon-user'"></nz-avatar>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+    <div nz-row>
+      <div nz-col nzSpan="2" nzOffset="22">
+        <button nz-button nzType="primary">提交</button>
+      </div>
+    </div>
+  </nz-card>
+</div>

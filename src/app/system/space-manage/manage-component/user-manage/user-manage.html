@@ -1,0 +1,18 @@
+<div nz-row style="background-color: rgb(246,248,248) ;border-bottom: 1px solid rgb(222,230,231);padding: 8px;">
+  <div nz-col nzSpan="4" class="title-tab">
+    用户管理
+  </div>
+  <div nz-col nzSpan="8">
+    <div nz-col nzSpan="6">
+      <button nz-button nzType="primary" (click)="addUser()">添加用户</button>
+    </div>
+    <div nz-col nzSpan="18">
+      <nz-input-group nzSearch [nzSuffix]="suffixIconButton">
+        <input type="text" nz-input placeholder="请输入用户名" />
+      </nz-input-group>
+      <ng-template #suffixIconButton>
+        <button nz-button nzType="primary" nzSearch><i class="anticon anticon-search"></i></button>
+      </ng-template>
+    </div>
+  </div>
+</div>

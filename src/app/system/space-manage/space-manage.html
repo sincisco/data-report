@@ -1,0 +1,109 @@
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="sider-header">
+      <span>{{group.groupId}}</span>
+    </div>
+    <ul class="nav" nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu>
+        <span title><i class="anticon anticon-user"></i><span class="nav-text">数据大屏</span></span>
+        <ul>
+          <li nz-menu-item>紫金大屏</li>
+          <li nz-menu-item>demo1</li>
+          <li nz-menu-item>Alex</li>
+        </ul>
+      </li>
+      <li class="line"></li>
+      <li class="menuname"><span>报表</span></li>
+      <li nz-menu-item *ngFor="let item of test;let a =index" [nzSelected]="a==0?true:false"><a [routerLink]="['./reportDetail']"
+          [queryParams]="item"><i class="anticon anticon-table"></i><span class="nav-text">{{item.reportName}}</span></a></li>
+      <li class="menuname"><span>管理中心</span></li>
+      <li nz-menu-item><a routerLink="./manage/report"><i class="anticon anticon-table"></i><span class="nav-text">报表管理</span></a></li>
+      <li nz-menu-item><a [routerLink]="['./manage/dashboard']"><i class="anticon anticon-area-chart"></i><span class="nav-text">大屏管理</span></a>
+      </li>
+      <li nz-menu-item><a routerLink="./manage/role" routerLinkActive="router-link-active"><i class="anticon anticon-team"></i><span
+            class="nav-text">角色管理</span></a></li>
+      <li nz-menu-item><a routerLink="./manage/user" routerLinkActive="router-link-active"><i class="anticon anticon-user"></i><span
+            class="nav-text">用户管理</span></a></li>
+      <li nz-menu-item><a><i class="anticon anticon-database"></i><span class="nav-text">数据源管理</span></a></li>
+      <li nz-menu-item><a><i class="anticon anticon-api"></i><span class="nav-text">SQL模型管理</span></a></li>
+      <li nz-menu-item><a><i class="anticon anticon-book"></i><span class="nav-text">数据值映射管理</span></a></li>
+      <li nz-menu-item><a><i class="anticon anticon-setting"></i><span class="nav-text">空间设置</span></a></li>
+    </ul>
+  </nz-sider>
+  <nz-layout [ngStyle]="{'margin-left':isCollapsed?'80px':'200px'}">
+    <nz-header style="line-height: 48px">
+      <div nz-col nzSpan="2">
+        <i style="line-height: 48px" class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed"
+          [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+      </div>
+      <div nz-col nzSpan="22">
+        <ul nz-menu [nzMode]="'horizontal'">
+          <li><a style="color: inherit; float: left">
+              <nz-dropdown [nzPlacement]="'bottom'" [nzTrigger]="'click'" class="title-tab">
+                <a style="color: inherit;float: right;" nz-dropdown>
+                  空间通道 <i class="anticon anticon-down"></i>
+                </a>
+                <ul nz-menu nzSelectable>
+                  <li nz-menu-item *ngFor="let item of groups">
+                    <a (click)="goSpace(item)">{{item.spaceName}}</a>
+                  </li>
+                </ul>
+              </nz-dropdown>
+            </a>
+          </li>
+          <li><a style="color: inherit; float: left">
+              <nz-dropdown [nzPlacement]="'bottom'" [nzTrigger]="'click'" class="title-tab">
+                <a style="color: inherit;float: right;" nz-dropdown>
+                  新建 <i class="anticon anticon-down"></i>
+                </a>
+                <ul nz-menu nzSelectable>
+                  <li nz-menu-item><span><i class="anticon anticon-folder"></i>&nbsp;报表文件夹</span> </li>
+                  <li nz-menu-item> <span><i class="anticon anticon-table"></i>&nbsp;报表页面</span></li>
+                  <li nz-menu-item> <span><i class="anticon anticon-file"></i>&nbsp;iframe页面</span></li>
+                  <li nz-menu-item> <span><i class="anticon anticon-area-chart"></i>&nbsp;数据大屏</span></li>
+                </ul>
+              </nz-dropdown>
+            </a>
+          </li>
+          <li>
+            <nz-dropdown [nzPlacement]="'bottomRight'" [nzTrigger]="'click'" class="title-tab">
+              <a style="color: inherit;float: right;" nz-dropdown>
+                cyzhu <i class="anticon anticon-down"></i><i class="anticon anticon-android"></i>
+              </a>
+              <ul nz-menu nzSelectable>
+                <li nz-menu-item>
+                  <a>cyzhu@zjft.com</a>
+                </li>
+                <li nz-menu-item>
+                  <a [routerLink]="['/i']" routerLinkActive="router-link-active">个人中心</a>
+                </li>
+                <li nz-menu-item>
+                  <a [routerLink]="['/groups']">空间广场</a>
+                </li>
+                <li nz-menu-item>
+                  <a>首页</a>
+                </li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item>
+                  <a>退出</a>
+                </li>
+              </ul>
+            </nz-dropdown>
+          </li>
+          <li><a class="title-tab">咨询反馈</a></li>
+          <li><a class="title-tab">使用文档</a></li>
+          <li><a class="title-tab">个人中心</a></li>
+          <li><a class="title-tab">空间广场</a></li>
+        </ul>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div style="background: #f0f3f4; min-height: 1000px;">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+<!-- <ng-template #trigger>
+  <i class="anticon anticon-up"></i>
+</ng-template> -->
