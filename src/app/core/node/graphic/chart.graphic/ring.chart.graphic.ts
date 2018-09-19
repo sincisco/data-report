@@ -3,10 +3,11 @@ import {Grid} from '@core/node/graphic.view/chart/echart.interface/grid';
 import {Axis} from '@core/node/graphic.view/chart/echart.interface/axis';
 import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
 import {RegionController} from '@core/node/region/region.controller';
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 import {LineSeriesConfig} from '@core/node/graphic.view/chart/echart.interface/series/line.series';
 import {Chart} from '@core/node/graphic.view/chart/chart';
-import {MapConfigComponent} from '../../../../../components/graphic.config/chart/map.config.component';
+import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {FlipBarConfigComponent} from '../../../../components/graphic.config/chart/flip.bar.config.component';
+import {RingConfigComponent} from '../../../../components/graphic.config/chart/ring.config.component';
 
 
 export interface ChartLineOption {
@@ -19,7 +20,7 @@ export interface ChartLineOption {
   color?: Array<string>;
 }
 
-export class MapChartGraphic extends ChartGraphic {
+export class RingChartGraphic extends ChartGraphic {
   constructor(region: RegionController) {
     super(region);
   }
@@ -27,7 +28,7 @@ export class MapChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     this._chart = new Chart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(MapConfigComponent);
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(RingConfigComponent);
     if (option) {
       this.model.importOption(option);
     }
@@ -38,7 +39,7 @@ export class MapChartGraphic extends ChartGraphic {
 
   getOption() {
     return {
-      graphicClass: 'map.chart.graphic',
+      graphicClass: 'ring.chart.graphic',
       option: this.model.exportOption()
     };
   }

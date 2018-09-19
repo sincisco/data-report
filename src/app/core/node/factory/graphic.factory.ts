@@ -16,6 +16,9 @@ import {Info1Graphic} from '@core/node/graphic/custom.graphic/info1.graphic';
 import {FlipNumberGraphic} from '@core/node/graphic/custom.graphic/flip.number.graphic';
 import {TableGraphic} from '@core/node/graphic/custom.graphic/table.graphic';
 import {MapChartGraphic} from '@core/node/graphic/chart.graphic/map/map.chart.graphic';
+import {RingChartGraphic} from '@core/node/graphic/chart.graphic/ring.chart.graphic';
+import {FlipBarChartGraphic} from '@core/node/graphic/chart.graphic/flip.bar.chart.graphic';
+import {GaugeChartGraphic} from '@core/node/graphic/chart.graphic/gauge.chart.graphic';
 
 
 interface GraphicMeta {
@@ -112,6 +115,30 @@ export const customGraphicMeta: GraphicMetaMap = {
     region: ExplicitRegion,
     graphic: Info1Graphic
   },
+  info6: {
+    displayName: '柱状图',
+    imageClass: 'baidu-chart-bar',
+    region: ExplicitRegion,
+    graphic: Info1Graphic
+  },
+  info5: {
+    displayName: '横向柱图',
+    imageClass: 'baidu-chart-flip-bar',
+    region: ExplicitRegion,
+    graphic: FlipBarChartGraphic
+  },
+  ring: {
+    displayName: '环形饼图',
+    imageClass: 'baidu-chart-ring',
+    region: ExplicitRegion,
+    graphic: RingChartGraphic
+  },
+  info7: {
+    displayName: '仪表盘',
+    imageClass: 'baidu-chart-dashboard',
+    region: ExplicitRegion,
+    graphic: GaugeChartGraphic
+  },
   info3: {
     displayName: '漏斗图',
     imageClass: 'baidu-chart-funnel',
@@ -124,19 +151,7 @@ export const customGraphicMeta: GraphicMetaMap = {
     region: ExplicitRegion,
     graphic: Info1Graphic
   },
-  info5: {
-    displayName: '横向柱图',
-    imageClass: 'baidu-chart-flip-bar',
-    region: ExplicitRegion,
-    graphic: Info1Graphic
-  },
-  info6: {
-    displayName: 'demo',
-    imageClass: 'baidu-chart-bar',
-    region: ExplicitRegion,
-    graphic: Info1Graphic
-  },
-  info7: {
+  dashboard: {
     displayName: 'demo',
     imageClass: 'baidu-chart-line',
     region: ExplicitRegion,

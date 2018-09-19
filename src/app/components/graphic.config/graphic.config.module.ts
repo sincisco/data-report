@@ -23,10 +23,18 @@ import {PageConfigComponent} from '../page.config/page.config.component';
 import {LineConfigComponent} from './chart/line.config.component';
 import {BuildInConfigComponent} from '../page.config/build-in.config.component';
 import {ImageSelectConfigComponent} from '../common/image.select.config.component';
+import {MapConfigComponent} from './chart/map.config.component';
+import {RingConfigComponent} from './chart/ring.config.component';
+import {FlipBarConfigComponent} from './chart/flip.bar.config.component';
+import {GaugeConfigComponent} from './chart/gauge.config.component';
 
 const COMPONENTS = [
   PieConfigComponent,
   BarConfigComponent,
+  FlipBarConfigComponent,
+  GaugeConfigComponent,
+  MapConfigComponent,
+  RingConfigComponent,
   LineConfigComponent,
   DataHeaderComponent,
   TextConfigComponent,

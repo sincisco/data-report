@@ -33,6 +33,8 @@
               "src/lib/ckeditor/ckeditor.js",
               "src/lib/echarts/echarts.min.js",
               "src/lib/echarts/china.js",
+              "src/lib/echarts/province/guangdong.js",
+              "src/lib/echarts/province/shandong.js",
               "src/lib/echarts/dark.js",
               "src/lib/echarts/infographic.js",
               "src/lib/echarts/macarons.js",

@@ -1,0 +1,26 @@
+<nz-tabset ngForm>
+  <nz-tab nzTitle="数据">
+    <nz-collapse [nzBordered]="false" class="zijin-form">
+      <nz-collapse-panel nzHeader="X 轴">
+
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="Y 轴">
+
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="系列">
+
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+  <nz-tab nzTitle="样式">
+    <nz-collapse [nzBordered]="false" class="zijin-form">
+      <nz-collapse-panel nzHeader="标题">
+        <app-title-config name="title" [ngModel]="option.title"></app-title-config>
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="绘图区">
+      </nz-collapse-panel>
+      <nz-collapse-panel nzHeader="颜色">
+      </nz-collapse-panel>
+    </nz-collapse>
+  </nz-tab>
+</nz-tabset>
