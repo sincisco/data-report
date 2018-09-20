@@ -16,8 +16,10 @@ import {ConfigModule} from '../components/config/config.module';
 import {GraphicConfigModule} from '../components/graphic.config/graphic.config.module';
 import {DimensionAreaComponent} from './sider/model/dimension.area.component';
 import {MeasureAreaComponent} from './sider/model/measure.area.component';
+import {DesignerComponent} from './designer.component';
 
 const COMPONENTS = [
+  DesignerComponent,
   AppHeaderComponent,
   AppBodyComponent,
   SiderLeftComponent,
