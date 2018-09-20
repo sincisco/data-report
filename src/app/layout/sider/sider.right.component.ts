@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, KeyValueDiffer, KeyValueDiffers, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {AppBodyComponent} from '../app.body.component';
+import {DesignerBodyComponent} from '../designer.body.component';
 import {dataModelList} from '../../utils/dataModel';
 import {datasetManager} from '@core/dataset/dataset.manager';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -34,7 +34,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
   private _differ: KeyValueDiffer<any, any>;
 
-  constructor(private _differs: KeyValueDiffers, private appBody: AppBodyComponent, private http: HttpClient) {
+  constructor(private _differs: KeyValueDiffers, private appBody: DesignerBodyComponent, private http: HttpClient) {
     this.modelName = datasetManager.getDefaultDataset().displayName;
   }
 

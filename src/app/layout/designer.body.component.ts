@@ -6,14 +6,14 @@ import {session} from '@core/node/utils/session';
 import {Runtime} from '@core/runtime/runtime';
 import {customGraphicMeta, graphicFactory} from '@core/node/factory/graphic.factory';
 import * as _ from 'lodash';
-import {grabHelper} from './app.header.component';
+import {grabHelper} from './designer.header.component';
 
 @Component({
-  selector: 'app-body',
-  templateUrl: './app.body.component.html',
-  styleUrls: ['./app.body.component.less']
+  selector: 'app-designer-body',
+  templateUrl: './designer.body.component.html',
+  styleUrls: ['./designer.body.component.less']
 })
-export class AppBodyComponent implements AfterViewInit {
+export class DesignerBodyComponent implements AfterViewInit {
 
   report;
 
