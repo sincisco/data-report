@@ -24,9 +24,9 @@ export class PersonalCenterComponent implements OnInit {
   }
 
   post() {
-    this.service.getSpaces().subscribe(arg => {
-      this.testSpace = arg.retList;
-      console.log(arg);
+    this.service.getSpaces().subscribe(data => {
+      let username = localStorage.getItem('userName');
+      console.log(username);
     });
   }
   openDetail(item) {
@@ -34,6 +34,10 @@ export class PersonalCenterComponent implements OnInit {
     this.router.navigate(['space'], {
       queryParams: item
     });
+  }
+
+  logOut() {
+    this.router.navigate(['login']);
   }
 
   /** custom trigger can be TemplateRef **/

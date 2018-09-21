@@ -75,25 +75,25 @@
                   <a>cyzhu@zjft.com</a>
                 </li>
                 <li nz-menu-item>
-                  <a [routerLink]="['/i']" routerLinkActive="router-link-active">个人中心</a>
+                  <a [routerLink]="['/app/i']" routerLinkActive="router-link-active">个人中心</a>
                 </li>
                 <li nz-menu-item>
-                  <a [routerLink]="['/groups']">空间广场</a>
+                  <a [routerLink]="['/app/groups']">空间广场</a>
                 </li>
                 <li nz-menu-item>
                   <a>首页</a>
                 </li>
                 <li nz-menu-divider></li>
                 <li nz-menu-item>
-                  <a>退出</a>
+                  <a [routerLink]="['/login']">退出</a>
                 </li>
               </ul>
             </nz-dropdown>
           </li>
           <li><a class="title-tab">咨询反馈</a></li>
           <li><a class="title-tab">使用文档</a></li>
-          <li><a class="title-tab">个人中心</a></li>
-          <li><a class="title-tab">空间广场</a></li>
+          <li><a class="title-tab" [routerLink]="['/app/i']">个人中心</a></li>
+          <li><a class="title-tab" [routerLink]="['/app/groups']">空间广场</a></li>
         </ul>
       </div>
     </nz-header>
@@ -104,6 +104,3 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
-<!-- <ng-template #trigger>
-  <i class="anticon anticon-up"></i>
-</ng-template> -->

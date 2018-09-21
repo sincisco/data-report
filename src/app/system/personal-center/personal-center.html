@@ -8,12 +8,12 @@
     <ul class="nav" nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineCollapsed]="isCollapsed">
       <li class="line"></li>
       <li class="menuname"><span>管理中心</span></li>
-      <li nz-menu-item><a routerLink="report"><i class="anticon anticon-table"></i><span class="nav-text">报表收藏管理</span></a>
+      <li nz-menu-item><a routerLink="manage/report"><i class="anticon anticon-table"></i><span class="nav-text">报表收藏管理</span></a>
       </li>
-      <li nz-menu-item><a routerLink="screen"><i class="anticon anticon-area-chart"></i><span
+      <li nz-menu-item><a routerLink="manage/screen"><i class="anticon anticon-area-chart"></i><span
         class="nav-text">大屏收藏管理</span></a>
       </li>
-      <li nz-menu-item><a routerLink="user"><i class="anticon anticon-user"></i><span class="nav-text">个人信息管理</span></a>
+      <li nz-menu-item><a routerLink="manage/user"><i class="anticon anticon-user"></i><span class="nav-text">个人信息管理</span></a>
       </li>
     </ul>
   </nz-sider>
@@ -49,25 +49,25 @@
                   <a>cyzhu@zjft.com</a>
                 </li>
                 <li nz-menu-item>
-                  <a [routerLink]="['/i']" routerLinkActive="router-link-active">个人中心</a>
+                  <a [routerLink]="['/app/i']" routerLinkActive="router-link-active">个人中心</a>
                 </li>
                 <li nz-menu-item>
-                  <a [routerLink]="['/groups']" routerLinkActive="router-link-active">空间广场</a>
+                  <a [routerLink]="['/app/groups']" routerLinkActive="router-link-active">空间广场</a>
                 </li>
                 <li nz-menu-item>
                   <a>首页</a>
                 </li>
                 <li nz-menu-divider></li>
                 <li nz-menu-item>
-                  <a>退出</a>
+                  <a (click)="logOut()">退出</a>
                 </li>
               </ul>
             </nz-dropdown>
           </li>
           <li> <a class="title-tab">咨询反馈</a></li>
-          <li> <a class="title-tab">使用文档</a></li>
-          <li> <a class="title-tab">个人中心</a></li>
-          <li> <a class="title-tab" (click)="post()">空间广场</a></li>
+          <li> <a class="title-tab" (click)="post()">使用文档</a></li>
+          <li> <a class="title-tab" [routerLink]="['/app/i']">个人中心</a></li>
+          <li> <a class="title-tab" [routerLink]="['/app/groups']" >空间广场</a></li>
         </ul>
       </div>
     </nz-header>

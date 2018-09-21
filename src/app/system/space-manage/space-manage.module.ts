@@ -6,7 +6,6 @@ import { SpaceRoutingModule } from './space-manage.routing';
 import { RoleManageComponent } from './manage-component/role-manage/role-manage.component';
 import { ReportManageComponent } from './manage-component/report-manage/report-manage.component';
 import { UserManageComponent } from './manage-component/user-manage/user-manage.component';
-import { SpaceManageComponent } from './space-manage.component';
 import { ReportDetailComponent } from './manage-component/report-detail/report-detail.componet';
 
 import { SpaceManageService } from './space-manage.service';
@@ -18,12 +17,11 @@ import { AddUserComponent } from './manage-component/user-manage/components/add-
 import { AddRoleComponent } from './manage-component/role-manage/components/add-role.component';
 
 const components = [
-  SpaceManageComponent,
   RoleManageComponent,
   ReportManageComponent,
   UserManageComponent,
   ReportDetailComponent,
-  ScreenManageComponent
+  ScreenManageComponent,
 ];
 const modal = [CreateNewpageComponent, AddUserComponent, AddRoleComponent];
 

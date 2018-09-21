@@ -12,10 +12,11 @@ export class SpaceGroupsComponent implements OnInit {
 
   ngOnInit() {
     this.service.getSpaces().subscribe(data => {
-      this.groups = data.retList;
+      this.groups = data.data;
     });
   }
   openDetail(item) {
-    this.router.navigate(['groups/' + item.spaceId]);
+    console.log(item);
+    this.router.navigate(['app/groups/' + item.group_name]);
   }
 }
