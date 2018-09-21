@@ -1,0 +1,9 @@
+<ul class="component-lib">
+  <li *ngFor="let item of customComponentList" draggable="true" (dragstart)="dragstart($event)"
+      [attr.componentName]="item[0]">
+      <span class="tool-item">
+        <div class="tool-item-icon {{item[1].imageClass}}"></div>
+        <div class="tool-item-name">{{item[1].displayName}}</div>
+      </span>
+  </li>
+</ul>

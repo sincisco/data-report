@@ -18,12 +18,14 @@ import {DimensionAreaComponent} from './sider/model/dimension.area.component';
 import {MeasureAreaComponent} from './sider/model/measure.area.component';
 import {DesignerComponent} from './designer.component';
 import {DesignerBodyLeftComponent} from './designer.body.left.component';
+import {PaletteComponent} from './part/palette.component';
 
 const COMPONENTS = [
   DesignerComponent,
   DesignerHeaderComponent,
   DesignerBodyComponent,
   DesignerBodyLeftComponent,
+  PaletteComponent,
   SiderLeftComponent,
   SiderRightComponent,
   // SchemaPillsComponent,
