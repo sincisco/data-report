@@ -8,7 +8,8 @@ const httpOptions = {
 
 @Injectable()
 export class SystemService {
-  url = 'http://localhost:3000';
+  // url = 'http://localhost:3000';
+  url = 'http://10.2.215.213:8080/data-report/';
   private eventemit = new Subject();
   eventemit$ = this.eventemit.asObservable();
   constructor(private http: HttpClient) {}
@@ -16,7 +17,7 @@ export class SystemService {
     this.eventemit.next(value);
   }
   getSpaces(): Observable<any> {
-    return this.http.get(this.url + '/getSpaces');
+    return this.http.get(this.url + 'api/square/list');
   }
   getReportsBySpaceId(spaceId): Observable<any> {
     return this.http.get(this.url + '/getReportsBySpaceId/' + spaceId);

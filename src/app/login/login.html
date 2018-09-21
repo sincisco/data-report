@@ -1,0 +1,33 @@
+<div class="center-bg">
+  <div class="form-wrapper">
+    <div class="form-background">
+      <div class="form-border">
+        <img src="assets/images/login/words.png" />
+        <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+          <nz-form-item class="form-item">
+            <nz-form-control>
+              <nz-input-group nzPrefixIcon="anticon anticon-user">
+                <input type="text" nz-input formControlName="userName" placeholder="Username" />
+              </nz-input-group>
+              <nz-form-explain *ngIf="validateForm.get('userName').dirty && validateForm.get('userName').errors">请输入用户名!</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="form-item">
+            <nz-form-control>
+              <nz-input-group nzPrefixIcon="anticon anticon-lock">
+                <input type="password" nz-input formControlName="password" placeholder="Password" />
+              </nz-input-group>
+              <nz-form-explain *ngIf="validateForm.get('password').dirty && validateForm.get('password').errors">请输入密码
+                !</nz-form-explain>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="form-item">
+            <nz-form-control>
+              <button nz-button class="login-form-button" [nzType]="'primary'">登入</button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
