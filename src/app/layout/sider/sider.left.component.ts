@@ -10,7 +10,7 @@ import {reportGlobal} from '@core/node/region/region.controller';
 import {PageConfig} from '../../components/page.config/page.config';
 import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
 import {GraphicConfig} from '../../components/graphic.config/graphic.config';
-import {AppBodyComponent} from '../app.body.component';
+import {DesignerBodyComponent} from '../designer.body.component';
 
 export var siderLeftComponent: SiderLeftComponent;
 
@@ -33,7 +33,7 @@ export class SiderLeftComponent implements AfterViewInit {
   constructor(/*              private appBody: AppBodyComponent,*/
               private resolver: ComponentFactoryResolver,
               private zone: NgZone,
-              private _appbody: AppBodyComponent) {
+              private _appbody: DesignerBodyComponent) {
   }
 
   openRightPanel() {

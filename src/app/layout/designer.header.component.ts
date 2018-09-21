@@ -5,11 +5,11 @@ import * as FileSaver from 'file-saver';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './app.header.component.html',
-  styleUrls: ['./app.header.component.less']
+  selector: 'app-designer-header',
+  templateUrl: './designer.header.component.html',
+  styleUrls: ['./designer.header.component.less']
 })
-export class AppHeaderComponent implements AfterViewInit {
+export class DesignerHeaderComponent implements AfterViewInit {
 
   helperToolsPopup: PopupWrapper;
   filterToolsPopup: PopupWrapper;

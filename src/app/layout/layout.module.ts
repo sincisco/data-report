@@ -3,8 +3,8 @@ import {NgModule} from '@angular/core';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
-import {AppHeaderComponent} from './app.header.component';
-import {AppBodyComponent} from './app.body.component';
+import {DesignerHeaderComponent} from './designer.header.component';
+import {DesignerBodyComponent} from './designer.body.component';
 import {SiderLeftComponent} from './sider/sider.left.component';
 import {FormsModule} from '@angular/forms';
 import {NgZorroAntdModule} from 'ng-zorro-antd';
@@ -16,10 +16,16 @@ import {ConfigModule} from '../components/config/config.module';
 import {GraphicConfigModule} from '../components/graphic.config/graphic.config.module';
 import {DimensionAreaComponent} from './sider/model/dimension.area.component';
 import {MeasureAreaComponent} from './sider/model/measure.area.component';
+import {DesignerComponent} from './designer.component';
+import {DesignerBodyLeftComponent} from './designer.body.left.component';
+import {PaletteComponent} from './part/palette.component';
 
 const COMPONENTS = [
-  AppHeaderComponent,
-  AppBodyComponent,
+  DesignerComponent,
+  DesignerHeaderComponent,
+  DesignerBodyComponent,
+  DesignerBodyLeftComponent,
+  PaletteComponent,
   SiderLeftComponent,
   SiderRightComponent,
   // SchemaPillsComponent,
