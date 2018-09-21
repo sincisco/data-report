@@ -59,25 +59,10 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
     draggableHeler.dragInfo = item;
   }
 
-
-  tableClick(event: MouseEvent) {
-    this.datasetWrapper.state.collapsed = !this.datasetWrapper.state.collapsed;
-    if (this.datasetWrapper.state.collapsed) {
-      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
-    } else {
-      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();
-    }
-  }
-
-  ngOnDestroy() {
-    this._elementRef = null;
-    this._$element = null;
-  }
-
   dragStartForDragBar(event: DragEvent) {
 
     const subscription = fromEvent(document, 'mousemove')
-      /*.pipe(throttleTime(30))*/
+    /*.pipe(throttleTime(30))*/
       .subscribe((mouseEvent: MouseEvent) => {
         console.log(this._$element.offset());
         console.log(mouseEvent.pageX, mouseEvent.pageY);
@@ -91,6 +76,20 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
     event.preventDefault();
     event.stopPropagation();
     return false;
+  }
+
+  tableClick(event: MouseEvent) {
+    this.datasetWrapper.state.collapsed = !this.datasetWrapper.state.collapsed;
+    if (this.datasetWrapper.state.collapsed) {
+      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
+    } else {
+      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();
+    }
+  }
+
+  ngOnDestroy() {
+    this._elementRef = null;
+    this._$element = null;
   }
 
 }

@@ -5,7 +5,7 @@ import {Axis} from '../../graphic.view/chart/echart.interface/axis';
 import {Title} from '../../graphic.view/chart/echart.interface/title';
 import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
-import {ChartDataSubject} from '@core/data/data.source';
+import {ChartDataSubject} from '@core/dataset/data.subject/mock/demo.data.subject';
 
 export interface ChartBarOption {
   title?: Title;

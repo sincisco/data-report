@@ -7,12 +7,14 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
 
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
+import {TableDataSubject} from '@core/dataset/data.subject/mock/table.data.subject';
 
-const template = `<div class="demo">
-<table class="bordered">
-  <thead></thead>
-  <tbody></tbody>
-</table>
+const template = `
+<div class="demo">
+  <table class="bordered">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
 </div>`;
 
 export class TableGraphic implements IGraphic {
@@ -45,29 +47,25 @@ export class TableGraphic implements IGraphic {
       this.update(newValue);
     });
 
-    this.$element.find('thead').html(this._generateHead(['学校', '院士人数', '综合排名']));
-    this.$element.find('tbody').html(this._generateBody(['学校', '院士人数', '综合排名'],
-      [
-        {'学校': '北京大学', '院士人数': '100', '综合排名': '2'},
-        {'学校': '清华大学', '院士人数': '120', '综合排名': '1'},
-        {'学校': '南京大学', '院士人数': '30', '综合排名': '7'},
-        {'学校': '上海交通大学', '院士人数': '30', '综合排名': '6'},
-        {'学校': '复旦大学', '院士人数': '20', '综合排名': '5'},
-        {'学校': '浙江大学', '院士人数': '45', '综合排名': '3'},
-      ]));
+    new TableDataSubject().register((data: any) => {
+      if (data) {
+        this.$element.find('thead').html(this._generateHead(data.dimensions));
+        this.$element.find('tbody').html(this._generateBody(data.dimensions, data.source));
+      }
+    });
 
   }
 
-  private _generateHead(meta: Array<string>) {
-    return `<tr>${meta.map((key) => {
-      return `<th>${key}</th>`;
+  private _generateHead(meta: Array<any>) {
+    return `<tr>${meta.map((fieldDef) => {
+      return `<th>${fieldDef.name}</th>`;
     }).join('')}</tr>`;
   }
 
-  private _generateBody(meta: Array<string>, rows: Array<any>) {
+  private _generateBody(meta: Array<any>, rows: Array<any>) {
     return rows.map((value, index, array) => {
-      return `<tr>${meta.map((key) => {
-        return `<td>${value[key]}</td>`;
+      return `<tr>${meta.map((fieldDef) => {
+        return `<td>${value[fieldDef.name]}</td>`;
       }).join('')}</tr>`;
     }).join('');
   }

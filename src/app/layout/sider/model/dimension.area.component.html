@@ -12,33 +12,35 @@
     </ul>
   </div>
 </div>
+
 <div class="body">
   <div class="group group-dimensions group-auto">
     <div class="m-schemaList">
       <ul class="list list-item">
-        <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
-            (click)="tableClick($event)">
-          <i class="u-icn u-icn-angle-down" [class.u-icn-angle-right]="datasetWrapper.state.collapsed"></i>{{datasetWrapper?.displayName}}
-        </li>
+          <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
+              (click)="tableClick($event)">
+            <i class="u-icn u-icn-angle-down" [class.u-icn-angle-right]="datasetWrapper.state.collapsed"></i>{{datasetWrapper?.displayName}}
+          </li>
         <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
           <li *ngIf="item.type==='ordinal'"
               class="u-bitem j-pill-item j-item u-bitem-1 draggable" draggable="true"
               (dragstart)="doDragStart($event,item)"
               [attr.fieldid]="item" [attr.datasetname]="datasetWrapper.name">
-                <span class="txt handle">
-                  <i class="protect" style="display: none;">●</i>
-                  <i class="u-icn u-icn-string"></i>
-                  <b class="j-text">{{item.comment||item.name}}</b>
-                </span>
-            <div class="menu">
-              <i></i>
-            </div>
+              <span class="txt handle">
+                <i class="protect" style="display: none;">●</i>
+                <i class="u-icn u-icn-string"></i>
+                <b class="j-text">{{item.comment||item.name}}</b>
+              </span>
+              <div class="menu">
+                <i></i>
+              </div>
           </li>
         </ng-container>
       </ul>
     </div>
   </div>
 </div>
+
 <div class="u-dragBar u-dragBar-v" (dragstart)="dragStartForDragBar($event)" draggable="true">
   <div class="icon">
     <div class="line"></div>

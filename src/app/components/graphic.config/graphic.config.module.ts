@@ -28,6 +28,7 @@ import {RingConfigComponent} from './chart/ring.config.component';
 import {FlipBarConfigComponent} from './chart/flip.bar.config.component';
 import {GaugeConfigComponent} from './chart/gauge.config.component';
 import {WordCloudConfigComponent} from './chart/word.cloud.config.component';
+import {TableConfigComponent} from './custom/table.config.component';
 
 const COMPONENTS = [
   PieConfigComponent,
@@ -46,7 +47,8 @@ const COMPONENTS = [
   FilterListComponent,
   BuildInConfigComponent,
   ImageSelectConfigComponent,
-  PageConfigComponent
+  PageConfigComponent,
+  TableConfigComponent
 ];
 
 @NgModule({
