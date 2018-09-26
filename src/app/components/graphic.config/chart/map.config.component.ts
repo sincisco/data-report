@@ -10,7 +10,7 @@ import {NgForm} from '@angular/forms';
 import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {GraphicConfig} from '../graphic.config';
+import {DesignerConfigSource} from '../../../core/node/source/config.source/designer.config.source';
 
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
@@ -42,7 +42,7 @@ const data = [
   templateUrl: './map.config.component.html',
   styleUrls: ['./map.config.component.less']
 })
-export class MapConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class MapConfigComponent extends DesignerConfigSource implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -239,7 +239,7 @@ export class MapConfigComponent extends GraphicConfig implements AfterViewInit, 
       value.dataset = datasetManager.current;
       value.tooltip = {};
       value = removeUndefined(value);
-      this.trigger({
+      this._trigger({
         key: 'option',
         oldValue: this._innerOption,
         newValue: this.option,

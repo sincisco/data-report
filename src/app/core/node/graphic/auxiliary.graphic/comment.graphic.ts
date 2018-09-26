@@ -4,7 +4,7 @@ import {IGraphic} from '../graphic';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import {CommentAuxiliary} from '@core/node/graphic.view/auxiliary/comment.auxiliary';
-import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
+import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
 import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 import {RegionController} from '@core/node/region/region.controller';
@@ -21,7 +21,7 @@ export class CommentGraphic implements IGraphic {
   private _$frame: JQuery;
 
   private _view: IGraphicView;
-  private _configComponentRef: ComponentRef<GraphicConfig>;
+  private _configComponentRef: ComponentRef<DesignerConfigSource>;
 
   constructor(private _region: RegionController) {
     this.$element = $(template);
@@ -30,7 +30,7 @@ export class CommentGraphic implements IGraphic {
     _region.addChild(this);
   }
 
-  get model() {
+  get configSource() {
     return this._configComponentRef.instance;
   }
 
@@ -47,15 +47,14 @@ export class CommentGraphic implements IGraphic {
     this._view = new CommentAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(CommentConfigComponent);
     if (option) {
-      this.model.importOption(option);
+      this.configSource.importOption(option);
     }
-    this.model.graphic = this;
   }
 
   getOption() {
     return {
       graphicClass: 'comment.graphic',
-      option: this.model.exportOption()
+      option: this.configSource.exportOption()
     };
   }
 

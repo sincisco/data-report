@@ -31,7 +31,7 @@ export class PieChartGraphic extends ChartGraphic {
   getOption() {
     return {
       graphicClass: 'pie.chart.graphic',
-      option: this.model.exportOption()
+      option: this.configSource.exportOption()
     };
   }
 

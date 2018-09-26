@@ -5,7 +5,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 
 import * as _ from 'lodash';
 import {TextAuxiliary} from '@core/node/graphic.view/auxiliary/text.auxiliary';
-import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
+import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
 import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
 import {RegionController} from '@core/node/region/region.controller';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
@@ -21,14 +21,14 @@ export class TextGraphic implements IGraphic {
   $element: JQuery;
 
   private _view: IGraphicView;
-  private _configComponentRef: ComponentRef<GraphicConfig>;
+  private _configComponentRef: ComponentRef<DesignerConfigSource>;
 
   constructor(private _region: RegionController) {
     this.$element = $(template);
     _region.addChild(this);
   }
 
-  get model() {
+  get configSource() {
     return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
@@ -41,20 +41,19 @@ export class TextGraphic implements IGraphic {
     this._view = new TextAuxiliary(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
     if (option) {
-      this.model.importOption(option);
+      this.configSource.importOption(option);
     }
     this._view.addEventListener('textChanged', (text) => {
       console.log(text);
-      this.model.importOption({text});
+      this.configSource.importOption({text});
     });
     this._view.init({text: option ? option.text : ''});
-    this.model.graphic = this;
   }
 
   getOption() {
     return {
       graphicClass: 'text.graphic',
-      option: this.model.exportOption()
+      option: this.configSource.exportOption()
     };
   }
 

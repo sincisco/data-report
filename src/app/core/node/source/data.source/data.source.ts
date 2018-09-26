@@ -3,12 +3,13 @@ import {Dimensions} from '../../interface';
 import {filter} from 'rxjs/operators';
 import * as _ from 'lodash';
 
-import {Source} from '../source';
-
 
 type DataListener = (data: any) => void;
 
-export abstract class DataSource extends Source {
+export abstract class DataSource {
+  private _destroyed = false;
+  private _callbacksOnDestroy: Array<Function> = [];
+
   metaData: Array<Dimensions>;
 
   private _subject = new BehaviorSubject(null);
@@ -16,7 +17,6 @@ export abstract class DataSource extends Source {
   private _subscriptionArray: Array<Subscription> = [];
 
   protected constructor() {
-    super();
     this._subject = new BehaviorSubject(null);
   }
 
@@ -43,6 +43,9 @@ export abstract class DataSource extends Source {
     }
   }
 
+  /**
+   * 清空该源上面的所有事件监听
+   */
   clear() {
     while (this._subscriptionArray.length) {
       this._subscriptionArray.pop().unsubscribe();
@@ -52,6 +55,21 @@ export abstract class DataSource extends Source {
   destroy() {
     this.clear();
     this._subject.unsubscribe();
+
+    while (this._callbacksOnDestroy.length) {
+      this._callbacksOnDestroy.pop()();
+    }
+    this._destroyed = true;
+  }
+
+  get destroyed(): boolean {
+    return this._destroyed;
+  }
+
+  onDestroy(callback: Function) {
+    if (_.isFunction(callback)) {
+      this._callbacksOnDestroy.push(callback);
+    }
   }
 
 }

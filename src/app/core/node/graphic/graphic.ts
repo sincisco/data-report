@@ -1,17 +1,18 @@
-import {GraphicConfig} from '../../../components/graphic.config/graphic.config';
+import {DesignerConfigSource} from '../source/config.source/designer.config.source';
 
 export interface IGraphic {
   $element: JQuery;
 
-  model: GraphicConfig;
+  configSource: DesignerConfigSource;
 
   addChild(child);
+
   /**
    * 一般用于初始化  新建Graphic的时候调用
    * 如果有content的，则创建相应的content；负责配置面板的创建
    * @param option
    */
-  init(option?: any);
+  init(option?: any, runtime?: boolean);
 
   /**
    * 数据更新  此时要负责刷新整个图表区域
@@ -24,12 +25,6 @@ export interface IGraphic {
    * @param {string} theme
    */
   updateTheme(theme: string);
-
-  /**
-   * 这和方法可能要抛弃  统一在update方法中处理
-   * @param option
-   */
-  updateGraphic(option: any);
 
   getOption();
 

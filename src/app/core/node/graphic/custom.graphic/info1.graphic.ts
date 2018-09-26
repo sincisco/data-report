@@ -4,7 +4,7 @@ import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
-import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
+import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
 
 import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
@@ -20,11 +20,11 @@ font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content
 export class Info1Graphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<GraphicConfig>;
+  private _configComponentRef: ComponentRef<DesignerConfigSource>;
 
   private _internal;
 
-  get model() {
+  get configSource() {
     return this._configComponentRef.instance;
   }
 
@@ -43,9 +43,9 @@ export class Info1Graphic implements IGraphic {
   init(option?: any) {
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
     if (option) {
-      this.model.importOption(option);
+      this.configSource.importOption(option);
     }
-    this.model.register('option', (key, oldValue, newValue) => {
+    this.configSource.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
 

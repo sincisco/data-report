@@ -9,7 +9,7 @@ import {NgForm} from '@angular/forms';
 import {reportGlobal} from '@core/node/region/region.controller';
 import {PageConfig} from '../../components/page.config/page.config';
 import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
-import {GraphicConfig} from '../../components/graphic.config/graphic.config';
+import {DesignerConfigSource} from '../../core/node/source/config.source/designer.config.source';
 import {DesignerBodyComponent} from '../designer.body.component';
 
 export var siderLeftComponent: SiderLeftComponent;
@@ -54,12 +54,12 @@ export class SiderLeftComponent implements AfterViewInit {
     });
   }
 
-  createGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
-    let retComponentRef: ComponentRef<GraphicConfig>;
+  createGraphicConfig(type: Type<DesignerConfigSource>): ComponentRef<DesignerConfigSource> {
+    let retComponentRef: ComponentRef<DesignerConfigSource>;
     this.zone.run(() => {
       this.container.detach();
       this.container.clear();
-      const factory: ComponentFactory<GraphicConfig> =
+      const factory: ComponentFactory<DesignerConfigSource> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.container.createComponent(factory);
       this.componentRef.instance.type = type;
@@ -73,12 +73,12 @@ export class SiderLeftComponent implements AfterViewInit {
     return retComponentRef;
   }
 
-  forwardCreateGraphicConfig(type: Type<GraphicConfig>): ComponentRef<GraphicConfig> {
-    let retComponentRef: ComponentRef<GraphicConfig>;
+  forwardCreateGraphicConfig(type: Type<DesignerConfigSource>): ComponentRef<DesignerConfigSource> {
+    let retComponentRef: ComponentRef<DesignerConfigSource>;
     this.zone.run(() => {
       // this.shadowContainer.detach();
       // this.shadowContainer.clear();
-      const factory: ComponentFactory<GraphicConfig> =
+      const factory: ComponentFactory<DesignerConfigSource> =
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       this.componentRef.instance.type = type;

@@ -29,9 +29,9 @@ export class MapChartGraphic extends ChartGraphic {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(MapConfigComponent);
     if (option) {
-      this.model.importOption(option);
+      this.configSource.importOption(option);
     }
-    this.model.register('option', (key, oldValue, newValue) => {
+    this.configSource.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
   }
@@ -39,7 +39,7 @@ export class MapChartGraphic extends ChartGraphic {
   getOption() {
     return {
       graphicClass: 'map.chart.graphic',
-      option: this.model.exportOption()
+      option: this.configSource.exportOption()
     };
   }
 

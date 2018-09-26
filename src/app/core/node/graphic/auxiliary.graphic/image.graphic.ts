@@ -1,15 +1,14 @@
 import {ComponentRef} from '@angular/core';
-import {IGraphic} from '../graphic';
 
 import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {ChangeItem, ModelEventTarget} from '../../event/model.event';
 import {ImageAuxiliary} from '@core/node/graphic.view/auxiliary/image.auxiliary';
-import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
+import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
 import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 import {RegionController} from '@core/node/region/region.controller';
+import {DefaultGraphic} from '@core/node/graphic/default.graphic';
 
 
 const template = `
@@ -20,20 +19,18 @@ const template = `
 </div>
 `;
 
-export class ImageGraphic extends ModelEventTarget implements IGraphic {
+export class ImageGraphic extends DefaultGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
-  private _region: RegionController;
   private _view: IGraphicView;
-  private _configComponentRef: ComponentRef<GraphicConfig>;
+  private _configComponentRef: ComponentRef<DesignerConfigSource>;
 
-  constructor(region: RegionController) {
+  constructor(private _region: RegionController) {
     super();
-    this._region = region;
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
-    region.addChild(this);
+    _region.addChild(this);
   }
 
   get model() {
@@ -45,21 +42,18 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
     this._$frame.append(imageAuxiliary.$element);
   }
 
-  init(option?: any) {
-    this._view = new ImageAuxiliary(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(ImageConfigComponent);
-    this.model.graphic = this;
-    if (option) {
-      this.model.importOption(option);
-    }
-    this._initForUpdate(!!option);
-  }
+  init(option?: any, runtime?: boolean) {
+    if (runtime) {
 
-  getOption() {
-    return {
-      graphicClass: 'image.graphic',
-      option: this.model.exportOption()
-    };
+    } else {
+      this._view = new ImageAuxiliary(this);
+      this._configComponentRef = siderLeftComponent
+        .forwardCreateGraphicConfig(ImageConfigComponent);
+      if (option) {
+        this.model.importOption(option);
+      }
+      this._initForUpdate(!!option);
+    }
   }
 
   private _initForUpdate(load?: boolean) {
@@ -89,6 +83,13 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   }
 
 
+  getOption() {
+    return {
+      graphicClass: 'image.graphic',
+      option: this.model.exportOption()
+    };
+  }
+
   update(option: any) {
     if (this._view && option && option.dataUrl) {
       this._region.setDimensions(option.width, option.height);
@@ -97,12 +98,6 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   }
 
   updateTheme(theme: string) {
-  }
-
-  updateGraphic(changeItemArray: Array<ChangeItem>) {
-    changeItemArray.forEach((value, index, array) => {
-      this.trigger(value);
-    });
   }
 
   resize() {
@@ -132,13 +127,11 @@ export class ImageGraphic extends ModelEventTarget implements IGraphic {
   destroy() {
     if (this._view) {
       this._view.destroy();
-      this._configComponentRef.destroy();
       this._view = null;
+      this._configComponentRef.destroy();
       this._configComponentRef = null;
     }
     this.$element.remove();
     this.$element = null;
-
   }
-
 }

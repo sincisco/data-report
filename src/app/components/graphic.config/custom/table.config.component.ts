@@ -10,7 +10,7 @@ import {NgForm} from '@angular/forms';
 import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {GraphicConfig} from '../graphic.config';
+import {DesignerConfigSource} from '../../../core/node/source/config.source/designer.config.source';
 
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
@@ -22,7 +22,7 @@ import * as _ from 'lodash';
   templateUrl: './table.config.component.html',
   styleUrls: ['./table.config.component.less']
 })
-export class TableConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class TableConfigComponent extends DesignerConfigSource implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -86,7 +86,7 @@ export class TableConfigComponent extends GraphicConfig implements AfterViewInit
       value.dataset = datasetManager.current;
       value.tooltip = {};
       value = removeUndefined(value);
-      this.trigger({
+      this._trigger({
         key: 'option',
         oldValue: this._innerOption,
         newValue: value,

@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {GraphicConfig} from '../graphic.config';
+import {DesignerConfigSource} from '../../../core/node/source/config.source/designer.config.source';
 
 @Component({
   selector: 'app-paragraph-config',
   templateUrl: './text.config.component.html',
   styleUrls: ['./text.config.component.less']
 })
-export class TextConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class TextConfigComponent extends DesignerConfigSource implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 

@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import {Source} from '../source';
 
 type KeyValueListener = (key: string, oldValue: any, newValue: any, option?: any) => void;
 
@@ -10,10 +9,16 @@ export interface ChangeItem {
   option: any;
 }
 
-export class ConfigSource extends Source {
+export abstract class ConfigSource {
+  private _destroyed = false;
+  private _callbacksOnDestroy: Array<Function> = [];
   private _map: Map<string, KeyValueListener> = new Map();
 
-  protected trigger(item: ChangeItem) {
+  get destroyed(): boolean {
+    return this._destroyed;
+  }
+
+  protected _trigger(item: ChangeItem) {
     if (this._map && this._map.has(item.key)) {
       console.log('handle: ', item.key);
       const listener = this._map.get(item.key);
@@ -21,7 +26,12 @@ export class ConfigSource extends Source {
     }
   }
 
-  public register(eventType: string, listener: KeyValueListener) {
+  abstract importOption(option: any);
+
+  exportOption() {
+  }
+
+  register(eventType: string, listener: KeyValueListener) {
     if (_.isFunction(listener)) {
       const eventArray = eventType.trim().replace(/\s+/g, ' ').split(' ');
       eventArray.forEach((value, index, array) => {
@@ -31,6 +41,9 @@ export class ConfigSource extends Source {
     return this;
   }
 
+  /**
+   * 清空该源上面的所有事件监听
+   */
   clear() {
     this._map.clear();
   }
@@ -38,7 +51,16 @@ export class ConfigSource extends Source {
   destroy() {
     this.clear();
     delete this._map;
-    super.destroy();
+    while (this._callbacksOnDestroy.length) {
+      this._callbacksOnDestroy.pop()();
+    }
+    this._destroyed = true;
+  }
+
+  onDestroy(callback: Function) {
+    if (_.isFunction(callback)) {
+      this._callbacksOnDestroy.push(callback);
+    }
   }
 }
 

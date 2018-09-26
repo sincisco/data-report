@@ -11,7 +11,7 @@ import {NgForm} from '@angular/forms';
 
 import {datasetManager} from '../../../core/dataset/dataset.manager';
 
-import {GraphicConfig} from '../graphic.config';
+import {DesignerConfigSource} from '../../../core/node/source/config.source/designer.config.source';
 import {ChartLineOption} from '../../../core/node/graphic/chart.graphic/line.chart.graphic';
 import {debounceTime} from 'rxjs/operators';
 import {removeUndefined} from '../../../utils/common';
@@ -22,7 +22,7 @@ import {removeUndefined} from '../../../utils/common';
   templateUrl: './line.config.component.html',
   styleUrls: ['./line.config.component.less']
 })
-export class LineConfigComponent extends GraphicConfig implements AfterViewInit, OnInit {
+export class LineConfigComponent extends DesignerConfigSource implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;
@@ -89,7 +89,7 @@ export class LineConfigComponent extends GraphicConfig implements AfterViewInit,
       console.log('LineConfigComponent  valueChanges');
       value.dataset = datasetManager.current;
       value = removeUndefined(value);
-      this.trigger({
+      this._trigger({
         key: 'option',
         oldValue: this._innerOption,
         newValue: value,
