@@ -1,9 +1,9 @@
-import {DesignerConfigSource} from '../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../source/config.source/design.config.source';
 
 export interface IGraphic {
   $element: JQuery;
 
-  configSource: DesignerConfigSource;
+  configSource: DesignConfigSource;
 
   addChild(child);
 

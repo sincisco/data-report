@@ -4,7 +4,7 @@ import {IGraphic} from '../../graphic';
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
 import {CommentAuxiliary} from '../../../graphic.view/auxiliary/comment.auxiliary';
-import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {CommentConfigComponent} from '../../../../../components/graphic.config/auxiliary/comment.config.component';
 import {IGraphicView} from '../../../graphic.view/graphic.view';
 import {RegionController} from '../../../region/region.controller';
@@ -21,7 +21,7 @@ export class CommentGraphic implements IGraphic {
   private _$frame: JQuery;
 
   private _view: IGraphicView;
-  private _configComponentRef: ComponentRef<DesignerConfigSource>;
+  private _configComponentRef: ComponentRef<DesignConfigSource>;
 
   constructor(private _region: RegionController) {
     this.$element = $(template);

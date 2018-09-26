@@ -1,13 +1,12 @@
 import {Title} from '../../../graphic.view/chart/echart.interface/title';
 import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
 import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
-import {ChartGraphic} from '@core/node/graphic/designer/chart.graphic/chart.graphic';
+import {ChartGraphic} from '@core/node/graphic/design/chart.graphic/chart.graphic';
 import {RegionController} from '../../../region/region.controller';
 import {LineSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/line.series';
 import {Chart} from '../../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
-import {FlipBarConfigComponent} from '../../../../../components/graphic.config/chart/flip.bar.config.component';
-import {RingConfigComponent} from '../../../../../components/graphic.config/chart/ring.config.component';
+import {WordCloudConfigComponent} from '../../../../../components/graphic.config/chart/word.cloud.config.component';
 
 
 export interface ChartLineOption {
@@ -20,7 +19,7 @@ export interface ChartLineOption {
   color?: Array<string>;
 }
 
-export class RingChartGraphic extends ChartGraphic {
+export class WordCloudChartGraphic extends ChartGraphic {
   constructor(region: RegionController) {
     super(region);
   }
@@ -28,7 +27,7 @@ export class RingChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     this._chart = new Chart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(RingConfigComponent);
+    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(WordCloudConfigComponent);
     if (option) {
       this.configSource.importOption(option);
     }
@@ -39,7 +38,7 @@ export class RingChartGraphic extends ChartGraphic {
 
   getOption() {
     return {
-      graphicClass: 'ring.chart.graphic',
+      graphicClass: 'wordCloud.chart.graphic',
       option: this.configSource.exportOption()
     };
   }

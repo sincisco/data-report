@@ -1,12 +1,12 @@
-import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../../source/config.source/design.config.source';
 import {ConfigSource} from '../../source/config.source/config.source';
 import {DataSource} from '../../source/data.source/data.source';
 import {IGraphic} from '../graphic';
 
-export abstract class DesignerGraphic implements IGraphic {
+export abstract class DesignGraphic implements IGraphic {
   $element: JQuery;
 
-  configSource: DesignerConfigSource;
+  configSource: DesignConfigSource;
 
   get dataSource(): DataSource {
     return null;

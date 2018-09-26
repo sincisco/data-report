@@ -1,12 +1,12 @@
 import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import {ComponentRef, Type} from '@angular/core';
 import {EchartFace} from '@core/node/face/echart.face';
-import {DesignerConfigSource} from '../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../source/config.source/design.config.source';
 
 export class FaceWrapper {
   private _face: EchartFace;
 
-  private _configComponentRef: ComponentRef<DesignerConfigSource>;
+  private _configComponentRef: ComponentRef<DesignConfigSource>;
 
   constructor(private _element: HTMLElement) {
 

@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import {ChangeItem, ConfigSource} from '@core/node/source/config.source/config.source';
 
-export class DesignerConfigSource extends ConfigSource {
+export class DesignConfigSource extends ConfigSource {
   option: any;
 
   exportOption() {

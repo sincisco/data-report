@@ -4,23 +4,25 @@ import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 
+import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
-import {TableDataSubject} from '../../../source/data.source/mock/table.data.subject';
 
 const template = `
-<div class="demo">
-  <table class="bordered">
-    <thead></thead>
-    <tbody></tbody>
-  </table>
-</div>`;
+<div class="time-chart-container" 
+style='font-family: "Microsoft Yahei", Arial, sans-serif; 
+font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content: center;'>
+<i class="anticon anticon-clock-circle-o" style="padding-right: 12px"></i>
+<span>1970-01-01 00:00:00</span></div>
+`;
 
-export class TableGraphic implements IGraphic {
+export class ClockGraphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<DesignerConfigSource>;
+  private _configComponentRef: ComponentRef<DesignConfigSource>;
+
+  private _internal;
 
   get configSource() {
     return this._configComponentRef.instance;
@@ -47,32 +49,14 @@ export class TableGraphic implements IGraphic {
       this.update(newValue);
     });
 
-    new TableDataSubject().register((data: any) => {
-      if (data) {
-        this.$element.find('thead').html(this._generateHead(data.dimensions));
-        this.$element.find('tbody').html(this._generateBody(data.dimensions, data.source));
-      }
-    });
-
-  }
-
-  private _generateHead(meta: Array<any>) {
-    return `<tr>${meta.map((fieldDef) => {
-      return `<th>${fieldDef.name}</th>`;
-    }).join('')}</tr>`;
-  }
-
-  private _generateBody(meta: Array<any>, rows: Array<any>) {
-    return rows.map((value, index, array) => {
-      return `<tr>${meta.map((fieldDef) => {
-        return `<td>${value[fieldDef.name]}</td>`;
-      }).join('')}</tr>`;
-    }).join('');
+    this._internal = setInterval(() => {
+      this.$element.find('span').text(moment().format('YYYY-MM-DD HH:mm:ss'));
+    }, 1000);
   }
 
   getOption() {
     return {
-      graphicClass: 'table.graphic',
+      graphicClass: 'clock.graphic',
       option: this.configSource.exportOption()
     };
   }
@@ -117,5 +101,9 @@ export class TableGraphic implements IGraphic {
   destroy() {
     this._configComponentRef.destroy();
     this._configComponentRef = null;
+    if (this._internal) {
+      clearInterval(this._internal);
+      this._internal = null;
+    }
   }
 }

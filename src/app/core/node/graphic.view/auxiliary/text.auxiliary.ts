@@ -1,4 +1,4 @@
-import {TextGraphic} from '../../graphic/designer/auxiliary.graphic/text.graphic';
+import {TextGraphic} from '../../graphic/design/auxiliary.graphic/text.graphic';
 import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {IGraphic} from '@core/node/graphic/graphic';
 

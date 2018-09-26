@@ -6,7 +6,7 @@ import {Chart} from '../../../graphic.view/chart/chart';
 import {contextMenuHelper} from '../../../../../utils/contextMenu';
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 
 const template = `
@@ -28,7 +28,7 @@ export abstract class ChartGraphic implements IGraphic {
   private readonly _$toolbar: JQuery;
 
   protected _chart: Chart;
-  protected _configComponentRef: ComponentRef<DesignerConfigSource>;
+  protected _configComponentRef: ComponentRef<DesignConfigSource>;
 
   get configSource() {
     return this._configComponentRef.instance;
@@ -53,7 +53,7 @@ export abstract class ChartGraphic implements IGraphic {
 
   abstract init(option?: any, runtime?: boolean);
 
-  protected _init(graphicConfigClass: Type<DesignerConfigSource>, option?: any) {
+  protected _init(graphicConfigClass: Type<DesignConfigSource>, option?: any) {
     this._chart = new Chart(this);
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
     if (option) {

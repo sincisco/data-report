@@ -4,11 +4,11 @@ import {siderLeftComponent} from '../../../../../layout/sider/sider.left.compone
 
 import * as _ from 'lodash';
 import {ImageAuxiliary} from '../../../graphic.view/auxiliary/image.auxiliary';
-import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {ImageConfigComponent} from '../../../../../components/graphic.config/auxiliary/image.config.component';
 import {IGraphicView} from '../../../graphic.view/graphic.view';
 import {RegionController} from '../../../region/region.controller';
-import {DesignerGraphic} from '../designer.graphic';
+import {DesignGraphic} from '../design.graphic';
 
 
 const template = `
@@ -19,12 +19,12 @@ const template = `
 </div>
 `;
 
-export class ImageGraphic extends DesignerGraphic {
+export class ImageGraphic extends DesignGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 
   private _view: IGraphicView;
-  private _configComponentRef: ComponentRef<DesignerConfigSource>;
+  private _configComponentRef: ComponentRef<DesignConfigSource>;
 
   constructor(private _region: RegionController) {
     super();

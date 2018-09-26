@@ -2,7 +2,7 @@ import {RegionController} from '../../../region/region.controller';
 import {Chart} from '../../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {ChartGraphic} from '@core/node/graphic/designer/chart.graphic/chart.graphic';
+import {ChartGraphic} from '@core/node/graphic/design/chart.graphic/chart.graphic';
 import {Title} from '../../../graphic.view/chart/echart.interface/title';
 import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
 import {Axis} from '../../../graphic.view/chart/echart.interface/axis';

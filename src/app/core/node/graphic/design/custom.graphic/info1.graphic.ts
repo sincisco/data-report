@@ -4,7 +4,7 @@ import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 
 import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
@@ -20,7 +20,7 @@ font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content
 export class Info1Graphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<DesignerConfigSource>;
+  private _configComponentRef: ComponentRef<DesignConfigSource>;
 
   private _internal;
 

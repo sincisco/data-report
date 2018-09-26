@@ -5,7 +5,7 @@ import {siderLeftComponent} from '../../../../../layout/sider/sider.left.compone
 
 import * as _ from 'lodash';
 import {TextAuxiliary} from '../../../graphic.view/auxiliary/text.auxiliary';
-import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {TextConfigComponent} from '../../../../../components/graphic.config/auxiliary/text.config.component';
 import {RegionController} from '../../../region/region.controller';
 import {IGraphicView} from '../../../graphic.view/graphic.view';
@@ -21,7 +21,7 @@ export class TextGraphic implements IGraphic {
   $element: JQuery;
 
   private _view: IGraphicView;
-  private _configComponentRef: ComponentRef<DesignerConfigSource>;
+  private _configComponentRef: ComponentRef<DesignConfigSource>;
 
   constructor(private _region: RegionController) {
     this.$element = $(template);
