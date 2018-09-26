@@ -1,12 +1,12 @@
-import {Title} from '@core/node/graphic.view/chart/echart.interface/title';
-import {Grid} from '@core/node/graphic.view/chart/echart.interface/grid';
-import {Axis} from '@core/node/graphic.view/chart/echart.interface/axis';
-import {ChartGraphic} from '@core/node/graphic/chart.graphic/chart.graphic';
-import {RegionController} from '@core/node/region/region.controller';
-import {LineSeriesConfig} from '@core/node/graphic.view/chart/echart.interface/series/line.series';
-import {Chart} from '@core/node/graphic.view/chart/chart';
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
-import {WordCloudConfigComponent} from '../../../../components/graphic.config/chart/word.cloud.config.component';
+import {Title} from '../../../graphic.view/chart/echart.interface/title';
+import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
+import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
+import {ChartGraphic} from '@core/node/graphic/designer/chart.graphic/chart.graphic';
+import {RegionController} from '../../../region/region.controller';
+import {LineSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/line.series';
+import {Chart} from '../../../graphic.view/chart/chart';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
+import {WordCloudConfigComponent} from '../../../../../components/graphic.config/chart/word.cloud.config.component';
 
 
 export interface ChartLineOption {

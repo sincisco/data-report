@@ -1,4 +1,4 @@
-import {ChartGraphic} from '../../graphic/chart.graphic/chart.graphic';
+import {ChartGraphic} from '../../graphic/designer/chart.graphic/chart.graphic';
 import {ViewEventTarget} from '@core/node/event/view.event';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 

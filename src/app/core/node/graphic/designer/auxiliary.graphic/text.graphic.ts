@@ -1,14 +1,14 @@
 import {ComponentRef, Type} from '@angular/core';
-import {IGraphic} from '../graphic';
+import {IGraphic} from '../../graphic';
 
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {TextAuxiliary} from '@core/node/graphic.view/auxiliary/text.auxiliary';
-import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
-import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
-import {RegionController} from '@core/node/region/region.controller';
-import {IGraphicView} from '@core/node/graphic.view/graphic.view';
+import {TextAuxiliary} from '../../../graphic.view/auxiliary/text.auxiliary';
+import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {TextConfigComponent} from '../../../../../components/graphic.config/auxiliary/text.config.component';
+import {RegionController} from '../../../region/region.controller';
+import {IGraphicView} from '../../../graphic.view/graphic.view';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">

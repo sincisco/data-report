@@ -1,13 +1,13 @@
 import {ComponentRef} from '@angular/core';
-import {IGraphic} from '../graphic';
+import {IGraphic} from '../../graphic';
 
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {CommentAuxiliary} from '@core/node/graphic.view/auxiliary/comment.auxiliary';
-import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
-import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
-import {IGraphicView} from '@core/node/graphic.view/graphic.view';
-import {RegionController} from '@core/node/region/region.controller';
+import {CommentAuxiliary} from '../../../graphic.view/auxiliary/comment.auxiliary';
+import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {CommentConfigComponent} from '../../../../../components/graphic.config/auxiliary/comment.config.component';
+import {IGraphicView} from '../../../graphic.view/graphic.view';
+import {RegionController} from '../../../region/region.controller';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">

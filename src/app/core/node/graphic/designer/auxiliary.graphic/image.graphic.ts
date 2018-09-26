@@ -1,14 +1,14 @@
 import {ComponentRef} from '@angular/core';
 
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
 import * as _ from 'lodash';
-import {ImageAuxiliary} from '@core/node/graphic.view/auxiliary/image.auxiliary';
-import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
-import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
-import {IGraphicView} from '@core/node/graphic.view/graphic.view';
-import {RegionController} from '@core/node/region/region.controller';
-import {DefaultGraphic} from '@core/node/graphic/default.graphic';
+import {ImageAuxiliary} from '../../../graphic.view/auxiliary/image.auxiliary';
+import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {ImageConfigComponent} from '../../../../../components/graphic.config/auxiliary/image.config.component';
+import {IGraphicView} from '../../../graphic.view/graphic.view';
+import {RegionController} from '../../../region/region.controller';
+import {DesignerGraphic} from '../designer.graphic';
 
 
 const template = `
@@ -19,7 +19,7 @@ const template = `
 </div>
 `;
 
-export class ImageGraphic extends DefaultGraphic {
+export class ImageGraphic extends DesignerGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 

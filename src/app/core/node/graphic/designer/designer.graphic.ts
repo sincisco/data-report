@@ -1,9 +1,9 @@
-import {DesignerConfigSource} from '../source/config.source/designer.config.source';
-import {ConfigSource} from '@core/node/source/config.source/config.source';
-import {DataSource} from '@core/node/source/data.source/data.source';
-import {IGraphic} from '@core/node/graphic/graphic';
+import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
+import {ConfigSource} from '../../source/config.source/config.source';
+import {DataSource} from '../../source/data.source/data.source';
+import {IGraphic} from '../graphic';
 
-export abstract class DefaultGraphic implements IGraphic {
+export abstract class DesignerGraphic implements IGraphic {
   $element: JQuery;
 
   configSource: DesignerConfigSource;

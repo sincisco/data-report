@@ -1,13 +1,13 @@
 import {ComponentRef, Type} from '@angular/core';
-import {RegionController} from '../../region/region.controller';
-import {IGraphic} from '../graphic';
-import {Chart} from '../../graphic.view/chart/chart';
+import {RegionController} from '../../../region/region.controller';
+import {IGraphic} from '../../graphic';
+import {Chart} from '../../../graphic.view/chart/chart';
 
-import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {contextMenuHelper} from '../../../../../utils/contextMenu';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
-import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
+import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
+import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -51,7 +51,7 @@ export abstract class ChartGraphic implements IGraphic {
     this._bindToolbarEvent();
   }
 
-  abstract init(option?: any);
+  abstract init(option?: any, runtime?: boolean);
 
   protected _init(graphicConfigClass: Type<DesignerConfigSource>, option?: any) {
     this._chart = new Chart(this);
@@ -90,10 +90,6 @@ export abstract class ChartGraphic implements IGraphic {
     }
   }
 
-  updateGraphic(option: any) {
-
-  }
-
   resize() {
     if (this._chart) {
       this._chart.resize();
@@ -118,9 +114,6 @@ export abstract class ChartGraphic implements IGraphic {
     }
   }
 
-  /**
-   *
-   */
   destroy() {
     if (this._chart) {
       this._chart.destroy();
@@ -132,13 +125,10 @@ export abstract class ChartGraphic implements IGraphic {
   }
 
   private _bindToolbarEvent() {
-    this._$toolbar.click(($event: JQuery.Event) => {
+    this._$toolbar.on('click', ($event: JQuery.Event) => {
       contextMenuHelper.open([
         {
-          displayName: '进入图表内操作',
-          callback: () => {
-            console.log('进入图表内操作');
-          }
+          displayName: '进入图表内操作'
         },
         {
           displayName: '导出',

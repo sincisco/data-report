@@ -1,23 +1,23 @@
 import {ComponentRef} from '@angular/core';
-import {RegionController} from '../../region/region.controller';
-import {IGraphic} from '../graphic';
-import {Chart} from '../../graphic.view/chart/chart';
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {RegionController} from '../../../region/region.controller';
+import {IGraphic} from '../../graphic';
+import {Chart} from '../../../graphic.view/chart/chart';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
+import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
 
 import * as moment from 'moment';
-import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
+import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 
 const template = `
 <div class="time-chart-container" 
 style='font-family: "Microsoft Yahei", Arial, sans-serif; 
-font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content:flex-start;'>
-<img src="../../../../../assets/images/templet/pic-4.png" style="margin-right: 15px;">
-<span></span></div>
+font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content: center;'>
+<i class="anticon anticon-clock-circle-o" style="padding-right: 12px"></i>
+<span>1970-01-01 00:00:00</span></div>
 `;
 
-export class Info1Graphic implements IGraphic {
+export class ClockGraphic implements IGraphic {
   $element: JQuery;
 
   private _configComponentRef: ComponentRef<DesignerConfigSource>;
@@ -50,12 +50,15 @@ export class Info1Graphic implements IGraphic {
     });
 
     this._internal = setInterval(() => {
-      this.$element.find('span').text(Math.floor(Math.random() * 1000000));
+      this.$element.find('span').text(moment().format('YYYY-MM-DD HH:mm:ss'));
     }, 1000);
   }
 
   getOption() {
-
+    return {
+      graphicClass: 'clock.graphic',
+      option: this.configSource.exportOption()
+    };
   }
 
   addChild(chart: Chart) {

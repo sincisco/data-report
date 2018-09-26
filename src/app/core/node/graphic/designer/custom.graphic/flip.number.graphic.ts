@@ -1,12 +1,12 @@
 import {ComponentRef} from '@angular/core';
-import {RegionController} from '../../region/region.controller';
-import {IGraphic} from '../graphic';
-import {Chart} from '../../graphic.view/chart/chart';
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
+import {RegionController} from '../../../region/region.controller';
+import {IGraphic} from '../../graphic';
+import {Chart} from '../../../graphic.view/chart/chart';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import {DesignerConfigSource} from '../../source/config.source/designer.config.source';
+import {DesignerConfigSource} from '../../../source/config.source/designer.config.source';
 
-import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
+import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
 
 const template = `
