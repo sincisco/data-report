@@ -1,6 +1,6 @@
-import {DataSubject} from '@core/dataset/data.subject/data.subject';
+import {DataSource} from '../data.source';
 
-export class TableDataSubject extends DataSubject {
+export class TableDataSubject extends DataSource {
   constructor() {
     super();
     setInterval(() => {

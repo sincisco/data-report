@@ -7,7 +7,7 @@ import {siderLeftComponent} from '../../../../layout/sider/sider.left.component'
 import {GraphicConfig} from '../../../../components/graphic.config/graphic.config';
 
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
-import {TableDataSubject} from '@core/dataset/data.subject/mock/table.data.subject';
+import {TableDataSubject} from '@core/node/source/data.source/mock/table.data.subject';
 
 const template = `
 <div class="demo">

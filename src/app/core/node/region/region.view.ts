@@ -11,12 +11,11 @@ import {contextMenuHelper, ContextMenuItem} from '../../../utils/contextMenu';
 type IContextMenuGenerator = () => Array<ContextMenuItem | 'split'>;
 
 export abstract class RegionView extends View {
-  $fill: JQuery;
-
-  protected _$mover: JQuery;
   protected _controller: RegionController;
   protected _model: IRegionModel;
 
+  $fill: JQuery;
+  protected _$mover: JQuery;
 
   private _contextMenuGenerator: IContextMenuGenerator;
 
@@ -218,7 +217,7 @@ export abstract class RegionView extends View {
   }
 
   protected _bindContextEvent() {
-    this._$mover.contextmenu(($event: JQuery.Event) => {
+    this._$mover.on('contextmenu', ($event: JQuery.Event) => {
       contextMenuHelper.open(this._contextMenuGenerator(), $event.pageX, $event.pageY, $event);
       return false;
     });
