@@ -73,10 +73,6 @@ export class ClockGraphic implements IGraphic {
 
   }
 
-  updateGraphic(option: any) {
-
-  }
-
   resize() {
 
   }

@@ -1,5 +1,5 @@
-import {ChartRuntime} from '@core/runtime/graphic/chart/chart';
-import {ImageRuntime} from '@core/runtime/graphic/auxiliary/image';
+import {ChartRuntime} from '@core/node/graphic/runtime/chart/chart';
+import {ImageRuntime} from '@core/node/graphic/runtime/auxiliary/image';
 
 export class ReportPageRuntime {
   $element: JQuery;
