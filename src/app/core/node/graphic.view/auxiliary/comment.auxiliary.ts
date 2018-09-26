@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 
-import {CommentGraphic} from '../../graphic/design/auxiliary.graphic/comment.graphic';
+import {CommentGraphic} from '../../graphic/design/auxiliary/comment.graphic';
 import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
 

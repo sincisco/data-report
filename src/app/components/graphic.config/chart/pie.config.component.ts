@@ -17,7 +17,7 @@ import {datasetManager} from '../../../core/dataset/dataset.manager';
 import {NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '../../../core/dataset/dataset.interface';
 import {DesignConfigSource} from '../../../core/node/source/config.source/design.config.source';
-import {ChartPieConfig} from '../../../core/node/graphic/design/chart.graphic/pie.chart.graphic';
+import {ChartPieConfig} from '../../../core/node/graphic/design/chart/pie.chart.graphic';
 import {debounceTime} from 'rxjs/operators';
 import {removeUndefined} from '../../../utils/common';
 

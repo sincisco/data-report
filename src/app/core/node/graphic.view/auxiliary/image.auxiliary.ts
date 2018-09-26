@@ -1,5 +1,5 @@
 import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
-import {ImageGraphic} from '@core/node/graphic/design/auxiliary.graphic/image.graphic';
+import {ImageGraphic} from '@core/node/graphic/design/auxiliary/image.graphic';
 
 interface ImageOption {
   alt?: string;

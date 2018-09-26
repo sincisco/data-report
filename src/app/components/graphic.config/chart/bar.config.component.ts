@@ -14,7 +14,7 @@ import {DesignConfigSource} from '../../../core/node/source/config.source/design
 
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
-import {ChartBarOption} from '../../../core/node/graphic/design/chart.graphic/bar.chart.graphic';
+import {ChartBarOption} from '../../../core/node/graphic/design/chart/bar.chart.graphic';
 import * as _ from 'lodash';
 
 @Component({

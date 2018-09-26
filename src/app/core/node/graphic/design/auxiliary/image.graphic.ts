@@ -2,7 +2,6 @@ import {ComponentRef} from '@angular/core';
 
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import * as _ from 'lodash';
 import {ImageAuxiliary} from '../../../graphic.view/auxiliary/image.auxiliary';
 import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {ImageConfigComponent} from '../../../../../components/graphic.config/auxiliary/image.config.component';
@@ -33,7 +32,7 @@ export class ImageGraphic extends DesignGraphic {
     _region.addChild(this);
   }
 
-  get model() {
+  get configSource() {
     return this._configComponentRef.instance;
   }
 
@@ -42,22 +41,18 @@ export class ImageGraphic extends DesignGraphic {
     this._$frame.append(imageAuxiliary.$element);
   }
 
-  init(option?: any, runtime?: boolean) {
-    if (runtime) {
-
-    } else {
-      this._view = new ImageAuxiliary(this);
-      this._configComponentRef = siderLeftComponent
-        .forwardCreateGraphicConfig(ImageConfigComponent);
-      if (option) {
-        this.model.importOption(option);
-      }
-      this._initForUpdate(!!option);
+  init(option?: any) {
+    this._view = new ImageAuxiliary(this);
+    this._configComponentRef = siderLeftComponent
+      .forwardCreateGraphicConfig(ImageConfigComponent);
+    if (option) {
+      this.configSource.importOption(option);
     }
+    this._initForUpdate(!!option);
   }
 
   private _initForUpdate(load?: boolean) {
-    this.model.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
+    this.configSource.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
       this._$frame.css({
         'borderRadius': newValue
       });
@@ -86,7 +81,7 @@ export class ImageGraphic extends DesignGraphic {
   getOption() {
     return {
       graphicClass: 'image.graphic',
-      option: this.model.exportOption()
+      option: this.configSource.exportOption()
     };
   }
 
@@ -95,9 +90,6 @@ export class ImageGraphic extends DesignGraphic {
       this._region.setDimensions(option.width, option.height);
       this._view.update(option);
     }
-  }
-
-  updateTheme(theme: string) {
   }
 
   resize() {

@@ -6,7 +6,7 @@ import {Title} from '../../../graphic.view/chart/echart.interface/title';
 
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import {ChartDataSubject} from '../../../source/data.source/mock/demo.data.subject';
-import {ChartGraphic} from '@core/node/graphic/design/chart.graphic/chart.graphic';
+import {ChartGraphic} from '@core/node/graphic/design/chart/chart.graphic';
 
 export interface ChartBarOption {
   title?: Title;

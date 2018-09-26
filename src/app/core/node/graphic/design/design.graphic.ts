@@ -31,7 +31,8 @@ export abstract class DesignGraphic implements IGraphic {
    * 更新全局样式 目前只有Echart图表使用的到
    * @param {string} theme
    */
-  abstract updateTheme(theme: string);
+  updateTheme(theme: string) {
+  }
 
   abstract getOption();
 
