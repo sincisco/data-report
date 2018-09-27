@@ -1,8 +1,22 @@
 import {IEventTarget} from '@core/node/event/event';
 
-export interface IGraphicView extends IEventTarget {
-  init(option: any);
 
+/**
+ * 图表内容
+ * 该组件会被设计时和运行时共享，所以设计接口的时候需要注意
+ *
+ * 设计时组件
+ * 1、创建GraphicView组件
+ * 2、更新配置信息
+ * 3、更新数据信息
+ * 4、激活模式下  GraphicView可能需要将某些信息反馈给ConfigSource
+ *
+ * 运行时组件
+ * 1、创建GraphicView组件
+ * 2、更新数据信息
+ *
+ */
+export interface IGraphicView extends IEventTarget {
   /**
    * 属性面板发生变化，更新内容 可以是增量更新，也可以是全量刷新
    * @param option
@@ -13,10 +27,7 @@ export interface IGraphicView extends IEventTarget {
 
   updateTheme(theme: string);
 
-  /**
-   * 全量刷新内容区域，防止长时间操作，导致内容状态不一致；
-   */
-  refresh();
+
 
   /**
    * 当区域的维度发生变化时，对内容进行重新自适应
@@ -28,4 +39,10 @@ export interface IGraphicView extends IEventTarget {
   deactivate();
 
   destroy();
+
+
+  /**
+   * 全量刷新内容区域，防止长时间操作，导致内容状态不一致；
+   */
+  refresh();
 }

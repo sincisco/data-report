@@ -1,4 +1,3 @@
-import {TextGraphic} from '../../graphic/design/auxiliary/text.graphic';
 import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {IGraphic} from '@core/node/graphic/graphic';
 
@@ -23,6 +22,7 @@ export class TextAuxiliary extends Auxiliary {
 
   private _creating = false;
   private _editor: any;
+  private _cache: any;
 
   constructor(private _graphic: IGraphic) {
     super();
@@ -31,16 +31,17 @@ export class TextAuxiliary extends Auxiliary {
     _graphic.addChild(this);
   }
 
-  init(option?: any) {
-    if (option && option.text) {
-      this._$editor.html(option.text);
-    }
-  }
-
 
   update(option: any) {
     if (option.text) {
-      this._$editor.html(option.text);
+      if (this._editor) {
+        this._editor.setData(option.text);
+      } else if (!this._creating) {
+        this._$editor.html(option.text);
+      } else {
+        this._cache = option;
+      }
+
     }
   }
 
@@ -115,9 +116,11 @@ export class TextAuxiliary extends Auxiliary {
         .then(editor => {
           this._creating = false;
           this._editor = editor;
-          // editor.setData();
+          if (this._cache && this._cache.text) {
+            editor.setData(this._cache.text);
+          }
           console.log('Editor was initialized',
-            Array.from(editor.ui.componentFactory.names()), editor);
+            Array.from(editor.ui.componentFactory.names()));
         })
         .catch(error => {
           this._creating = false;
@@ -138,5 +141,8 @@ export class TextAuxiliary extends Auxiliary {
       this._editor.destroy();
       this._editor = null;
     }
+    this.$element.remove();
+    this.$element = null;
+    this._$editor = null;
   }
 }

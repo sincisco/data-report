@@ -1,12 +1,12 @@
-import {Title} from '../../../../graphic.view/chart/echart.interface/title';
-import {Grid} from '../../../../graphic.view/chart/echart.interface/grid';
-import {Axis} from '../../../../graphic.view/chart/echart.interface/axis';
-import {ChartGraphic} from '../chart.graphic';
-import {RegionController} from '../../../../region/region.controller';
-import {siderLeftComponent} from '../../../../../../layout/sider/sider.left.component';
-import {LineSeriesConfig} from '../../../../graphic.view/chart/echart.interface/series/line.series';
-import {Chart} from '../../../../graphic.view/chart/chart';
-import {MapConfigComponent} from '../../../../../../components/graphic.config/chart/map.config.component';
+import {Title} from '../../../graphic.view/chart/echart.interface/title';
+import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
+import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
+import {ChartGraphic} from './chart.graphic';
+import {RegionController} from '../../../region/region.controller';
+import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
+import {LineSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/line.series';
+import {Chart} from '../../../graphic.view/chart/chart';
+import {MapConfigComponent} from '../../../../../components/graphic.config/chart/map.config.component';
 
 
 export interface ChartLineOption {

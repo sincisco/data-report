@@ -9,7 +9,7 @@ import {FlipNumberGraphic} from '@core/node/graphic/design/custom/flip.number.gr
 import {GaugeChartGraphic} from '@core/node/graphic/design/chart/gauge.chart.graphic';
 import {RingChartGraphic} from '@core/node/graphic/design/chart/ring.chart.graphic';
 import {WordCloudChartGraphic} from '@core/node/graphic/design/chart/word.cloud.chart.graphic';
-import {MapChartGraphic} from '@core/node/graphic/design/chart/map/map.chart.graphic';
+import {MapChartGraphic} from '@core/node/graphic/design/chart/map.chart.graphic';
 import {TableGraphic} from '@core/node/graphic/design/custom/table.graphic';
 
 const map = new Map();

@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 
 import {CommentGraphic} from '../../graphic/design/auxiliary/comment.graphic';
 import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
-import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
+import {IGraphic} from '@core/node/graphic/graphic';
 
 interface CommentOption {
   text?: string;
@@ -31,32 +31,24 @@ export class CommentAuxiliary extends Auxiliary {
   private _$editor: JQuery;
   private _option: CommentOption = {};
 
-  private _editorInstance: any;
+  private _editor: any;
   private _creating = false;
 
-  constructor(private _commentGraphic: CommentGraphic) {
+  constructor(private graphic: IGraphic) {
     super();
     this.$element = $(CommentTemplate);
     this._$editor = this.$element.find('.medium-editor-element');
-    _commentGraphic.addChild(this);
+
+    graphic.addChild(this);
   }
 
-  init(option: CommentOption) {
-    this._option = _.defaultsDeep(option, OptionDefault);
-    this._refresh();
-  }
 
-  resize() {
-
-  }
-
-  update(option: any) {
+  update(option: CommentOption) {
     this._option = _.defaultsDeep(option, this._option);
-    this._refresh();
   }
 
   activate() {
-    if (!this._editorInstance && !this._creating) {
+    if (!this._editor && !this._creating) {
       this._creating = true;
       BalloonEditor
         .create(this._$editor[0], {
@@ -125,9 +117,9 @@ export class CommentAuxiliary extends Auxiliary {
         })
         .then(editor => {
           this._creating = false;
-          this._editorInstance = editor;
+          this._editor = editor;
           editor.setData(this._option.text);
-          console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()), editor);
+          console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()));
         })
         .catch(error => {
           this._creating = false;
@@ -136,21 +128,22 @@ export class CommentAuxiliary extends Auxiliary {
     }
   }
 
+  resize() {
+
+  }
+
   deactivate() {
-    if (this._editorInstance) {
-      this._option.text = this._editorInstance.getData();
+    if (this._editor) {
+      this._option.text = this._editor.getData();
       document.getSelection().removeAllRanges();
     }
 
   }
 
   destroy() {
-    if (this._editorInstance) {
-      this._editorInstance.destroy();
-      this._editorInstance = null;
+    if (this._editor) {
+      this._editor.destroy();
+      this._editor = null;
     }
-  }
-
-  private _refresh() {
   }
 }

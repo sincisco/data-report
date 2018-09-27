@@ -53,15 +53,28 @@ export abstract class ChartGraphic implements IGraphic {
 
   abstract init(option?: any, runtime?: boolean);
 
+  /**
+   * 1、创建 GraphicView
+   * 2、创建 ConfigSource
+   * 3、监听 ConfigSource 变化
+   * 4、导入数据（初始化）ConfigSource
+   * @param {Type<DesignConfigSource>} graphicConfigClass
+   * @param option
+   * @private
+   */
   protected _init(graphicConfigClass: Type<DesignConfigSource>, option?: any) {
+    // 步骤1
     this._chart = new Chart(this);
+    // 步骤二
     this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
-    if (option) {
-      this.configSource.importOption(option);
-    }
+    // 步骤三
     this.configSource.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
+    // 步骤四
+    if (option) {
+      this.configSource.importOption(option);
+    }
   }
 
   abstract getOption();

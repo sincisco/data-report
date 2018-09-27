@@ -4,8 +4,6 @@ import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 export abstract class Auxiliary implements IGraphicView {
   protected _event: ViewEventTarget = new ViewEventTarget();
 
-  abstract init(option: any);
-
   abstract update(option: any);
 
   updateData() {

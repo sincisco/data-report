@@ -1,5 +1,5 @@
 import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
-import {ImageGraphic} from '@core/node/graphic/design/auxiliary/image.graphic';
+import {IGraphic} from '@core/node/graphic/graphic';
 
 interface ImageOption {
   alt?: string;
@@ -10,44 +10,29 @@ interface ImageOption {
 
 export class ImageAuxiliary extends Auxiliary {
   $element: JQuery;
-  private _option: ImageOption;
-
   private _image: HTMLImageElement;
 
-  constructor(private imageGraphic: ImageGraphic) {
+  constructor(private graphic: IGraphic) {
     super();
     this.$element = $(`<div class="m-image"></div>`);
 
-    imageGraphic.addChild(this);
+    graphic.addChild(this);
   }
 
-  init(option: ImageOption) {
+  update(option: ImageOption) {
     if (!this._image) {
-      const image = this._image = document.createElement('img');
-      image.alt = 'Image preview...';
-      this.$element.append(image);
+      this.$element.append(this._image = document.createElement('img'));
     }
-
-    if (this._option && option.dataUrl) {
-      this._image.src = option.dataUrl;
+    if (option.alt) {
+      this._image.alt = option.alt;
     }
-  }
-
-  update(option: any) {
-    if (!this._image) {
-      const image = document.createElement('img');
-      // image.alt = this._option.alt;
-      this._image = image;
-      this.$element.append(image);
-    }
-
     if (option.dataUrl) {
       this._image.src = option.dataUrl;
     }
   }
 
   destroy() {
-    this.imageGraphic = null;
+    this.graphic = null;
     this.$element.remove();
     this.$element = null;
   }

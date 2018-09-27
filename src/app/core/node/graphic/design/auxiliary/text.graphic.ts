@@ -1,9 +1,8 @@
-import {ComponentRef, Type} from '@angular/core';
+import {ComponentRef} from '@angular/core';
 import {IGraphic} from '../../graphic';
 
 import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
-import * as _ from 'lodash';
 import {TextAuxiliary} from '../../../graphic.view/auxiliary/text.auxiliary';
 import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {TextConfigComponent} from '../../../../../components/graphic.config/auxiliary/text.config.component';
@@ -47,7 +46,6 @@ export class TextGraphic implements IGraphic {
       console.log(text);
       this.configSource.importOption({text});
     });
-    this._view.init({text: option ? option.text : ''});
   }
 
   getOption() {

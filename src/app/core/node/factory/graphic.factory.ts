@@ -15,7 +15,7 @@ import {ClockGraphic} from '@core/node/graphic/design/custom/clock.graphic';
 import {Info1Graphic} from '@core/node/graphic/design/custom/info1.graphic';
 import {FlipNumberGraphic} from '@core/node/graphic/design/custom/flip.number.graphic';
 import {TableGraphic} from '@core/node/graphic/design/custom/table.graphic';
-import {MapChartGraphic} from '@core/node/graphic/design/chart/map/map.chart.graphic';
+import {MapChartGraphic} from '@core/node/graphic/design/chart/map.chart.graphic';
 import {RingChartGraphic} from '@core/node/graphic/design/chart/ring.chart.graphic';
 import {FlipBarChartGraphic} from '@core/node/graphic/design/chart/flip.bar.chart.graphic';
 import {GaugeChartGraphic} from '@core/node/graphic/design/chart/gauge.chart.graphic';
