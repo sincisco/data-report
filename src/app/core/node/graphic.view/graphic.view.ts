@@ -4,6 +4,7 @@ import {IEventTarget} from '@core/node/event/event';
 /**
  * 图表内容
  * 该组件会被设计时和运行时共享，所以设计接口的时候需要注意
+ * IGraphicView只负责图表的展现，并不保存图表的状态；所以没有getOption接口方法
  *
  * 设计时组件
  * 1、创建GraphicView组件

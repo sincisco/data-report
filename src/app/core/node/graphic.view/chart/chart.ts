@@ -25,31 +25,23 @@ export class Chart implements IGraphicView {
     this._innerReInit();
   }
 
-
-  init(option: any) {
-    if (this._state === ChartState.initialized) {
-      try {
-        this._echart.setOption(option);
-        this._option = option;
-        this._state = ChartState.normal;
-      } catch (e) {
-        console.log(e);
-
-        this._innerReInit();
-      }
-    }
-  }
-
   /**
    * update和init的区别
    * 在发生异常的时候 update需要回滚到上一个正常状态，而init不需要
    * @param option
    */
   update(option: any) {
-    console.log(JSON.stringify(option));
     if (option) {
       if (this._state === ChartState.initialized) {
-        this.init(option);
+        try {
+          this._echart.setOption(option);
+          this._option = option;
+          this._state = ChartState.normal;
+        } catch (e) {
+          console.log(e);
+
+          this._innerReInit();
+        }
       } else if (this._state === ChartState.normal) {
         try {
           this._echart.setOption(option);
@@ -88,12 +80,10 @@ export class Chart implements IGraphicView {
    * @param {string} theme
    */
   updateTheme(theme: string) {
-    console.log(theme);
-    if (this._theme !== theme) {
+    if (this._theme !== theme && !!theme) {
       this._theme = theme;
       this._innerReInit();
       if (this._option) {
-        console.log('**********************', this._option);
         this._echart.setOption(this._option);
         this._state = ChartState.normal;
       }
@@ -147,6 +137,9 @@ export class Chart implements IGraphicView {
 
   /**
    * 恢复到初始化状态
+   * 什么情况下需要恢复到初始化状态
+   * 1、echart主题发生变化
+   * 2、更新echart出现异常的时候
    * @private
    */
   private _innerReInit() {
@@ -154,13 +147,12 @@ export class Chart implements IGraphicView {
       this._echart.dispose();
       this._echart = null;
     }
-    this.$element.empty();
 
+    this.$element.empty();
     const element = document.createElement('div');
     element.style.width = '100%';
     element.style.height = '100%';
     this.$element.append(element);
-    console.log($(element).width(), $(element).height());
     if (this._theme) {
       this._echart = echarts.init(element, this._theme);
     } else {
