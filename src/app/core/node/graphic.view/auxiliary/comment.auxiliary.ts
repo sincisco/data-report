@@ -1,17 +1,10 @@
-import * as _ from 'lodash';
-
-import {CommentGraphic} from '../../graphic/design/auxiliary/comment.graphic';
-import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
+import {AuxiliaryView} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {IGraphic} from '@core/node/graphic/graphic';
 
 interface CommentOption {
   text?: string;
   backgroundColor?: string;
 }
-
-const OptionDefault: CommentOption = {
-  backgroundColor: 'transparent'
-};
 
 const CommentTemplate = `
 <div class="m-rect m-rect-comment">
@@ -26,10 +19,10 @@ const CommentTemplate = `
 `;
 
 
-export class CommentAuxiliary extends Auxiliary {
+export class CommentAuxiliary extends AuxiliaryView {
   $element: JQuery;
   private _$editor: JQuery;
-  private _option: CommentOption = {};
+  private _option: CommentOption;
 
   private _editor: any;
   private _creating = false;
@@ -44,7 +37,15 @@ export class CommentAuxiliary extends Auxiliary {
 
 
   update(option: CommentOption) {
-    this._option = _.defaultsDeep(option, this._option);
+    if (option.text) {
+      if (this._editor) {
+        this._editor.setData(option.text);
+      } else if (!this._creating) {
+        this._$editor.html(option.text);
+      } else {
+        this._option = option;
+      }
+    }
   }
 
   activate() {
@@ -118,7 +119,9 @@ export class CommentAuxiliary extends Auxiliary {
         .then(editor => {
           this._creating = false;
           this._editor = editor;
-          editor.setData(this._option.text);
+          if (this._option && this._option.text) {
+            editor.setData(this._option.text);
+          }
           console.log('Editor was initialized', Array.from(editor.ui.componentFactory.names()));
         })
         .catch(error => {
@@ -134,10 +137,9 @@ export class CommentAuxiliary extends Auxiliary {
 
   deactivate() {
     if (this._editor) {
-      this._option.text = this._editor.getData();
+      this._event.dispatchEvent('textChanged', this._editor.getData());
       document.getSelection().removeAllRanges();
     }
-
   }
 
   destroy() {

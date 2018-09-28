@@ -1,7 +1,7 @@
 import {ViewEventTarget} from '@core/node/event/view.event';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
-export abstract class Auxiliary implements IGraphicView {
+export abstract class AuxiliaryView implements IGraphicView {
   protected _event: ViewEventTarget = new ViewEventTarget();
 
   abstract update(option: any);
@@ -11,9 +11,6 @@ export abstract class Auxiliary implements IGraphicView {
   }
 
   updateTheme() {
-  }
-
-  refresh() {
   }
 
   resize() {

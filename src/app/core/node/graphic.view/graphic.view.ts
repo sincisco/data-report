@@ -27,8 +27,6 @@ export interface IGraphicView extends IEventTarget {
 
   updateTheme(theme: string);
 
-
-
   /**
    * 当区域的维度发生变化时，对内容进行重新自适应
    */
@@ -39,10 +37,4 @@ export interface IGraphicView extends IEventTarget {
   deactivate();
 
   destroy();
-
-
-  /**
-   * 全量刷新内容区域，防止长时间操作，导致内容状态不一致；
-   */
-  refresh();
 }

@@ -57,8 +57,3 @@ export class ViewEventTarget {
   destroy() {
   }
 }
-
-export interface IModelObserver {
-  addModelListener(model);
-}
-

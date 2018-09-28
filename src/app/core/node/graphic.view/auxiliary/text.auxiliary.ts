@@ -1,4 +1,4 @@
-import {Auxiliary} from '@core/node/graphic.view/auxiliary/auxiliary';
+import {AuxiliaryView} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {IGraphic} from '@core/node/graphic/graphic';
 
 const TextTemplate = `<div class="m-rect m-rect-text"
@@ -16,7 +16,7 @@ const TextTemplate = `<div class="m-rect m-rect-text"
 /**
  * region 高度自适应
  */
-export class TextAuxiliary extends Auxiliary {
+export class TextAuxiliary extends AuxiliaryView {
   $element: JQuery;
   private _$editor: JQuery;
 
@@ -41,7 +41,6 @@ export class TextAuxiliary extends Auxiliary {
       } else {
         this._cache = option;
       }
-
     }
   }
 
