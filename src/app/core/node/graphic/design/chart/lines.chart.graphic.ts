@@ -1,11 +1,11 @@
 import {RegionController} from '../../../region/region.controller';
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
 import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
 import {Title} from '../../../graphic.view/chart/echart.interface/title';
 import {LineSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/line.series';
 import {ChartGraphic} from '@core/node/graphic/design/chart/chart.graphic';
 import {LineConfigComponent} from '../../../../../components/graphic.config/chart/line.config.component';
+import {session} from '@core/node/utils/session';
 
 export interface ChartLineOption {
   title?: Title;
@@ -24,7 +24,7 @@ export class LinesChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     // this._chart = new LinesChart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(LineConfigComponent);
+    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(LineConfigComponent);
     if (option) {
       this.configSource.importOption(option);
     }

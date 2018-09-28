@@ -2,6 +2,7 @@ import {ViewEventTarget} from '@core/node/event/view.event';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
 export abstract class FilterNode implements IGraphicView {
+  $element: JQuery;
   protected _event: ViewEventTarget = new ViewEventTarget();
 
   abstract resize();

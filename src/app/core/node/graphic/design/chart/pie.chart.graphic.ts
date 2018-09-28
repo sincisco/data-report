@@ -1,6 +1,4 @@
 import {RegionController} from '../../../region/region.controller';
-import {Chart} from '../../../graphic.view/chart/chart';
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
 import {ChartGraphic} from '@core/node/graphic/design/chart/chart.graphic';
 import {Title} from '../../../graphic.view/chart/echart.interface/title';

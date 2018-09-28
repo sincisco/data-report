@@ -4,10 +4,10 @@ import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
 
 import {contextMenuHelper} from '../../../../../utils/contextMenu';
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 
 import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
+import {session} from '@core/node/utils/session';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -66,7 +66,7 @@ export abstract class ChartGraphic implements IGraphic {
     // 步骤1
     this._chart = new Chart(this);
     // 步骤二
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
+    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
     // 步骤三
     this.configSource.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
@@ -123,7 +123,7 @@ export abstract class ChartGraphic implements IGraphic {
 
   activateConfig() {
     if (this._configComponentRef) {
-      siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
   }
 

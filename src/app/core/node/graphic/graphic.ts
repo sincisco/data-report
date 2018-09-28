@@ -1,9 +1,9 @@
-import {DesignConfigSource} from '../source/config.source/design.config.source';
+import {ConfigSource} from '@core/node/source/config.source/config.source';
 
 export interface IGraphic {
   $element: JQuery;
 
-  configSource: DesignConfigSource;
+  configSource: ConfigSource;
 
   addChild(child);
 
@@ -14,11 +14,8 @@ export interface IGraphic {
    */
   init(option?: any, runtime?: boolean);
 
-  /**
-   * 数据更新  此时要负责刷新整个图表区域
-   * @param option
-   */
-  update(option: any);
+  // 激活配置面板
+  activateConfig();
 
   /**
    * 更新全局样式 目前只有Echart图表使用的到
@@ -34,9 +31,6 @@ export interface IGraphic {
   activate();
 
   deactivate();
-
-  // 激活配置面板
-  activateConfig();
 
   destroy();
 }

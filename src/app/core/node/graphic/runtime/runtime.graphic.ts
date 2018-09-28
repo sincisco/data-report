@@ -1,9 +1,10 @@
 import {RuntimeConfigSource} from '../../source/config.source/runtime.config.source';
+import {ConfigSource} from '@core/node/source/config.source/config.source';
 
 export interface IRuntimeGraphic {
   $element: JQuery;
 
-  configSource: RuntimeConfigSource;
+  configSource: ConfigSource;
 
   addChild(child);
 

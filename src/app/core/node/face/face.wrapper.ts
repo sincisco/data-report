@@ -1,7 +1,7 @@
-import {siderLeftComponent} from '../../../layout/sider/sider.left.component';
 import {ComponentRef, Type} from '@angular/core';
 import {EchartFace} from '@core/node/face/echart.face';
 import {DesignConfigSource} from '../source/config.source/design.config.source';
+import {session} from '@core/node/utils/session';
 
 export class FaceWrapper {
   private _face: EchartFace;
@@ -16,7 +16,7 @@ export class FaceWrapper {
     this._element.classList.remove('no-chart');
     this._face = new contentClass(this._element);
 
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(this._face.configClass);
+    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(this._face.configClass);
   }
 
   resize() {
@@ -36,9 +36,9 @@ export class FaceWrapper {
       return;
     }
     if (!this._configComponentRef) {
-      this._configComponentRef = siderLeftComponent.createGraphicConfig(this._face.configClass);
+      this._configComponentRef = session.siderLeftComponent.createGraphicConfig(this._face.configClass);
     } else {
-      siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
     if (this._face) {
       this._face.activate();

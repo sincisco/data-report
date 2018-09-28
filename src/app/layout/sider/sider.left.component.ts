@@ -6,13 +6,11 @@ import {
   ViewContainerRef, ViewRef
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {reportGlobal} from '@core/node/region/region.controller';
 import {PageConfig} from '../../components/page.config/page.config';
 import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
 import {DesignConfigSource} from '../../core/node/source/config.source/design.config.source';
 import {DesignerBodyComponent} from '../designer.body.component';
-
-export var siderLeftComponent: SiderLeftComponent;
+import {session} from '@core/node/utils/session';
 
 @Component({
   selector: 'app-sider-left',
@@ -47,10 +45,6 @@ export class SiderLeftComponent implements AfterViewInit {
     this.componentRef = this.container.createComponent(factory);
     // this.componentRef.instance.type = type;
     this.componentRef.instance.output.subscribe((msg: string) => {
-      console.log('我是', msg);
-      if (reportGlobal.instance) {
-        reportGlobal.instance.update(msg);
-      }
     });
   }
 
@@ -127,7 +121,7 @@ export class SiderLeftComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    siderLeftComponent = this;
+    session.siderLeftComponent = this;
   }
 
 }

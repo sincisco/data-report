@@ -18,6 +18,8 @@ import {IEventTarget} from '@core/node/event/event';
  *
  */
 export interface IGraphicView extends IEventTarget {
+  $element: JQuery;
+
   /**
    * 属性面板发生变化，更新内容 可以是增量更新，也可以是全量刷新
    * @param option

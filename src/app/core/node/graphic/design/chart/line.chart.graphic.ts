@@ -1,6 +1,5 @@
 import {RegionController} from '../../../region/region.controller';
 import {Chart} from '../../../graphic.view/chart/chart';
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
 import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
 import {Title} from '../../../graphic.view/chart/echart.interface/title';

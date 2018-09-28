@@ -3,7 +3,6 @@ import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {RegionController} from '../../region/region.controller';
 import {ComponentRef} from '@angular/core';
 import {PageConfigComponent} from '../../../../components/page.config/page.config.component';
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 import {PageConfig} from '../../../../components/page.config/page.config';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
@@ -12,6 +11,7 @@ import {regionSelectHelper} from '@core/node/helper/region.select.helper';
 import {PageView} from '@core/node/page/report/page.view';
 import {RegionManager} from '@core/node/manager/region.manager';
 import {ActivateManager} from '@core/node/manager/activate.manager';
+import {session} from '@core/node/utils/session';
 
 export class ReportPage extends PageView implements IPage {
 
@@ -20,7 +20,7 @@ export class ReportPage extends PageView implements IPage {
   public activateManager: ActivateManager;
 
   static builder(): ReportPage {
-    const componentRef = siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
+    const componentRef = session.siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
 
     return new ReportPage(componentRef);
   }
@@ -62,7 +62,7 @@ export class ReportPage extends PageView implements IPage {
     this
       .addEventListener('select', () => {
         this.selectManager.clear();
-        siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+        session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
       })
       .addEventListener('regionSelect', (left, top, width, height) => {
         const array = this.regionManager.selectByBox(left, top, width, height);

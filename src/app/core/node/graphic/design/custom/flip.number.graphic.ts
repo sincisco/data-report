@@ -2,12 +2,11 @@ import {ComponentRef} from '@angular/core';
 import {RegionController} from '../../../region/region.controller';
 import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
-
 import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
+import {session} from '@core/node/utils/session';
 
 const template = `
 <div class="flip-number-warpper" style="justify-content: center;">
@@ -80,7 +79,7 @@ export class FlipNumberGraphic implements IGraphic {
   }
 
   init(option?: any) {
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
+    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
     if (option) {
       this.configSource.importOption(option);
     }
@@ -154,7 +153,7 @@ export class FlipNumberGraphic implements IGraphic {
 
   activateConfig() {
     if (this._configComponentRef) {
-      siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
   }
 

@@ -1,7 +1,6 @@
 import {HtmlNode} from './html';
 import * as _ from 'lodash';
 
-import {siderLeftComponent} from '../../../../layout/sider/sider.left.component';
 import {DataHeaderComponent} from '../../../../components/graphic.config/html/header.component';
 
 interface HeaderOption {
@@ -55,7 +54,7 @@ export class HeaderHtml extends HtmlNode {
   }
 
   activate() {
-    siderLeftComponent.createGraphicConfig(this.dataProperty);
+
   }
 
   destroy() {

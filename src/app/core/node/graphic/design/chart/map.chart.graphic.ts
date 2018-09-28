@@ -3,10 +3,10 @@ import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
 import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
 import {ChartGraphic} from './chart.graphic';
 import {RegionController} from '../../../region/region.controller';
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
 import {LineSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/line.series';
 import {Chart} from '../../../graphic.view/chart/chart';
 import {MapConfigComponent} from '../../../../../components/graphic.config/chart/map.config.component';
+import {session} from '@core/node/utils/session';
 
 
 export interface ChartLineOption {
@@ -27,7 +27,7 @@ export class MapChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     this._chart = new Chart(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(MapConfigComponent);
+    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(MapConfigComponent);
     if (option) {
       this.configSource.importOption(option);
     }

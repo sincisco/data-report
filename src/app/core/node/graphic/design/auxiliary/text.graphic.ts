@@ -1,13 +1,9 @@
-import {ComponentRef} from '@angular/core';
-import {IGraphic} from '../../graphic';
-
-import {siderLeftComponent} from '../../../../../layout/sider/sider.left.component';
-
 import {TextAuxiliary} from '../../../graphic.view/auxiliary/text.auxiliary';
-import {DesignConfigSource} from '../../../source/config.source/design.config.source';
 import {TextConfigComponent} from '../../../../../components/graphic.config/auxiliary/text.config.component';
 import {RegionController} from '../../../region/region.controller';
 import {IGraphicView} from '../../../graphic.view/graphic.view';
+import {DefaultDesignGraphic} from '@core/node/graphic/design/default.design.graphic';
+import {session} from '@core/node/utils/session';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">
@@ -16,29 +12,24 @@ const template = `
 </div>
 `;
 
-export class TextGraphic implements IGraphic {
+export class TextGraphic extends DefaultDesignGraphic {
   $element: JQuery;
 
-  private _view: IGraphicView;
-  private _configComponentRef: ComponentRef<DesignConfigSource>;
-
   constructor(private _region: RegionController) {
+    super('text.graphic');
     this.$element = $(template);
+
     _region.addChild(this);
   }
 
-  get configSource() {
-    return this._configComponentRef ? this._configComponentRef.instance : null;
-  }
-
-  addChild(textAuxiliary: TextAuxiliary) {
-    this._view = textAuxiliary;
-    this.$element.find('.frame').append(textAuxiliary.$element);
+  addChild(view: IGraphicView) {
+    this._view = view;
+    this.$element.find('.frame').append(view.$element);
   }
 
   init(option?: any) {
     this._view = new TextAuxiliary(this);
-    this._configComponentRef = siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
+    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
     if (option) {
       this.configSource.importOption(option);
     }
@@ -48,55 +39,9 @@ export class TextGraphic implements IGraphic {
     });
   }
 
-  getOption() {
-    return {
-      graphicClass: 'text.graphic',
-      option: this.configSource.exportOption()
-    };
-  }
-
   update(option: any) {
     if (this._view) {
       this._view.update(option);
-    }
-  }
-
-  updateTheme(theme: string) {
-  }
-
-  updateGraphic(option: any) {
-
-  }
-
-  resize() {
-    if (this._view) {
-      this._view.resize();
-    }
-  }
-
-  activate() {
-    if (this._view) {
-      this._view.activate();
-    }
-  }
-
-  deactivate() {
-    if (this._view) {
-      (<any>this._view).deactivate();
-    }
-  }
-
-  activateConfig() {
-    if (this._configComponentRef) {
-      siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-
-  }
-
-  destroy() {
-    if (this._view) {
-      this._view.destroy();
-      this._configComponentRef.destroy();
     }
   }
 
