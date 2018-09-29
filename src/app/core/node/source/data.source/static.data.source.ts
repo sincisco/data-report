@@ -1,10 +1,21 @@
-import {DataSource} from './data.source';
-import {Dimensions} from '../../interface';
+import {Dimension, IDataSourceOption} from '@core/node/source/data.source/data.source.option';
+import {DataSource, IDataSource} from '@core/node/source/data.source/data.source';
 
-class StaticDataSource extends DataSource {
-  constructor(metaData: Array<Dimensions>, data: any) {
+interface StaticDataSourceOption extends IDataSourceOption {
+  metaData: Array<Dimension>;
+  data: Array<any>;
+}
+
+export class StaticDataSource extends DataSource implements IDataSource {
+  metaData: Array<Dimension>;
+
+  constructor(option: StaticDataSourceOption) {
     super();
-    this.metaData = metaData;
-    this._send(data);
+    this.metaData = option.metaData;
+    this._send({
+      dimensions: option.metaData,
+      source: option.data
+    });
   }
+
 }

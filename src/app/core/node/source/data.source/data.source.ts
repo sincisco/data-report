@@ -1,23 +1,34 @@
-import {BehaviorSubject, Subscription} from 'rxjs';
-import {Dimensions} from '../../interface';
+import {BehaviorSubject, Subject, Subscription} from 'rxjs';
 import {filter} from 'rxjs/operators';
 import * as _ from 'lodash';
 
-
 type DataListener = (data: any) => void;
 
-export abstract class DataSource {
+export interface IDataSource {
+  destroyed: boolean;
+
+  register(listener: DataListener);
+
+  clear();
+
+  destroy();
+
+  onDestroy(callback: Function);
+}
+
+export class DataSource implements IDataSource {
+
   private _destroyed = false;
   private _callbacksOnDestroy: Array<Function> = [];
-
-  metaData: Array<Dimensions>;
-
-  private _subject = new BehaviorSubject(null);
-
+  private _subject: Subject<any>;
   private _subscriptionArray: Array<Subscription> = [];
 
   protected constructor() {
     this._subject = new BehaviorSubject(null);
+  }
+
+  get destroyed(): boolean {
+    return this._destroyed;
   }
 
   protected _send(data: any) {
@@ -62,14 +73,11 @@ export abstract class DataSource {
     this._destroyed = true;
   }
 
-  get destroyed(): boolean {
-    return this._destroyed;
-  }
-
   onDestroy(callback: Function) {
-    if (_.isFunction(callback)) {
+    if (_.isFunction(callback) && !this._destroyed) {
       this._callbacksOnDestroy.push(callback);
     }
   }
 
 }
+

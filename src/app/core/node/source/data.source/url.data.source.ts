@@ -1,5 +1,5 @@
 import {DataSource} from './data.source';
-import {Dimensions} from '../../interface';
+import {Dimension} from '@core/node/source/data.source/data.source.option';
 
 interface UrlDataSubjectOption {
   url: string;
@@ -10,7 +10,8 @@ interface UrlDataSubjectOption {
 }
 
 class UrlDataSource extends DataSource {
-  constructor(metaData: Array<Dimensions>, data: any) {
+  metaData: Array<Dimension>
+  constructor(metaData: Array<Dimension>, data: any) {
     super();
     this.metaData = metaData;
     this._send(data);
