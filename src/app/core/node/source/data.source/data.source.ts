@@ -4,6 +4,9 @@ import * as _ from 'lodash';
 
 type DataListener = (data: any) => void;
 
+/**
+ * 一个数据源可以被多个图表共享
+ */
 export interface IDataSource {
   destroyed: boolean;
 
@@ -23,7 +26,7 @@ export class DataSource implements IDataSource {
   private _subject: Subject<any>;
   private _subscriptionArray: Array<Subscription> = [];
 
-  protected constructor() {
+  constructor() {
     this._subject = new BehaviorSubject(null);
   }
 

@@ -7,6 +7,8 @@ import {Title} from '../../../graphic.view/chart/echart.interface/title';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import {ChartDataSubject} from '../../../source/data.source/mock/demo.data.subject';
 import {ChartGraphic} from '@core/node/graphic/design/chart/chart.graphic';
+import {DataSourceManager} from '@core/node/source/data.source/data.source.manager';
+import {array} from '@core/node/source/data.source/test';
 
 export interface ChartBarOption {
   title?: Title;
@@ -27,7 +29,9 @@ export class BarChartGraphic extends ChartGraphic {
   init(option?: any) {
     this._init(BarConfigComponent, option);
 
-    new ChartDataSubject().register((data: any) => {
+    const manager = new DataSourceManager();
+    manager.load(array)
+    manager.getDataSourceByID('easy').register((data: any) => {
       this.updateDate(data);
     });
 

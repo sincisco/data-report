@@ -1,8 +1,19 @@
+import {IDataSource} from '@core/node/source/data.source/data.source';
+
 export interface IDataSourceOption {
-  type: string;
+  classId: string;
   id: string;
   displayName: string;
   comment: string;
+  [key: string]: any;
+}
+
+export interface IDataSourceItemRuntime {
+  classId: string;
+  id: string;
+  displayName: string;
+  comment: string;
+  dataSource: IDataSource;
 }
 
 export interface Dimension {
