@@ -31,14 +31,21 @@ export class TextConfigComponent extends DesignConfigSource implements AfterView
 
   ngAfterViewInit() {
     this.ngForm && this.ngForm.valueChanges.subscribe((value) => {
-      console.log(JSON.stringify(value));
-      console.log(JSON.stringify(this.option));
+      // console.log(JSON.stringify(value));
+      // console.log(JSON.stringify(this.option));
+      console.log('(((((((((((((((((((((((((((((((((((((((((((((((((');
       const changes = this._differ.diff(value);
       if (changes) {
         console.log('has change');
-        this.output.emit(value);
-        //this._applyChanges(changes);
+        // this.output.emit(value);
       }
+
+      this._trigger({
+        key: 'option',
+        oldValue: value,
+        newValue: value,
+        option: value
+      });
     });
   }
 

@@ -1,0 +1,9 @@
+<nz-collapse [nzBordered]="false" class="zijin-form" ngForm>
+  <nz-collapse-panel nzHeader="文本">
+    <div nz-row nzType="flex">
+      <div nz-col [nzSpan]="24">
+        <textarea name="text" rows="4" placeholder="文本" nz-input [(ngModel)]="option.text" nzSize="small"></textarea>
+      </div>
+    </div>
+  </nz-collapse-panel>
+</nz-collapse>

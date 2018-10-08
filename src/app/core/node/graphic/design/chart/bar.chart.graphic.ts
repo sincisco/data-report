@@ -29,11 +29,11 @@ export class BarChartGraphic extends ChartGraphic {
   init(option?: any) {
     this._init(BarConfigComponent, option);
 
-    const manager = new DataSourceManager();
-    manager.load(array)
-    manager.getDataSourceByID('easy').register((data: any) => {
-      this.updateDate(data);
-    });
+    // const manager = new DataSourceManager();
+    // manager.load(array)
+    // manager.getDataSourceByID('easy').register((data: any) => {
+    //   this.updateDate(data);
+    // });
 
   }
 

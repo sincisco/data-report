@@ -30,6 +30,9 @@ export class TextGraphic extends DefaultDesignGraphic {
   init(option?: any) {
     this._view = new TextAuxiliary(this);
     this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
+    this.configSource.register('option', (key, oldValue, newValue) => {
+      this.update(newValue);
+    });
     if (option) {
       this.configSource.importOption(option);
     }
