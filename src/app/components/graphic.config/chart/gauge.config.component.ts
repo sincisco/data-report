@@ -19,8 +19,8 @@ import * as _ from 'lodash';
 
 @Component({
   selector: 'app-gauge-config',
-  templateUrl: './map.config.component.html',
-  styleUrls: ['./map.config.component.less']
+  templateUrl: './gauge.config.component.html',
+  styleUrls: ['./gauge.config.component.less']
 })
 export class GaugeConfigComponent extends DesignConfigSource implements AfterViewInit, OnInit {
 
