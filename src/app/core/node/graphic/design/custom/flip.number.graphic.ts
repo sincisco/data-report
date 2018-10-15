@@ -7,6 +7,7 @@ import {DesignConfigSource} from '../../../source/config.source/design.config.so
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
 import {session} from '@core/node/utils/session';
+import {DataSourceFactory} from '@core/model/data/data.source.factory';
 
 const template = `
 <div class="flip-number-warpper" style="justify-content: center;">
@@ -87,10 +88,25 @@ export class FlipNumberGraphic implements IGraphic {
       this.update(newValue);
     });
 
-    this._internal = setInterval(() => {
-      console.log(this._generateDom(Math.floor(Math.random() * 10000000)));
-      // this.$element.find('span').text(Math.floor(Math.random() * 1000000));
-    }, 1000);
+    const dataSource = DataSourceFactory.getInstance().getDataSource({
+      id: 'id1',
+      configType: 'mockDynamic',
+      config: {
+        intervalTime: 1000,
+        dataGenerator: () => {
+          return Math.floor(Math.random() * 10000000);
+        }
+      }
+    });
+
+    dataSource.subscribe((data) => {
+      this._generateDom(data);
+    });
+
+    // this._internal = setInterval(() => {
+    //   console.log(;
+    //   // this.$element.find('span').text(Math.floor(Math.random() * 1000000));
+    // }, 1000);
   }
 
   private _generateDom(num: Number) {

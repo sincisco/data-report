@@ -1,8 +1,8 @@
-import {IConfigSourceFactory} from 'config.source.factory';
+import {IConfigSourceFactory} from './config.source.factory';
 import {of} from 'rxjs';
 
 export class RuntimeConfigSourceFactory implements IConfigSourceFactory {
-  create(configMeta: any) {
+  getConfigSource(configMeta: any) {
     return of(configMeta);
   }
 }
