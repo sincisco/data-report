@@ -1,6 +1,8 @@
 import {interval, Observable, of} from 'rxjs';
 import {map, publishBehavior, refCount} from 'rxjs/operators';
 import {MockDynamicDataSourceConfig} from '@core/model/data/interface';
+import {IDataSourceOption} from '@core/model/data/data.source.option';
+import {array} from '@core/model/data/test';
 
 export class DataSourceFactory {
 
@@ -10,13 +12,25 @@ export class DataSourceFactory {
 
   static getInstance() {
     if (!this._dataSourceFactory) {
-      this._dataSourceFactory = new DataSourceFactory();
-
+      this._dataSourceFactory = new DataSourceFactory(array);
     }
     return this._dataSourceFactory;
   }
 
-  getDataSource(dataOption: { id: string, configType: 'mockStatic' | 'mockDynamic', config: any }): Observable<any> {
+  constructor(private _dataSourceArray: Array<IDataSourceOption>) {
+  }
+
+
+  get dataSourceArray(): Array<IDataSourceOption> {
+    return this._dataSourceArray.slice(0);
+  }
+
+  getDataSource(optionID: string): Observable<any> {
+
+
+    const dataOption = this._dataSourceArray.find((value, index, obj) => value.id === optionID);
+    // : { , configType: 'mockStatic' | 'mockDynamic', config: any }
+
     const {id, configType, config} = dataOption;
     if (this._dataSourceMap.has(id)) {
       return this._dataSourceMap.get(id);

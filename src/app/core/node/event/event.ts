@@ -3,3 +3,12 @@ export interface IEventTarget {
 
   removeEventListener(eventName: string, fn?: Function);
 }
+
+
+
+export type KeyValueListener = (key: string, oldValue: any, newValue: any, option?: any) => void;
+
+export interface IModelEventTarget {
+  register(eventType: string, listener: KeyValueListener): IModelEventTarget;
+
+}

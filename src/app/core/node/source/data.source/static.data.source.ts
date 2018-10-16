@@ -1,4 +1,4 @@
-import {Dimension, IDataSourceOption} from '@core/node/source/data.source/data.source.option';
+import {Dimension, IDataSourceOption} from '@core/model/data/data.source.option';
 import {DataSource, IDataSource} from '@core/node/source/data.source/data.source';
 
 interface StaticDataSourceOption extends IDataSourceOption {

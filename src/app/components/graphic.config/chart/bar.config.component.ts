@@ -94,7 +94,12 @@ export class BarConfigComponent extends DesignGraphicConfig implements AfterView
       });
       this._innerOption = value;
       console.log('subject:' + !!this._subject);
-      this._subject.next('hahahah');
+      this._subject.next({
+        key: 'option',
+        oldValue: this._innerOption,
+        newValue: value,
+        option: value
+      });
 
     });
 

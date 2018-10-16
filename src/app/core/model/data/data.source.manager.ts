@@ -1,6 +1,6 @@
-import {IDataSourceItemRuntime, IDataSourceOption} from '@core/node/source/data.source/data.source.option';
-import {StaticDataSource} from '@core/node/source/data.source/static.data.source';
-import {IDataSource} from '@core/node/source/data.source/data.source';
+import {IDataSourceItemRuntime, IDataSourceOption} from './data.source.option';
+import {StaticDataSource} from '../../node/source/data.source/static.data.source';
+import {IDataSource} from '../../node/source/data.source/data.source';
 import {Type} from '@angular/core';
 
 const map = new Map<string, Type<IDataSource>>();

@@ -1,5 +1,5 @@
 import {DataSource} from './data.source';
-import {Dimension} from '@core/node/source/data.source/data.source.option';
+import {Dimension} from '@core/model/data/data.source.option';
 
 interface UrlDataSubjectOption {
   url: string;

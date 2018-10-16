@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers,
 import {NgForm} from '@angular/forms';
 import {PageConfig} from './page.config';
 import {debounceTime} from 'rxjs/operators';
-import {ChangeItem} from '@core/node/event/model.event';
+import {ChangedItem} from '@core/node/event/model.event';
 
 @Component({
   selector: 'app-page-config',
@@ -122,7 +122,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
     });
   }
 
-  private _update(changeItemArray: Array<ChangeItem>) {
+  private _update(changeItemArray: Array<ChangedItem>) {
     changeItemArray.forEach((value, index, array) => {
       this._trigger(value);
     });

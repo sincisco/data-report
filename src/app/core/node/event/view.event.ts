@@ -1,5 +1,4 @@
 import * as _ from 'lodash';
-import {IEventTarget} from '@core/node/event/event';
 
 /**
  * 只能先“订阅”再“发布”
@@ -12,17 +11,17 @@ import {IEventTarget} from '@core/node/event/event';
  创建这个函数同样需要内存，过度使用会导致难以跟踪维护
  * */
 export class ViewEventTarget {
-  private _callbacks: { [key: string]: Array<Function> } = {};
+  private _map: Map<string, Array<Function>> = new Map();
 
   constructor() {
 
   }
 
   addEventListener(eventName: string, callback: Function) {
-    if (!this._callbacks[eventName]) {
-      this._callbacks[eventName] = [callback];
+    if (!this._map.has(eventName)) {
+      this._map.set(eventName, [callback]);
     } else {
-      this._callbacks[eventName].push(callback);
+      this._map.get(eventName).push(callback);
     }
 
   }
@@ -30,21 +29,21 @@ export class ViewEventTarget {
   dispatchEvent(eventName1: string, param1?: any, param2?: any, param3?: any, param4?: any) {
     const params = arguments,
       eventName = Array.prototype.shift.call(params); // 第一个参数指定“键”
-    if (!this._callbacks[eventName]) {
+    if (!this._map.has(eventName)) {
       return false; // 如果回调数组不存在或为空则返回false
     }
-    this._callbacks[eventName].forEach((value) => {
+    this._map.get(eventName).forEach((value) => {
       value.apply(this, params); // 循环回调数组执行回调函数
     });
   }
 
   removeEventListener(eventName: string, fn?: Function) {
-    const fns = this._callbacks[eventName];
+    const fns = this._map.get(eventName);
     if (!fns) {
       return false;
     }
     if (!fn) { // 如果没有传入fn回调函数，直接取消key对应消息的所有订阅
-      this._callbacks[eventName] = [];
+      fns.splice(0, fns.length);
     } else {
       if (fns.includes(fn)) {
         _.remove(fns, (value, index, array) => {
@@ -55,5 +54,6 @@ export class ViewEventTarget {
   }
 
   destroy() {
+    this._map.clear();
   }
 }

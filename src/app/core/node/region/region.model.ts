@@ -3,7 +3,8 @@ import {closestNum} from '../../../utils/common';
 import {Dimensions} from '@core/node/interface';
 import {session} from '@core/node/utils/session';
 import {debounceTime} from 'rxjs/operators';
-import {IModelEventTarget, ModelEventTarget} from '@core/node/event/model.event';
+import { ModelEventTarget} from '@core/node/event/model.event';
+import {IModelEventTarget} from '@core/node/event/event';
 
 
 export enum RegionState {

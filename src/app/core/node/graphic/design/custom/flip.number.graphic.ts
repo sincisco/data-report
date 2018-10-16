@@ -88,16 +88,7 @@ export class FlipNumberGraphic implements IGraphic {
       this.update(newValue);
     });
 
-    const dataSource = DataSourceFactory.getInstance().getDataSource({
-      id: 'id1',
-      configType: 'mockDynamic',
-      config: {
-        intervalTime: 1000,
-        dataGenerator: () => {
-          return Math.floor(Math.random() * 10000000);
-        }
-      }
-    });
+    const dataSource = DataSourceFactory.getInstance().getDataSource('easy1');
 
     dataSource.subscribe((data) => {
       this._generateDom(data);
