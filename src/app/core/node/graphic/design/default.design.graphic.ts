@@ -1,22 +1,22 @@
-import {DesignConfigSource} from '../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../source/config.source/design.config.source';
 import {DataSource} from '../../source/data.source/data.source';
 import {IGraphic} from '../graphic';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 import {ComponentRef} from '@angular/core';
-import {ConfigSource} from '@core/node/source/config.source/config.source';
+import {GraphicConfig} from '@core/node/source/config.source/config.source';
 import {session} from '@core/node/utils/session';
 
 export abstract class DefaultDesignGraphic implements IGraphic {
   $element: JQuery;
 
   protected _view: IGraphicView;
-  protected _configComponentRef: ComponentRef<DesignConfigSource>;
+  protected _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
   protected constructor(protected _graphicClass: string){
 
   }
 
-  get configSource(): ConfigSource {
+  get configSource(): GraphicConfig {
     return this._configComponentRef.instance;
   }
 

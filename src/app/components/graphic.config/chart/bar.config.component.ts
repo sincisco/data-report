@@ -10,7 +10,7 @@ import {NgForm} from '@angular/forms';
 import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {DesignConfigSource} from '../../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
 
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
@@ -22,7 +22,7 @@ import * as _ from 'lodash';
   templateUrl: './bar.config.component.html',
   styleUrls: ['./bar.config.component.less']
 })
-export class BarConfigComponent extends DesignConfigSource implements AfterViewInit, OnInit {
+export class BarConfigComponent extends DesignGraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
@@ -95,6 +95,8 @@ export class BarConfigComponent extends DesignConfigSource implements AfterViewI
         option: value
       });
       this._innerOption = value;
+
+      this._subject.next('hahahah');
 
     });
 

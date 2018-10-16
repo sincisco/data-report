@@ -16,7 +16,7 @@ import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {Dimension} from '../../../core/dataset/dataset.interface';
-import {DesignConfigSource} from '../../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
 import {ChartPieConfig} from '../../../core/node/graphic/design/chart/pie.chart.graphic';
 import {debounceTime} from 'rxjs/operators';
 import {removeUndefined} from '../../../utils/common';
@@ -26,7 +26,7 @@ import {removeUndefined} from '../../../utils/common';
   templateUrl: './pie.config.component.html',
   styleUrls: ['./pie.config.component.less']
 })
-export class PieConfigComponent extends DesignConfigSource implements AfterViewInit, OnInit {
+export class PieConfigComponent extends DesignGraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
   @ViewChild('modalTitle') tplTitle: TemplateRef<any>;

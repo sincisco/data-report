@@ -2,7 +2,7 @@ import {ComponentRef} from '@angular/core';
 import {RegionController} from '../../../region/region.controller';
 import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
-import {DesignConfigSource} from '../../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
@@ -59,7 +59,7 @@ const template = `
 export class FlipNumberGraphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<DesignConfigSource>;
+  private _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
   private _internal;
 

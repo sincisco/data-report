@@ -3,7 +3,7 @@ import {RegionController} from '../../../region/region.controller';
 import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
 
-import {DesignConfigSource} from '../../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 
 import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
@@ -20,7 +20,7 @@ font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content
 export class ClockGraphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<DesignConfigSource>;
+  private _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
   private _internal;
 

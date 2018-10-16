@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import {Subject} from 'rxjs';
 
 type KeyValueListener = (key: string, oldValue: any, newValue: any, option?: any) => void;
 
@@ -9,10 +10,16 @@ export interface ChangeItem {
   option: any;
 }
 
-export abstract class ConfigSource {
+export abstract class GraphicConfig {
   private _destroyed = false;
   private _callbacksOnDestroy: Array<Function> = [];
   private _map: Map<string, KeyValueListener> = new Map();
+  protected _subject: Subject<any>;
+
+  get configSource() {
+    return this._subject;
+  }
+
 
   get destroyed(): boolean {
     return this._destroyed;

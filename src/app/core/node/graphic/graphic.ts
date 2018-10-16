@@ -1,9 +1,9 @@
-import {ConfigSource} from '@core/node/source/config.source/config.source';
+import {GraphicConfig} from '@core/node/source/config.source/config.source';
 
 export interface IGraphic {
   $element: JQuery;
 
-  configSource: ConfigSource;
+  configSource: GraphicConfig;
 
   addChild(child);
 

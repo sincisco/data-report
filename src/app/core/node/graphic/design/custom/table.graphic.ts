@@ -3,7 +3,7 @@ import {RegionController} from '../../../region/region.controller';
 import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
 
-import {DesignConfigSource} from '../../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import {TableDataSubject} from '../../../source/data.source/mock/table.data.subject';
@@ -20,7 +20,7 @@ const template = `
 export class TableGraphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<DesignConfigSource>;
+  private _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
   get configSource() {
     return this._configComponentRef.instance;

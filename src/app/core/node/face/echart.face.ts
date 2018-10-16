@@ -1,12 +1,12 @@
 import {Type} from '@angular/core';
 
 import * as _ from 'lodash';
-import {DesignConfigSource} from '../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../source/config.source/design.config.source';
 
 export abstract class EchartFace {
   protected _echart: Echart;
 
-  public configClass: Type<DesignConfigSource>;
+  public configClass: Type<DesignGraphicConfig>;
 
   protected constructor(private _host: HTMLElement) {
     // 初始化之前  确保host已经挂载到document中

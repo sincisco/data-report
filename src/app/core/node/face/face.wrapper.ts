@@ -1,12 +1,12 @@
 import {ComponentRef, Type} from '@angular/core';
 import {EchartFace} from '@core/node/face/echart.face';
-import {DesignConfigSource} from '../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../source/config.source/design.config.source';
 import {session} from '@core/node/utils/session';
 
 export class FaceWrapper {
   private _face: EchartFace;
 
-  private _configComponentRef: ComponentRef<DesignConfigSource>;
+  private _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
   constructor(private _element: HTMLElement) {
 

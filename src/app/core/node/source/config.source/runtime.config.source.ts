@@ -1,8 +1,8 @@
 import {KeyValueDiffer} from '@angular/core';
-import {ChangeItem, ConfigSource} from '@core/node/source/config.source/config.source';
+import {ChangeItem, GraphicConfig} from '@core/node/source/config.source/config.source';
 import {session} from '@core/node/utils/session';
 
-export class RuntimeConfigSource extends ConfigSource {
+export class RuntimeConfigSource extends GraphicConfig {
   private _option: any;
   private _differ: KeyValueDiffer<any, any>;
 

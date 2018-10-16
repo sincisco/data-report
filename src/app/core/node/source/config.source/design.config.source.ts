@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
-import {ChangeItem, ConfigSource} from '@core/node/source/config.source/config.source';
+import {ChangeItem, GraphicConfig} from '@core/node/source/config.source/config.source';
+import {BehaviorSubject} from 'rxjs';
 
-export class DesignConfigSource extends ConfigSource {
+export class DesignGraphicConfig extends GraphicConfig {
   option: any;
 
   exportOption() {
@@ -9,6 +10,7 @@ export class DesignConfigSource extends ConfigSource {
   }
 
   importOption(option) {
+    this._subject = new BehaviorSubject(option);
     this.option = option;
   }
 

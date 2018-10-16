@@ -5,7 +5,7 @@ import {Chart} from '../../../graphic.view/chart/chart';
 
 import {contextMenuHelper} from '../../../../../utils/contextMenu';
 
-import {DesignConfigSource} from '../../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import {session} from '@core/node/utils/session';
 
@@ -28,7 +28,7 @@ export abstract class ChartGraphic implements IGraphic {
   private readonly _$toolbar: JQuery;
 
   protected _chart: Chart;
-  protected _configComponentRef: ComponentRef<DesignConfigSource>;
+  protected _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
   get configSource() {
     return this._configComponentRef.instance;
@@ -58,11 +58,11 @@ export abstract class ChartGraphic implements IGraphic {
    * 2、创建 ConfigSource
    * 3、监听 ConfigSource 变化
    * 4、导入数据（初始化）ConfigSource
-   * @param {Type<DesignConfigSource>} graphicConfigClass
+   * @param {Type<DesignGraphicConfig>} graphicConfigClass
    * @param option
    * @private
    */
-  protected _init(graphicConfigClass: Type<DesignConfigSource>, option?: any) {
+  protected _init(graphicConfigClass: Type<DesignGraphicConfig>, option?: any) {
     // 步骤1
     this._chart = new Chart(this);
     // 步骤二

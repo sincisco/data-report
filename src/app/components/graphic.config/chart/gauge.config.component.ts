@@ -10,7 +10,7 @@ import {NgForm} from '@angular/forms';
 import {datasetManager} from '../../../core/dataset/dataset.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {DesignConfigSource} from '../../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
 
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
@@ -22,7 +22,7 @@ import * as _ from 'lodash';
   templateUrl: './gauge.config.component.html',
   styleUrls: ['./gauge.config.component.less']
 })
-export class GaugeConfigComponent extends DesignConfigSource implements AfterViewInit, OnInit {
+export class GaugeConfigComponent extends DesignGraphicConfig implements AfterViewInit, OnInit {
 
   @ViewChild(NgForm) ngForm: NgForm;
 
