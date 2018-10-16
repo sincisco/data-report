@@ -1,5 +1,5 @@
 import {KeyValueDiffer} from '@angular/core';
-import {ChangeItem, GraphicConfig} from '@core/node/source/config.source/config.source';
+import {ChangeItem, GraphicConfig} from '@core/node/source/config.source/graphic.config';
 import {session} from '@core/node/utils/session';
 
 export class RuntimeConfigSource extends GraphicConfig {

@@ -25,7 +25,7 @@ export class EventBus {
 
   private _cache = new Map();
 
-  private _menthodCache = new Map();
+  private _methodCache = new Map();
 
   static getInstance(page: IPage) {
     if (EventBus._instanceMap.has(page)) {
@@ -74,11 +74,11 @@ export class EventBus {
     const params = arguments;
 
     Array.prototype.shift.call(params); // 第一个参数指定“键”
-    if (!this._menthodCache.has(methodName)) {
+    if (!this._methodCache.has(methodName)) {
       return false; // 如果回调数组不存在或为空则返回false
     }
 
-    this._menthodCache.get(methodName).apply(this, params);
+    this._methodCache.get(methodName).apply(this, params);
   }
 
   private _parseEventType(param: string) {

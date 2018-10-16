@@ -16,10 +16,14 @@ export abstract class GraphicConfig {
   private _map: Map<string, KeyValueListener> = new Map();
   protected _subject: Subject<any>;
 
+  abstract importOption(option: any);
+
+  exportOption() {
+  }
+
   get configSource() {
     return this._subject;
   }
-
 
   get destroyed(): boolean {
     return this._destroyed;
@@ -33,19 +37,24 @@ export abstract class GraphicConfig {
     }
   }
 
-  abstract importOption(option: any);
-
-  exportOption() {
-  }
 
   register(eventType: string, listener: KeyValueListener) {
     if (_.isFunction(listener)) {
-      const eventArray = eventType.trim().replace(/\s+/g, ' ').split(' ');
+      const eventArray = eventType
+        .trim()
+        .replace(/\s+/g, ' ')
+        .split(' ');
       eventArray.forEach((value, index, array) => {
         this._map.set(value, listener);
       });
     }
     return this;
+  }
+
+  onDestroy(callback: Function) {
+    if (_.isFunction(callback)) {
+      this._callbacksOnDestroy.push(callback);
+    }
   }
 
   /**
@@ -62,12 +71,6 @@ export abstract class GraphicConfig {
       this._callbacksOnDestroy.pop()();
     }
     this._destroyed = true;
-  }
-
-  onDestroy(callback: Function) {
-    if (_.isFunction(callback)) {
-      this._callbacksOnDestroy.push(callback);
-    }
   }
 }
 

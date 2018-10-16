@@ -92,7 +92,7 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
           });
         });
         array.forEach((item) => {
-          this.trigger(item);
+          this._trigger(item);
         });
       }
     });
@@ -152,7 +152,7 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     if (this._state !== param) {
       const changedItem = {key: 'state', oldValue: this._state, newValue: param, option: null};
       this._state = param;
-      this.trigger(changedItem);
+      this._trigger(changedItem);
     }
   }
 

@@ -2,6 +2,8 @@ import {DataSourceFactory} from '@core/model/data/data.source.factory';
 import {IConfigSourceFactory} from '@core/model/config/config.source.factory';
 import {DesignConfigSourceFactory} from '@core/model/config/design.config.source.factory';
 import {RuntimeConfigSourceFactory} from '@core/model/config/runtime.config.source.factory';
+import {combineLatest, Observable} from 'rxjs';
+import {IConfigOption} from '@core/model/config/interface';
 
 export class ModelSourceFactory {
   private static _modelSourceFactoryForDesign: ModelSourceFactory;
@@ -39,14 +41,17 @@ export class ModelSourceFactory {
     }
   }
 
-  getModelSource(modelOption: ModelOption) {
+  getModelSource(modelOption: ModelOption): Observable<Array<any>> {
 
     const configSource = this._configSourceFactory.getConfigSource(modelOption.configOption),
       dataSource = DataSourceFactory.getInstance().getDataSource(modelOption.dataOption);
+
+    return combineLatest(configSource, dataSource);
+
   }
 }
 
 interface ModelOption {
-  configOption: any;
+  configOption: IConfigOption;
   dataOption: any;
 }

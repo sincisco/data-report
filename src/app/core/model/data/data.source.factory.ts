@@ -1,5 +1,6 @@
 import {interval, Observable, of} from 'rxjs';
 import {map, publishBehavior, refCount} from 'rxjs/operators';
+import {MockDynamicDataSourceConfig} from '@core/model/data/interface';
 
 export class DataSourceFactory {
 
@@ -15,7 +16,7 @@ export class DataSourceFactory {
     return this._dataSourceFactory;
   }
 
-  getDataSource(dataOption: { id: string, configType: 'mockStatic' | 'mockDynamic', config: any }) {
+  getDataSource(dataOption: { id: string, configType: 'mockStatic' | 'mockDynamic', config: any }): Observable<any> {
     const {id, configType, config} = dataOption;
     if (this._dataSourceMap.has(id)) {
       return this._dataSourceMap.get(id);
@@ -64,16 +65,5 @@ export class DataSourceFactory {
   }
 }
 
-type IDataGenerator = () => Array<any> | Object;
 
-interface MockDynamicDataSourceConfig {
-  intervalTime: number;
-  dataGenerator: IDataGenerator;
-}
-
-interface ArrayDataSourceMeta {
-  id: string;
-  displayName: string;
-  dimensions: Array<any>;
-}
 

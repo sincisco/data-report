@@ -15,14 +15,17 @@ export class ModelEventTarget {
   private _map = new Map();
 
   public register(eventType: string, listener: KeyValueListener) {
-    const eventArray = eventType.trim().replace(/\s+/g, ' ').split(' ');
+    const eventArray = eventType
+      .trim()
+      .replace(/\s+/g, ' ')
+      .split(' ');
     eventArray.forEach((value, index, array) => {
       this._map.set(value, listener);
     });
     return this;
   }
 
-  protected trigger(item: ChangeItem) {
+  protected _trigger(item: ChangeItem) {
     if (this._map.has(item.key)) {
       console.log('handle: ', item.key);
       const listener = this._map.get(item.key);

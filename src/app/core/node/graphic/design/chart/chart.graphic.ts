@@ -8,6 +8,9 @@ import {contextMenuHelper} from '../../../../../utils/contextMenu';
 import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import {session} from '@core/node/utils/session';
+import {ModelSourceFactory} from '@core/model/model.source.factory';
+import {guid} from '@core/node/utils/tools';
+import {GraphicConfigManager} from '@core/model/config/design.config.source.factory';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -24,6 +27,7 @@ const template = `
 
 export abstract class ChartGraphic implements IGraphic {
   $element: JQuery;
+  private _uuid: string;
   private readonly _$frame: JQuery;
   private readonly _$toolbar: JQuery;
 
@@ -66,15 +70,30 @@ export abstract class ChartGraphic implements IGraphic {
     // 步骤1
     this._chart = new Chart(this);
     // 步骤二
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
-    // 步骤三
-    this.configSource.register('option', (key, oldValue, newValue) => {
-      this.update(newValue);
+    ModelSourceFactory.getInstance('design').getModelSource({
+      configOption: {
+        graphicId: this._uuid = guid(10, 16),
+        graphicConfigClass,
+        option
+      },
+      dataOption: {
+        id: 'id1',
+        configType: 'mockDynamic',
+        config: {
+          intervalTime: 1000,
+          dataGenerator: () => {
+            return Math.floor(Math.random() * 10000000);
+          }
+        }
+      }
+    }).subscribe((aaa) => {
+      console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW', aaa);
     });
-    // 步骤四
-    if (option) {
-      this.configSource.importOption(option);
-    }
+    // this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
+    // 步骤三
+    // this.configSource.register('option', (key, oldValue, newValue) => {
+    //   this.update(newValue);
+    // });
   }
 
   abstract getOption();
@@ -122,6 +141,7 @@ export abstract class ChartGraphic implements IGraphic {
   }
 
   activateConfig() {
+    GraphicConfigManager.getInstance().activate(this._uuid);
     if (this._configComponentRef) {
       session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }

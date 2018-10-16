@@ -124,7 +124,7 @@ export class PageConfigComponent extends PageConfig implements AfterViewInit, On
 
   private _update(changeItemArray: Array<ChangeItem>) {
     changeItemArray.forEach((value, index, array) => {
-      this.trigger(value);
+      this._trigger(value);
     });
   }
 

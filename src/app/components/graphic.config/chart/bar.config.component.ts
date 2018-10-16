@@ -82,11 +82,9 @@ export class BarConfigComponent extends DesignGraphicConfig implements AfterView
   }
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
+    this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
       console.log('BarConfigComponent  valueChanges', value);
-
-      value.dataset = datasetManager.current;
-      value.tooltip = {};
+      // value.dataset = datasetManager.current;
       value = removeUndefined(value);
       this._trigger({
         key: 'option',
@@ -95,7 +93,7 @@ export class BarConfigComponent extends DesignGraphicConfig implements AfterView
         option: value
       });
       this._innerOption = value;
-
+      console.log('subject:' + !!this._subject);
       this._subject.next('hahahah');
 
     });
