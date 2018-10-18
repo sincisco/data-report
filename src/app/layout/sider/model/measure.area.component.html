@@ -8,7 +8,7 @@
       <ul class="list list-item">
         <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
             (click)="tableClick($event)" data-switch="true">
-          <i class="u-icn u-icn-angle-down" [class.u-icn-angle-right]="datasetWrapper.state.collapsed"></i>{{datasetWrapper?.displayName}}
+          <i class="u-icn u-icn-angle-down" [class.u-icn-angle-right]="datasetWrapper.state.collapsedMeasure"></i>{{datasetWrapper?.displayName}}
         </li>
         <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
           <li *ngIf="item.type!=='ordinal'"

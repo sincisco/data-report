@@ -9,7 +9,7 @@ import {
 import {NG_VALUE_ACCESSOR, NgForm} from '@angular/forms';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {Dimension} from '@core/dataset/dataset.interface';
+import {Dimension} from '@core/data/data.model.interface';
 import {CustomControlValueAccessor} from '../CustomControlValueAccessor';
 import {draggableHeler} from '../../../utils/draggable.helper';
 import {contextMenuHelper} from '../../../utils/contextMenu';

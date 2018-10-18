@@ -3,7 +3,7 @@ import {RegionController} from '../../../region/region.controller';
 import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
 
-import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../../source/config.source/design.config.source';
 
 import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';

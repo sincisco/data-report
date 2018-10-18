@@ -8,7 +8,7 @@ import {
 import {NgForm} from '@angular/forms';
 import {PageConfig} from '../../components/page.config/page.config';
 import {DataHeaderComponent} from '../../components/graphic.config/html/header.component';
-import {DesignGraphicConfig} from '../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../core/source/config.source/design.config.source';
 import {DesignerBodyComponent} from '../designer.body.component';
 import {session} from '@core/node/utils/session';
 
@@ -76,7 +76,7 @@ export class SiderLeftComponent implements AfterViewInit {
         this.resolver.resolveComponentFactory(type);
       retComponentRef = this.componentRef = this.shadowContainer.createComponent(factory);
       this.componentRef.instance.type = type;
-      // this.shadowContainer.detach(); 
+      // this.shadowContainer.detach();
       // this.componentRef.instance.output.subscribe((msg: string) => {
       //   console.log('我是', msg);
       //   if (reportGlobal.instance) {

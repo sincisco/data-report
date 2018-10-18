@@ -2,7 +2,7 @@ import {AfterViewInit, Component, KeyValueDiffer, KeyValueDiffers, OnInit, ViewC
 import {NgForm} from '@angular/forms';
 import {DesignerBodyComponent} from '../designer.body.component';
 import {dataModelList} from '../../utils/dataModel';
-import {datasetManager} from '@core/dataset/dataset.manager';
+import {dataModelManager} from '@core/data/data.model.manager';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
@@ -35,7 +35,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers, private appBody: DesignerBodyComponent, private http: HttpClient) {
-    this.modelName = datasetManager.getDefaultDataset().displayName;
+    this.modelName = dataModelManager.getDefaultDataset().displayName;
   }
 
   ngOnInit() {
@@ -48,6 +48,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
 
   ngAfterViewInit() {
+/*
     this.http.get('http://10.2.78.207:8080/table/total')
       .subscribe((data: any) => console.log(data));
 
@@ -64,7 +65,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
           return value;
         });
 
-        datasetManager.addDataset(data.data.id, '中国大学杰出校友排行榜', {
+        dataModelManager.addDataset(data.data.id, '中国大学杰出校友排行榜', {
           dimensions,
           source: data.data.source
         });
@@ -80,7 +81,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
           return value;
         });
 
-        datasetManager.addDataset(data.data.id, '各大学国家杰出青年入选数量', {
+        dataModelManager.addDataset(data.data.id, '各大学国家杰出青年入选数量', {
           dimensions,
           source: data.data.source
         });
@@ -88,6 +89,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
         console.log(dimensions);
       });
 
+*/
 
   }
 

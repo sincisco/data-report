@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 
-import {datasetManager} from '../../../core/dataset/dataset.manager';
+import {dataModelManager} from '../../../core/data/data.model.manager';
 
-import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
 import {ChartLineOption} from '../../../core/node/graphic/design/chart/line.chart.graphic';
 import {debounceTime} from 'rxjs/operators';
 import {removeUndefined} from '../../../utils/common';
@@ -87,7 +87,7 @@ export class LineConfigComponent extends DesignGraphicConfig implements AfterVie
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       console.log('LineConfigComponent  valueChanges');
-      value.dataset = datasetManager.current;
+      value.dataset = dataModelManager.current;
       value = removeUndefined(value);
       this._trigger({
         key: 'option',

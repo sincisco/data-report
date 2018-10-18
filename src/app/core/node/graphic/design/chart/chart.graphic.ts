@@ -5,12 +5,12 @@ import {Chart} from '../../../graphic.view/chart/chart';
 
 import {contextMenuHelper} from '../../../../../utils/contextMenu';
 
-import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../../source/config.source/design.config.source';
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import {session} from '@core/node/utils/session';
 import {ModelSourceFactory} from '@core/model/model.source.factory';
 import {guid} from '@core/node/utils/tools';
-import {GraphicConfigManager} from '@core/model/config/design.config.source.factory';
+import {GraphicConfigManager} from '@core/config/design.config.source.factory';
 import {ModelEventTarget, OuterModelEventTarget} from '@core/node/event/model.event';
 
 const template = `

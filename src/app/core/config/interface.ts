@@ -1,5 +1,5 @@
 import {Type} from '@angular/core';
-import {DesignGraphicConfig} from '@core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../source/config.source/design.config.source';
 
 
 export interface IConfigOption {

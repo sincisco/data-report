@@ -9,13 +9,9 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {TableSchema} from '../../../core/model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
-import {DataSet} from '../../../core/adapter/groupBy';
-import {DatasetWrapper} from '@core/dataset/dataset.interface';
-import {datasetManager} from '@core/dataset/dataset.manager';
-import {filter, throttleTime} from 'rxjs/internal/operators';
+import {DatasetWrapper} from '@core/data/data.model.interface';
+import {dataModelManager} from '@core/data/data.model.manager';
 import {fromEvent} from 'rxjs';
 
 
@@ -32,7 +28,7 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
 
   constructor(private _elementRef: ElementRef) {
     this._$element = $(_elementRef.nativeElement);
-    this.datasetWrapper = datasetManager.getDefaultDataset();
+    this.datasetWrapper = dataModelManager.getDefaultDataset();
   }
 
 
@@ -43,8 +39,8 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
       const chng = changes[propName];
-      if (propName === 'modelName' && datasetManager.getDataset(chng.currentValue)) {
-        this.datasetWrapper = datasetManager.getDataset(chng.currentValue);
+      if (propName === 'modelName' && dataModelManager.getDataset(chng.currentValue)) {
+        this.datasetWrapper = dataModelManager.getDataset(chng.currentValue);
       }
     }
   }
@@ -79,8 +75,8 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
   }
 
   tableClick(event: MouseEvent) {
-    this.datasetWrapper.state.collapsed = !this.datasetWrapper.state.collapsed;
-    if (this.datasetWrapper.state.collapsed) {
+    this.datasetWrapper.state.collapsedDimension = !this.datasetWrapper.state.collapsedDimension;
+    if (this.datasetWrapper.state.collapsedDimension) {
       this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
     } else {
       this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();

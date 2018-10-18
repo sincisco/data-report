@@ -1,11 +1,11 @@
-import {IDataSourceItemRuntime, IDataSourceOption} from './data.source.option';
-import {StaticDataSource} from '../../node/source/data.source/static.data.source';
-import {IDataSource} from '../../node/source/data.source/data.source';
+import {IDataSource} from '../source/data.source/data.source';
 import {Type} from '@angular/core';
+import {IDataSourceItemRuntime, IDataSourceOption} from './data.model.interface';
+import {StaticDataSource} from '@core/source/data.source/static.data.source';
 
 const map = new Map<string, Type<IDataSource>>();
 
-map.set('staticDataSource', StaticDataSource);
+// map.set('staticDataSource', StaticDataSource);
 
 export class DataSourceManager {
   private _dataSourceArray: Array<IDataSourceItemRuntime> = [];

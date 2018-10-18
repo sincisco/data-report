@@ -12,11 +12,11 @@ import {
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
 
-import {datasetManager} from '../../../core/dataset/dataset.manager';
+import {dataModelManager} from '../../../core/data/data.model.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {Dimension} from '../../../core/dataset/dataset.interface';
-import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
+import {Dimension} from '../../../core/data/data.model.interface';
+import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
 import {ChartPieConfig} from '../../../core/node/graphic/design/chart/pie.chart.graphic';
 import {debounceTime} from 'rxjs/operators';
 import {removeUndefined} from '../../../utils/common';
@@ -98,7 +98,7 @@ export class PieConfigComponent extends DesignGraphicConfig implements AfterView
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       console.log('PieConfigComponent  valueChanges');
-      value.dataset = datasetManager.current;
+      value.dataset = dataModelManager.current;
       value = removeUndefined(value);
       this._trigger({
         key: 'option',

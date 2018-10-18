@@ -1,5 +1,6 @@
-import {Dimension, IDataSourceOption} from '@core/model/data/data.source.option';
-import {DataSource, IDataSource} from '@core/node/source/data.source/data.source';
+
+import {DataSource, IDataSource} from './data.source';
+import {Dimension, IDataSourceOption} from '../../data/data.model.interface';
 
 interface StaticDataSourceOption extends IDataSourceOption {
   metaData: Array<Dimension>;

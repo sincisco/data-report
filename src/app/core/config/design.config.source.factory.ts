@@ -1,6 +1,6 @@
-import {IConfigSourceFactory} from '@core/model/config/config.source.factory';
-import {session} from '@core/node/utils/session';
-import {DesignGraphicConfig} from '@core/node/source/config.source/design.config.source';
+import {IConfigSourceFactory} from './config.source.factory';
+import {session} from '../node/utils/session';
+import {DesignGraphicConfig} from '../source/config.source/design.config.source';
 import {ComponentRef, Type} from '@angular/core';
 
 export class DesignConfigSourceFactory implements IConfigSourceFactory {

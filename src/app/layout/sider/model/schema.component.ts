@@ -13,8 +13,8 @@ import {NgForm} from '@angular/forms';
 import {TableSchema} from '../../../core/model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
 import {DataSet} from '../../../core/adapter/groupBy';
-import {DatasetWrapper} from '@core/dataset/dataset.interface';
-import {datasetManager} from '@core/dataset/dataset.manager';
+import {DatasetWrapper} from '@core/data/data.model.interface';
+import {dataModelManager} from '@core/data/data.model.manager';
 
 
 interface Dimension {
@@ -37,7 +37,7 @@ export class SchemaPillsComponent implements AfterViewInit, OnChanges {
   datasetWrapper: DatasetWrapper;
 
   constructor() {
-    this.datasetWrapper = datasetManager.getDefaultDataset();
+    this.datasetWrapper = dataModelManager.getDefaultDataset();
   }
 
   @Input() modelName: string;
@@ -48,8 +48,8 @@ export class SchemaPillsComponent implements AfterViewInit, OnChanges {
       let cur = JSON.stringify(chng.currentValue);
       let prev = JSON.stringify(chng.previousValue);
       console.log('hhaahahahahhahah', prev, cur);
-      if (datasetManager.getDataset(chng.currentValue)) {
-        this.datasetWrapper = datasetManager.getDataset(chng.currentValue);
+      if (dataModelManager.getDataset(chng.currentValue)) {
+        this.datasetWrapper = dataModelManager.getDataset(chng.currentValue);
       }
     }
   }

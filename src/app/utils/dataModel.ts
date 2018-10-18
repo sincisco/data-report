@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import {datasetManager} from '@core/dataset/dataset.manager';
+import {dataModelManager} from '@core/data/data.model.manager';
 
 const windowMask = `
 <div class="m-window m-window-mask mask-transparent" style="z-index: 405;">
@@ -9,18 +9,18 @@ const windowMask = `
 `;
 
 interface ContextMenuItem {
-  displayName: string,
-  _callbackNo?: string,
-  callback?: Function,
-  enable?: boolean,
-  shortcut?: string,
-  children?: Array<ContextMenuItem>
+  displayName: string;
+  _callbackNo?: string;
+  callback?: Function;
+  enable?: boolean;
+  shortcut?: string;
+  children?: Array<ContextMenuItem>;
 }
 
 
 function getTemplate() {
 
-  const result = datasetManager.list.reduce((previous, current) => {
+  const result = dataModelManager.list.reduce((previous, current) => {
     return previous + `<li class="model-item" data-model-name="${current}">${current}<i class="u-icn u-icn-delete"></i><i class="u-icn u-icn-check"></i></li>`;
   }, '');
 

@@ -1,9 +1,9 @@
-import {DesignGraphicConfig} from '../../source/config.source/design.config.source';
-import {DataSource} from '../../source/data.source/data.source';
+import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
+import {DataSource} from '../../../source/data.source/data.source';
 import {IGraphic} from '../graphic';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 import {ComponentRef} from '@angular/core';
-import {GraphicConfig} from '@core/node/source/config.source/graphic.config';
+import {GraphicConfig} from '@core/source/config.source/graphic.config';
 import {session} from '@core/node/utils/session';
 
 export abstract class DefaultDesignGraphic implements IGraphic {

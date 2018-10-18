@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
 import {debounceTime} from 'rxjs/operators';
 
 @Component({

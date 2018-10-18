@@ -13,8 +13,8 @@ import {NgForm} from '@angular/forms';
 import {TableSchema} from '../../../core/model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
 import {DataSet} from '../../../core/adapter/groupBy';
-import {DatasetWrapper} from '@core/dataset/dataset.interface';
-import {datasetManager} from '@core/dataset/dataset.manager';
+import {DatasetWrapper} from '@core/data/data.model.interface';
+import {dataModelManager} from '@core/data/data.model.manager';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
 
   constructor(private _elementRef: ElementRef) {
     this._$element = $(_elementRef.nativeElement);
-    this.datasetWrapper = datasetManager.getDefaultDataset();
+    this.datasetWrapper = dataModelManager.getDefaultDataset();
   }
 
 
@@ -44,8 +44,8 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
       let cur = JSON.stringify(chng.currentValue);
       let prev = JSON.stringify(chng.previousValue);
       console.log('hhaahahahahhahah', prev, cur);
-      if (datasetManager.getDataset(chng.currentValue)) {
-        this.datasetWrapper = datasetManager.getDataset(chng.currentValue);
+      if (dataModelManager.getDataset(chng.currentValue)) {
+        this.datasetWrapper = dataModelManager.getDataset(chng.currentValue);
       }
     }
   }
@@ -61,8 +61,8 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
   }
 
   tableClick(event: MouseEvent) {
-    this.datasetWrapper.state.collapsed = !this.datasetWrapper.state.collapsed;
-    if (this.datasetWrapper.state.collapsed) {
+    this.datasetWrapper.state.collapsedMeasure = !this.datasetWrapper.state.collapsedMeasure;
+    if (this.datasetWrapper.state.collapsedMeasure) {
       this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
     } else {
       this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();

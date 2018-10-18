@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, EventEmitter, KeyValueDiffer, KeyValueDiffers, OnInit, Output, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
 
 @Component({
   selector: 'app-comment-config',

@@ -2,12 +2,12 @@ import {ComponentRef} from '@angular/core';
 import {RegionController} from '../../../region/region.controller';
 import {IGraphic} from '../../graphic';
 import {Chart} from '../../../graphic.view/chart/chart';
-import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../../source/config.source/design.config.source';
 
 import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
 import {session} from '@core/node/utils/session';
-import {DataSourceFactory} from '@core/model/data/data.source.factory';
+import {DataSourceFactory} from '@core/data/data.source.factory';
 
 const template = `
 <div class="flip-number-warpper" style="justify-content: center;">

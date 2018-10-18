@@ -1,8 +1,9 @@
 import {interval, Observable, of} from 'rxjs';
 import {map, publishBehavior, refCount} from 'rxjs/operators';
-import {MockDynamicDataSourceConfig} from '@core/model/data/interface';
-import {IDataSourceOption} from '@core/model/data/data.source.option';
-import {array} from '@core/model/data/test';
+import {MockDynamicDataSourceConfig} from './data.source.interface';
+import {array} from './test';
+import {dataModelManager} from './data.model.manager';
+import {IDataSourceOption} from './data.model.interface';
 
 export class DataSourceFactory {
 
@@ -13,39 +14,46 @@ export class DataSourceFactory {
   static getInstance() {
     if (!this._dataSourceFactory) {
       this._dataSourceFactory = new DataSourceFactory(array);
+      array.forEach((value, index) => {
+        dataModelManager
+          .addDataset(value.id, value.displayName, {
+            // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
+            // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
+            dimensions: value.dimensions
+          });
+      });
     }
     return this._dataSourceFactory;
   }
 
-  constructor(private _dataSourceArray: Array<IDataSourceOption>) {
+  constructor(private dataSourceOptions: Array<IDataSourceOption>) {
   }
 
 
   get dataSourceArray(): Array<IDataSourceOption> {
-    return this._dataSourceArray.slice(0);
+    return this.dataSourceOptions.slice(0);
   }
 
   getDataSource(optionID: string): Observable<any> {
-
-
-    const dataOption = this._dataSourceArray.find((value, index, obj) => value.id === optionID);
+    const dataOption = this.dataSourceOptions.find((value, index, obj) => value.id === optionID);
     // : { , configType: 'mockStatic' | 'mockDynamic', config: any }
-
-    const {id, configType, config} = dataOption;
-    if (this._dataSourceMap.has(id)) {
-      return this._dataSourceMap.get(id);
-    } else {
-      let dataSource;
-      switch (configType) {
-        case 'mockStatic':
-          dataSource = this._createMockStaticDataSource(config);
-          break;
-        case 'mockDynamic':
-          dataSource = this._createMockDynamicDataSource(config);
-          break;
+    if (dataOption) {
+      const {id, configType, config} = dataOption;
+      if (this._dataSourceMap.has(id)) {
+        return this._dataSourceMap.get(id);
+      } else {
+        let dataSource;
+        switch (configType) {
+          case 'mockStatic':
+            dataSource = this._createMockStaticDataSource(config);
+            break;
+          case 'mockDynamic':
+            dataSource = this._createMockDynamicDataSource(config);
+            break;
+        }
+        this._dataSourceMap.set(id, dataSource);
+        return dataSource;
       }
-      this._dataSourceMap.set(id, dataSource);
-      return dataSource;
     }
   }
 

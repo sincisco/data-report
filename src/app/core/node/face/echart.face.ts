@@ -1,7 +1,7 @@
 import {Type} from '@angular/core';
 
 import * as _ from 'lodash';
-import {DesignGraphicConfig} from '../source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../source/config.source/design.config.source';
 
 export abstract class EchartFace {
   protected _echart: Echart;

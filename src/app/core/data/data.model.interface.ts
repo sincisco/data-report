@@ -1,9 +1,12 @@
+import {IDataSource} from '../source/data.source/data.source';
+
 export interface Dimension {
   name: string;
   displayName?: string;
   comment?: string;
   type: 'number' | 'ordinal' | 'float' | 'int' | 'time';
 }
+
 
 /**
  *
@@ -24,6 +27,22 @@ export interface Dataset {
 export interface DatasetWrapper {
   name: string;
   displayName: string;
-  state: { collapsed: boolean };
-  dataset: Dataset;
+  state: { collapsedDimension: boolean, collapsedMeasure: boolean };
+  dimensions?: Array<Dimension>;
 }
+
+export interface IDataSourceOption {
+  id: string;
+  displayName: string;
+  comment: string;
+  [key: string]: any;
+}
+
+export interface IDataSourceItemRuntime {
+  classId: string;
+  id: string;
+  displayName: string;
+  comment: string;
+  dataSource: IDataSource;
+}
+

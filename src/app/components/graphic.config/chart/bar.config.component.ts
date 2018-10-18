@@ -7,10 +7,10 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {datasetManager} from '../../../core/dataset/dataset.manager';
+import {dataModelManager} from '../../../core/data/data.model.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
-import {DesignGraphicConfig} from '../../../core/node/source/config.source/design.config.source';
+import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
 
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';

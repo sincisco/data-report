@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import {Subject} from 'rxjs';
-import {ChangeItem, GraphicConfig} from '@core/node/source/config.source/graphic.config';
+import {ChangeItem, GraphicConfig} from './graphic.config';
 
 
 export class DesignGraphicConfig extends GraphicConfig {

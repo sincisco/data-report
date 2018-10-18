@@ -6,7 +6,7 @@ import {
 
 import {NzModalRef} from 'ng-zorro-antd';
 import * as _ from 'lodash';
-import {datasetManager} from '../../../core/dataset/dataset.manager';
+import {dataModelManager} from '../../../core/data/data.model.manager';
 
 @Component({
   selector: 'nz-modal-filter',
@@ -56,9 +56,9 @@ export class NzModalFilterComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(JSON.stringify(datasetManager.current.source),
+    console.log(JSON.stringify(dataModelManager.current.source),
       this.fieldName,
-      JSON.stringify(this.getFieldValueList(datasetManager.current.source, this.fieldName)));
-    this.list = this.getFieldValueList(datasetManager.current.source, this.fieldName);
+      JSON.stringify(this.getFieldValueList(dataModelManager.current.source, this.fieldName)));
+    this.list = this.getFieldValueList(dataModelManager.current.source, this.fieldName);
   }
 }
