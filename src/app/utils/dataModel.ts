@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import {dataModelManager} from '@core/data/data.model.manager';
 
 const windowMask = `
@@ -21,7 +20,11 @@ interface ContextMenuItem {
 function getTemplate() {
 
   const result = dataModelManager.list.reduce((previous, current) => {
-    return previous + `<li class="model-item" data-model-name="${current}">${current}<i class="u-icn u-icn-delete"></i><i class="u-icn u-icn-check"></i></li>`;
+    return previous +
+      `<li class="model-item" data-model-id="${current.id}">${current.displayName}
+<i class="u-icn u-icn-delete"></i>
+<i class="u-icn u-icn-check"></i>
+</li>`;
   }, '');
 
   return `
@@ -37,7 +40,7 @@ function getTemplate() {
 `;
 }
 
-class DataModelList {
+class DataModelPopupList {
   $mask: JQuery;
   $menu: JQuery;
 
@@ -51,16 +54,16 @@ class DataModelList {
     });
   }
 
-  open($event: MouseEvent, callback?: Function) {
-    console.log($event);
+  open(event: MouseEvent, callback?: Function) {
+    console.log(event);
     this.$menu = $(getTemplate());
     this.$menu.css({
-      left: `${(<HTMLElement>$event.target).offsetLeft}px`,
-      top: `${(<HTMLElement>$event.target).offsetTop + (<HTMLElement>$event.target).offsetHeight}px`
+      left: `${(<HTMLElement>event.target).offsetLeft}px`,
+      top: `${(<HTMLElement>event.target).offsetTop + (<HTMLElement>event.target).offsetHeight}px`
     });
     this.$menu.on('click', 'li.model-item', ($event) => {
-      console.log($event.currentTarget.dataset.modelName);
-      callback && callback($event.currentTarget.dataset.modelName);
+      console.log($event.currentTarget.dataset.modelId);
+      callback && callback($event.currentTarget.dataset.modelId);
       this.close();
 
       return false;
@@ -75,4 +78,4 @@ class DataModelList {
   }
 }
 
-export const dataModelList = new DataModelList();
+export const dataModelList = new DataModelPopupList();

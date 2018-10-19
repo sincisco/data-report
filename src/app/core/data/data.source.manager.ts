@@ -1,11 +1,10 @@
 import {IDataSource} from '../source/data.source/data.source';
 import {Type} from '@angular/core';
-import {IDataSourceItemRuntime, IDataSourceOption} from './data.model.interface';
-import {StaticDataSource} from '@core/source/data.source/static.data.source';
+import {IDataSourceItemRuntime} from './data.model.interface';
+import {IDataOptionOption} from '@core/data/data.option.interface';
 
 const map = new Map<string, Type<IDataSource>>();
 
-// map.set('staticDataSource', StaticDataSource);
 
 export class DataSourceManager {
   private _dataSourceArray: Array<IDataSourceItemRuntime> = [];
@@ -14,7 +13,7 @@ export class DataSourceManager {
     return this._dataSourceArray.slice(0);
   }
 
-  load(optionArray: Array<IDataSourceOption>) {
+  load(optionArray: Array<IDataOptionOption>) {
     optionArray.forEach((value, index, array) => {
       const {classId, id, displayName, comment} = value;
       if (map.has(classId)) {

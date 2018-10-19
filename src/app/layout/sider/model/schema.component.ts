@@ -13,7 +13,7 @@ import {NgForm} from '@angular/forms';
 import {TableSchema} from '../../../core/model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
 import {DataSet} from '../../../core/adapter/groupBy';
-import {DatasetWrapper} from '@core/data/data.model.interface';
+import {DataModel} from '@core/data/data.model.interface';
 import {dataModelManager} from '@core/data/data.model.manager';
 
 
@@ -34,7 +34,7 @@ type Dimensions = Array<Dimension | string>;
 })
 export class SchemaPillsComponent implements AfterViewInit, OnChanges {
   // schema: TableSchema = new TableSchema(demo);
-  datasetWrapper: DatasetWrapper;
+  datasetWrapper: DataModel;
 
   constructor() {
     this.datasetWrapper = dataModelManager.getDefaultDataset();
@@ -48,8 +48,8 @@ export class SchemaPillsComponent implements AfterViewInit, OnChanges {
       let cur = JSON.stringify(chng.currentValue);
       let prev = JSON.stringify(chng.previousValue);
       console.log('hhaahahahahhahah', prev, cur);
-      if (dataModelManager.getDataset(chng.currentValue)) {
-        this.datasetWrapper = dataModelManager.getDataset(chng.currentValue);
+      if (dataModelManager.getDataModel(chng.currentValue)) {
+        this.datasetWrapper = dataModelManager.getDataModel(chng.currentValue);
       }
     }
   }
@@ -74,7 +74,7 @@ export class SchemaPillsComponent implements AfterViewInit, OnChanges {
       $target.find('i').removeClass('u-icn-angle-right').addClass('u-icn-angle-right');
       $target.data('switch', 'true');
     }
-    $(`li[datasetname='${tableType + this.datasetWrapper.name}']`).toggle();
+    $(`li[datasetname='${tableType + this.datasetWrapper.id}']`).toggle();
   }
 }
 

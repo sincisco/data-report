@@ -17,15 +17,15 @@
   <div class="group group-dimensions group-auto">
     <div class="m-schemaList">
       <ul class="list list-item">
-          <li class="u-bitem u-bitem-table" [title]="datasetWrapper?.displayName"
-              (click)="tableClick($event)">
-            <i class="u-icn u-icn-angle-down" [class.u-icn-angle-right]="datasetWrapper.state.collapsedDimension"></i>{{datasetWrapper?.displayName}}
+          <li class="u-bitem u-bitem-table" [title]="dataModel?.displayName"
+              (click)="toggleList($event)">
+            <i class="u-icn u-icn-angle-down" [class.u-icn-angle-right]="dataModel?.state.collapsedDimension"></i>{{dataModel?.displayName}}
           </li>
-        <ng-container *ngFor="let item of datasetWrapper?.dataset.dimensions">
+        <ng-container *ngFor="let item of dataModel?.dimensions">
           <li *ngIf="item.type==='ordinal'"
               class="u-bitem j-pill-item j-item u-bitem-1 draggable" draggable="true"
               (dragstart)="doDragStart($event,item)"
-              [attr.fieldid]="item" [attr.datasetname]="datasetWrapper.name">
+              [attr.fieldid]="item" [attr.datamodelname]="dataModel.id">
               <span class="txt handle">
                 <i class="protect" style="display: none;">●</i>
                 <i class="u-icn u-icn-string"></i>

@@ -26,7 +26,7 @@
               <li *ngIf="item.type==='ordinal'"
                   class="u-bitem j-pill-item j-item u-bitem-1 draggable" draggable="true"
                   (dragstart)="doDragStart($event,item)"
-                  [attr.fieldid]="item" [attr.datasetname]="'dimensions'+datasetWrapper.name">
+                  [attr.fieldid]="item" [attr.datasetname]="'dimensions'+datasetWrapper.id">
                 <span class="txt handle">
                   <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-string"></i><b class="j-text">{{item.comment||item.name}}</b>
                 </span>
@@ -64,7 +64,7 @@
               <li *ngIf="item.type!=='ordinal'"
                   class="u-bitem j-pill-item j-item u-bitem-2 draggable" draggable="true"
                   (dragstart)="doDragStart($event,item)"
-                  [attr.fieldid]="item" [attr.datasetname]="'measures'+datasetWrapper.name">
+                  [attr.fieldid]="item" [attr.datasetname]="'measures'+datasetWrapper.id">
                 <span class="txt handle">
                   <i class="protect" style="display: none;">●</i><i class="u-icn u-icn-decimal"></i><b class="j-text">{{item.comment||item.name}}</b>
                 </span>

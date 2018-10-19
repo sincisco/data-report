@@ -1,19 +1,13 @@
 import {
   AfterViewInit,
   Component, ElementRef, HostBinding,
-  Input,
-  KeyValueDiffer,
-  KeyValueDiffers, OnChanges, OnDestroy,
-  OnInit,
+  Input, OnChanges, OnDestroy,
   SimpleChanges,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {NgForm} from '@angular/forms';
-import {TableSchema} from '../../../core/model/table.schema';
 import {draggableHeler} from '../../../utils/draggable.helper';
-import {DataSet} from '../../../core/adapter/groupBy';
-import {DatasetWrapper} from '@core/data/data.model.interface';
+import {DataModel} from '@core/data/data.model.interface';
 import {dataModelManager} from '@core/data/data.model.manager';
 
 
@@ -26,17 +20,17 @@ import {dataModelManager} from '@core/data/data.model.manager';
 export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy {
   private _$element: JQuery;
   // schema: TableSchema = new TableSchema(demo);
-  datasetWrapper: DatasetWrapper;
-
-  constructor(private _elementRef: ElementRef) {
-    this._$element = $(_elementRef.nativeElement);
-    this.datasetWrapper = dataModelManager.getDefaultDataset();
-  }
-
+  dataModel: DataModel;
 
   @Input() modelName: string;
 
   @HostBinding('class.measure-area') measureArea = true;
+
+  constructor(private _elementRef: ElementRef) {
+    this._$element = $(_elementRef.nativeElement);
+    this.dataModel = dataModelManager.getDefaultDataset();
+  }
+
 
   ngOnChanges(changes: SimpleChanges) {
     for (let propName in changes) {
@@ -44,8 +38,8 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
       let cur = JSON.stringify(chng.currentValue);
       let prev = JSON.stringify(chng.previousValue);
       console.log('hhaahahahahhahah', prev, cur);
-      if (dataModelManager.getDataset(chng.currentValue)) {
-        this.datasetWrapper = dataModelManager.getDataset(chng.currentValue);
+      if (dataModelManager.getDataModel(chng.currentValue)) {
+        this.dataModel = dataModelManager.getDataModel(chng.currentValue);
       }
     }
   }
@@ -60,12 +54,15 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
     draggableHeler.dragInfo = item;
   }
 
-  tableClick(event: MouseEvent) {
-    this.datasetWrapper.state.collapsedMeasure = !this.datasetWrapper.state.collapsedMeasure;
-    if (this.datasetWrapper.state.collapsedMeasure) {
-      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
-    } else {
-      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();
+  toggleList(event: MouseEvent) {
+    const dataModel = this.dataModel;
+    if (dataModel) {
+      this.dataModel.state.collapsedMeasure = !this.dataModel.state.collapsedMeasure;
+      if (this.dataModel.state.collapsedMeasure) {
+        this._$element.find(`li[datamodelname='${this.dataModel.id}']`).hide();
+      } else {
+        this._$element.find(`li[datamodelname='${this.dataModel.id}']`).show();
+      }
     }
   }
 

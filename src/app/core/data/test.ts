@@ -1,12 +1,13 @@
-import {IDataSourceOption} from './data.model.interface';
+import {IDataOptionOption} from '@core/data/data.option.interface';
 
-export const array: Array<IDataSourceOption> = [
+
+export const array: Array<IDataOptionOption> = [
   {
-    id: 'easy',
+    id: 'num1',
     displayName: '产品近三年销售额',
     comment: '没有任何建议',
     configType: 'mockDynamic',
-    dataType: 123,
+    dataType: 'array',
     dimensions: [{name: 'product', type: 'ordinal'}, {name: '2015', type: 'int'}, {name: '2016', type: 'int'}, {
       name: '2017',
       type: 'int'
@@ -31,7 +32,7 @@ export const array: Array<IDataSourceOption> = [
       }
     }
   }, {
-    id: '实时销售额',
+    id: 'num3',
     displayName: '实时销售额',
     comment: '没有任何建议',
     configType: 'mockDynamic',
@@ -40,20 +41,10 @@ export const array: Array<IDataSourceOption> = [
       dataGenerator: () => {
         return Math.floor(Math.random() * 10000000);
       }
-    }
+    },
+    dataType: 'single'
   }, {
-    id: '实时销售额',
-    displayName: '实时销售额',
-    comment: '没有任何建议',
-    configType: 'mockDynamic',
-    config: {
-      intervalTime: 5000,
-      dataGenerator: () => {
-        return Math.floor(Math.random() * 10000000);
-      }
-    }
-  }, {
-    id: 'table2',
+    id: 'num4',
     displayName: '985高校17年毕业生统计',
     comment: '没有任何建议',
     configType: 'mockDynamic',
@@ -127,6 +118,7 @@ export const array: Array<IDataSourceOption> = [
           ]
         };
       }
-    }
+    },
+    dataType: 'array'
   }
 ];

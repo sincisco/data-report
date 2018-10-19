@@ -35,7 +35,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
   private _differ: KeyValueDiffer<any, any>;
 
   constructor(private _differs: KeyValueDiffers, private appBody: DesignerBodyComponent, private http: HttpClient) {
-    this.modelName = dataModelManager.getDefaultDataset().displayName;
+    // this.modelName = dataModelManager.getDefaultDataset().displayName;
   }
 
   ngOnInit() {
@@ -93,7 +93,11 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
   }
 
-  doClick($event: MouseEvent) {
+  /**
+   * 切换当前激活Graphic组件的数据源
+   * @param {MouseEvent} $event
+   */
+  switchDataModel($event: MouseEvent) {
     dataModelList.open($event, (value: string) => {
       this.modelName = value;
     });

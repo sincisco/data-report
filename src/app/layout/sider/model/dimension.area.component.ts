@@ -1,16 +1,12 @@
 import {
   AfterViewInit,
   Component, ElementRef, HostBinding,
-  Input,
-  KeyValueDiffer,
-  KeyValueDiffers, OnChanges, OnDestroy,
-  OnInit,
+  Input, OnChanges, OnDestroy,
   SimpleChanges,
-  ViewChild,
   ViewEncapsulation
 } from '@angular/core';
 import {draggableHeler} from '../../../utils/draggable.helper';
-import {DatasetWrapper} from '@core/data/data.model.interface';
+import {DataModel} from '@core/data/data.model.interface';
 import {dataModelManager} from '@core/data/data.model.manager';
 import {fromEvent} from 'rxjs';
 
@@ -23,24 +19,22 @@ import {fromEvent} from 'rxjs';
 })
 export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestroy {
   private _$element: JQuery;
-  // schema: TableSchema = new TableSchema(demo);
-  datasetWrapper: DatasetWrapper;
-
-  constructor(private _elementRef: ElementRef) {
-    this._$element = $(_elementRef.nativeElement);
-    this.datasetWrapper = dataModelManager.getDefaultDataset();
-  }
-
+  dataModel: DataModel;
 
   @Input() modelName: string;
 
   @HostBinding('class.dimension-area') dimensionArea = true;
 
+  constructor(private _elementRef: ElementRef) {
+    this._$element = $(_elementRef.nativeElement);
+    this.dataModel = dataModelManager.getDefaultDataset();
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
-      const chng = changes[propName];
-      if (propName === 'modelName' && dataModelManager.getDataset(chng.currentValue)) {
-        this.datasetWrapper = dataModelManager.getDataset(chng.currentValue);
+      const changedItem = changes[propName];
+      if (propName === 'modelName' && dataModelManager.getDataModel(changedItem.currentValue)) {
+        this.dataModel = dataModelManager.getDataModel(changedItem.currentValue);
       }
     }
   }
@@ -74,12 +68,15 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
     return false;
   }
 
-  tableClick(event: MouseEvent) {
-    this.datasetWrapper.state.collapsedDimension = !this.datasetWrapper.state.collapsedDimension;
-    if (this.datasetWrapper.state.collapsedDimension) {
-      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).hide();
-    } else {
-      this._$element.find(`li[datasetname='${this.datasetWrapper.name}']`).show();
+  toggleList(event: MouseEvent) {
+    const dataModel = this.dataModel;
+    if (dataModel) {
+      dataModel.state.collapsedDimension = !dataModel.state.collapsedDimension;
+      if (this.dataModel.state.collapsedDimension) {
+        this._$element.find(`li[datamodelname='${dataModel.id}']`).hide();
+      } else {
+        this._$element.find(`li[datamodelname='${dataModel.id}']`).show();
+      }
     }
   }
 

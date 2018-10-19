@@ -1,9 +1,9 @@
 import {interval, Observable, of} from 'rxjs';
 import {map, publishBehavior, refCount} from 'rxjs/operators';
 import {MockDynamicDataSourceConfig} from './data.source.interface';
-import {array} from './test';
-import {dataModelManager} from './data.model.manager';
-import {IDataSourceOption} from './data.model.interface';
+import {DataOption} from '@core/data/data.option';
+import {dataModelManager} from '@core/data/data.model.manager';
+import {array} from '@core/data/test';
 
 export class DataSourceFactory {
 
@@ -11,32 +11,21 @@ export class DataSourceFactory {
 
   private _dataSourceMap = new Map<string, Observable<any>>();
 
+  // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
+  // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
+
   static getInstance() {
     if (!this._dataSourceFactory) {
-      this._dataSourceFactory = new DataSourceFactory(array);
-      array.forEach((value, index) => {
-        dataModelManager
-          .addDataset(value.id, value.displayName, {
-            // 这里指定了维度名的顺序，从而可以利用默认的维度到坐标轴的映射。
-            // 如果不指定 dimensions，也可以通过指定 series.encode 完成映射，参见后文。
-            dimensions: value.dimensions
-          });
-      });
+      this._dataSourceFactory = new DataSourceFactory();
     }
     return this._dataSourceFactory;
   }
 
-  constructor(private dataSourceOptions: Array<IDataSourceOption>) {
+  constructor() {
   }
 
 
-  get dataSourceArray(): Array<IDataSourceOption> {
-    return this.dataSourceOptions.slice(0);
-  }
-
-  getDataSource(optionID: string): Observable<any> {
-    const dataOption = this.dataSourceOptions.find((value, index, obj) => value.id === optionID);
-    // : { , configType: 'mockStatic' | 'mockDynamic', config: any }
+  getDataSource(dataOption: DataOption): Observable<any> {
     if (dataOption) {
       const {id, configType, config} = dataOption;
       if (this._dataSourceMap.has(id)) {
@@ -86,6 +75,11 @@ export class DataSourceFactory {
         refCount());
   }
 }
+
+// array.forEach((value, index) => {
+//   dataModelManager
+//     .addDataModel(value.id, value.displayName);
+// });
 
 
 

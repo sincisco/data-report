@@ -88,11 +88,11 @@ export class FlipNumberGraphic implements IGraphic {
       this.update(newValue);
     });
 
-    const dataSource = DataSourceFactory.getInstance().getDataSource('easy1');
-
-    dataSource.subscribe((data) => {
-      this._generateDom(data);
-    });
+    // const dataSource = DataSourceFactory.getInstance().getDataSource('easy1');
+    //
+    // dataSource.subscribe((data) => {
+    //   this._generateDom(data);
+    // });
 
     // this._internal = setInterval(() => {
     //   console.log(;

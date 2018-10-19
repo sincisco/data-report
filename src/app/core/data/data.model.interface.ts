@@ -8,6 +8,13 @@ export interface Dimension {
 }
 
 
+export interface DataModel {
+  id: string;
+  displayName: string;
+  state: { collapsedDimension: boolean, collapsedMeasure: boolean };
+  dimensions?: Array<Dimension>;
+}
+
 /**
  *
  *
@@ -24,19 +31,6 @@ export interface Dataset {
   sourceHeader?: null | undefined | boolean;
 }
 
-export interface DatasetWrapper {
-  name: string;
-  displayName: string;
-  state: { collapsedDimension: boolean, collapsedMeasure: boolean };
-  dimensions?: Array<Dimension>;
-}
-
-export interface IDataSourceOption {
-  id: string;
-  displayName: string;
-  comment: string;
-  [key: string]: any;
-}
 
 export interface IDataSourceItemRuntime {
   classId: string;
