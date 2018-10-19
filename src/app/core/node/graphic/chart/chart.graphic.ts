@@ -1,17 +1,17 @@
 import {ComponentRef, Type} from '@angular/core';
-import {RegionController} from '../../../region/region.controller';
-import {IGraphic} from '../../graphic';
-import {Chart} from '../../../graphic.view/chart/chart';
+import {RegionController} from '../../region/region.controller';
+import {IGraphic} from '../graphic';
+import {Chart} from '../../graphic.view/chart/chart';
 
-import {contextMenuHelper} from '../../../../../utils/contextMenu';
+import {contextMenuHelper} from '../../../../utils/contextMenu';
 
-import {DesignGraphicConfig} from '../../../../source/config.source/design.config.source';
-import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
-import {session} from '@core/node/utils/session';
-import {ModelSourceFactory} from '@core/model/model.source.factory';
-import {guid} from '@core/node/utils/tools';
-import {ModelEventTarget, OuterModelEventTarget} from '@core/node/event/model.event';
-import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
+import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
+import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
+import {session} from '../../utils/session';
+import {ModelSourceFactory} from '../../../model/model.source.factory';
+import {guid} from '../../utils/tools';
+import {ModelEventTarget, OuterModelEventTarget} from '../../event/model.event';
+import {GraphicConfigManager} from '../../../config/design/graphic.config.manager';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">

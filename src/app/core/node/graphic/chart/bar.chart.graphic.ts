@@ -1,11 +1,12 @@
-import {RegionController} from '../../../region/region.controller';
-import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
-import {BarSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/bar.series';
-import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
-import {Title} from '../../../graphic.view/chart/echart.interface/title';
+import {RegionController} from '../../region/region.controller';
+import {Grid} from '../../graphic.view/chart/echart.interface/grid';
+import {BarSeriesConfig} from '../../graphic.view/chart/echart.interface/series/bar.series';
+import {Axis} from '../../graphic.view/chart/echart.interface/axis';
+import {Title} from '../../graphic.view/chart/echart.interface/title';
 
-import {BarConfigComponent} from '../../../../../components/graphic.config/chart/bar.config.component';
-import {ChartGraphic} from '@core/node/graphic/design/chart/chart.graphic';
+import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
+import {ChartGraphic} from '@core/node/graphic/chart/chart.graphic';
+
 
 export interface ChartBarOption {
   title?: Title;

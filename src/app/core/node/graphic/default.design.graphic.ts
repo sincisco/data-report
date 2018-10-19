@@ -1,10 +1,10 @@
-import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
-import {DataSource} from '../../../source/data.source/data.source';
-import {IGraphic} from '../graphic';
-import {IGraphicView} from '@core/node/graphic.view/graphic.view';
+import {DesignGraphicConfig} from '../../source/config.source/design.config.source';
+import {DataSource} from '../../source/data.source/data.source';
+import {IGraphic} from './graphic';
+import {IGraphicView} from '../graphic.view/graphic.view';
 import {ComponentRef} from '@angular/core';
-import {GraphicConfig} from '@core/config/design/graphic.config';
-import {session} from '@core/node/utils/session';
+import {GraphicConfig} from '../../config/design/graphic.config';
+import {session} from '../utils/session';
 
 export abstract class DefaultDesignGraphic implements IGraphic {
   $element: JQuery;

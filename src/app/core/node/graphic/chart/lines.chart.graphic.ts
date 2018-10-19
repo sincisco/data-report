@@ -1,11 +1,11 @@
-import {RegionController} from '../../../region/region.controller';
-import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
-import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
-import {Title} from '../../../graphic.view/chart/echart.interface/title';
-import {LineSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/line.series';
-import {ChartGraphic} from '@core/node/graphic/design/chart/chart.graphic';
-import {LineConfigComponent} from '../../../../../components/graphic.config/chart/line.config.component';
-import {session} from '@core/node/utils/session';
+import {RegionController} from '../../region/region.controller';
+import {Grid} from '../../graphic.view/chart/echart.interface/grid';
+import {Axis} from '../../graphic.view/chart/echart.interface/axis';
+import {Title} from '../../graphic.view/chart/echart.interface/title';
+import {LineSeriesConfig} from '../../graphic.view/chart/echart.interface/series/line.series';
+import {LineConfigComponent} from '../../../../components/graphic.config/chart/line.config.component';
+import {session} from '../../utils/session';
+import {ChartGraphic} from '@core/node/graphic/chart/chart.graphic';
 
 export interface ChartLineOption {
   title?: Title;

@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 type KeyValueListener = (key: string, oldValue: any, newValue: any, option?: any) => void;
 
@@ -21,7 +21,7 @@ export abstract class GraphicConfig {
   exportOption() {
   }
 
-  get configSource() {
+  get configSource(): Observable<any> {
     return this._subject;
   }
 

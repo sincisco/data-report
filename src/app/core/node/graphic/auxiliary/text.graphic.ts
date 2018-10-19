@@ -1,9 +1,9 @@
-import {TextAuxiliary} from '../../../graphic.view/auxiliary/text.auxiliary';
-import {TextConfigComponent} from '../../../../../components/graphic.config/auxiliary/text.config.component';
-import {RegionController} from '../../../region/region.controller';
-import {IGraphicView} from '../../../graphic.view/graphic.view';
-import {DefaultDesignGraphic} from '@core/node/graphic/design/default.design.graphic';
-import {session} from '@core/node/utils/session';
+import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
+import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
+import {RegionController} from '../../region/region.controller';
+import {IGraphicView} from '../../graphic.view/graphic.view';
+import {DefaultDesignGraphic} from '../default.design.graphic';
+import {session} from '../../utils/session';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">

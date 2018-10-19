@@ -1,12 +1,12 @@
-import {Title} from '../../../graphic.view/chart/echart.interface/title';
-import {Grid} from '../../../graphic.view/chart/echart.interface/grid';
-import {Axis} from '../../../graphic.view/chart/echart.interface/axis';
-import {ChartGraphic} from '@core/node/graphic/design/chart/chart.graphic';
-import {RegionController} from '../../../region/region.controller';
-import {LineSeriesConfig} from '../../../graphic.view/chart/echart.interface/series/line.series';
-import {Chart} from '../../../graphic.view/chart/chart';
-import {FlipBarConfigComponent} from '../../../../../components/graphic.config/chart/flip.bar.config.component';
-import {session} from '@core/node/utils/session';
+import {Title} from '../../graphic.view/chart/echart.interface/title';
+import {Grid} from '../../graphic.view/chart/echart.interface/grid';
+import {Axis} from '../../graphic.view/chart/echart.interface/axis';
+import {RegionController} from '../../region/region.controller';
+import {LineSeriesConfig} from '../../graphic.view/chart/echart.interface/series/line.series';
+import {Chart} from '../../graphic.view/chart/chart';
+import {FlipBarConfigComponent} from '../../../../components/graphic.config/chart/flip.bar.config.component';
+import {session} from '../../utils/session';
+import {ChartGraphic} from '@core/node/graphic/chart/chart.graphic';
 
 
 export interface ChartLineOption {

@@ -1,9 +1,9 @@
-import {CommentAuxiliary} from '../../../graphic.view/auxiliary/comment.auxiliary';
-import {CommentConfigComponent} from '../../../../../components/graphic.config/auxiliary/comment.config.component';
-import {IGraphicView} from '../../../graphic.view/graphic.view';
-import {RegionController} from '../../../region/region.controller';
-import {DefaultDesignGraphic} from '@core/node/graphic/design/default.design.graphic';
-import {session} from '@core/node/utils/session';
+import {CommentAuxiliary} from '../../graphic.view/auxiliary/comment.auxiliary';
+import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
+import {IGraphicView} from '../../graphic.view/graphic.view';
+import {RegionController} from '../../region/region.controller';
+import {DefaultDesignGraphic} from '../default.design.graphic';
+import {session} from '../../utils/session';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">
