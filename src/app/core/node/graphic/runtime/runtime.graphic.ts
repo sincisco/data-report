@@ -1,5 +1,5 @@
 import {RuntimeConfigSource} from '../../../source/config.source/runtime.config.source';
-import {GraphicConfig} from '@core/source/config.source/graphic.config';
+import {GraphicConfig} from '@core/config/design/graphic.config';
 
 export interface IRuntimeGraphic {
   $element: JQuery;

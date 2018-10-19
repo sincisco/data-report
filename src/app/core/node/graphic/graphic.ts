@@ -1,4 +1,4 @@
-import {GraphicConfig} from '@core/source/config.source/graphic.config';
+import {GraphicConfig} from '@core/config/design/graphic.config';
 
 export interface IGraphic {
   $element: JQuery;

@@ -10,8 +10,8 @@ import {BarConfigComponent} from '../../../../../components/graphic.config/chart
 import {session} from '@core/node/utils/session';
 import {ModelSourceFactory} from '@core/model/model.source.factory';
 import {guid} from '@core/node/utils/tools';
-import {GraphicConfigManager} from '@core/config/design.config.source.factory';
 import {ModelEventTarget, OuterModelEventTarget} from '@core/node/event/model.event';
+import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
