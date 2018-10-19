@@ -3,7 +3,6 @@ import {ReportPage} from '@core/node/page/report/page';
 import {Split} from '@core/node/page/dashboard/split';
 import {DashboardCanvas} from '@core/node/page/dashboard/dashboard.canvas';
 import {session} from '@core/node/utils/session';
-import {Runtime} from '@core/runtime/runtime';
 import {customGraphicMeta, graphicFactory} from '@core/node/factory/graphic.factory';
 import * as _ from 'lodash';
 import {grabHelper} from './designer.header.component';
