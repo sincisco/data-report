@@ -35,6 +35,7 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
       const changedItem = changes[propName];
       if (propName === 'modelName' && dataModelManager.getDataModel(changedItem.currentValue)) {
         this.dataModel = dataModelManager.getDataModel(changedItem.currentValue);
+        console.log(this.dataModel);
       }
     }
   }

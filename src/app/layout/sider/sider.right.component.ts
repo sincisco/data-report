@@ -4,6 +4,9 @@ import {DesignerBodyComponent} from '../designer.body.component';
 import {dataModelList} from '../../utils/dataModel';
 import {dataModelManager} from '@core/data/data.model.manager';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {array} from '@core/data/test';
+import {DataOptionSet} from '@core/data/data.option.set';
+import {DataOptionManager} from '@core/data/data.option.manager';
 
 @Component({
   selector: 'app-sider-right',
@@ -30,7 +33,11 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
     }
   };
 
-  modelName = '未选择任何model';
+  modelID: string;
+
+  get modelName() {
+    return dataModelManager.getDataModel(this.modelID) ? dataModelManager.getDataModel(this.modelID).displayName : '未选择任何model';
+  }
 
   private _differ: KeyValueDiffer<any, any>;
 
@@ -48,48 +55,53 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
 
   ngAfterViewInit() {
-/*
-    this.http.get('http://10.2.78.207:8080/table/total')
-      .subscribe((data: any) => console.log(data));
 
-    // , {
-    //       headers: new HttpHeaders({'Content-Type': 'application/json'}),
-    //       withCredentials: true
-    //     }
-    this.http.post('http://10.2.78.207:8080/table/query', {tableName: 'alumni_list'})
-      .subscribe((data: any) => {
-        console.log(data);
-        let dimensions = data.data.dimensions;
-        dimensions = dimensions.map((value) => {
-          value.type = value.type === 'INT' ? 'int' : 'ordinal';
-          return value;
-        });
+    DataOptionManager.getInstance().addDataOptionSet('space1', new DataOptionSet(array));
 
-        dataModelManager.addDataset(data.data.id, '中国大学杰出校友排行榜', {
-          dimensions,
-          source: data.data.source
-        });
+    dataModelManager.dataOptionSet = DataOptionManager.getInstance().getDataOptionSet('space1');
 
-        console.log(dimensions);
-      });
-    this.http.post('http://10.2.78.207:8080/table/query', {tableName: 'young_people_list'})
-      .subscribe((data: any) => {
-        console.log(data);
-        let dimensions = data.data.dimensions;
-        dimensions = dimensions.map((value) => {
-          value.type = value.type === 'INT' ? 'int' : 'ordinal';
-          return value;
-        });
+    /*
+        this.http.get('http://10.2.78.207:8080/table/total')
+          .subscribe((data: any) => console.log(data));
 
-        dataModelManager.addDataset(data.data.id, '各大学国家杰出青年入选数量', {
-          dimensions,
-          source: data.data.source
-        });
+        // , {
+        //       headers: new HttpHeaders({'Content-Type': 'application/json'}),
+        //       withCredentials: true
+        //     }
+        this.http.post('http://10.2.78.207:8080/table/query', {tableName: 'alumni_list'})
+          .subscribe((data: any) => {
+            console.log(data);
+            let dimensions = data.data.dimensions;
+            dimensions = dimensions.map((value) => {
+              value.type = value.type === 'INT' ? 'int' : 'ordinal';
+              return value;
+            });
 
-        console.log(dimensions);
-      });
+            dataModelManager.addDataset(data.data.id, '中国大学杰出校友排行榜', {
+              dimensions,
+              source: data.data.source
+            });
 
-*/
+            console.log(dimensions);
+          });
+        this.http.post('http://10.2.78.207:8080/table/query', {tableName: 'young_people_list'})
+          .subscribe((data: any) => {
+            console.log(data);
+            let dimensions = data.data.dimensions;
+            dimensions = dimensions.map((value) => {
+              value.type = value.type === 'INT' ? 'int' : 'ordinal';
+              return value;
+            });
+
+            dataModelManager.addDataset(data.data.id, '各大学国家杰出青年入选数量', {
+              dimensions,
+              source: data.data.source
+            });
+
+            console.log(dimensions);
+          });
+
+    */
 
   }
 
@@ -98,8 +110,8 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
    * @param {MouseEvent} $event
    */
   switchDataModel($event: MouseEvent) {
-    dataModelList.open($event, (value: string) => {
-      this.modelName = value;
+    dataModelList.open($event, (modelID: string) => {
+      this.modelID = modelID;
     });
   }
 

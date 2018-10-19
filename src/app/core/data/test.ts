@@ -48,6 +48,29 @@ export const array: Array<IDataOptionOption> = [
     displayName: '985高校17年毕业生统计',
     comment: '没有任何建议',
     configType: 'mockDynamic',
+    dimensions: [
+      {
+        name: '学校',
+        type: 'ordinal'
+      }, {
+        name: '省份',
+        type: 'ordinal'
+      }, {
+        name: '城市',
+        type: 'ordinal'
+      }, {
+        name: '本科毕业生人数',
+        type: 'int'
+      }, {
+        name: '硕士毕业生人数',
+        type: 'int'
+      }, {
+        name: '博士毕业生人数',
+        type: 'int'
+      }, {
+        name: '毕业生人数',
+        type: 'int'
+      }],
     config: {
       intervalTime: 5000,
       dataGenerator: () => {

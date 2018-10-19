@@ -24,4 +24,8 @@ export class DataOption {
   get config() {
     return this._option.config;
   }
+
+  get dimensions() {
+    return this._option.dimensions;
+  }
 }

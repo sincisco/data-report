@@ -40,6 +40,7 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
       console.log('hhaahahahahhahah', prev, cur);
       if (dataModelManager.getDataModel(chng.currentValue)) {
         this.dataModel = dataModelManager.getDataModel(chng.currentValue);
+        console.log(this.dataModel);
       }
     }
   }

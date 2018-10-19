@@ -7,14 +7,14 @@ import {DataOptionSet} from '@core/data/data.option.set';
  */
 class DataModelManager {
   private _map: Map<string, DataModel> = new Map();
-  private _currentDatasetWrapper: DataModel;
+  private _currentDataModel: DataModel;
 
   private _dataOptionSet: DataOptionSet;
 
-  set detaOptionSet(value: DataOptionSet) {
+  set dataOptionSet(value: DataOptionSet) {
     if (value) {
-      this._dataOptionSet.dataOptionArray.forEach((dataOption) => {
-        this.addDataModel(dataOption.id, dataOption.displayName);
+      value.dataOptionArray.forEach((dataOption) => {
+        this.addDataModel(dataOption.id, dataOption.displayName, dataOption.dimensions);
       });
       this._dataOptionSet = value;
     }
@@ -24,10 +24,11 @@ class DataModelManager {
 
   }
 
-  addDataModel(id: string, displayName: string) {
+  addDataModel(id: string, displayName: string, dimensions: any) {
     this._map.set(id, {
       id,
       displayName,
+      dimensions,
       state: {collapsedDimension: false, collapsedMeasure: false}
     });
     return this;
@@ -49,7 +50,7 @@ class DataModelManager {
   }
 
   getDataModel(id: string): DataModel {
-    return this._currentDatasetWrapper = this._map.get(id);
+    return this._currentDataModel = this._map.get(id);
   }
 
   clear() {
