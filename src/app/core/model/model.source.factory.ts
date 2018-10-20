@@ -33,10 +33,10 @@ export class ModelSourceFactory {
   constructor(modelSourceFactoryType: 'design' | 'runtime') {
     switch (modelSourceFactoryType) {
       case 'design':
-        this._configSourceFactory = new DesignConfigSourceFactory();
+        this._configSourceFactory = DesignConfigSourceFactory.getInstance();
         break;
       case 'runtime':
-        this._configSourceFactory = new RuntimeConfigSourceFactory();
+        this._configSourceFactory = RuntimeConfigSourceFactory.getInstance();
         break;
     }
   }

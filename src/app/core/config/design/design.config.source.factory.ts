@@ -16,6 +16,9 @@ export class DesignConfigSourceFactory implements IConfigSourceFactory {
     return this._configSourceFactory;
   }
 
+  private constructor() {
+  }
+
   getConfigSource(configOption: { graphicId: string, graphicConfigClass: Type<DesignGraphicConfig>, option: any }) {
     const {graphicId, graphicConfigClass, option} = configOption,
       configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
