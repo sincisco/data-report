@@ -2,7 +2,7 @@ import {CommentAuxiliary} from '../../graphic.view/auxiliary/comment.auxiliary';
 import {CommentConfigComponent} from '../../../../components/graphic.config/auxiliary/comment.config.component';
 import {IGraphicView} from '../../graphic.view/graphic.view';
 import {RegionController} from '../../region/region.controller';
-import {DefaultDesignGraphic} from '../default.design.graphic';
+import {DefaultGraphic} from '../default.graphic';
 import {session} from '../../utils/session';
 
 const template = `
@@ -12,7 +12,7 @@ const template = `
 </div>
 `;
 
-export class CommentGraphic extends DefaultDesignGraphic {
+export class CommentGraphic extends DefaultGraphic {
   $element: JQuery;
   private _$frame: JQuery;
 

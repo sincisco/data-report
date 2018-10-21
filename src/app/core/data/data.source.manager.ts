@@ -1,37 +1,33 @@
-import {IDataSource} from '../source/data.source/data.source';
-import {Type} from '@angular/core';
-import {IDataSourceItemRuntime} from './data.model.interface';
 import {IDataOptionOption} from '@core/data/data.option.interface';
-
-const map = new Map<string, Type<IDataSource>>();
-
+import {Observable} from 'rxjs';
+import {DataOptionSet} from '@core/data/data.option.set';
+import {DataSourceFactory} from '@core/data/data.source.factory';
 
 export class DataSourceManager {
-  private _dataSourceArray: Array<IDataSourceItemRuntime> = [];
+  private _dataSourceMap: Map<string, Observable<any>> = new Map();
 
-  get dataSourceArray(): Array<IDataSourceItemRuntime> {
-    return this._dataSourceArray.slice(0);
+  constructor(private _dataOptionSet: DataOptionSet) {
+
   }
 
   load(optionArray: Array<IDataOptionOption>) {
-    optionArray.forEach((value, index, array) => {
-      const {classId, id, displayName, comment} = value;
-      if (map.has(classId)) {
-        const dataSourceClass = map.get(classId);
-        this._dataSourceArray.push({
-          classId,
-          id,
-          displayName,
-          comment,
-          dataSource: new dataSourceClass(value)
-        });
-      }
-    });
+
   }
 
-  getDataSourceByID(id: string): IDataSource {
-    return this._dataSourceArray.find((value, index) => {
-      return value.id === id ? true : false;
-    }).dataSource;
+  clear() {
+
+  }
+
+  getDataSourceByID(id: string): Observable<any> {
+    if (this._dataSourceMap.has(id)) {
+      return this._dataSourceMap.get(id);
+    } else if (this._dataOptionSet.getDataOption(id)) {
+      const dataSource = DataSourceFactory
+        .getInstance()
+        .getDataSource(this._dataOptionSet.getDataOption(id));
+      this._dataSourceMap.set(id, dataSource);
+      return dataSource;
+    }
+    return null;
   }
 }

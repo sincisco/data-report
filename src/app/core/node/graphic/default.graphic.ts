@@ -6,7 +6,7 @@ import {ComponentRef} from '@angular/core';
 import {GraphicConfig} from '../../config/design/graphic.config';
 import {session} from '../utils/session';
 
-export abstract class DefaultDesignGraphic implements IGraphic {
+export abstract class DefaultGraphic implements IGraphic {
   $element: JQuery;
 
   protected _view: IGraphicView;

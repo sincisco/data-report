@@ -30,13 +30,3 @@ export interface Dataset {
   dimensions?: Array<Dimension>;
   sourceHeader?: null | undefined | boolean;
 }
-
-
-export interface IDataSourceItemRuntime {
-  classId: string;
-  id: string;
-  displayName: string;
-  comment: string;
-  dataSource: IDataSource;
-}
-

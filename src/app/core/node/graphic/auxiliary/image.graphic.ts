@@ -2,7 +2,7 @@ import {ImageAuxiliary} from '../../graphic.view/auxiliary/image.auxiliary';
 import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
 import {IGraphicView} from '../../graphic.view/graphic.view';
 import {RegionController} from '../../region/region.controller';
-import {DefaultDesignGraphic} from '../default.design.graphic';
+import {DefaultGraphic} from '../default.graphic';
 import {session} from '../../utils/session';
 
 
@@ -14,7 +14,7 @@ const template = `
 </div>
 `;
 
-export class ImageGraphic extends DefaultDesignGraphic {
+export class ImageGraphic extends DefaultGraphic {
   $element: JQuery;
 
   constructor(private _region: RegionController) {

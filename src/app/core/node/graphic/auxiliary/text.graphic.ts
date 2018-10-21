@@ -2,7 +2,7 @@ import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
 import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
 import {RegionController} from '../../region/region.controller';
 import {IGraphicView} from '../../graphic.view/graphic.view';
-import {DefaultDesignGraphic} from '../default.design.graphic';
+import {DefaultGraphic} from '../default.graphic';
 import {session} from '../../utils/session';
 
 const template = `
@@ -12,7 +12,7 @@ const template = `
 </div>
 `;
 
-export class TextGraphic extends DefaultDesignGraphic {
+export class TextGraphic extends DefaultGraphic {
   $element: JQuery;
 
   constructor(private _region: RegionController) {

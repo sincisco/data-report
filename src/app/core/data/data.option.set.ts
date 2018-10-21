@@ -26,6 +26,12 @@ export class DataOptionSet {
     }
   }
 
+  getDataOption(id: string): DataOption {
+    return this._array.find((value) => {
+      return value.id === id;
+    }) || (this._parent ? this._parent.getDataOption(id) : null);
+  }
+
   load(dataOptionOptionArray: IDataOptionOption | Array<IDataOptionOption>) {
     if (_.isArray(dataOptionOptionArray)) {
       dataOptionOptionArray.forEach((value) => {

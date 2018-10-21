@@ -21,7 +21,7 @@ export class DataSourceFactory {
     return this._dataSourceFactory;
   }
 
-  constructor() {
+  private constructor() {
   }
 
 
