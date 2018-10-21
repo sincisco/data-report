@@ -1,4 +1,5 @@
 import {GraphicConfig} from '@core/config/design/graphic.config';
+import {Observable, Subscription} from 'rxjs';
 
 export interface IGraphic {
   $element: JQuery;
@@ -14,16 +15,13 @@ export interface IGraphic {
    */
   init(option?: any, runtime?: boolean);
 
-  // 激活配置面板
-  activateConfig();
+  accept(modelObservable: Observable<any>): Subscription;
 
   /**
    * 更新全局样式 目前只有Echart图表使用的到
    * @param {string} theme
    */
   updateTheme(theme: string);
-
-  getOption();
 
   resize();
 

@@ -1,7 +1,9 @@
 import {IGraphic} from '@core/node/graphic/graphic';
-import {Subscription} from 'rxjs';
+import {combineLatest, Observable, Subscription} from 'rxjs';
 import {RegionController} from '@core/node/region/region.controller';
 import {guid} from '@core/node/utils/tools';
+import {graphicMap} from '@core/node/config/graphic.map';
+
 
 /**
  *
@@ -11,8 +13,8 @@ export class GraphicWrapper {
 
   private _uuid: string;
   private _graphic: IGraphic;
-  private _configSource;
-  private _dataSource;
+  private _configSource: Observable<any>;
+  private _dataSource: Observable<any>;
 
   private _subscription: Subscription;
 
@@ -20,13 +22,33 @@ export class GraphicWrapper {
     this._uuid = this._uuid = guid(10, 16);
   }
 
+  /**
+   * 创建Graphic
+   *  $element属性可用
+   * 创建ConfigSource
+   * 创建DataSource
+   * @param option
+   */
   init(option) {
+    const {graphicClass, configSourceOption, dataOptionId} = option;
+    if (graphicMap.has(graphicClass)) {
+      const _graphicClass = graphicMap.get(graphicClass);
+      this._graphic = new _graphicClass();
+      this._graphic.init();
+      this._region.addChild(this);
+    }
+    this._configSource = this._region.page.configSourceManager.getMockConfigSource(configSourceOption);
+    this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
 
-    this._configSource = this._region.page.configSourceFactory.getConfigSource(option);
-
+    this._graphic.accept(combineLatest(this._configSource, this._dataSource));
   }
 
-  switchDataSource() {
+  switchDataSource(dataOptionID: string) {
+    if (this._subscription) {
+      this._subscription.unsubscribe();
+    }
+    this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionID);
+    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource));
   }
 
   // 激活配置面板
@@ -38,26 +60,38 @@ export class GraphicWrapper {
 
   }
 
+  get $element() {
+    return this._graphic.$element;
+  }
+
   /**
    * 更新全局样式 目前只有Echart图表使用的到
    * @param {string} theme
    */
   updateTheme(theme: string) {
-
+    if (this._graphic) {
+      this.updateTheme(theme);
+    }
   }
 
 
   resize() {
-
+    if (this._graphic) {
+      this.resize();
+    }
   }
 
   // 图标进入交互状态
   activate() {
-
+    if (this._graphic) {
+      this.activate();
+    }
   }
 
   deactivate() {
-
+    if (this._graphic) {
+      this.deactivate();
+    }
   }
 
   destroy() {

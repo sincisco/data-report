@@ -8,6 +8,7 @@ import {DesignGraphicConfig} from '../../../source/config.source/design.config.s
 import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 import {session} from '../../utils/session';
+import {Observable} from 'rxjs';
 
 const template = `
 <div class="time-chart-container" 
@@ -36,8 +37,6 @@ export class Info1Graphic implements IGraphic {
    */
   constructor(region: RegionController) {
     this.$element = $(template);
-
-    region.addChild(this);
   }
 
   init(option?: any) {
@@ -52,6 +51,10 @@ export class Info1Graphic implements IGraphic {
     this._internal = setInterval(() => {
       this.$element.find('span').text(Math.floor(Math.random() * 1000000));
     }, 1000);
+  }
+
+  accept(model: Observable<any>) {
+    return null;
   }
 
   getOption() {

@@ -20,8 +20,6 @@ export class CommentGraphic extends DefaultGraphic {
     super('comment.graphic');
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
-
-    _region.addChild(this);
   }
 
   get configSource() {

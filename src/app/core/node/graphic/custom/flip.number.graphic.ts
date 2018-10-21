@@ -8,6 +8,7 @@ import {BarConfigComponent} from '../../../../components/graphic.config/chart/ba
 import * as _ from 'lodash';
 import {session} from '../../utils/session';
 import {DataSourceFactory} from '../../../data/data.source.factory';
+import {Observable} from 'rxjs';
 
 const template = `
 <div class="flip-number-warpper" style="justify-content: center;">
@@ -75,8 +76,10 @@ export class FlipNumberGraphic implements IGraphic {
    */
   constructor(region: RegionController) {
     this.$element = $(template);
+  }
 
-    region.addChild(this);
+  accept(model: Observable<any>) {
+    return null;
   }
 
   init(option?: any) {

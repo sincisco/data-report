@@ -18,8 +18,6 @@ export class TextGraphic extends DefaultGraphic {
   constructor(private _region: RegionController) {
     super('text.graphic');
     this.$element = $(template);
-
-    _region.addChild(this);
   }
 
   addChild(view: IGraphicView) {

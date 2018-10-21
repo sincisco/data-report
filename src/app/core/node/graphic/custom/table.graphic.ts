@@ -8,6 +8,7 @@ import {DesignGraphicConfig} from '../../../source/config.source/design.config.s
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 import {TableDataSubject} from '../../../source/data.source/mock/table.data.subject';
 import {session} from '../../utils/session';
+import {Observable} from 'rxjs';
 
 const template = `
 <div class="demo">
@@ -34,8 +35,6 @@ export class TableGraphic implements IGraphic {
    */
   constructor(region: RegionController) {
     this.$element = $(template);
-
-    region.addChild(this);
   }
 
   init(option?: any) {
@@ -68,6 +67,10 @@ export class TableGraphic implements IGraphic {
         return `<td>${value[fieldDef.name]}</td>`;
       }).join('')}</tr>`;
     }).join('');
+  }
+
+  accept(model: Observable<any>) {
+    return null;
   }
 
   getOption() {

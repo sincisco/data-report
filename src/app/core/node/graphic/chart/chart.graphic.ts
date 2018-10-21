@@ -12,6 +12,7 @@ import {ModelSourceFactory} from '../../../model/model.source.factory';
 import {guid} from '../../utils/tools';
 import {ModelEventTarget, OuterModelEventTarget} from '../../event/model.event';
 import {GraphicConfigManager} from '../../../config/design/graphic.config.manager';
+import {Observable} from 'rxjs';
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -52,8 +53,6 @@ export abstract class ChartGraphic implements IGraphic {
     this._$frame = this.$element.find('.frame');
     this._$toolbar = this.$element.find('.m-graphic-toolbar');
 
-    region.addChild(this);
-
     this._bindToolbarEvent();
   }
 
@@ -93,6 +92,10 @@ export abstract class ChartGraphic implements IGraphic {
   }
 
   abstract getOption();
+
+  accept(model: Observable<any>) {
+    return null;
+  }
 
   addChild(chart: Chart) {
     this._chart = chart;

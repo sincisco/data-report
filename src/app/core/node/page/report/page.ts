@@ -12,15 +12,15 @@ import {PageView} from '@core/node/page/report/page.view';
 import {RegionManager} from '@core/node/manager/region.manager';
 import {ActivateManager} from '@core/node/manager/activate.manager';
 import {session} from '@core/node/utils/session';
-import {IConfigSourceFactory} from '@core/config/config.source.factory';
 import {DataSourceManager} from '@core/data/data.source.manager';
+import {ConfigSourceManager} from '@core/config/config.source.manager';
 
 export class ReportPage extends PageView implements IPage {
 
   public regionManager: RegionManager;
   public selectManager: ISelectManager;
   public activateManager: ActivateManager;
-  public configSourceFactory: IConfigSourceFactory;
+  public configSourceManager: ConfigSourceManager;
   public dataSourceManager: DataSourceManager;
 
   static builder(): ReportPage {

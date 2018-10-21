@@ -2,10 +2,11 @@ import {IGraphic} from '../graphic/graphic';
 import {ReportPage} from '@core/node/page/report/page';
 import {RegionModel, RegionState} from '@core/node/region/region.model';
 import {RegionView} from '@core/node/region/region.view';
+import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
 
 
 export const reportGlobal: {
-  instance: IGraphic
+  instance: GraphicWrapper
 } = {
   instance: null
 };
@@ -16,7 +17,7 @@ export abstract class RegionController {
   protected _page: ReportPage;
   protected _model: RegionModel;
   protected _view: RegionView;
-  protected _graphic: IGraphic;
+  protected _graphic: GraphicWrapper;
 
   get $element() {
     return this._view.$element;
@@ -38,7 +39,7 @@ export abstract class RegionController {
    * 模型层关联，展现层关联
    * @param {IGraphic} graphic
    */
-  addChild(graphic: IGraphic) {
+  addChild(graphic: GraphicWrapper) {
     this._graphic = graphic;
     this._view.$fill.append(graphic.$element);
   }

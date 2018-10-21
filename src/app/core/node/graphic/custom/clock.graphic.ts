@@ -8,6 +8,7 @@ import {DesignGraphicConfig} from '../../../source/config.source/design.config.s
 import * as moment from 'moment';
 import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 import {session} from '../../utils/session';
+import {Observable} from 'rxjs';
 
 const template = `
 <div class="time-chart-container" 
@@ -36,8 +37,10 @@ export class ClockGraphic implements IGraphic {
    */
   constructor(region: RegionController) {
     this.$element = $(template);
+  }
 
-    region.addChild(this);
+  accept(model: Observable<any>) {
+    return null;
   }
 
   init(option?: any) {

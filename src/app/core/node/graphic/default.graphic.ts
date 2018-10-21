@@ -5,6 +5,7 @@ import {IGraphicView} from '../graphic.view/graphic.view';
 import {ComponentRef} from '@angular/core';
 import {GraphicConfig} from '../../config/design/graphic.config';
 import {session} from '../utils/session';
+import {Observable} from 'rxjs';
 
 export abstract class DefaultGraphic implements IGraphic {
   $element: JQuery;
@@ -12,7 +13,7 @@ export abstract class DefaultGraphic implements IGraphic {
   protected _view: IGraphicView;
   protected _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
-  protected constructor(protected _graphicClass: string){
+  protected constructor(protected _graphicClass: string) {
 
   }
 
@@ -32,6 +33,10 @@ export abstract class DefaultGraphic implements IGraphic {
    * @param option
    */
   abstract init(option?: any, runtime?: boolean);
+
+  accept(model: Observable<any>) {
+    return null;
+  }
 
   /**
    * 更新全局样式 目前只有Echart图表使用的到

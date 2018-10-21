@@ -20,8 +20,6 @@ export class ImageGraphic extends DefaultGraphic {
   constructor(private _region: RegionController) {
     super('image.graphic');
     this.$element = $(template);
-
-    _region.addChild(this);
   }
 
   addChild(view: IGraphicView) {
