@@ -4,8 +4,6 @@ import {TextGraphic} from '@core/node/graphic/auxiliary/text.graphic';
 import {CommentRegion} from '@core/node/region/comment/comment.region';
 import {CommentGraphic} from '@core/node/graphic/auxiliary/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
-import {BarChartGraphic} from '@core/node/graphic/chart/bar.chart.graphic';
-import {graphicMap} from '@core/node/config/graphic.map';
 import {session} from '@core/node/utils/session';
 import {LineChartGraphic} from '@core/node/graphic/chart/line.chart.graphic';
 import {PieChartGraphic} from '@core/node/graphic/chart/pie.chart.graphic';
@@ -20,6 +18,7 @@ import {RingChartGraphic} from '@core/node/graphic/chart/ring.chart.graphic';
 import {FlipBarChartGraphic} from '@core/node/graphic/chart/flip.bar.chart.graphic';
 import {GaugeChartGraphic} from '@core/node/graphic/chart/gauge.chart.graphic';
 import {WordCloudChartGraphic} from '@core/node/graphic/chart/word.cloud.chart.graphic';
+import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
 
 
 interface GraphicMeta {
@@ -42,7 +41,14 @@ interface GraphicMetaMap {
 const stdGraphicMeta: GraphicMetaMap = {
   barChart: {
     region: ExplicitRegion,
-    graphic: BarChartGraphic
+    graphic: {
+      graphicClass: 'bar.chart.graphic',
+      configSourceOption: {
+        graphicConfigClass: 'bar.chart.graphic',
+        option: null
+      },
+      dataOptionId: 'num1'
+    }
   },
   lineChart: {
     region: ExplicitRegion,
@@ -183,8 +189,11 @@ class GraphicFactory {
         region.setDimensions(width, height);
       }
 
-      const graphic = new meta.graphic(region);
-      graphic.init(option);
+      // const graphic = new meta.graphic(region);
+      // graphic.init(option);
+
+      const graphic = new GraphicWrapper(region);
+      graphic.init(meta.graphic);
 
       setTimeout(() => {
         graphic.resize();

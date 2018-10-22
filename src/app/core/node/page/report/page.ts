@@ -14,6 +14,7 @@ import {ActivateManager} from '@core/node/manager/activate.manager';
 import {session} from '@core/node/utils/session';
 import {DataSourceManager} from '@core/data/data.source.manager';
 import {ConfigSourceManager} from '@core/config/config.source.manager';
+import {DataOptionManager} from '@core/data/data.option.manager';
 
 export class ReportPage extends PageView implements IPage {
 
@@ -34,6 +35,8 @@ export class ReportPage extends PageView implements IPage {
     this.regionManager = new RegionManager();
     this.selectManager = new SelectManager();
     this.activateManager = new ActivateManager(this);
+    this.configSourceManager = new ConfigSourceManager('design');
+    this.dataSourceManager = new DataSourceManager(DataOptionManager.getInstance().getDataOptionSet('space1'));
     this.listenToModel(this.model);
     this._init();
   }

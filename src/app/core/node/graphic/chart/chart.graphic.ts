@@ -70,30 +70,31 @@ export abstract class ChartGraphic implements IGraphic {
   protected _init(graphicConfigClass: Type<DesignGraphicConfig>, option?: any) {
     // 步骤1
     this._chart = new Chart(this);
-    // 步骤二
-    ModelSourceFactory.getInstance('design').getModelSource({
-      configOption: {
-        graphicId: this._uuid = guid(10, 16),
-        graphicConfigClass,
-        option
-      },
-      dataOption: 'easy'
-    }).subscribe((aaa) => {
-      this._modelEventTarget.trigger(aaa[0]);
-      this.updateDate(aaa[1]);
-      console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW', aaa);
-    });
-    // this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
-    // 步骤三
-    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
-      console.log(key, oldValue, newValue);
-      this.update(newValue);
-    });
   }
 
   abstract getOption();
 
   accept(model: Observable<any>) {
+    console.log('accept invoke');
+    // 步骤二
+    // ModelSourceFactory.getInstance('design').getModelSource({
+    //   configOption: {
+    //     graphicId: this._uuid = guid(10, 16),
+    //     graphicConfigClass,
+    //     option
+    //   },
+    //   dataOption: 'easy'
+    // }).subscribe((aaa) => {
+    //   this._modelEventTarget.trigger(aaa[0]);
+    //   this.updateDate(aaa[1]);
+    //   console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW', aaa);
+    // });
+    // // this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
+    // // 步骤三
+    // this._modelEventTarget.register('option', (key, oldValue, newValue) => {
+    //   console.log(key, oldValue, newValue);
+    //   this.update(newValue);
+    // });
     return null;
   }
 

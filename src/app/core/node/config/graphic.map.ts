@@ -11,6 +11,7 @@ import {RingChartGraphic} from '@core/node/graphic/chart/ring.chart.graphic';
 import {WordCloudChartGraphic} from '@core/node/graphic/chart/word.cloud.chart.graphic';
 import {MapChartGraphic} from '@core/node/graphic/chart/map.chart.graphic';
 import {TableGraphic} from '@core/node/graphic/custom/table.graphic';
+import {BarConfigComponent} from '../../../components/graphic.config/chart/bar.config.component';
 
 const map = new Map();
 map.set('bar.chart.graphic', BarChartGraphic);
@@ -27,3 +28,19 @@ map.set('ring.chart.graphic', RingChartGraphic);
 map.set('map.chart.graphic', MapChartGraphic);
 map.set('wordCloud.chart.graphic', WordCloudChartGraphic);
 export const graphicMap = map;
+
+const map1 = new Map();
+map1.set('bar.chart.graphic', BarConfigComponent);
+map1.set('line.chart.graphic', LineChartGraphic);
+map1.set('pie.chart.graphic', PieChartGraphic);
+map1.set('lines.chart.graphic', LinesChartGraphic);
+map1.set('image.graphic', ImageGraphic);
+map1.set('text.graphic', TextGraphic);
+map1.set('clock.graphic', ClockGraphic);
+map1.set('table.graphic', TableGraphic);
+map1.set('flip.number.graphic', FlipNumberGraphic);
+map1.set('gauge.chart.graphic', GaugeChartGraphic);
+map1.set('ring.chart.graphic', RingChartGraphic);
+map1.set('map.chart.graphic', MapChartGraphic);
+map1.set('wordCloud.chart.graphic', WordCloudChartGraphic);
+export const graphicConfigMap = map1;

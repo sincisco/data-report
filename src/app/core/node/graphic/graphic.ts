@@ -1,5 +1,7 @@
 import {GraphicConfig} from '@core/config/design/graphic.config';
 import {Observable, Subscription} from 'rxjs';
+import {Type} from '@angular/core';
+import {IConfigSourceOption} from '@core/config/config.source.interface';
 
 export interface IGraphic {
   $element: JQuery;
@@ -31,5 +33,11 @@ export interface IGraphic {
   deactivate();
 
   destroy();
+}
+
+export interface IGraphicOption {
+  graphicClass: Type<IGraphic>;
+  configSourceOption: IConfigSourceOption;
+  dataOptionId: string;
 }
 

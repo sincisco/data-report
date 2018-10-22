@@ -1,4 +1,4 @@
-import {IGraphic} from '@core/node/graphic/graphic';
+import {IGraphic, IGraphicOption} from '@core/node/graphic/graphic';
 import {combineLatest, Observable, Subscription} from 'rxjs';
 import {RegionController} from '@core/node/region/region.controller';
 import {guid} from '@core/node/utils/tools';
@@ -29,7 +29,7 @@ export class GraphicWrapper {
    * 创建DataSource
    * @param option
    */
-  init(option) {
+  init(option: IGraphicOption) {
     const {graphicClass, configSourceOption, dataOptionId} = option;
     if (graphicMap.has(graphicClass)) {
       const _graphicClass = graphicMap.get(graphicClass);
@@ -37,7 +37,7 @@ export class GraphicWrapper {
       this._graphic.init();
       this._region.addChild(this);
     }
-    this._configSource = this._region.page.configSourceManager.getMockConfigSource(configSourceOption);
+    this._configSource = this._region.page.configSourceManager.getConfigSource(configSourceOption);
     this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
 
     this._graphic.accept(combineLatest(this._configSource, this._dataSource));
@@ -70,27 +70,27 @@ export class GraphicWrapper {
    */
   updateTheme(theme: string) {
     if (this._graphic) {
-      this.updateTheme(theme);
+      this._graphic.updateTheme(theme);
     }
   }
 
 
   resize() {
     if (this._graphic) {
-      this.resize();
+      this._graphic.resize();
     }
   }
 
   // 图标进入交互状态
   activate() {
     if (this._graphic) {
-      this.activate();
+      this._graphic.activate();
     }
   }
 
   deactivate() {
     if (this._graphic) {
-      this.deactivate();
+      this._graphic.deactivate();
     }
   }
 
