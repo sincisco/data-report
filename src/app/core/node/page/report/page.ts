@@ -119,7 +119,7 @@ export class ReportPage extends PageView implements IPage {
           shortcut: 'Ctrl+X',
           enable: clipboard.hasData(),
           callback: ($event) => {
-            console.log('粘贴');
+            console.log('粘贴', clipboard.getData());
             graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
             return false;
           }

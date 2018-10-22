@@ -4,6 +4,7 @@ import {session} from '@core/node/utils/session';
 import {RegionController} from '@core/node/region/region.controller';
 import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
 import {graphicMetaMap} from '@core/node/config/default.graphic.meta.map';
+import {graphicMap} from '@core/node/config/graphic.map';
 
 class GraphicFactory {
   /**
@@ -22,8 +23,8 @@ class GraphicFactory {
       if (regionMap.has(graphicMeta.region.regionKey)) {
         const region: RegionController = new (regionMap.get(graphicMeta.region.regionKey))(page);
         region.setCoordinates(x, y);
-        if (graphicMeta.regionOption) {
-          const {width, height} = graphicMeta.regionOption;
+        if (graphicMeta.region.regionOption) {
+          const {width, height} = graphicMeta.region.regionOption;
           region.setDimensions(width, height);
         }
 
@@ -56,11 +57,16 @@ class GraphicFactory {
   paste(graphicMeta: any, x?: number, y?: number) {
     if (regionMap.has(graphicMeta.region.regionKey)) {
       const region: RegionController = new (regionMap.get(graphicMeta.region.regionKey))(session.currentPage);
-      region.render(graphicMeta.option);
+
+      region.init(graphicMeta.region.regionOption);
 
       if (Number.isInteger(x) && Number.isInteger(y)) {
         region.setCoordinates(x, y);
       }
+
+      const graphic = new GraphicWrapper(region);
+      graphic.init(graphicMeta.graphic);
+
     }
   }
 }

@@ -52,8 +52,8 @@ export class CommentRegion extends RegionController {
         shortcut: 'Ctrl+C',
         callback: () => {
           console.log('复制');
-          clipboard.saveData(this.derender());
-          console.log(this.derender());
+          clipboard.saveData(this.getOption());
+          console.log(this.getOption());
           return false;
         }
       }];
@@ -94,7 +94,7 @@ export class CommentRegion extends RegionController {
     // this.refresh();
   }
 
-  derender() {
+  getOption() {
   }
 
   render() {

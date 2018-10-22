@@ -35,6 +35,10 @@ export abstract class RegionController {
     return this._page;
   }
 
+  init(regionOption: any) {
+
+  }
+
   /**
    * 模型层关联，展现层关联
    * @param {IGraphic} graphic
@@ -61,9 +65,7 @@ export abstract class RegionController {
     this._graphic && this._graphic.resize();
   }
 
-  abstract derender();
-
-  abstract render(option: any);
+  abstract getOption();
 
   get scale() {
     return this._page.scale;

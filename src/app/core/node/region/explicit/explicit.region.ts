@@ -57,6 +57,11 @@ export class ExplicitRegion extends RegionController {
     this._init();
   }
 
+  init(regionOption: any) {
+    this._model.importModel(regionOption);
+    this._view.refresh();
+  }
+
   private _init() {
     this._view
       .addEventListener('select', () => {
@@ -80,8 +85,8 @@ export class ExplicitRegion extends RegionController {
         shortcut: 'Ctrl+C',
         callback: () => {
           console.log('复制');
-          clipboard.saveData(this.derender());
-          console.log(this.derender());
+          clipboard.saveData(this.getOption());
+          console.log(this.getOption());
           return false;
         }
       },
@@ -129,30 +134,14 @@ export class ExplicitRegion extends RegionController {
     this._model.state = param;
   }
 
-  derender() {
+  getOption() {
     const retObj = {
-      regionClass: 'explicit.region',
-      option: {
-        model: this._model.exportModel(),
-        graphic: this._graphic ? this._graphic.getOption() : undefined
-      }
+      region: {
+        regionKey: 'explicit.region',
+        regionOption: this._model.exportModel(),
+      },
+      graphic: this._graphic.getOption()
     };
     return retObj;
   }
-
-  render(option) {
-    this._model.importModel(option.model);
-    this._view.refresh();+
-    console.log(this._model.width, this._model.height);
-    console.log(this._view.$element.width(), this._view.$element.height());
-    if (option.graphic) {
-      if (graphicMap.has(option.graphic.graphicClass)) {
-        const _graphicClass = graphicMap.get(option.graphic.graphicClass),
-          _graphic = new _graphicClass(this);
-        // 使用刚指定的配置项和数据显示图表。
-        _graphic.init(option.graphic.option);
-      }
-    }
-  }
-
 }
