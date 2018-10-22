@@ -45,7 +45,7 @@ map1.set('lines.chart.graphic', LineConfigComponent);
 map1.set('image.graphic', ImageConfigComponent);
 map1.set('text.graphic', TextConfigComponent);
 map1.set('clock.graphic', TextConfigComponent);
-map1.set('table.graphic', TableGraphic);
+map1.set('table.graphic', WordCloudConfigComponent);
 map1.set('flip.number.graphic', WordCloudConfigComponent);
 map1.set('gauge.chart.graphic', GaugeConfigComponent);
 map1.set('ring.chart.graphic', RingConfigComponent);

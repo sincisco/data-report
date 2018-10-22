@@ -1,8 +1,6 @@
 import {IGraphic} from './graphic';
 import {IGraphicView} from '../graphic.view/graphic.view';
-import {session} from '../utils/session';
 import {Observable, Subscription} from 'rxjs';
-import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
 import {OuterModelEventTarget} from '@core/node/event/model.event';
 
 export abstract class DefaultGraphic implements IGraphic {
@@ -50,6 +48,8 @@ export abstract class DefaultGraphic implements IGraphic {
   }
 
   destroy() {
+    this._modelEventTarget.destroy();
+
     if (this._view) {
       this._view.destroy();
       this._view = null;

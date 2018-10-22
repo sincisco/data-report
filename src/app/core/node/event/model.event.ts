@@ -44,6 +44,11 @@ export class ModelEventTarget {
     });
   }
 
+  destroy() {
+    this._map.clear();
+    this._map = null;
+  }
+
 }
 
 export class OuterModelEventTarget extends ModelEventTarget {

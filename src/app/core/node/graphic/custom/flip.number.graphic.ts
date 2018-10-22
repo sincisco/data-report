@@ -1,9 +1,8 @@
 import {RegionController} from '../../region/region.controller';
-import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
 import * as _ from 'lodash';
 import {Observable, Subscription} from 'rxjs';
-import {OuterModelEventTarget} from '@core/node/event/model.event';
+import {DefaultGraphic} from '@core/node/graphic/default.graphic';
 
 const template = `
 <div class="flip-number-wrapper" style="justify-content: center;">
@@ -52,13 +51,7 @@ const template = `
 </div>
 `;
 
-export class FlipNumberGraphic implements IGraphic {
-  $element: JQuery;
-
-  private _internal;
-
-  private _modelEventTarget = new OuterModelEventTarget();
-
+export class FlipNumberGraphic extends DefaultGraphic {
 
   /**
    * 1、初始化视图
@@ -67,6 +60,7 @@ export class FlipNumberGraphic implements IGraphic {
    * @param {RegionController} region
    */
   constructor(region: RegionController) {
+    super();
     this.$element = $(template);
   }
 
@@ -81,7 +75,6 @@ export class FlipNumberGraphic implements IGraphic {
 
     let lastConfig, lastData;
     return modelSource.subscribe((modelArray: Array<any>) => {
-      console.log('&&&&&&&&&&&&&&&&&&&&&&&');
       const [config, data] = modelArray;
       if (config !== lastConfig) {
         this._modelEventTarget.trigger(config);
@@ -127,33 +120,7 @@ export class FlipNumberGraphic implements IGraphic {
 
   }
 
-  updateTheme(theme) {
-
-  }
-
   updateGraphic(option: any) {
 
-  }
-
-  resize() {
-
-  }
-
-  activate() {
-
-  }
-
-  deactivate() {
-
-  }
-
-  /**
-   *
-   */
-  destroy() {
-    if (this._internal) {
-      clearInterval(this._internal);
-      this._internal = null;
-    }
   }
 }

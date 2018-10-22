@@ -1,14 +1,12 @@
 import {ComponentRef} from '@angular/core';
 import {RegionController} from '../../region/region.controller';
-import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
 
 import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 
-import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 import {TableDataSubject} from '../../../source/data.source/mock/table.data.subject';
-import {session} from '../../utils/session';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
+import {DefaultGraphic} from '@core/node/graphic/default.graphic';
 
 const template = `
 <div class="demo">
@@ -18,14 +16,8 @@ const template = `
   </table>
 </div>`;
 
-export class TableGraphic implements IGraphic {
+export class TableGraphic extends DefaultGraphic {
   $element: JQuery;
-
-  private _configComponentRef: ComponentRef<DesignGraphicConfig>;
-
-  get configSource() {
-    return this._configComponentRef.instance;
-  }
 
   /**
    * 1、初始化视图
@@ -34,25 +26,14 @@ export class TableGraphic implements IGraphic {
    * @param {RegionController} region
    */
   constructor(region: RegionController) {
+    super();
     this.$element = $(template);
   }
 
   init(option?: any) {
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
-    if (option) {
-      this.configSource.importOption(option);
-    }
-    this.configSource.register('option', (key, oldValue, newValue) => {
+    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
-
-    new TableDataSubject().register((data: any) => {
-      if (data) {
-        this.$element.find('thead').html(this._generateHead(data.dimensions));
-        this.$element.find('tbody').html(this._generateBody(data.dimensions, data.source));
-      }
-    });
-
   }
 
   private _generateHead(meta: Array<any>) {
@@ -69,8 +50,25 @@ export class TableGraphic implements IGraphic {
     }).join('');
   }
 
-  accept(model: Observable<any>) {
-    return null;
+  accept(modelSource: Observable<any>): Subscription {
+    console.log('accept invoke', modelSource);
+
+    let lastConfig, lastData;
+    return modelSource.subscribe((modelArray: Array<any>) => {
+      const [config, data] = modelArray;
+      if (config !== lastConfig) {
+        this._modelEventTarget.trigger(config);
+        lastConfig = config;
+      }
+      if (data !== lastData) {
+        if (data) {
+          this.$element.find('thead').html(this._generateHead(data.dimensions));
+          this.$element.find('tbody').html(this._generateBody(data.dimensions, data.source));
+        }
+        lastData = data;
+      }
+      console.log(config, data);
+    });
   }
 
   addChild(chart: Chart) {
@@ -79,30 +77,5 @@ export class TableGraphic implements IGraphic {
 
   update(option: any) {
 
-  }
-
-  updateTheme(theme) {
-
-  }
-
-  resize() {
-
-  }
-
-  activate() {
-
-  }
-
-  deactivate() {
-
-  }
-
-
-  /**
-   *
-   */
-  destroy() {
-    this._configComponentRef.destroy();
-    this._configComponentRef = null;
   }
 }
