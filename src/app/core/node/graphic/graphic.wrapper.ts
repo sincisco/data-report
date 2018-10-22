@@ -52,12 +52,8 @@ export class GraphicWrapper {
     });
     this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
 
-    this._dataSource.subscribe((num) => {
-      console.log(num);
-    });
-
     // 两个组件必须同时打开  不然收不到信息
-    this._graphic.accept(combineLatest(this._configSource, this._dataSource)
+    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
   }
 
@@ -115,6 +111,10 @@ export class GraphicWrapper {
   }
 
   destroy() {
-
+    console.log('*********************************');
+    if (this._subscription) {
+      this._subscription.unsubscribe();
+      this._subscription = null;
+    }
   }
 }
