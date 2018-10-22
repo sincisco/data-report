@@ -1,14 +1,9 @@
-import {ComponentRef} from '@angular/core';
+import * as moment from 'moment';
+import {Observable} from 'rxjs';
+import {OuterModelEventTarget} from '@core/node/event/model.event';
 import {RegionController} from '../../region/region.controller';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
-
-import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
-
-import * as moment from 'moment';
-import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
-import {session} from '../../utils/session';
-import {Observable} from 'rxjs';
 
 const template = `
 <div class="time-chart-container" 
@@ -21,13 +16,9 @@ font-size: 20px; color: rgb(255, 255, 255); font-weight: normal; justify-content
 export class ClockGraphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<DesignGraphicConfig>;
-
   private _internal;
 
-  get configSource() {
-    return this._configComponentRef.instance;
-  }
+  private _modelEventTarget = new OuterModelEventTarget();
 
   /**
    * 1、初始化视图
@@ -44,24 +35,13 @@ export class ClockGraphic implements IGraphic {
   }
 
   init(option?: any) {
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
-    if (option) {
-      this.configSource.importOption(option);
-    }
-    this.configSource.register('option', (key, oldValue, newValue) => {
+    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
 
     this._internal = setInterval(() => {
       this.$element.find('span').text(moment().format('YYYY-MM-DD HH:mm:ss'));
     }, 1000);
-  }
-
-  getOption() {
-    return {
-      graphicClass: 'clock.graphic',
-      option: this.configSource.exportOption()
-    };
   }
 
   addChild(chart: Chart) {
@@ -88,18 +68,10 @@ export class ClockGraphic implements IGraphic {
 
   }
 
-  activateConfig() {
-    if (this._configComponentRef) {
-      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-  }
-
   /**
    *
    */
   destroy() {
-    this._configComponentRef.destroy();
-    this._configComponentRef = null;
     if (this._internal) {
       clearInterval(this._internal);
       this._internal = null;

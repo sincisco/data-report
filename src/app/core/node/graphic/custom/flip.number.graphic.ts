@@ -1,17 +1,12 @@
-import {ComponentRef} from '@angular/core';
 import {RegionController} from '../../region/region.controller';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
-import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
-
-import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 import * as _ from 'lodash';
-import {session} from '../../utils/session';
-import {DataSourceFactory} from '../../../data/data.source.factory';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
+import {OuterModelEventTarget} from '@core/node/event/model.event';
 
 const template = `
-<div class="flip-number-warpper" style="justify-content: center;">
+<div class="flip-number-wrapper" style="justify-content: center;">
   <div class="flip-number" style="flex-direction: row;">
     <div class="flip-number-prefix"
          style="font-family: 'Microsoft Yahei'; font-size: 14px; color: rgb(115, 170, 229); 
@@ -60,13 +55,10 @@ const template = `
 export class FlipNumberGraphic implements IGraphic {
   $element: JQuery;
 
-  private _configComponentRef: ComponentRef<DesignGraphicConfig>;
-
   private _internal;
 
-  get configSource() {
-    return this._configComponentRef.instance;
-  }
+  private _modelEventTarget = new OuterModelEventTarget();
+
 
   /**
    * 1、初始化视图
@@ -78,30 +70,31 @@ export class FlipNumberGraphic implements IGraphic {
     this.$element = $(template);
   }
 
-  accept(model: Observable<any>) {
-    return null;
-  }
-
   init(option?: any) {
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(BarConfigComponent);
-    if (option) {
-      this.configSource.importOption(option);
-    }
-    this.configSource.register('option', (key, oldValue, newValue) => {
+    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
-
-    // const dataSource = DataSourceFactory.getInstance().getDataSource('easy1');
-    //
-    // dataSource.subscribe((data) => {
-    //   this._generateDom(data);
-    // });
-
-    // this._internal = setInterval(() => {
-    //   console.log(;
-    //   // this.$element.find('span').text(Math.floor(Math.random() * 1000000));
-    // }, 1000);
   }
+
+  accept(modelSource: Observable<any>): Subscription {
+    console.log('accept invoke', modelSource);
+
+    let lastConfig, lastData;
+    return modelSource.subscribe((modelArray: Array<any>) => {
+      console.log('&&&&&&&&&&&&&&&&&&&&&&&');
+      const [config, data] = modelArray;
+      if (config !== lastConfig) {
+        this._modelEventTarget.trigger(config);
+        lastConfig = config;
+      }
+      if (data !== lastData) {
+        this._generateDom(data);
+        lastData = data;
+      }
+      console.log(config, data);
+    });
+  }
+
 
   private _generateDom(num: Number) {
     const numArray = this._handle(num);
@@ -124,13 +117,6 @@ export class FlipNumberGraphic implements IGraphic {
       }
     });
     return _.flatten(aa).reverse();
-  }
-
-  getOption() {
-    return {
-      graphicClass: 'flip.number.graphic',
-      option: this.configSource.exportOption()
-    };
   }
 
   addChild(chart: Chart) {
@@ -161,18 +147,10 @@ export class FlipNumberGraphic implements IGraphic {
 
   }
 
-  activateConfig() {
-    if (this._configComponentRef) {
-      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-  }
-
   /**
    *
    */
   destroy() {
-    this._configComponentRef.destroy();
-    this._configComponentRef = null;
     if (this._internal) {
       clearInterval(this._internal);
       this._internal = null;

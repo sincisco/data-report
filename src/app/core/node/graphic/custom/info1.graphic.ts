@@ -89,12 +89,6 @@ export class Info1Graphic implements IGraphic {
 
   }
 
-  activateConfig() {
-    if (this._configComponentRef) {
-      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-  }
-
   /**
    *
    */

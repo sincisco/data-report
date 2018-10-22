@@ -32,19 +32,20 @@ export const array: Array<IDataOptionOption> = [
       }
     }
   }, {
-    id: 'num3',
+    id: 'num2',
     displayName: '实时销售额',
     comment: '没有任何建议',
     configType: 'mockDynamic',
     config: {
       intervalTime: 5000,
       dataGenerator: () => {
+        console.log('实时销售额');
         return Math.floor(Math.random() * 10000000);
       }
     },
     dataType: 'single'
   }, {
-    id: 'num4',
+    id: 'num3',
     displayName: '985高校17年毕业生统计',
     comment: '没有任何建议',
     configType: 'mockDynamic',

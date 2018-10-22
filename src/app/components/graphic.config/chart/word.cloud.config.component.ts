@@ -161,10 +161,6 @@ export class WordCloudConfigComponent extends DesignGraphicConfig implements Aft
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
-      console.log('BarConfigComponent  valueChanges', value);
-
-      value.dataset = dataModelManager.current;
-      value.tooltip = {};
       value = removeUndefined(value);
       this._trigger({
         key: 'option',
@@ -172,6 +168,14 @@ export class WordCloudConfigComponent extends DesignGraphicConfig implements Aft
         newValue: this.option,
         option: this.option
       });
+
+      this._subject.next({
+        key: 'option',
+        oldValue: this._innerOption,
+        newValue: this.option,
+        option: this.option
+      });
+
       this._innerOption = this.option;
 
     });

@@ -28,11 +28,4 @@ export class BarChartGraphic extends ChartGraphic {
     this._init(BarConfigComponent, option);
   }
 
-  getOption() {
-    return {
-      graphicClass: 'bar.chart.graphic',
-      option: this.configSource.exportOption()
-    };
-  }
-
 }

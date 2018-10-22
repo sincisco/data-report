@@ -1,23 +1,6 @@
-import {Title} from '../../graphic.view/chart/echart.interface/title';
-import {Grid} from '../../graphic.view/chart/echart.interface/grid';
-import {Axis} from '../../graphic.view/chart/echart.interface/axis';
 import {RegionController} from '../../region/region.controller';
-import {LineSeriesConfig} from '../../graphic.view/chart/echart.interface/series/line.series';
 import {Chart} from '../../graphic.view/chart/chart';
-import {RingConfigComponent} from '../../../../components/graphic.config/chart/ring.config.component';
-import {session} from '../../utils/session';
 import {ChartGraphic} from '@core/node/graphic/chart/chart.graphic';
-
-
-export interface ChartLineOption {
-  title?: Title;
-  dataset?: any;
-  grid?: Grid;
-  xAxis?: Axis;
-  yAxis?: Axis;
-  series?: Array<LineSeriesConfig>;
-  color?: Array<string>;
-}
 
 export class RingChartGraphic extends ChartGraphic {
   constructor(region: RegionController) {
@@ -27,20 +10,9 @@ export class RingChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     this._chart = new Chart(this);
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(RingConfigComponent);
-    if (option) {
-      this.configSource.importOption(option);
-    }
-    this.configSource.register('option', (key, oldValue, newValue) => {
+    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
-  }
-
-  getOption() {
-    return {
-      graphicClass: 'ring.chart.graphic',
-      option: this.configSource.exportOption()
-    };
   }
 
 }

@@ -1,5 +1,4 @@
 import {RegionController} from '../../region/region.controller';
-import {Chart} from '../../graphic.view/chart/chart';
 import {Grid} from '../../graphic.view/chart/echart.interface/grid';
 import {Axis} from '../../graphic.view/chart/echart.interface/axis';
 import {Title} from '../../graphic.view/chart/echart.interface/title';
@@ -25,13 +24,6 @@ export class LineChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     this._init(LineConfigComponent, option);
-  }
-
-  getOption() {
-    return {
-      graphicClass: 'line.chart.graphic',
-      option: this.configSource.exportOption()
-    };
   }
 
 }

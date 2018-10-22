@@ -73,13 +73,6 @@ export class TableGraphic implements IGraphic {
     return null;
   }
 
-  getOption() {
-    return {
-      graphicClass: 'table.graphic',
-      option: this.configSource.exportOption()
-    };
-  }
-
   addChild(chart: Chart) {
   }
 
@@ -89,10 +82,6 @@ export class TableGraphic implements IGraphic {
   }
 
   updateTheme(theme) {
-
-  }
-
-  updateGraphic(option: any) {
 
   }
 
@@ -108,11 +97,6 @@ export class TableGraphic implements IGraphic {
 
   }
 
-  activateConfig() {
-    if (this._configComponentRef) {
-      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-  }
 
   /**
    *

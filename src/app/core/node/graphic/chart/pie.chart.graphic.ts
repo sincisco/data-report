@@ -25,12 +25,4 @@ export class PieChartGraphic extends ChartGraphic {
   init(option?: any) {
     this._init(PieConfigComponent, option);
   }
-
-  getOption() {
-    return {
-      graphicClass: 'pie.chart.graphic',
-      option: this.configSource.exportOption()
-    };
-  }
-
 }

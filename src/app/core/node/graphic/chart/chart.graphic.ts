@@ -7,9 +7,7 @@ import {Chart} from '../../graphic.view/chart/chart';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 
 import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
-import {session} from '../../utils/session';
 import {OuterModelEventTarget} from '../../event/model.event';
-import {GraphicConfigManager} from '../../../config/design/graphic.config.manager';
 
 
 const template = `
@@ -27,10 +25,9 @@ const template = `
 
 export abstract class ChartGraphic implements IGraphic {
   $element: JQuery;
-  private _uuid: string;
   private readonly _$frame: JQuery;
   private readonly _$toolbar: JQuery;
-  private _modelEventTarget = new OuterModelEventTarget();
+  protected _modelEventTarget = new OuterModelEventTarget();
 
   protected _chart: Chart;
   protected _configComponentRef: ComponentRef<DesignGraphicConfig>;
@@ -68,15 +65,18 @@ export abstract class ChartGraphic implements IGraphic {
   protected _init(graphicConfigClass: Type<DesignGraphicConfig>, option?: any) {
     // 步骤1
     this._chart = new Chart(this);
-  }
 
-  abstract getOption();
+    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
+      console.log(key, oldValue, newValue);
+      this.update(newValue);
+    });
+  }
 
   accept(model: Observable<any>) {
     console.log('accept invoke');
 
     let lastConfig, lastData;
-    model.subscribe((modelArray: Array<any>) => {
+    return model.subscribe((modelArray: Array<any>) => {
       const [config, data] = modelArray;
       if (config !== lastConfig) {
         this._modelEventTarget.trigger(config);
@@ -90,13 +90,6 @@ export abstract class ChartGraphic implements IGraphic {
 
 
     });
-
-    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
-      console.log(key, oldValue, newValue);
-      this.update(newValue);
-    });
-
-    return null;
   }
 
   addChild(chart: Chart) {

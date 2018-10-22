@@ -52,15 +52,21 @@ export class GraphicWrapper {
     });
     this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
 
+    this._dataSource.subscribe((num) => {
+      console.log(num);
+    });
+
+    // 两个组件必须同时打开  不然收不到信息
     this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
   }
 
-  switchDataSource(dataOptionID: string) {
+  switchDataSource(dataOptionId: string) {
+    this._graphicOption.dataOptionId = dataOptionId;
     if (this._subscription) {
       this._subscription.unsubscribe();
     }
-    this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionID);
+    this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
   }
@@ -71,7 +77,7 @@ export class GraphicWrapper {
   }
 
   getOption() {
-
+    return Object.assign({}, this._graphicOption);
   }
 
   get $element() {
