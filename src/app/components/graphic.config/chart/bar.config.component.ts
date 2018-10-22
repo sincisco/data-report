@@ -7,7 +7,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {dataModelManager} from '../../../core/data/data.model.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
@@ -84,7 +83,6 @@ export class BarConfigComponent extends DesignGraphicConfig implements AfterView
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
       console.log('BarConfigComponent  valueChanges', value);
-      // value.dataset = datasetManager.current;
       value = removeUndefined(value);
       this._trigger({
         key: 'option',

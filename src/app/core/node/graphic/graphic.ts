@@ -27,7 +27,7 @@ export interface IGraphic {
 
   resize();
 
-  // 图标进入交互状态
+  // graphic进入交互状态
   activate();
 
   deactivate();

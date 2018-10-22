@@ -1,4 +1,5 @@
 import {ComponentRef, Type} from '@angular/core';
+import {Observable} from 'rxjs';
 import {RegionController} from '../../region/region.controller';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
@@ -6,13 +7,10 @@ import {Chart} from '../../graphic.view/chart/chart';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 
 import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
-import {BarConfigComponent} from '../../../../components/graphic.config/chart/bar.config.component';
 import {session} from '../../utils/session';
-import {ModelSourceFactory} from '../../../model/model.source.factory';
-import {guid} from '../../utils/tools';
-import {ModelEventTarget, OuterModelEventTarget} from '../../event/model.event';
+import {OuterModelEventTarget} from '../../event/model.event';
 import {GraphicConfigManager} from '../../../config/design/graphic.config.manager';
-import {Observable} from 'rxjs';
+
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -76,25 +74,28 @@ export abstract class ChartGraphic implements IGraphic {
 
   accept(model: Observable<any>) {
     console.log('accept invoke');
-    // 步骤二
-    // ModelSourceFactory.getInstance('design').getModelSource({
-    //   configOption: {
-    //     graphicId: this._uuid = guid(10, 16),
-    //     graphicConfigClass,
-    //     option
-    //   },
-    //   dataOption: 'easy'
-    // }).subscribe((aaa) => {
-    //   this._modelEventTarget.trigger(aaa[0]);
-    //   this.updateDate(aaa[1]);
-    //   console.log('WWWWWWWWWWWWWWWWWWWWWWWWWWWWWW', aaa);
-    // });
-    // // this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(graphicConfigClass);
-    // // 步骤三
-    // this._modelEventTarget.register('option', (key, oldValue, newValue) => {
-    //   console.log(key, oldValue, newValue);
-    //   this.update(newValue);
-    // });
+
+    let lastConfig, lastData;
+    model.subscribe((modelArray: Array<any>) => {
+      const [config, data] = modelArray;
+      if (config !== lastConfig) {
+        this._modelEventTarget.trigger(config);
+        lastConfig = config;
+      }
+      if (data !== lastData) {
+        this.updateDate(data);
+        lastData = data;
+      }
+      console.log(config, data);
+
+
+    });
+
+    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
+      console.log(key, oldValue, newValue);
+      this.update(newValue);
+    });
+
     return null;
   }
 
@@ -137,13 +138,6 @@ export abstract class ChartGraphic implements IGraphic {
   deactivate() {
     if (this._chart) {
       this._chart.deactivate();
-    }
-  }
-
-  activateConfig() {
-    GraphicConfigManager.getInstance().activate(this._uuid);
-    if (this._configComponentRef) {
-      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
     }
   }
 

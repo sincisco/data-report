@@ -3,6 +3,7 @@ import {combineLatest, Observable, Subscription} from 'rxjs';
 import {RegionController} from '@core/node/region/region.controller';
 import {guid} from '@core/node/utils/tools';
 import {graphicMap} from '@core/node/config/graphic.map';
+import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
 
 
 /**
@@ -19,7 +20,6 @@ export class GraphicWrapper {
   private _subscription: Subscription;
 
   constructor(private _region: RegionController) {
-    this._uuid = this._uuid = guid(10, 16);
   }
 
   /**
@@ -37,6 +37,11 @@ export class GraphicWrapper {
       this._graphic.init();
       this._region.addChild(this);
     }
+    if (!configSourceOption.graphicId) {
+      configSourceOption.graphicId = guid(10, 16);
+    }
+    this._uuid = configSourceOption.graphicId;
+
     this._configSource = this._region.page.configSourceManager.getConfigSource(configSourceOption);
     this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
 
@@ -53,7 +58,7 @@ export class GraphicWrapper {
 
   // 激活配置面板
   activateConfig() {
-
+    GraphicConfigManager.getInstance().activate(this._uuid);
   }
 
   getOption() {
