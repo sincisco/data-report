@@ -1,9 +1,8 @@
 import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
-import {TextConfigComponent} from '../../../../components/graphic.config/auxiliary/text.config.component';
-import {RegionController} from '../../region/region.controller';
 import {IGraphicView} from '../../graphic.view/graphic.view';
 import {DefaultGraphic} from '../default.graphic';
-import {session} from '../../utils/session';
+import {OuterModelEventTarget} from '@core/node/event/model.event';
+import {Observable, Subscription} from 'rxjs';
 
 const template = `
 <div class="graphic m-graphic m-graphic-text z-mode-edit">
@@ -15,8 +14,8 @@ const template = `
 export class TextGraphic extends DefaultGraphic {
   $element: JQuery;
 
-  constructor(private _region: RegionController) {
-    super('text.graphic');
+  constructor() {
+    super();
     this.$element = $(template);
   }
 
@@ -27,16 +26,20 @@ export class TextGraphic extends DefaultGraphic {
 
   init(option?: any) {
     this._view = new TextAuxiliary(this);
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(TextConfigComponent);
-    this.configSource.register('option', (key, oldValue, newValue) => {
+    this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });
-    if (option) {
-      this.configSource.importOption(option);
-    }
+
     this._view.addEventListener('textChanged', (text) => {
       console.log(text);
-      this.configSource.importOption({text});
+      // this.configSource.importOption({text});
+    });
+  }
+
+  accept(modelSource: Observable<any>): Subscription {
+    return modelSource.subscribe((modelArray: Array<any>) => {
+      const [config, data] = modelArray;
+      this._modelEventTarget.trigger(config);
     });
   }
 

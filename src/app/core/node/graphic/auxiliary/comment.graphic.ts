@@ -4,6 +4,7 @@ import {IGraphicView} from '../../graphic.view/graphic.view';
 import {RegionController} from '../../region/region.controller';
 import {DefaultGraphic} from '../default.graphic';
 import {session} from '../../utils/session';
+import {Observable, Subscription} from 'rxjs';
 
 const template = `
 <div class="graphic m-graphic m-graphic-comment z-mode-edit">
@@ -17,14 +18,11 @@ export class CommentGraphic extends DefaultGraphic {
   private _$frame: JQuery;
 
   constructor(private _region: RegionController) {
-    super('comment.graphic');
+    super();
     this.$element = $(template);
     this._$frame = this.$element.find('.frame');
   }
 
-  get configSource() {
-    return this._configComponentRef.instance;
-  }
 
   addChild(view: IGraphicView) {
     this._view = view;
@@ -37,10 +35,13 @@ export class CommentGraphic extends DefaultGraphic {
    */
   init(option?: any) {
     this._view = new CommentAuxiliary(this);
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(CommentConfigComponent);
-    if (option) {
-      this.configSource.importOption(option);
-    }
+  }
+
+  accept(modelSource: Observable<any>): Subscription {
+    return modelSource.subscribe((modelArray: Array<any>) => {
+      const [config, data] = modelArray;
+      this._modelEventTarget.trigger(config);
+    });
   }
 
   update(option: any) {

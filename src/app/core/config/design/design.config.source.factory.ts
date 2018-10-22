@@ -20,13 +20,13 @@ export class DesignConfigSourceFactory implements IConfigSourceFactory {
   private constructor() {
   }
 
-  getConfigSource(configOption: { graphicId: string, graphicConfigClass: string, option: any }) {
-    const {graphicId, graphicConfigClass, option} = configOption,
-      xxx: Type<DesignGraphicConfig> = graphicConfigMap.get(graphicConfigClass),
+  getConfigSource(configSourceOption: { graphicId: string, graphicKey: string, configOption: any }) {
+    const {graphicId, graphicKey, configOption} = configSourceOption,
+      xxx: Type<DesignGraphicConfig> = graphicConfigMap.get(graphicKey),
       configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(xxx);
 
     // 步骤四
-    configComponentRef.instance.importOption(option);
+    configComponentRef.instance.importOption(configOption);
     GraphicConfigManager.getInstance().add(graphicId, configComponentRef);
 
 

@@ -4,6 +4,7 @@ import {RegionController} from '@core/node/region/region.controller';
 import {guid} from '@core/node/utils/tools';
 import {graphicMap} from '@core/node/config/graphic.map';
 import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
+import {tap} from 'rxjs/operators';
 
 
 /**
@@ -13,6 +14,8 @@ import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
 export class GraphicWrapper {
 
   private _uuid: string;
+  private _graphicOption: IGraphicOption;
+
   private _graphic: IGraphic;
   private _configSource: Observable<any>;
   private _dataSource: Observable<any>;
@@ -27,25 +30,30 @@ export class GraphicWrapper {
    *  $element属性可用
    * 创建ConfigSource
    * 创建DataSource
-   * @param option
+   * @param graphicOption
    */
-  init(option: IGraphicOption) {
-    const {graphicClass, configSourceOption, dataOptionId} = option;
-    if (graphicMap.has(graphicClass)) {
-      const _graphicClass = graphicMap.get(graphicClass);
+  init(graphicOption: IGraphicOption) {
+    this._graphicOption = graphicOption;
+    console.log(graphicOption);
+    const {graphicId, graphicKey, dataOptionId, configOption} = graphicOption;
+    if (graphicMap.has(graphicKey)) {
+      const _graphicClass = graphicMap.get(graphicKey);
       this._graphic = new _graphicClass();
       this._graphic.init();
       this._region.addChild(this);
     }
-    if (!configSourceOption.graphicId) {
-      configSourceOption.graphicId = guid(10, 16);
-    }
-    this._uuid = configSourceOption.graphicId;
 
-    this._configSource = this._region.page.configSourceManager.getConfigSource(configSourceOption);
+    this._uuid = graphicId || guid(10, 16);
+
+    this._configSource = this._region.page.configSourceManager.getConfigSource({
+      graphicId: this._uuid,
+      graphicKey,
+      configOption
+    });
     this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
 
-    this._graphic.accept(combineLatest(this._configSource, this._dataSource));
+    this._graphic.accept(combineLatest(this._configSource, this._dataSource)
+      .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
   }
 
   switchDataSource(dataOptionID: string) {
@@ -53,7 +61,8 @@ export class GraphicWrapper {
       this._subscription.unsubscribe();
     }
     this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionID);
-    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource));
+    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
+      .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
   }
 
   // 激活配置面板

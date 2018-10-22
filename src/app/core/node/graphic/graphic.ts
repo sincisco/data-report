@@ -1,12 +1,7 @@
-import {GraphicConfig} from '@core/config/design/graphic.config';
 import {Observable, Subscription} from 'rxjs';
-import {Type} from '@angular/core';
-import {IConfigSourceOption} from '@core/config/config.source.interface';
 
 export interface IGraphic {
   $element: JQuery;
-
-  configSource: GraphicConfig;
 
   addChild(child);
 
@@ -15,7 +10,7 @@ export interface IGraphic {
    * 如果有content的，则创建相应的content；负责配置面板的创建
    * @param option
    */
-  init(option?: any, runtime?: boolean);
+  init(option?: any);
 
   accept(modelObservable: Observable<any>): Subscription;
 
@@ -36,8 +31,9 @@ export interface IGraphic {
 }
 
 export interface IGraphicOption {
-  graphicClass: Type<IGraphic>;
-  configSourceOption: IConfigSourceOption;
-  dataOptionId: string;
+  graphicKey: string;
+  graphicId?: string;
+  configOption?: any;
+  dataOptionId?: string;
 }
 

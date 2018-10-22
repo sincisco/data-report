@@ -86,6 +86,7 @@ export class ImageConfigComponent extends DesignGraphicConfig implements AfterVi
         console.log('has no changes');
       }
       if (array.length > 0) {
+        this._subject.next(array);
         this._update(array);
       }
     });

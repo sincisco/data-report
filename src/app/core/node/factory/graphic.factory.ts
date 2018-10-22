@@ -1,13 +1,8 @@
 import {ExplicitRegion} from '@core/node/region/explicit/explicit.region';
 import {ReportPage} from '@core/node/page/report/page';
-import {TextGraphic} from '@core/node/graphic/auxiliary/text.graphic';
 import {CommentRegion} from '@core/node/region/comment/comment.region';
-import {CommentGraphic} from '@core/node/graphic/auxiliary/comment.graphic';
 import {regionMap} from '@core/node/config/region.map';
 import {session} from '@core/node/utils/session';
-import {LineChartGraphic} from '@core/node/graphic/chart/line.chart.graphic';
-import {PieChartGraphic} from '@core/node/graphic/chart/pie.chart.graphic';
-import {ImageGraphic} from '@core/node/graphic/auxiliary/image.graphic';
 import {RegionController} from '@core/node/region/region.controller';
 import {ClockGraphic} from '@core/node/graphic/custom/clock.graphic';
 import {Info1Graphic} from '@core/node/graphic/custom/info1.graphic';
@@ -42,33 +37,50 @@ const stdGraphicMeta: GraphicMetaMap = {
   barChart: {
     region: ExplicitRegion,
     graphic: {
-      graphicClass: 'bar.chart.graphic',
-      configSourceOption: {
-        graphicConfigClass: 'bar.chart.graphic',
-        option: null
-      },
+      graphicKey: 'bar.chart.graphic',
+      configOption: null,
       dataOptionId: 'num1'
     }
   },
   lineChart: {
     region: ExplicitRegion,
-    graphic: LineChartGraphic
+    graphic: {
+      graphicKey: 'line.chart.graphic',
+      configOption: null,
+      dataOptionId: 'num1'
+    }
   },
   pieChart: {
     region: ExplicitRegion,
-    graphic: PieChartGraphic
+    graphic: {
+      graphicKey: 'pie.chart.graphic',
+      configOption: null,
+      dataOptionId: 'num1'
+    }
   },
   textAuxiliary: {
     region: ExplicitRegion,
-    graphic: TextGraphic
+    graphic: {
+      graphicKey: 'text.graphic',
+      configOption: null,
+      dataOptionId: 'num1'
+    }
   },
   commentAuxiliary: {
     region: CommentRegion,
-    graphic: CommentGraphic
+    graphic: {
+      graphicKey: 'comment.graphic',
+      configOption: null,
+      dataOptionId: 'num1'
+    }
   },
   imageAuxiliary: {
     region: ExplicitRegion,
-    graphic: ImageGraphic
+    graphic: {
+      graphicKey: 'image.graphic',
+      configOption: null,
+      dataOptionId: 'num1'
+    }
   }
 };
 
@@ -193,7 +205,12 @@ class GraphicFactory {
       // graphic.init(option);
 
       const graphic = new GraphicWrapper(region);
-      graphic.init(meta.graphic);
+      if (option) {
+        graphic.init(Object.assign({}, meta.graphic, {configOption: option}));
+      } else {
+        graphic.init(meta.graphic);
+      }
+
 
       setTimeout(() => {
         graphic.resize();

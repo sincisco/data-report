@@ -1,9 +1,7 @@
+import {Observable, Subscription} from 'rxjs';
 import {ImageAuxiliary} from '../../graphic.view/auxiliary/image.auxiliary';
-import {ImageConfigComponent} from '../../../../components/graphic.config/auxiliary/image.config.component';
 import {IGraphicView} from '../../graphic.view/graphic.view';
-import {RegionController} from '../../region/region.controller';
 import {DefaultGraphic} from '../default.graphic';
-import {session} from '../../utils/session';
 
 
 const template = `
@@ -17,8 +15,8 @@ const template = `
 export class ImageGraphic extends DefaultGraphic {
   $element: JQuery;
 
-  constructor(private _region: RegionController) {
-    super('image.graphic');
+  constructor() {
+    super();
     this.$element = $(template);
   }
 
@@ -29,17 +27,20 @@ export class ImageGraphic extends DefaultGraphic {
 
   init(option?: any) {
     this._view = new ImageAuxiliary(this);
-    this._configComponentRef = session.siderLeftComponent
-      .forwardCreateGraphicConfig(ImageConfigComponent);
-    if (option) {
-      this.configSource.importOption(option);
-    }
-    this._initForUpdate(!!option);
+    this._initForUpdate();
   }
 
-  private _initForUpdate(load?: boolean) {
+  accept(modelSource: Observable<any>): Subscription {
+    return modelSource.subscribe((modelArray: Array<any>) => {
+      const [config, data] = modelArray;
+      console.log(12345, config);
+      this._modelEventTarget.batchTrigger(config);
+    });
+  }
+
+  private _initForUpdate() {
     const $frame = this.$element.find('.frame');
-    this.configSource.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
+    this._modelEventTarget.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
       $frame.css({
         'borderRadius': newValue
       });
@@ -61,7 +62,7 @@ export class ImageGraphic extends DefaultGraphic {
       });
     }).register('add.image image', (key, oldValue, newValue) => {
       if (this._view && newValue && newValue.dataUrl) {
-        this._region.setDimensions(newValue.width, newValue.height);
+        // this._region.setDimensions(newValue.width, newValue.height);
         this._view.update(newValue);
       }
     });

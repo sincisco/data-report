@@ -1,29 +1,16 @@
-import {DesignGraphicConfig} from '../../source/config.source/design.config.source';
-import {DataSource} from '../../source/data.source/data.source';
 import {IGraphic} from './graphic';
 import {IGraphicView} from '../graphic.view/graphic.view';
-import {ComponentRef} from '@angular/core';
-import {GraphicConfig} from '../../config/design/graphic.config';
 import {session} from '../utils/session';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
+import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
+import {OuterModelEventTarget} from '@core/node/event/model.event';
 
 export abstract class DefaultGraphic implements IGraphic {
   $element: JQuery;
 
   protected _view: IGraphicView;
-  protected _configComponentRef: ComponentRef<DesignGraphicConfig>;
 
-  protected constructor(protected _graphicClass: string) {
-
-  }
-
-  get configSource(): GraphicConfig {
-    return this._configComponentRef.instance;
-  }
-
-  get dataSource(): DataSource {
-    return null;
-  }
+  protected _modelEventTarget = new OuterModelEventTarget();
 
   abstract addChild(child);
 
@@ -34,9 +21,7 @@ export abstract class DefaultGraphic implements IGraphic {
    */
   abstract init(option?: any, runtime?: boolean);
 
-  accept(model: Observable<any>) {
-    return null;
-  }
+  abstract accept(model: Observable<any>): Subscription;
 
   /**
    * 更新全局样式 目前只有Echart图表使用的到
@@ -45,12 +30,6 @@ export abstract class DefaultGraphic implements IGraphic {
   updateTheme(theme: string) {
   }
 
-  getOption() {
-    return {
-      graphicClass: this._graphicClass,
-      option: this.configSource.exportOption()
-    };
-  }
 
   resize() {
     if (this._view) {
@@ -70,18 +49,10 @@ export abstract class DefaultGraphic implements IGraphic {
     }
   }
 
-  activateConfig() {
-    if (this._configComponentRef) {
-      session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-    }
-  }
-
   destroy() {
     if (this._view) {
       this._view.destroy();
       this._view = null;
-      this._configComponentRef.destroy();
-      this._configComponentRef = null;
     }
     this.$element.remove();
     this.$element = null;
