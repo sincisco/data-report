@@ -12,10 +12,6 @@ export class GaugeChartGraphic extends ChartGraphic {
 
   init(option?: any) {
     this._chart = new Chart(this);
-    this._configComponentRef = session.siderLeftComponent.forwardCreateGraphicConfig(GaugeConfigComponent);
-    if (option) {
-      this.configSource.importOption(option);
-    }
     this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });

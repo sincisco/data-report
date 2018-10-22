@@ -7,8 +7,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {dataModelManager} from '../../../core/data/data.model.manager';
-
 import {NzModalService} from 'ng-zorro-antd';
 import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
 
@@ -176,13 +174,10 @@ export class GaugeConfigComponent extends DesignGraphicConfig implements AfterVi
   }
 
   ngAfterViewInit() {
-    this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
-      console.log('BarConfigComponent  valueChanges', value);
-
-      value.dataset = dataModelManager.current;
+    this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
       value.tooltip = {};
       value = removeUndefined(value);
-      this._trigger({
+      this._subject.next({
         key: 'option',
         oldValue: this._innerOption,
         newValue: this.option,

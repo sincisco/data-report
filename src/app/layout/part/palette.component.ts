@@ -1,8 +1,9 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {session} from '@core/node/utils/session';
-import {customGraphicMeta, graphicFactory} from '@core/node/factory/graphic.factory';
+import {graphicFactory} from '@core/node/factory/graphic.factory';
 import * as _ from 'lodash';
 import {grabHelper} from '../designer.header.component';
+import {customGraphicMeta} from '@core/node/config/default.graphic.meta.map';
 
 @Component({
   selector: 'app-palette',

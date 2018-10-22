@@ -1,11 +1,10 @@
 import {AfterViewInit, Component, ElementRef} from '@angular/core';
 import {ReportPage} from '@core/node/page/report/page';
-import {Split} from '@core/node/page/dashboard/split';
-import {DashboardCanvas} from '@core/node/page/dashboard/dashboard.canvas';
 import {session} from '@core/node/utils/session';
-import {customGraphicMeta, graphicFactory} from '@core/node/factory/graphic.factory';
+import {graphicFactory} from '@core/node/factory/graphic.factory';
 import * as _ from 'lodash';
 import {grabHelper} from './designer.header.component';
+import {customGraphicMeta} from '@core/node/config/default.graphic.meta.map';
 
 @Component({
   selector: 'app-designer-body',
@@ -30,10 +29,6 @@ export class DesignerBodyComponent implements AfterViewInit {
   closeRightPanel() {
     $(this._elementRef.nativeElement).find('.app-body-right')[0].style.width = '220px';
     $(this._elementRef.nativeElement).find('.app-body-right')[0].style.flexBasis = '220px';
-  }
-
-  get customComponentList() {
-    return _.toPairs(customGraphicMeta);
   }
 
   dragstart(dragEvent: DragEvent) {

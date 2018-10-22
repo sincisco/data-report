@@ -8,7 +8,7 @@ export class CustomControlValueAccessor implements ControlValueAccessor {
   };
 
   writeValue(value: any) {
-    if (value !== undefined) {
+    if (value) {
       this.option = value;
     }
   }

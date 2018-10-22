@@ -77,6 +77,7 @@ export abstract class ChartGraphic implements IGraphic {
 
     let lastConfig, lastData;
     return model.subscribe((modelArray: Array<any>) => {
+      console.log('model change');
       const [config, data] = modelArray;
       if (config !== lastConfig) {
         this._modelEventTarget.trigger(config);
@@ -87,8 +88,6 @@ export abstract class ChartGraphic implements IGraphic {
         lastData = data;
       }
       console.log(config, data);
-
-
     });
   }
 

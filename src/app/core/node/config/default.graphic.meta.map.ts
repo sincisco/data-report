@@ -1,6 +1,7 @@
+import * as _ from 'lodash';
 import {FlipBarChartGraphic} from '@core/node/graphic/chart/flip.bar.chart.graphic';
 
-export interface GraphicMeta {
+interface GraphicMeta {
   region: {
     regionKey: string;
   };
@@ -15,11 +16,13 @@ export interface GraphicMeta {
   imageClass?: string;
 }
 
-const defaultGraphicMetaMap: Map<string, GraphicMeta> = new Map();
-
 interface GraphicMetaMap {
   [key: string]: GraphicMeta;
 }
+
+
+const defaultGraphicMetaMap: Map<string, GraphicMeta> = new Map();
+
 
 export const stdGraphicMeta: GraphicMetaMap = {
   barChart: {
@@ -269,4 +272,11 @@ export const customGraphicMeta: GraphicMetaMap = {
   }
 };
 
-export const graphicMetaMap = Object.assign({}, stdGraphicMeta, customGraphicMeta);
+const totalGraphicMetaMap = Object.assign({}, stdGraphicMeta, customGraphicMeta);
+
+_.keys(totalGraphicMetaMap).forEach((key) => {
+  defaultGraphicMetaMap.set(key, totalGraphicMetaMap[key]);
+});
+
+
+export const graphicMetaMap = defaultGraphicMetaMap;
