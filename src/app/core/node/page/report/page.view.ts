@@ -1,11 +1,9 @@
 import {regionSelectHelper} from '@core/node/helper/region.select.helper';
-import {graphicFactory} from '@core/node/factory/graphic.factory';
-import {clipboard} from '@core/node/clipboard';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {MaskHelper} from '@core/node/helper/mask.helper';
 import {PageConfig} from '../../../../components/page.config/page.config';
 import {View} from '@core/node/structure/view';
 import {session} from '@core/node/utils/session';
+import {repaintMaskGenerator} from '@core/node/helper/mask.helper';
 
 const TEMPLATE = `
     <div class="report-region">
@@ -26,11 +24,11 @@ const TEMPLATE = `
 
 export class PageView extends View {
   $element: JQuery;
-  private readonly _$canvas: JQuery;
-  private readonly _$box: JQuery;
+  protected readonly _$canvas: JQuery;
+  protected readonly _$box: JQuery;
   $grid: JQuery;
 
-  maskHelper: MaskHelper;
+  repaintMask: Function;
 
   private _scale = 1;
   private _width: number;
@@ -43,10 +41,9 @@ export class PageView extends View {
 
     this._$canvas = $element.find('.report-canvas');
     this._$box = $element.find('.report-box');
-
     this.$grid = $element.find('.report-grid');
 
-    this.maskHelper = new MaskHelper($element.find('.u-edit-mask'));
+    this.repaintMask = repaintMaskGenerator($element.find('.u-edit-mask'));
 
     this._bind();
   }
@@ -72,10 +69,6 @@ export class PageView extends View {
     return this.$grid.offset();
   }
 
-  repaintMask($element) {
-    this.maskHelper.repaint($element);
-  }
-
   private _refresh() {
     if (this._width && this._height) {
       this.$element.css({
@@ -90,8 +83,7 @@ export class PageView extends View {
       this.$grid.css({
         width: this._width,
         height: this._height
-      })
-      ;
+      });
     }
   }
 
@@ -102,15 +94,15 @@ export class PageView extends View {
   }
 
   private _bindEvent() {
-    this.$element.find('.u-edit-mask').click(() => {
-      console.log('$mask  click');
-      this._event.dispatchEvent('deactivateRegion');
+    const eventTarget = this._eventTarget;
+    this.$element.find('.u-edit-mask').on('click', () => {
+      eventTarget.dispatchEvent('deactivateRegion');
     });
 
     this.$grid
       .on('click', ($event) => {
         if ($event.target === this.$grid[0]) {
-          this._event.dispatchEvent('select');
+          eventTarget.dispatchEvent('select');
         }
       })
       .on('dragstart', ($event: JQuery.Event) => {
@@ -131,7 +123,7 @@ export class PageView extends View {
             document.removeEventListener('mousemove', mousemove);
             document.removeEventListener('mouseup', mouseup);
             regionSelectHelper.hide();
-            this._event.dispatchEvent('regionSelect', left, top, width, height);
+            this._eventTarget.dispatchEvent('regionSelect', left, top, width, height);
           };
         document.addEventListener('mousemove', mousemove);
         document.addEventListener('mouseup', mouseup);
@@ -147,12 +139,14 @@ export class PageView extends View {
 
   private _bindContextEvent() {
     this.$grid.contextmenu(($event: JQuery.Event) => {
-      this._contextMenuGenerator && contextMenuHelper.open(this._contextMenuGenerator(), $event.pageX, $event.pageY, $event);
+      if (this._contextMenuGenerator) {
+        contextMenuHelper.open(this._contextMenuGenerator(), $event.pageX, $event.pageY, $event);
+      }
       return false;
     });
   }
 
-  public listenToModel(model: PageConfig) {
+  public accept(model: PageConfig) {
     model.register('remove.backgroundClass', (key, oldValue, newValue) => {
       this._$box.removeClass('background1 background2 background3 background4');
     });

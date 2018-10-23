@@ -24,6 +24,10 @@ export class DesignerHeaderComponent implements AfterViewInit {
     console.log('mouseLeave');
   }
 
+  preview() {
+    session.currentPage.enterFullScreen();
+  }
+
   get actionManager() {
     return session.currentPage ? session.currentPage.actionManager : null;
   }

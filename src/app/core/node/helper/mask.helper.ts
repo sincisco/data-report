@@ -1,39 +1,34 @@
-export class MaskHelper {
-  private _$maskLeft: JQuery;
-  private _$maskRight: JQuery;
-  private _$maskTop: JQuery;
-  private _$maskBottom: JQuery;
+type MaskRepaint = ($activatedElement: JQuery) => void;
 
-  constructor(private _$mask: JQuery) {
-    this._$maskLeft = _$mask.find('.mask-left');
-    this._$maskRight = _$mask.find('.mask-right');
-    this._$maskTop = _$mask.find('.mask-top');
-    this._$maskBottom = _$mask.find('.mask-bottom');
-  }
+export function repaintMaskGenerator($mask: JQuery): MaskRepaint {
+  const
+    $maskLeft = $mask.find('.mask-left'),
+    $maskRight = $mask.find('.mask-right'),
+    $maskTop = $mask.find('.mask-top'),
+    $maskBottom = $mask.find('.mask-bottom');
 
-
-  public repaint($activateElement: JQuery) {
-    const left = $activateElement.position().left,
-      top = $activateElement.position().top,
-      width = $activateElement.outerWidth(),
-      height = $activateElement.outerHeight();
-    this._$maskLeft
+  return ($activatedElement: JQuery) => {
+    const left = $activatedElement.position().left,
+      top = $activatedElement.position().top,
+      width = $activatedElement.outerWidth(),
+      height = $activatedElement.outerHeight();
+    $maskLeft
       .width(Math.max(0, left));
-    this._$maskRight
+    $maskRight
       .css({
         left: left + width
       });
-    this._$maskBottom
+    $maskBottom
       .width(width)
       .css({
         left: Math.max(0, left),
         top: top + height
       });
-    this._$maskTop
+    $maskTop
       .width(width)
       .height(Math.max(top, 0))
       .css({
         left: Math.max(0, left)
       });
-  }
+  };
 }

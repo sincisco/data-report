@@ -32,6 +32,11 @@ export class DataOptionManager {
       return this._map.get(id);
     }
   }
+
+  clear() {
+  }
 }
+
+export const dataOptionManager = DataOptionManager.getInstance();
 
 

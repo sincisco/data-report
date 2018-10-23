@@ -10,15 +10,15 @@ export interface IView extends IEventTarget {
 export abstract class View implements IView {
   $element: JQuery;
 
-  protected _event = new ViewEventTarget();
+  protected _eventTarget = new ViewEventTarget();
 
   addEventListener(eventName: string, callback: Function) {
-    this._event.addEventListener(eventName, callback);
+    this._eventTarget.addEventListener(eventName, callback);
     return this;
   }
 
   removeEventListener(eventName: string, fn?: Function) {
-    this._event.removeEventListener(eventName, fn);
+    this._eventTarget.removeEventListener(eventName, fn);
     return this;
   }
 
@@ -30,7 +30,7 @@ export abstract class View implements IView {
   destroy() {
     this.$element.remove();
 
-    this._event.destroy();
-    this._event = null;
+    this._eventTarget.destroy();
+    this._eventTarget = null;
   }
 }

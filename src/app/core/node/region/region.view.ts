@@ -112,7 +112,7 @@ export abstract class RegionView extends View {
         this.$element.removeClass('no-transition');
         resizeTipHelper.hide();
         handleResize(event.pageX, event.pageY);
-        this._event.dispatchEvent('resizeEnd');
+        this._eventTarget.dispatchEvent('resizeEnd');
       }
     };
 
@@ -204,15 +204,15 @@ export abstract class RegionView extends View {
         console.log('singleClick');
         if ($singleClickEvent.ctrlKey) {
           console.log('ctrl');
-          this._event.dispatchEvent('ctrlSelect');
+          this._eventTarget.dispatchEvent('ctrlSelect');
         } else {
-          this._event.dispatchEvent('select');
+          this._eventTarget.dispatchEvent('select');
         }
 
       })
       .on('dblclick', ($event: JQuery.Event) => {
         console.log('dblclick');
-        this._event.dispatchEvent('activateRegion');
+        this._eventTarget.dispatchEvent('activateRegion');
       });
   }
 

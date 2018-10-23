@@ -40,7 +40,7 @@ export class ReportPage extends PageView implements IPage {
     this.configSourceManager = new ConfigSourceManager('design');
     this.dataSourceManager = new DataSourceManager(DataOptionManager.getInstance().getDataOptionSet('space1'));
     this.actionManager = new ActionManager();
-    this.listenToModel(this.model);
+    this.accept(this.model);
     this._init();
   }
 
@@ -58,8 +58,13 @@ export class ReportPage extends PageView implements IPage {
     };
   }
 
-  listenToModel(model: PageConfig) {
-    super.listenToModel(model);
+  enterFullScreen() {
+    this._$box[0].requestFullscreen();
+  }
+
+
+  accept(model: PageConfig) {
+    super.accept(model);
     model.register('themeMode', (key, oldValue, newValue) => {
       this.regionManager.regionArray.forEach((item) => {
         item.updateTheme(newValue);
