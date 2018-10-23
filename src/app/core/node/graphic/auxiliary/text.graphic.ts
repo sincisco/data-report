@@ -1,7 +1,6 @@
 import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
 import {IGraphicView} from '../../graphic.view/graphic.view';
 import {DefaultGraphic} from '../default.graphic';
-import {OuterModelEventTarget} from '@core/node/event/model.event';
 import {Observable, Subscription} from 'rxjs';
 
 const template = `

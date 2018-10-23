@@ -7,7 +7,6 @@ export abstract class DefaultGraphic implements IGraphic {
   $element: JQuery;
 
   protected _view: IGraphicView;
-
   protected _modelEventTarget = new OuterModelEventTarget();
 
   abstract addChild(child);

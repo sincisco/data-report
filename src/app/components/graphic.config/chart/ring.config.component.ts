@@ -7,7 +7,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {dataModelManager} from '../../../core/data/data.model.manager';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
@@ -15,27 +14,6 @@ import {DesignGraphicConfig} from '../../../core/source/config.source/design.con
 import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
 import * as _ from 'lodash';
-import {convertData, provinceCityMap} from '@core/data/geo.map';
-
-const data = [
-  {name: '济南市', value: 390},
-  {name: '菏泽市', value: 158},
-  {name: '德州市', value: 252},
-  {name: '聊城市', value: 99},
-  {name: '泰安市', value: 189},
-  {name: '临沂市', value: 52},
-  {name: '淄博市', value: 158},
-  {name: '枣庄市', value: 152},
-  {name: '滨州市', value: 189},
-  {name: '潍坊市', value: 160},
-  {name: '东营市', value: 80},
-  {name: '青岛市', value: 180},
-  {name: '烟台市', value: 190},
-  {name: '威海市', value: 290},
-  {name: '日照市', value: 190},
-  {name: '济宁市', value: 190},
-  {name: '莱芜市', value: 290},
-];
 
 @Component({
   selector: 'app-ring-config',

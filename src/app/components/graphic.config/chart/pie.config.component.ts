@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component, DoCheck,
   EventEmitter,
-  Input,
   KeyValueDiffer,
   KeyValueDiffers,
   OnInit,

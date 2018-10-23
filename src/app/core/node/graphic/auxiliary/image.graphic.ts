@@ -33,7 +33,6 @@ export class ImageGraphic extends DefaultGraphic {
   accept(modelSource: Observable<any>): Subscription {
     return modelSource.subscribe((modelArray: Array<any>) => {
       const [config, data] = modelArray;
-      console.log(12345, config);
       this._modelEventTarget.batchTrigger(config);
     });
   }

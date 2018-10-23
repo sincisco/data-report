@@ -1,4 +1,4 @@
-import {ComponentRef, Type} from '@angular/core';
+import {Type} from '@angular/core';
 import {Observable} from 'rxjs';
 import {RegionController} from '../../region/region.controller';
 import {IGraphic} from '../graphic';
@@ -25,16 +25,11 @@ const template = `
 
 export abstract class ChartGraphic implements IGraphic {
   $element: JQuery;
-  private readonly _$frame: JQuery;
-  private readonly _$toolbar: JQuery;
+  private _$frame: JQuery;
+  private _$toolbar: JQuery;
   protected _modelEventTarget = new OuterModelEventTarget();
 
   protected _chart: Chart;
-  protected _configComponentRef: ComponentRef<DesignGraphicConfig>;
-
-  get configSource() {
-    return this._configComponentRef.instance;
-  }
 
   /**
    * 1、初始化视图
@@ -51,7 +46,6 @@ export abstract class ChartGraphic implements IGraphic {
     this._bindToolbarEvent();
   }
 
-  abstract init(option?: any, runtime?: boolean);
 
   /**
    * 1、创建 GraphicView
@@ -62,12 +56,11 @@ export abstract class ChartGraphic implements IGraphic {
    * @param option
    * @private
    */
-  protected _init(graphicConfigClass: Type<DesignGraphicConfig>, option?: any) {
+  init(option?: any) {
     // 步骤1
     this._chart = new Chart(this);
 
     this._modelEventTarget.register('option', (key, oldValue, newValue) => {
-      console.log(key, oldValue, newValue);
       this.update(newValue);
     });
   }
@@ -137,11 +130,21 @@ export abstract class ChartGraphic implements IGraphic {
     if (this._chart) {
       this._chart.destroy();
       this._chart = null;
-
-      this._configComponentRef.destroy();
-      this._configComponentRef = null;
+    }
+    if (this._modelEventTarget) {
+      this._modelEventTarget.destroy();
+    }
+    if (this._$toolbar) {
+      this._$toolbar.off('click');
+      this._$toolbar = null;
+    }
+    this._$frame = null;
+    if (this.$element) {
+      this.$element.remove();
+      this.$element = null;
     }
   }
+
 
   private _bindToolbarEvent() {
     this._$toolbar.on('click', ($event: JQuery.Event) => {

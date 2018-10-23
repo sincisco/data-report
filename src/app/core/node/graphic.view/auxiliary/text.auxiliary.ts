@@ -1,5 +1,5 @@
-import {AuxiliaryView} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {IGraphic} from '@core/node/graphic/graphic';
+import {AuxiliaryView} from '@core/node/graphic.view/auxiliary/auxiliary';
 
 const TextTemplate = `<div class="m-rect m-rect-text"
  style="color: rgb(51, 51, 51); font-size: 12px; font-family: avenir, Helvetica, Arial, sans-serif; 
