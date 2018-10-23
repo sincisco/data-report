@@ -7,7 +7,7 @@ import {PageConfig} from '../../../../components/page.config/page.config';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {clipboard} from '@core/node/clipboard';
 import {ISelectManager, SelectManager} from '@core/node/manager/select.manager';
-import {regionSelectHelper} from '@core/node/helper/region.select.helper';
+import {boxSelectHelper} from '@core/node/helper/box.select.helper';
 import {PageView} from '@core/node/page/report/page.view';
 import {RegionManager} from '@core/node/manager/region.manager';
 import {ActivateManager} from '@core/node/manager/activate.manager';
@@ -22,6 +22,7 @@ export class ReportPage extends PageView implements IPage {
   public regionManager: RegionManager;
   public selectManager: ISelectManager;
   public activateManager: ActivateManager;
+
   public configSourceManager: ConfigSourceManager;
   public dataSourceManager: DataSourceManager;
   public actionManager: ActionManager;
@@ -79,7 +80,7 @@ export class ReportPage extends PageView implements IPage {
         this.selectManager.clear();
         session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
       })
-      .addEventListener('regionSelect', (left, top, width, height) => {
+      .addEventListener('boxSelect', (left, top, width, height) => {
         const array = this.regionManager.selectByBox(left, top, width, height);
         this.selectManager.clear();
         console.log(array.length);

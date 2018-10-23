@@ -2,8 +2,8 @@ const TEMPLATE = `<div style="background-color: rgba(5,157,255,0.31);
 position:absolute;border:2px rgba(5,127,217,0.81) dashed;z-index: 999;background-clip: content-box;
 left:300px;top:300px;display: none;"></div>`;
 
-class RegionSelectHelper {
-  private static _instance: RegionSelectHelper;
+class BoxSelectHelper {
+  private static _instance: BoxSelectHelper;
 
   private readonly _$element: JQuery;
 
@@ -12,10 +12,10 @@ class RegionSelectHelper {
   }
 
   static getInstance() {
-    if (!RegionSelectHelper._instance) {
-      RegionSelectHelper._instance = new RegionSelectHelper();
+    if (!BoxSelectHelper._instance) {
+      BoxSelectHelper._instance = new BoxSelectHelper();
     }
-    return RegionSelectHelper._instance;
+    return BoxSelectHelper._instance;
   }
 
   start(left: number, top: number) {
@@ -32,4 +32,4 @@ class RegionSelectHelper {
   }
 }
 
-export const regionSelectHelper = RegionSelectHelper.getInstance();
+export const boxSelectHelper = BoxSelectHelper.getInstance();

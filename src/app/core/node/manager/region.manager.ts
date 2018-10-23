@@ -1,6 +1,4 @@
 import {RegionController} from '../region/region.controller';
-import {ReportPage} from '../page/report/page';
-import {PageConfig} from '../../../components/page.config/page.config';
 import {BehaviorSubject} from 'rxjs';
 
 export class RegionManager {

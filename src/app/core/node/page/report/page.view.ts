@@ -1,4 +1,4 @@
-import {regionSelectHelper} from '@core/node/helper/region.select.helper';
+import {boxSelectHelper} from '@core/node/helper/box.select.helper';
 import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {PageConfig} from '../../../../components/page.config/page.config';
 import {View} from '@core/node/structure/view';
@@ -113,7 +113,7 @@ export class PageView extends View {
         let left: number, top: number, width: number, height: number;
         const
           mousemove = (event: MouseEvent) => {
-            regionSelectHelper.show(
+            boxSelectHelper.show(
               left = Math.min(startPageX, event.pageX),
               top = Math.min(startPageY, event.pageY),
               width = Math.abs(event.pageX - startPageX),
@@ -122,13 +122,13 @@ export class PageView extends View {
           mouseup = (event: MouseEvent) => {
             document.removeEventListener('mousemove', mousemove);
             document.removeEventListener('mouseup', mouseup);
-            regionSelectHelper.hide();
-            this._eventTarget.dispatchEvent('regionSelect', left, top, width, height);
+            boxSelectHelper.hide();
+            this._eventTarget.dispatchEvent('boxSelect', left, top, width, height);
           };
         document.addEventListener('mousemove', mousemove);
         document.addEventListener('mouseup', mouseup);
 
-        regionSelectHelper.start($event.pageX, $event.pageY);
+        boxSelectHelper.start($event.pageX, $event.pageY);
         return false;
       })
       .on('dragover', ($event: JQuery.Event) => {
