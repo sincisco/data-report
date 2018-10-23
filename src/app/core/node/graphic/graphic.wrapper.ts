@@ -52,14 +52,39 @@ export class GraphicWrapper {
 
     this._uuid = graphicId || guid(10, 16);
 
-    this._configSource = this._region.page.configSourceManager.getConfigSource({
-      graphicId: this._uuid,
-      graphicKey,
-      configOption
-    });
+    if (configOption) {
+      console.log('create mock');
+      this._configSource = this._region.page.configSourceManager
+        .getMockConfigSource({
+          graphicId: this._uuid,
+          graphicKey,
+          configOption
+        });
+    } else {
+      console.log('create 根据实际情况');
+      this._configSource = this._region.page.configSourceManager
+        .getConfigSource({
+          graphicId: this._uuid,
+          graphicKey,
+          configOption
+        });
+    }
     this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
 
     // 两个组件必须同时打开  不然收不到信息
+    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
+      .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
+  }
+
+  switchConfigSource() {
+    if (this._subscription) {
+      this._subscription.unsubscribe();
+    }
+    this._configSource = this._region.page.configSourceManager.getConfigSource({
+      graphicId: this._uuid,
+      graphicKey: this._graphicOption.graphicKey,
+      configOption: this._graphicOption.configOption
+    });
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
   }
@@ -76,6 +101,9 @@ export class GraphicWrapper {
 
   // 激活配置面板
   activateConfig() {
+    if (!GraphicConfigManager.getInstance().has(this._uuid)) {
+      this.switchConfigSource();
+    }
     GraphicConfigManager.getInstance().activate(this._uuid);
   }
 
@@ -118,7 +146,6 @@ export class GraphicWrapper {
   }
 
   destroy() {
-    console.log('*********************************');
     if (this._subscription) {
       this._subscription.unsubscribe();
       this._subscription = null;

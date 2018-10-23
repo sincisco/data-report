@@ -15,7 +15,7 @@ export class RuntimeConfigSourceFactory implements IConfigSourceFactory {
   private constructor() {
   }
 
-  getConfigSource(configMeta: any) {
-    return of(configMeta);
+  getConfigSource(configSourceOption: { graphicId: string, graphicKey: string, configOption: any }) {
+    return of(configSourceOption.configOption);
   }
 }

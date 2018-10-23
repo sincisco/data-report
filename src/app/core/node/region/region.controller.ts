@@ -17,7 +17,7 @@ export abstract class RegionController {
   protected _page: ReportPage;
   protected _model: RegionModel;
   protected _view: RegionView;
-  protected _graphic: GraphicWrapper;
+  protected _graphicWrapper: GraphicWrapper;
 
   get $element() {
     return this._view.$element;
@@ -44,13 +44,13 @@ export abstract class RegionController {
    * @param {IGraphic} graphic
    */
   addChild(graphic: GraphicWrapper) {
-    this._graphic = graphic;
+    this._graphicWrapper = graphic;
     this._view.$fill.append(graphic.$element);
   }
 
   updateTheme(theme: string) {
-    if (this._graphic) {
-      this._graphic.updateTheme(theme);
+    if (this._graphicWrapper) {
+      this._graphicWrapper.updateTheme(theme);
     }
   }
 
@@ -62,7 +62,7 @@ export abstract class RegionController {
   setDimensions(width: number, height: number) {
     this._model.setDimensions(width, height);
     this._view.refresh();
-    this._graphic && this._graphic.resize();
+    this._graphicWrapper && this._graphicWrapper.resize();
   }
 
   abstract getOption();
@@ -81,9 +81,9 @@ export abstract class RegionController {
    * 3、解除当前对象的属性引用
    */
   destroy() {
-    if (this._graphic) {
-      this._graphic.destroy();
-      this._graphic = null;
+    if (this._graphicWrapper) {
+      this._graphicWrapper.destroy();
+      this._graphicWrapper = null;
     }
     this._page.removeChild(this);
     this._page = null;

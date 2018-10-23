@@ -81,6 +81,7 @@ export class BarConfigComponent extends DesignGraphicConfig implements AfterView
   }
 
   ngAfterViewInit() {
+    console.log('BarConfigComponent  ngAfterViewInit');
     this.ngForm.valueChanges.pipe(debounceTime(200)).subscribe((value) => {
       console.log('BarConfigComponent  valueChanges', value);
       value = removeUndefined(value);

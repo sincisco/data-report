@@ -45,6 +45,13 @@ ul {
         background-color: #000;
         border-radius: 2px;
       }
+      &.z-disabled{
+        cursor: not-allowed !important;
+        &:hover {
+          background-color: transparent;
+          border-radius: initial;
+        }
+      }
     }
   }
   .cut-line {
@@ -103,5 +110,11 @@ ul {
     flex-grow: 0;
     flex-shrink: 0;
     margin-right: 16px;
+  }
+}
+
+.z-disabled{
+  .u-icn{
+    color: #cccccc;
   }
 }

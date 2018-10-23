@@ -38,8 +38,8 @@ export class CommentRegion extends RegionController {
         this._page.selectManager.ctrlSelect(this);
       })
       .addEventListener('resizeEnd', () => {
-        if (this._graphic) {
-          this._graphic.resize();
+        if (this._graphicWrapper) {
+          this._graphicWrapper.resize();
         }
       })
       .addEventListener('activateRegion', () => {
@@ -70,14 +70,14 @@ export class CommentRegion extends RegionController {
    * 点击mask  当前激活的region调用deactivate
    */
   set state(param: RegionState) {
-    if (param === RegionState.selected && this._graphic) {
-      reportGlobal.instance = this._graphic;
-      this._graphic.activateConfig();
-    } else if (param === RegionState.activated && this._graphic) {
-      reportGlobal.instance = this._graphic;
-      this._graphic.activate();
-    } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphic) {
-      (<any>this._graphic).deactivate();
+    if (param === RegionState.selected && this._graphicWrapper) {
+      reportGlobal.instance = this._graphicWrapper;
+      this._graphicWrapper.activateConfig();
+    } else if (param === RegionState.activated && this._graphicWrapper) {
+      reportGlobal.instance = this._graphicWrapper;
+      this._graphicWrapper.activate();
+    } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphicWrapper) {
+      (<any>this._graphicWrapper).deactivate();
     }
     this._model.state = param;
   }
@@ -88,8 +88,8 @@ export class CommentRegion extends RegionController {
   deactivate() {
     this._model.state = RegionState.default;
     // this._view.unselect();
-    if (this._graphic) {
-      (<any>this._graphic).deactivate();
+    if (this._graphicWrapper) {
+      (<any>this._graphicWrapper).deactivate();
     }
     // this.refresh();
   }

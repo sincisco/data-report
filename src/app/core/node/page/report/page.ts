@@ -15,6 +15,7 @@ import {session} from '@core/node/utils/session';
 import {DataSourceManager} from '@core/data/data.source.manager';
 import {ConfigSourceManager} from '@core/config/config.source.manager';
 import {DataOptionManager} from '@core/data/data.option.manager';
+import {ActionManager} from '@core/node/operate/action.manager';
 
 export class ReportPage extends PageView implements IPage {
 
@@ -23,6 +24,7 @@ export class ReportPage extends PageView implements IPage {
   public activateManager: ActivateManager;
   public configSourceManager: ConfigSourceManager;
   public dataSourceManager: DataSourceManager;
+  public actionManager: ActionManager;
 
   static builder(): ReportPage {
     const componentRef = session.siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
@@ -37,6 +39,7 @@ export class ReportPage extends PageView implements IPage {
     this.activateManager = new ActivateManager(this);
     this.configSourceManager = new ConfigSourceManager('design');
     this.dataSourceManager = new DataSourceManager(DataOptionManager.getInstance().getDataOptionSet('space1'));
+    this.actionManager = new ActionManager();
     this.listenToModel(this.model);
     this._init();
   }

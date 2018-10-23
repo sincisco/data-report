@@ -3,8 +3,7 @@ import {regionMap} from '@core/node/config/region.map';
 import {session} from '@core/node/utils/session';
 import {RegionController} from '@core/node/region/region.controller';
 import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
-import {graphicMetaMap} from '@core/node/config/default.graphic.meta.map';
-import {graphicMap} from '@core/node/config/graphic.map';
+import {GraphicCreateAction} from '@core/node/operate/graphic.create.action';
 
 class GraphicFactory {
   /**
@@ -17,37 +16,7 @@ class GraphicFactory {
    * @returns {{region: RegionController; graphic: GraphicWrapper}}
    */
   newGraphicByName(graphicName: string, page: ReportPage, x: number, y: number, configOption?: any) {
-    // 是否存在图表的默认定义
-    if (graphicMetaMap.has(graphicName)) {
-      const graphicMeta = graphicMetaMap.get(graphicName);
-      if (regionMap.has(graphicMeta.region.regionKey)) {
-        const region: RegionController = new (regionMap.get(graphicMeta.region.regionKey))(page);
-        region.setCoordinates(x, y);
-        if (graphicMeta.region.regionOption) {
-          const {width, height} = graphicMeta.region.regionOption;
-          region.setDimensions(width, height);
-        }
-
-        // const graphic = new meta.graphic(region);
-        // graphic.init(option);
-
-        const graphic = new GraphicWrapper(region);
-        if (configOption) {
-          graphic.init(Object.assign({}, graphicMeta.graphic, {configOption}));
-        } else {
-          graphic.init(graphicMeta.graphic);
-        }
-
-
-        setTimeout(() => {
-          graphic.resize();
-        }, 200);
-
-        return {
-          region, graphic
-        };
-      }
-    }
+    page.actionManager.execute(new GraphicCreateAction(graphicName, page, x, y, configOption));
   }
 
   createByName(name: string, page: ReportPage, x: number, y: number) {
@@ -66,6 +35,10 @@ class GraphicFactory {
 
       const graphic = new GraphicWrapper(region);
       graphic.init(graphicMeta.graphic);
+
+      setTimeout(() => {
+        graphic.resize();
+      }, 200);
 
     }
   }

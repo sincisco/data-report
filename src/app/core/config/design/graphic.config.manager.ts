@@ -17,6 +17,10 @@ export class GraphicConfigManager {
     this._map.set(id, graphicConfig);
   }
 
+  has(id: string) {
+    return this._map.has(id);
+  }
+
   activate(id: string) {
     if (this._map.has(id)) {
       const componentRef = this._map.get(id);

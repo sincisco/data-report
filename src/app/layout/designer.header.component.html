@@ -8,12 +8,12 @@
           <i class="u-icn u-icn-save"></i>
         </div>
       </li>
-      <li class="btn-item">
+      <li class="btn-item" [class.z-disabled]="!actionManager?.canBackward" (click)="actionManager.backward()">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-undo"></i>
         </div>
       </li>
-      <li class="btn-item  z-disabled">
+      <li class="btn-item" [class.z-disabled]="!actionManager?.canForward" (click)="actionManager.forward()">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-redo"></i>
         </div>
@@ -32,7 +32,8 @@
   </div>
   <div class="box-wrapper-center">
     <ul class="btns-box">
-      <li class="btn-item  false dragable" draggable="true" (dragstart)="dragStart($event)" data-component-name="barChart">
+      <li class="btn-item  false dragable" draggable="true" (dragstart)="dragStart($event)"
+          data-component-name="barChart">
         <div class="u-tool-btn">
           <i class="u-icn u-icn-chart-bar"></i>
           <span class="text">图表<i class="u-icn u-icn-caret-down" style="display: none;"></i></span>

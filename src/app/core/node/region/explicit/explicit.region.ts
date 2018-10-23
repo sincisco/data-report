@@ -71,8 +71,8 @@ export class ExplicitRegion extends RegionController {
         this._page.selectManager.ctrlSelect(this);
       })
       .addEventListener('resizeEnd', () => {
-        if (this._graphic) {
-          this._graphic.resize();
+        if (this._graphicWrapper) {
+          this._graphicWrapper.resize();
         }
       })
       .addEventListener('activateRegion', () => {
@@ -122,14 +122,14 @@ export class ExplicitRegion extends RegionController {
    * 点击mask  当前激活的region调用deactivate
    */
   set state(param: RegionState) {
-    if (param === RegionState.selected && this._graphic) {
-      reportGlobal.instance = this._graphic;
-      this._graphic.activateConfig();
-    } else if (param === RegionState.activated && this._graphic) {
-      reportGlobal.instance = this._graphic;
-      this._graphic.activate();
-    } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphic) {
-      (<any>this._graphic).deactivate();
+    if (param === RegionState.selected && this._graphicWrapper) {
+      reportGlobal.instance = this._graphicWrapper;
+      this._graphicWrapper.activateConfig();
+    } else if (param === RegionState.activated && this._graphicWrapper) {
+      reportGlobal.instance = this._graphicWrapper;
+      this._graphicWrapper.activate();
+    } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphicWrapper) {
+      (<any>this._graphicWrapper).deactivate();
     }
     this._model.state = param;
   }
@@ -140,7 +140,7 @@ export class ExplicitRegion extends RegionController {
         regionKey: 'explicit.region',
         regionOption: this._model.exportModel(),
       },
-      graphic: this._graphic.getOption()
+      graphic: this._graphicWrapper.getOption()
     };
     return retObj;
   }

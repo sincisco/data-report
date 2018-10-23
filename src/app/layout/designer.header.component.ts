@@ -24,6 +24,10 @@ export class DesignerHeaderComponent implements AfterViewInit {
     console.log('mouseLeave');
   }
 
+  get actionManager() {
+    return session.currentPage ? session.currentPage.actionManager : null;
+  }
+
   doSave() {
     const blob = new Blob([JSON.stringify(session.currentPage.save(), null, 2)], {type: 'text/plain;charset=utf-8'});
     FileSaver.saveAs(blob, `zijin.template.${moment().format('YYYYMMDDHHmmss')}.json`);
@@ -108,7 +112,8 @@ export class DesignerHeaderComponent implements AfterViewInit {
     grabHelper.show(dragEvent.pageX, dragEvent.pageY);
     return false;
   }
-  doSwitch(event){
+
+  doSwitch(event) {
     this.switch.emit();
   }
 
