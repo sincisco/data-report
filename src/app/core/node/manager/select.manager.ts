@@ -10,31 +10,21 @@ enum SelectStatus {
  */
 class Store {
   private _selected: RegionController = null;
-  private _multiSelectArray: Array<RegionController> = [];
+  private _selectArray: Array<RegionController> = [];
 
   get status(): SelectStatus {
-    if (this._selected === null) {
-      if (this._multiSelectArray.length === 0) {
+    switch (this._selectArray.length) {
+      case 0:
         return SelectStatus.default;
-      } else if (this._multiSelectArray.length > 1) {
+      case 1:
+        return SelectStatus.single;
+      default:
         return SelectStatus.multi;
-      }
-    } else {
-      return SelectStatus.single;
     }
   }
 
   get selectedArray() {
-    return this._multiSelectArray.slice(0);
-  }
-
-  /**
-   * 判断传入region是否被选中
-   * @param {RegionController} region
-   * @returns {boolean}
-   */
-  isSelected(region: RegionController) {
-    return this._selected === region ? true : false;
+    return this._selectArray.slice(0);
   }
 
   /**
@@ -47,62 +37,41 @@ class Store {
    * @returns {boolean}
    */
   include(region: RegionController) {
-    return this._multiSelectArray.includes(region);
+    return this._selectArray.includes(region);
   }
 
-  addSelected(region: RegionController) {
-    if (this._selected === region) {
-      return;
-    } else {
-      this.clearSelected();
-      region.state = RegionState.selected;
-      this._selected = region;
-    }
-  }
-
-  /**
-   * multiselected的数目不能低于二   这个规则在添加方法最后不需要校验，但在删除方法最后需要校验
-   * @param region
-   */
-  addMultiSelected(region: RegionController) {
+  addRegion(region: RegionController) {
     if (!this.include(region)) {
-      region.state = RegionState.multiSelected;
-      this._multiSelectArray.push(region);
-    }
-  }
-
-  removeMultiSelected(region: RegionController) {
-    if (this._multiSelectArray.includes(region)) {
-      region.state = RegionState.default;
-      this._multiSelectArray.splice(this._multiSelectArray.indexOf(region), 1);
-
-      if (this._multiSelectArray.length === 1) {
-        const region1 = this._multiSelectArray[0];
-        this.clearTotalMultiSelected();
-        this.addSelected(region1);
+      this._selectArray.push(region);
+      if (this._selectArray.length > 1) {
+        this._selectArray.forEach((value) => {
+          if (value.state !== RegionState.multiSelected) {
+            value.state = RegionState.multiSelected;
+          }
+        });
+      } else {
+        region.state = RegionState.selected;
       }
     }
   }
 
-  clearSelected(): RegionController {
-    const retRegion = this._selected;
-    this._selected = null;
-    if (retRegion) {
-      retRegion.state = RegionState.default;
-    }
-    return retRegion;
-  }
-
-  clearTotalMultiSelected() {
-    while (this._multiSelectArray.length > 0) {
-      const region = this._multiSelectArray.pop();
+  removeRegion(region: RegionController) {
+    if (this._selectArray.includes(region)) {
       region.state = RegionState.default;
+      this._selectArray.splice(this._selectArray.indexOf(region), 1);
+
+      if (this._selectArray.length === 1) {
+        const region1 = this._selectArray[0];
+        region1.state = RegionState.selected;
+      }
     }
   }
 
   clear() {
-    this.clearSelected();
-    this.clearTotalMultiSelected();
+    while (this._selectArray.length > 0) {
+      const region = this._selectArray.pop();
+      region.state = RegionState.default;
+    }
   }
 
   /**
@@ -113,7 +82,7 @@ class Store {
     if (this._selected === region) {
       this._selected = null;
     } else if (this.include(region)) {
-      this._multiSelectArray.splice(this._multiSelectArray.indexOf(region), 1);
+      this._selectArray.splice(this._selectArray.indexOf(region), 1);
     }
   }
 }
@@ -133,11 +102,11 @@ class StateDefault extends State {
   }
 
   select(region: RegionController) {
-    this.store.addSelected(region);
+    this.store.addRegion(region);
   }
 
   ctrlSelect(region: RegionController) {
-    this.select(region);
+    this.store.addRegion(region);
   }
 }
 
@@ -147,15 +116,21 @@ class StateSelected extends State {
   }
 
   select(region: RegionController) {
-    this.store.addSelected(region);
+    if (this.store.include(region)) {
+      return;
+    } else {
+      this.store.clear();
+      this.store.addRegion(region);
+    }
   }
 
   ctrlSelect(region: RegionController) {
-    if (this.store.isSelected(region)) {
-      return;
+    if (this.store.include(region)) {
+      this.store.removeRegion(region);
     } else {
-      this.store.addMultiSelected(this.store.clearSelected());
-      this.store.addMultiSelected(region);
+      this.store.addRegion(region);
+      // this.store.addMultiSelected(this.store.clearSelected());
+      // this.store.addMultiSelected(region);
     }
   }
 }
@@ -166,16 +141,23 @@ class StateMultiSelected extends State {
   }
 
   select(region: RegionController) {
-    this.store.clearTotalMultiSelected();
-    this.store.addSelected(region);
+    this.store.clear();
+    this.store.addRegion(region);
+    // this.store.clearTotalMultiSelected();
+    // this.store.addSelected(region);
   }
 
   ctrlSelect(region: RegionController) {
     if (this.store.include(region)) {
-      this.store.removeMultiSelected(region);
+      this.store.removeRegion(region);
     } else {
-      this.store.addMultiSelected(region);
+      this.store.addRegion(region);
     }
+    // if (this.store.include(region)) {
+    //   this.store.removeMultiSelected(region);
+    // } else {
+    //   this.store.addMultiSelected(region);
+    // }
   }
 }
 
