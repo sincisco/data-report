@@ -2,7 +2,7 @@ import {Observable, Subscription} from 'rxjs';
 import {ImageAuxiliary} from '../../graphic.view/auxiliary/image.auxiliary';
 import {IGraphicView} from '../../graphic.view/graphic.view';
 import {DefaultGraphic} from '../default.graphic';
-
+import {RegionController} from '@core/node/region/region.controller';
 
 const template = `
 <div class="graphic m-graphic m-graphic-image z-mode-edit">
@@ -25,25 +25,16 @@ export class ImageGraphic extends DefaultGraphic {
     this.$element.find('.frame').append(view.$element);
   }
 
-  init(option?: any) {
+  init(region: RegionController) {
     this._view = new ImageAuxiliary(this);
-    this._initForUpdate();
-  }
 
-  accept(modelSource: Observable<any>): Subscription {
-    return modelSource.subscribe((modelArray: Array<any>) => {
-      const [config, data] = modelArray;
-      this._modelEventTarget.batchTrigger(config);
-    });
-  }
-
-  private _initForUpdate() {
     const $frame = this.$element.find('.frame');
-    this._modelEventTarget.register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
-      $frame.css({
-        'borderRadius': newValue
-      });
-    }).register('add.borderWidth borderWidth', (key, oldValue, newValue) => {
+    this._modelEventTarget
+      .register('add.borderRadius borderRadius', (key, oldValue, newValue) => {
+        $frame.css({
+          'borderRadius': newValue
+        });
+      }).register('add.borderWidth borderWidth', (key, oldValue, newValue) => {
       $frame.css({
         'borderWidth': newValue
       });
@@ -61,10 +52,21 @@ export class ImageGraphic extends DefaultGraphic {
       });
     }).register('add.image image', (key, oldValue, newValue) => {
       if (this._view && newValue && newValue.dataUrl) {
-        // this._region.setDimensions(newValue.width, newValue.height);
+        region.setDimensions(newValue.width, newValue.height);
         this._view.update(newValue);
       }
     });
+  }
+
+  accept(modelSource: Observable<any>): Subscription {
+    return modelSource.subscribe((modelArray: Array<any>) => {
+      const [config, data] = modelArray;
+      this._modelEventTarget.batchTrigger(config);
+    });
+  }
+
+  private _initForUpdate() {
+
   }
 
 }

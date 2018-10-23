@@ -29,3 +29,20 @@ export function guid(len, radix) {
 
   return uuid.join('');
 }
+
+const COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
+const DEFAULT_PARAMS = /=[^,)]+/mg;
+const FAT_ARROWS = /=>.*$/mg;
+
+export function getParameterName(fn) {
+  if (typeof fn !== 'object' && typeof fn !== 'function') {
+    return;
+  }
+  let code = fn.prototype ? fn.prototype.constructor.toString() : fn.toString();
+  code = code
+    .replace(COMMENTS, '')
+    .replace(FAT_ARROWS, '')
+    .replace(DEFAULT_PARAMS, '');
+  const result = code.slice(code.indexOf('(') + 1, code.indexOf(')')).match(/([^\s,]+)/g);
+  return result === null ? [] : result;
+}

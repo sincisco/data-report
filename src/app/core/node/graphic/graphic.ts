@@ -10,7 +10,7 @@ export interface IGraphic {
    * 如果有content的，则创建相应的content；负责配置面板的创建
    * @param option
    */
-  init(option?: any);
+  init(...params: Array<any>);
 
   accept(modelObservable: Observable<any>): Subscription;
 

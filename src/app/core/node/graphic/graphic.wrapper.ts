@@ -1,7 +1,7 @@
 import {IGraphic, IGraphicOption} from '@core/node/graphic/graphic';
 import {combineLatest, Observable, Subscription} from 'rxjs';
 import {RegionController} from '@core/node/region/region.controller';
-import {guid} from '@core/node/utils/tools';
+import {getParameterName, guid} from '@core/node/utils/tools';
 import {graphicMap} from '@core/node/config/graphic.map';
 import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
 import {tap} from 'rxjs/operators';
@@ -39,7 +39,14 @@ export class GraphicWrapper {
     if (graphicMap.has(graphicKey)) {
       const _graphicClass = graphicMap.get(graphicKey);
       this._graphic = new _graphicClass();
-      this._graphic.init();
+      const paramNameArray = getParameterName(this._graphic.init), map = {
+        region: this._region,
+        wrapper: this
+      };
+      console.log(paramNameArray);
+      this._graphic.init(...paramNameArray.map((paramName) => {
+        return map[paramName];
+      }));
       this._region.addChild(this);
     }
 

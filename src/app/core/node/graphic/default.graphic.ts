@@ -16,7 +16,7 @@ export abstract class DefaultGraphic implements IGraphic {
    * 如果有content的，则创建相应的content；负责配置面板的创建
    * @param option
    */
-  abstract init(option?: any, runtime?: boolean);
+  abstract init(...params: Array<any>);
 
   abstract accept(model: Observable<any>): Subscription;
 
