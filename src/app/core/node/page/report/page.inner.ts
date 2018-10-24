@@ -12,6 +12,7 @@ import {DataSourceManager} from '@core/data/data.source.manager';
 import {ConfigSourceManager} from '@core/config/config.source.manager';
 import {DataOptionManager} from '@core/data/data.option.manager';
 import {ActionManager} from '@core/node/operate/action.manager';
+import {PageConfigWrapper} from '@core/node/page/report/page.outer';
 
 export class ReportPageInner implements IPage {
 
@@ -24,7 +25,7 @@ export class ReportPageInner implements IPage {
   public dataSourceManager: DataSourceManager;
   public actionManager: ActionManager;
 
-  constructor(private _configComponentRef: ComponentRef<PageConfig>) {
+  constructor(private _pageConfigWrapper: PageConfigWrapper) {
     this.view = new PageView(this);
     this.regionManager = new RegionManager();
     this.selectManager = new SelectManager();
@@ -35,7 +36,7 @@ export class ReportPageInner implements IPage {
   }
 
   get model() {
-    return this._configComponentRef ? this._configComponentRef.instance : null;
+    return this._pageConfigWrapper.model;
   }
 
   init() {
@@ -44,6 +45,10 @@ export class ReportPageInner implements IPage {
     this._init();
   }
 
+  /**
+   * 监听model事件
+   * @param {PageConfig} model
+   */
   accept(model: PageConfig) {
     model.register('themeMode', (key, oldValue, newValue) => {
       this.regionManager.regionArray.forEach((item) => {
@@ -53,11 +58,16 @@ export class ReportPageInner implements IPage {
   }
 
 
+  /**
+   * 监听PageView事件
+   * 设置View的上下文事件处理函数生成器
+   * @private
+   */
   private _init() {
     this.view
       .addEventListener('select', () => {
         this.selectManager.clear();
-        session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
+        this._pageConfigWrapper.show();
       })
       .addEventListener('boxSelect', (left, top, width, height) => {
         const array = this.regionManager.selectByBox(left, top, width, height);

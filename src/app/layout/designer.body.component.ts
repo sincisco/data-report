@@ -59,7 +59,7 @@ export class DesignerBodyComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     setTimeout(() => {
-      const report = this.report = session.currentPage = new ReportPageOuter();
+      const report = this.report = session.currentPage = new ReportPageOuter('design');
       $('.app-content').prepend(report.$element);
     }, 100);
 
