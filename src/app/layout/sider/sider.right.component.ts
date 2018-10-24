@@ -8,6 +8,9 @@ import {array} from '@core/data/test';
 import {DataOptionSet} from '@core/data/data.option.set';
 import {DataOptionManager} from '@core/data/data.option.manager';
 
+export let modelPlugin = null;
+
+
 @Component({
   selector: 'app-sider-right',
   encapsulation: ViewEncapsulation.None,
@@ -60,6 +63,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
 
     dataModelManager.dataOptionSet = DataOptionManager.getInstance().getDataOptionSet('space1');
 
+    modelPlugin = this;
     /*
         this.http.get('http://10.2.78.207:8080/table/total')
           .subscribe((data: any) => console.log(data));

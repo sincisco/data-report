@@ -1,5 +1,5 @@
 import {IConfigSourceFactory} from '../config.source.factory';
-import {of} from 'rxjs';
+import {BehaviorSubject, of} from 'rxjs';
 
 export class RuntimeConfigSourceFactory implements IConfigSourceFactory {
   private static _configSourceFactory: IConfigSourceFactory;
@@ -16,6 +16,11 @@ export class RuntimeConfigSourceFactory implements IConfigSourceFactory {
   }
 
   getConfigSource(configSourceOption: { graphicId: string, graphicKey: string, configOption: any }) {
-    return of(configSourceOption.configOption);
+    return new BehaviorSubject({
+      key: 'option',
+      newValue: configSourceOption.configOption,
+      oldValue: configSourceOption.configOption,
+      option: configSourceOption.configOption
+    });
   }
 }

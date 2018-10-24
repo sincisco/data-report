@@ -47,7 +47,7 @@ export const stdGraphicMeta: GraphicMetaMap = {
     graphic: {
       graphicKey: 'line.chart.graphic',
       configOption: null,
-      dataOptionId: 'num1'
+      dataOptionId: 'num3'
     }
   },
   pieChart: {

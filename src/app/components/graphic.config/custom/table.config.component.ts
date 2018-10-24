@@ -83,7 +83,7 @@ export class TableConfigComponent extends DesignGraphicConfig implements AfterVi
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
-      value.dataset = dataModelManager.current;
+      // value.dataset = dataModelManager.current;
       value.tooltip = {};
       value = removeUndefined(value);
       this._trigger({

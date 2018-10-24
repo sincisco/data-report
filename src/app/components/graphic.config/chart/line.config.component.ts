@@ -87,7 +87,7 @@ export class LineConfigComponent extends DesignGraphicConfig implements AfterVie
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       console.log('LineConfigComponent  valueChanges');
-      value.dataset = dataModelManager.current;
+      // value.dataset = dataModelManager.current;
       value = removeUndefined(value);
       this._trigger({
         key: 'option',
@@ -95,6 +95,13 @@ export class LineConfigComponent extends DesignGraphicConfig implements AfterVie
         newValue: value,
         option: value
       });
+      this._subject.next({
+        key: 'option',
+        oldValue: this._innerOption,
+        newValue: value,
+        option: value
+      });
+      console.log(value);
       this._innerOption = value;
     });
   }

@@ -236,7 +236,7 @@ export class MapConfigComponent extends DesignGraphicConfig implements AfterView
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       console.log('BarConfigComponent  valueChanges', value);
 
-      value.dataset = dataModelManager.current;
+      // value.dataset = dataModelManager.current;
       value.tooltip = {};
       value = removeUndefined(value);
       this._trigger({

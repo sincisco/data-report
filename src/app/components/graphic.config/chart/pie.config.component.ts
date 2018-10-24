@@ -97,7 +97,7 @@ export class PieConfigComponent extends DesignGraphicConfig implements AfterView
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       console.log('PieConfigComponent  valueChanges');
-      value.dataset = dataModelManager.current;
+      // value.dataset = dataModelManager.current;
       value = removeUndefined(value);
       this._trigger({
         key: 'option',

@@ -27,7 +27,7 @@ class GraphicFactory {
 
   paste(graphicMeta: any, x?: number, y?: number) {
     if (regionMap.has(graphicMeta.region.regionKey)) {
-      const region: RegionController = new (regionMap.get(graphicMeta.region.regionKey))(session.currentPage);
+      const region: RegionController = new (regionMap.get(graphicMeta.region.regionKey))(session.currentPage.reportPage);
 
       region.init(graphicMeta.region.regionOption);
 

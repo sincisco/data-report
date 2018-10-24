@@ -5,6 +5,8 @@ import {getParameterName, guid} from '@core/node/utils/tools';
 import {graphicMap} from '@core/node/config/graphic.map';
 import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
 import {tap} from 'rxjs/operators';
+import {modelPlugin} from '../../../layout/sider/sider.right.component';
+import * as _ from 'lodash';
 
 
 /**
@@ -73,7 +75,15 @@ export class GraphicWrapper {
 
     // 两个组件必须同时打开  不然收不到信息
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
-      .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
+      .pipe(tap((modelArray: Array<any>) => {
+        const [model, data] = modelArray;
+        if (_.isArray(model)) {
+          this._graphicOption.configOption = Object.assign({}, model[0].option);
+        } else {
+          console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!', model.option);
+          this._graphicOption.configOption = Object.assign({}, model.option);
+        }
+      })));
   }
 
   switchConfigSource() {
@@ -101,6 +111,7 @@ export class GraphicWrapper {
 
   // 激活配置面板
   activateConfig() {
+    modelPlugin.modelID = this._graphicOption.dataOptionId;
     if (!GraphicConfigManager.getInstance().has(this._uuid)) {
       this.switchConfigSource();
     }
