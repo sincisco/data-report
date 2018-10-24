@@ -63,8 +63,15 @@ export class ReportPageOuter {
   }
 
   destroy() {
-    this._configComponentRef.destroy();
-    this._configComponentRef = null;
+    if (this._configComponentRef) {
+      this._configComponentRef.destroy();
+      this._configComponentRef = null;
+    }
+    if (this._page) {
+      this._page.destroy();
+      this._page = null;
+    }
+
   }
 
 }

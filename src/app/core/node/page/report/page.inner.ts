@@ -32,7 +32,6 @@ export class ReportPageInner implements IPage {
     this.configSourceManager = new ConfigSourceManager('design');
     this.dataSourceManager = new DataSourceManager(DataOptionManager.getInstance().getDataOptionSet('space1'));
     this.actionManager = new ActionManager();
-
   }
 
   get model() {

@@ -29,4 +29,6 @@ export interface IReportPage {
   getConfigSource(option: any);
 
   getDataSource(id: string);
+
+  destroy();
 }
