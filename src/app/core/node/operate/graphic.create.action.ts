@@ -2,14 +2,14 @@ import {regionMap} from '@core/node/config/region.map';
 import {RegionController} from '@core/node/region/region.controller';
 import {graphicMetaMap} from '@core/node/config/default.graphic.meta.map';
 import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
-import {ReportPage} from '@core/node/page/report/page';
 import {IAction} from '@core/node/operate/action';
+import {IReportPage} from '@core/node/page/report/page.interface';
 
 export class GraphicCreateAction implements IAction {
 
   private _region: RegionController;
 
-  constructor(private _graphicName: string, private _page: ReportPage,
+  constructor(private _graphicName: string, private _page: IReportPage,
               private _x: number, private _y: number, private _configOption?: any) {
 
   }

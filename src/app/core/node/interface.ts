@@ -1,8 +1,4 @@
-import {RegionController} from '@core/node/region/region.controller';
-
 export interface IPage {
-  addChild(region: RegionController);
-
   destroy();
 }
 

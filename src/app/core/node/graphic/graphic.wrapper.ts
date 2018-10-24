@@ -54,7 +54,7 @@ export class GraphicWrapper {
 
     if (configOption) {
       console.log('create mock');
-      this._configSource = this._region.page.configSourceManager
+      this._configSource = this._region.page
         .getMockConfigSource({
           graphicId: this._uuid,
           graphicKey,
@@ -62,14 +62,14 @@ export class GraphicWrapper {
         });
     } else {
       console.log('create 根据实际情况');
-      this._configSource = this._region.page.configSourceManager
+      this._configSource = this._region.page
         .getConfigSource({
           graphicId: this._uuid,
           graphicKey,
           configOption
         });
     }
-    this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
+    this._dataSource = this._region.page.getDataSource(dataOptionId);
 
     // 两个组件必须同时打开  不然收不到信息
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
@@ -80,7 +80,7 @@ export class GraphicWrapper {
     if (this._subscription) {
       this._subscription.unsubscribe();
     }
-    this._configSource = this._region.page.configSourceManager.getConfigSource({
+    this._configSource = this._region.page.getConfigSource({
       graphicId: this._uuid,
       graphicKey: this._graphicOption.graphicKey,
       configOption: this._graphicOption.configOption
@@ -94,7 +94,7 @@ export class GraphicWrapper {
     if (this._subscription) {
       this._subscription.unsubscribe();
     }
-    this._dataSource = this._region.page.dataSourceManager.getDataSourceByID(dataOptionId);
+    this._dataSource = this._region.page.getDataSource(dataOptionId);
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => console.log('tap'))));
   }

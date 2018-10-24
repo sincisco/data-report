@@ -1,8 +1,9 @@
 import {IGraphic} from '../graphic/graphic';
-import {ReportPage} from '@core/node/page/report/page';
+import {ReportPageInner} from '@core/node/page/report/page.inner';
 import {RegionModel, RegionState} from '@core/node/region/region.model';
 import {RegionView} from '@core/node/region/region.view';
 import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
+import {IReportPage} from '@core/node/page/report/page.interface';
 
 
 export const reportGlobal: {
@@ -14,7 +15,7 @@ export const reportGlobal: {
 export abstract class RegionController {
 
   // 模型层
-  protected _page: ReportPage;
+  protected _page: IReportPage;
   protected _model: RegionModel;
   protected _view: RegionView;
   protected _graphicWrapper: GraphicWrapper;
