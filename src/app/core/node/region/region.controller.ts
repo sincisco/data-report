@@ -68,7 +68,7 @@ export abstract class RegionController {
   abstract getOption();
 
   get scale() {
-    return this._page.scale;
+    return this._page.view.scale;
   }
 
   regionResize() {

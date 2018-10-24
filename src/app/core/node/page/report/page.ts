@@ -17,8 +17,9 @@ import {ConfigSourceManager} from '@core/config/config.source.manager';
 import {DataOptionManager} from '@core/data/data.option.manager';
 import {ActionManager} from '@core/node/operate/action.manager';
 
-export class ReportPage extends PageView implements IPage {
+export class ReportPage implements IPage {
 
+  public view: PageView;
   public regionManager: RegionManager;
   public selectManager: ISelectManager;
   public activateManager: ActivateManager;
@@ -34,7 +35,7 @@ export class ReportPage extends PageView implements IPage {
   }
 
   constructor(private _configComponentRef: ComponentRef<PageConfig>) {
-    super();
+    this.view = new PageView();
     this.regionManager = new RegionManager();
     this.selectManager = new SelectManager();
     this.activateManager = new ActivateManager(this);
@@ -43,6 +44,10 @@ export class ReportPage extends PageView implements IPage {
     this.actionManager = new ActionManager();
     this.accept(this.model);
     this._init();
+  }
+
+  get $element() {
+    return this.view.$element;
   }
 
   load(option: any) {
@@ -60,12 +65,12 @@ export class ReportPage extends PageView implements IPage {
   }
 
   enterFullScreen() {
-    this._$box[0].requestFullscreen();
+    this.view.enterFullScreen();
   }
 
 
   accept(model: PageConfig) {
-    super.accept(model);
+    this.view.accept(model);
     model.register('themeMode', (key, oldValue, newValue) => {
       this.regionManager.regionArray.forEach((item) => {
         item.updateTheme(newValue);
@@ -75,7 +80,7 @@ export class ReportPage extends PageView implements IPage {
 
 
   private _init() {
-    this
+    this.view
       .addEventListener('select', () => {
         this.selectManager.clear();
         session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
@@ -92,7 +97,7 @@ export class ReportPage extends PageView implements IPage {
         this.activateManager.deactivate();
       });
 
-    this.contextMenuGenerator = () => {
+    this.view.contextMenuGenerator = () => {
       return [
         {
           displayName: '新建 柱状图',
@@ -145,10 +150,18 @@ export class ReportPage extends PageView implements IPage {
     return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
+  /**
+   * 获取画布相对于文档的偏移值
+   * @returns {JQuery.Coordinates | undefined}
+   */
+  offset() {
+    return this.view.offset();
+  }
+
   addChild(child: RegionController) {
     // child.page = this;
     this.regionManager.add(child);
-    this.$grid.append(child.$element);
+    this.view.$grid.append(child.$element);
   }
 
   removeChild(child: RegionController) {
