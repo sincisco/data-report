@@ -17,9 +17,8 @@ import {ConfigSourceManager} from '@core/config/config.source.manager';
 import {DataOptionManager} from '@core/data/data.option.manager';
 import {ActionManager} from '@core/node/operate/action.manager';
 
-export class ReportPage implements IPage {
+export class ReportPage extends PageView implements IPage {
 
-  public view: PageView;
   public regionManager: RegionManager;
   public selectManager: ISelectManager;
   public activateManager: ActivateManager;
@@ -35,7 +34,7 @@ export class ReportPage implements IPage {
   }
 
   constructor(private _configComponentRef: ComponentRef<PageConfig>) {
-    this.view = new PageView();
+    super();
     this.regionManager = new RegionManager();
     this.selectManager = new SelectManager();
     this.activateManager = new ActivateManager(this);
@@ -44,10 +43,6 @@ export class ReportPage implements IPage {
     this.actionManager = new ActionManager();
     this.accept(this.model);
     this._init();
-  }
-
-  get $element() {
-    return this.view.$element;
   }
 
   load(option: any) {
@@ -65,12 +60,12 @@ export class ReportPage implements IPage {
   }
 
   enterFullScreen() {
-    this.view.enterFullScreen();
+    this._$box[0].requestFullscreen();
   }
 
 
   accept(model: PageConfig) {
-    this.view.accept(model);
+    super.accept(model);
     model.register('themeMode', (key, oldValue, newValue) => {
       this.regionManager.regionArray.forEach((item) => {
         item.updateTheme(newValue);
@@ -80,7 +75,7 @@ export class ReportPage implements IPage {
 
 
   private _init() {
-    this.view
+    this
       .addEventListener('select', () => {
         this.selectManager.clear();
         session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
@@ -97,7 +92,7 @@ export class ReportPage implements IPage {
         this.activateManager.deactivate();
       });
 
-    this.view.contextMenuGenerator = () => {
+    this.contextMenuGenerator = () => {
       return [
         {
           displayName: '新建 柱状图',
@@ -150,18 +145,10 @@ export class ReportPage implements IPage {
     return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
-  /**
-   * 获取画布相对于文档的偏移值
-   * @returns {JQuery.Coordinates | undefined}
-   */
-  offset() {
-    return this.view.offset();
-  }
-
   addChild(child: RegionController) {
     // child.page = this;
     this.regionManager.add(child);
-    this.view.$grid.append(child.$element);
+    this.$grid.append(child.$element);
   }
 
   removeChild(child: RegionController) {

@@ -69,10 +69,6 @@ export class PageView extends View {
     return this.$grid.offset();
   }
 
-  enterFullScreen() {
-    this._$box[0].requestFullscreen();
-  }
-
   private _refresh() {
     if (this._width && this._height) {
       this.$element.css({
