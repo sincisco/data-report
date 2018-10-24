@@ -9,17 +9,18 @@ import {IGraphic} from '../../graphic/graphic';
 import {TextGraphic} from '../../graphic/auxiliary/text.graphic';
 import {CommentGraphic} from '../../graphic/auxiliary/comment.graphic';
 import {CommentAuxiliary} from '../../graphic.view/auxiliary/comment.auxiliary';
-import {ReportPage} from '../../page/report/page';
+import {ReportPageInner} from '../../page/report/page.inner';
 import {RegionModel, RegionState} from '../region.model';
 import {RegionView} from '../region.view';
 import {ExplicitRegionView} from '../explicit/explicit.region.view';
 import {CommentRegionView} from './comment.region.view';
 import {clipboard} from '@core/node/clipboard';
+import {IReportPage} from '@core/node/page/report/page.interface';
 
 
 export class CommentRegion extends RegionController {
 
-  constructor(protected _page: ReportPage) {
+  constructor(protected _page: IReportPage) {
     super();
     this._model = new RegionModel();
     this._view = new CommentRegionView(this, this._model);
@@ -32,10 +33,10 @@ export class CommentRegion extends RegionController {
   private _init() {
     this._view
       .addEventListener('select', () => {
-        this._page.selectManager.select(this);
+        this._page.select(this);
       })
       .addEventListener('ctrlSelect', () => {
-        this._page.selectManager.ctrlSelect(this);
+        this._page.ctrlSelect(this);
       })
       .addEventListener('resizeEnd', () => {
         if (this._graphicWrapper) {

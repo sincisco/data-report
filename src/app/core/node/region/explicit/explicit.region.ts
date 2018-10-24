@@ -13,11 +13,12 @@ import {LineChartGraphic} from '../../graphic/chart/line.chart.graphic';
 import {PieChartGraphic} from '../../graphic/chart/pie.chart.graphic';
 import {LinesChartGraphic} from '../../graphic/chart/lines.chart.graphic';
 import {reportGlobal} from '../region.controller';
-import {ReportPage} from '../../page/report/page';
+import {ReportPageInner} from '../../page/report/page.inner';
 import {RegionModel, RegionState} from '../region.model';
 import {RegionView} from '../region.view';
 import {ExplicitRegionView} from './explicit.region.view';
 import {graphicMap} from '@core/node/config/graphic.map';
+import {IReportPage} from '@core/node/page/report/page.interface';
 
 /**
  *
@@ -47,7 +48,7 @@ import {graphicMap} from '@core/node/config/graphic.map';
  */
 export class ExplicitRegion extends RegionController {
 
-  constructor(protected _page: ReportPage) {
+  constructor(protected _page: IReportPage) {
     super();
     this._model = new RegionModel();
     this._view = new ExplicitRegionView(this, this._model);
@@ -65,10 +66,10 @@ export class ExplicitRegion extends RegionController {
   private _init() {
     this._view
       .addEventListener('select', () => {
-        this._page.selectManager.select(this);
+        this._page.select(this);
       })
       .addEventListener('ctrlSelect', () => {
-        this._page.selectManager.ctrlSelect(this);
+        this._page.ctrlSelect(this);
       })
       .addEventListener('resizeEnd', () => {
         if (this._graphicWrapper) {
@@ -97,8 +98,8 @@ export class ExplicitRegion extends RegionController {
           displayName: '删除',
           shortcut: 'Backspace',
           callback: () => {
-            if (this.page.selectManager.include(this)) {
-              const arr = this.page.selectManager.selectedArray;
+            if (this.page.isSelected(this)) {
+              const arr = this.page.selectedArray;
               arr.forEach((value) => {
                 value.destroy();
               });

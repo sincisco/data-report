@@ -1,182 +1,62 @@
-import {IPage} from '../../interface';
-import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {RegionController} from '../../region/region.controller';
-import {ComponentRef} from '@angular/core';
-import {PageConfigComponent} from '../../../../components/page.config/page.config.component';
-import {PageConfig} from '../../../../components/page.config/page.config';
-import {graphicFactory} from '@core/node/factory/graphic.factory';
-import {clipboard} from '@core/node/clipboard';
-import {ISelectManager, SelectManager} from '@core/node/manager/select.manager';
-import {boxSelectHelper} from '@core/node/helper/box.select.helper';
-import {PageView} from '@core/node/page/report/page.view';
-import {RegionManager} from '@core/node/manager/region.manager';
-import {ActivateManager} from '@core/node/manager/activate.manager';
-import {session} from '@core/node/utils/session';
-import {DataSourceManager} from '@core/data/data.source.manager';
-import {ConfigSourceManager} from '@core/config/config.source.manager';
-import {DataOptionManager} from '@core/data/data.option.manager';
-import {ActionManager} from '@core/node/operate/action.manager';
-
-export class ReportPage extends PageView implements IPage {
-
-  public regionManager: RegionManager;
-  public selectManager: ISelectManager;
-  public activateManager: ActivateManager;
-
-  public configSourceManager: ConfigSourceManager;
-  public dataSourceManager: DataSourceManager;
-  public actionManager: ActionManager;
-
-  static builder(): ReportPage {
-    const componentRef = session.siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
-
-    return new ReportPage(componentRef);
-  }
-
-  constructor(private _configComponentRef: ComponentRef<PageConfig>) {
-    super();
-    this.regionManager = new RegionManager();
-    this.selectManager = new SelectManager();
-    this.activateManager = new ActivateManager(this);
-    this.configSourceManager = new ConfigSourceManager('design');
-    this.dataSourceManager = new DataSourceManager(DataOptionManager.getInstance().getDataOptionSet('space1'));
-    this.actionManager = new ActionManager();
-    this.accept(this.model);
-    this._init();
-  }
-
-  load(option: any) {
-    this.model.importOption(option.option);
-    option.children.forEach((value) => {
-      graphicFactory.paste(value);
-    });
-  }
-
-  save() {
-    return {
-      option: this.model.exportOption(),
-      children: this.regionManager.saveAs()
-    };
-  }
-
-  enterFullScreen() {
-    this._$box[0].requestFullscreen();
-  }
+import {ReportPageInner} from '@core/node/page/report/page.inner';
+import {IReportPage} from '@core/node/page/report/page.interface';
+import {RegionController} from '@core/node/region/region.controller';
 
 
-  accept(model: PageConfig) {
-    super.accept(model);
-    model.register('themeMode', (key, oldValue, newValue) => {
-      this.regionManager.regionArray.forEach((item) => {
-        item.updateTheme(newValue);
-      });
-    });
-  }
-
-
-  private _init() {
-    this
-      .addEventListener('select', () => {
-        this.selectManager.clear();
-        session.siderLeftComponent.attachDataProperty(this._configComponentRef.hostView);
-      })
-      .addEventListener('boxSelect', (left, top, width, height) => {
-        const array = this.regionManager.selectByBox(left, top, width, height);
-        this.selectManager.clear();
-        console.log(array.length);
-        array.forEach((value) => {
-          this.selectManager.ctrlSelect(value);
-        });
-      })
-      .addEventListener('deactivateRegion', () => {
-        this.activateManager.deactivate();
-      });
-
-    this.contextMenuGenerator = () => {
-      return [
-        {
-          displayName: '新建 柱状图',
-          callback: ($event) => {
-            // 如何建立关联
-            graphicFactory.createByName('barChart', this, $event.offsetX, $event.offsetY);
-            contextMenuHelper.close();
-          }
-        }, {
-          displayName: '新建注释',
-          callback: ($event) => {
-            graphicFactory.createByName('commentAuxiliary', this, $event.offsetX, $event.offsetY);
-            contextMenuHelper.close();
-          }
-        }, {
-          displayName: '新建文本',
-          callback: ($event) => {
-            graphicFactory.createByName('textAuxiliary', this, $event.offsetX, $event.offsetY);
-            contextMenuHelper.close();
-          }
-        }, {
-          displayName: '新建 Image',
-          callback: ($event) => {
-            // 如何建立关联
-            graphicFactory.createByName('imageAuxiliary', this, $event.offsetX, $event.offsetY);
-            contextMenuHelper.close();
-          }
-        }, 'split', {
-          displayName: '剪切',
-          shortcut: 'Ctrl+X'
-        }, {
-          displayName: '粘贴',
-          shortcut: 'Ctrl+X',
-          enable: clipboard.hasData(),
-          callback: ($event) => {
-            console.log('粘贴', clipboard.getData());
-            graphicFactory.paste(clipboard.getData(), $event.offsetX, $event.offsetY);
-            return false;
-          }
-        }, {
-          displayName: '删除',
-          shortcut: 'Backspace'
-        }
-      ];
-    };
+export class ReportPage implements IReportPage {
+  constructor(private _pageInner: ReportPageInner) {
 
   }
 
-  get model() {
-    return this._configComponentRef ? this._configComponentRef.instance : null;
+  get scale(): number {
+    return this._pageInner.view.scale;
   }
+
+  get selectedArray(): Array<RegionController> {
+    return this._pageInner.selectManager.selectedArray;
+  }
+
 
   addChild(child: RegionController) {
     // child.page = this;
-    this.regionManager.add(child);
-    this.$grid.append(child.$element);
+    this._pageInner.regionManager.add(child);
+    this._pageInner.view.$grid.append(child.$element);
   }
 
   removeChild(child: RegionController) {
-    this.selectManager.delete(child);
-    this.regionManager.remove(child);
+    this._pageInner.selectManager.delete(child);
+    this._pageInner.regionManager.remove(child);
   }
 
-  activateRegion(region) {
-    this.activateManager.activate(region);
+  select(region: RegionController) {
+    this._pageInner.selectManager.select(region);
+  }
+
+  ctrlSelect(region: RegionController) {
+    this._pageInner.selectManager.ctrlSelect(region);
+  }
+
+  isSelected(region: RegionController) {
+    return this._pageInner.selectManager.include(region);
+  }
+
+  activateRegion(region: RegionController) {
+    this._pageInner.activateManager.activate(region);
   }
 
   regionResize(region: RegionController) {
-    this.activateManager.regionResize(region);
+    this._pageInner.activateManager.regionResize(region);
   }
 
-  activate() {
-
+  getMockConfigSource(option: any) {
+    return this._pageInner.configSourceManager.getMockConfigSource(option);
   }
 
-  deactivate() {
+  getConfigSource(option: any) {
+    return this._pageInner.configSourceManager.getConfigSource(option);
   }
 
-  unselect() {
-
-  }
-
-  destroy() {
-
+  getDataSource(id: string) {
+    return this._pageInner.dataSourceManager.getDataSourceByID(id);
   }
 }
-

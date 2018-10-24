@@ -1,29 +1,47 @@
-import {ReportPage} from '@core/node/page/report/page';
+import {ReportPageInner} from '@core/node/page/report/page.inner';
 import {session} from '@core/node/utils/session';
 import {PageConfigComponent} from '../../../../components/page.config/page.config.component';
 import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {ComponentRef} from '@angular/core';
 import {PageConfig} from '../../../../components/page.config/page.config';
+import {IReportPage} from '@core/node/page/report/page.interface';
+import {ReportPage} from '@core/node/page/report/page';
 
-export class ReportPageWrapper {
+export class ReportPageOuter {
 
   private _configComponentRef: ComponentRef<PageConfig>;
-  private _page: ReportPage;
+  private _pageInner: ReportPageInner;
+  private _page: IReportPage;
 
   constructor() {
     this._configComponentRef = session.siderLeftComponent.forwardCreateCanvasConfig(PageConfigComponent);
 
 
-    this._page = new ReportPage( this._configComponentRef);
+    this._pageInner = new ReportPageInner(this._configComponentRef);
+    this._pageInner.init();
+    this._page = new ReportPage(this._pageInner);
+
   }
+
+  get $element() {
+    return this._pageInner.view.$element;
+  }
+
+  offset() {
+    return this._pageInner.view.offset();
+  }
+
+  get reportPage(): IReportPage {
+    return this._page;
+  }
+
 
   get model() {
     return this._configComponentRef ? this._configComponentRef.instance : null;
   }
 
-  init() {
-
-    this._page.accept(this.model);
+  get actionManager() {
+    return this._pageInner.actionManager;
   }
 
   load(option: any) {
@@ -36,12 +54,12 @@ export class ReportPageWrapper {
   save() {
     return {
       option: this.model.exportOption(),
-      // children: this.regionManager.saveAs()
+      children: this._pageInner.regionManager.saveAs()
     };
   }
 
   enterFullScreen() {
-    // this._$box[0].requestFullscreen();
+    this._pageInner.view.enterFullScreen();
   }
 
   destroy() {

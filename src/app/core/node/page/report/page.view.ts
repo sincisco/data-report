@@ -4,6 +4,7 @@ import {PageConfig} from '../../../../components/page.config/page.config';
 import {View} from '@core/node/structure/view';
 import {session} from '@core/node/utils/session';
 import {repaintMaskGenerator} from '@core/node/helper/mask.helper';
+import {ReportPageInner} from '@core/node/page/report/page.inner';
 
 const TEMPLATE = `
     <div class="report-region">
@@ -35,7 +36,7 @@ export class PageView extends View {
   private _height: number;
   private _contextMenuGenerator: Function;
 
-  constructor() {
+  constructor(private _page: ReportPageInner) {
     super();
     const $element = this.$element = $(TEMPLATE);
 
@@ -46,6 +47,10 @@ export class PageView extends View {
     this.repaintMask = repaintMaskGenerator($element.find('.u-edit-mask'));
 
     this._bind();
+  }
+
+  enterFullScreen() {
+    this._$box[0].requestFullscreen();
   }
 
   set contextMenuGenerator(generator: Function) {
@@ -106,7 +111,7 @@ export class PageView extends View {
         }
       })
       .on('dragstart', ($event: JQuery.Event) => {
-        if (session.currentPage.activateManager.regionActivated) {
+        if (this._page.activateManager.regionActivated) {
           return false;
         }
         const startPageX = $event.pageX, startPageY = $event.pageY;
