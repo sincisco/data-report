@@ -1,13 +1,7 @@
-import {IEventTarget} from '@core/node/event/event';
 import {ViewEventTarget} from '@core/node/event/view.event';
 
-export interface IView extends IEventTarget {
-  $element: JQuery;
 
-  destroy();
-}
-
-export abstract class View implements IView {
+export abstract class View {
   $element: JQuery;
 
   protected _eventTarget = new ViewEventTarget();
@@ -28,9 +22,9 @@ export abstract class View implements IView {
    * 3、解除当前对象的属性引用
    */
   destroy() {
-    this.$element.remove();
-
-    this._eventTarget.destroy();
-    this._eventTarget = null;
+    if (this._eventTarget) {
+      this._eventTarget.destroy();
+      this._eventTarget = null;
+    }
   }
 }

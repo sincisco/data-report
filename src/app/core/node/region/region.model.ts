@@ -1,11 +1,11 @@
-import {EventEmitter, KeyValueDiffer} from '@angular/core';
+import {KeyValueDiffer} from '@angular/core';
 import {closestNum} from '../../../utils/common';
 import {Dimensions} from '@core/node/interface';
 import {session} from '@core/node/utils/session';
 import {debounceTime} from 'rxjs/operators';
-import { ModelEventTarget} from '@core/node/event/model.event';
-import {IModelEventTarget} from '@core/node/event/event';
-
+import {ModelEventTarget} from '@core/node/event/model.event';
+import * as _ from 'lodash';
+import {Subject} from 'rxjs';
 
 export enum RegionState {
   default, selected, multiSelected, activated
@@ -19,13 +19,13 @@ interface RegionOption {
   height: number;
 }
 
-export interface IRegionModel extends IModelEventTarget {
-  zIndex: number;
-  coordinates: JQuery.Coordinates;
-  dimensions: Dimensions;
-
-  [key: string]: any;
-}
+// export interface IRegionModel extends IModelEventTarget {
+//   zIndex: number;
+//   coordinates: JQuery.Coordinates;
+//   dimensions: Dimensions;
+//
+//   [key: string]: any;
+// }
 
 
 /**
@@ -38,15 +38,19 @@ export interface IRegionModel extends IModelEventTarget {
  可以进行嵌套,隔离业务功能和数据
  给表达式提供运算时所需的执行环境
  */
-export class RegionModel extends ModelEventTarget implements IRegionModel {
+export class RegionModel extends ModelEventTarget {
   protected _option: RegionOption;
   // 非持久化状态层
   private _state: RegionState;
 
-  private _eventEmitter: EventEmitter<string>;
+  private _subject = new Subject();
   private _differ: KeyValueDiffer<any, any>;
 
-  constructor(left: number = 100, top: number = 100, width: number = 300, height: number = 200) {
+  constructor(
+    left: number = 100,
+    top: number = 100,
+    width: number = 300,
+    height: number = 200) {
     super();
     this._option = {
       zIndex: 1,
@@ -57,16 +61,14 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
     };
     this._state = RegionState.default;
 
-    this._eventEmitter = new EventEmitter<string>();
     this._differ = session.differs.find(this).create();
 
     // 避免出现添加项
     this._differ.diff(this._option);
-    this._eventEmitter.pipe(debounceTime(30)).subscribe((value) => {
+    this._subject.pipe(debounceTime(30)).subscribe((value) => {
       const changes = this._differ.diff(this._option), array = [];
       if (changes) {
         changes.forEachRemovedItem((record) => {
-          console.log('removedItem', JSON.stringify(record.key));
           array.push({
             key: `remove.${record.key}`,
             oldValue: record.previousValue,
@@ -81,10 +83,8 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
             newValue: record.currentValue,
             option: value
           });
-          console.log('addedItem', JSON.stringify(record.key));
         });
         changes.forEachChangedItem((record) => {
-          console.log('changedItem', JSON.stringify(record.key));
           array.push({
             key: record.key,
             oldValue: record.previousValue,
@@ -92,9 +92,7 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
             option: value
           });
         });
-        array.forEach((item) => {
-          this._trigger(item);
-        });
+        this._batchTrigger(array);
       }
     });
   }
@@ -104,13 +102,11 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   get coordinates(): JQuery.Coordinates {
-    const {left, top} = this._option;
-    return {left, top};
+    return _.pick(this._option, ['left', 'top']);
   }
 
   get dimensions(): Dimensions {
-    const {width, height} = this._option;
-    return {width, height};
+    return _.pick(this._option, ['width', 'height']);
   }
 
   get left(): number {
@@ -158,7 +154,6 @@ export class RegionModel extends ModelEventTarget implements IRegionModel {
   }
 
   setCoordinates(left: number, top: number) {
-    console.log('setCoordinates', left, top);
     this.left = left;
     this.top = top;
   }

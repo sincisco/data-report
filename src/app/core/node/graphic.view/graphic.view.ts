@@ -1,6 +1,3 @@
-import {IEventTarget} from '@core/node/event/event';
-
-
 /**
  * 图表内容
  * 该组件会被设计时和运行时共享，所以设计接口的时候需要注意
@@ -17,7 +14,7 @@ import {IEventTarget} from '@core/node/event/event';
  * 2、更新数据信息
  *
  */
-export interface IGraphicView extends IEventTarget {
+export interface IGraphicView {
   $element: JQuery;
 
   /**
@@ -38,6 +35,10 @@ export interface IGraphicView extends IEventTarget {
   activate();
 
   deactivate();
+
+  addEventListener(eventName: string, callback: Function);
+
+  removeEventListener(eventName: string, fn?: Function);
 
   destroy();
 }

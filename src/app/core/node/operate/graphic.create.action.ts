@@ -29,9 +29,9 @@ export class GraphicCreateAction implements IAction {
 
         const graphicWrapper = new GraphicWrapper(region);
         if (this._configOption) {
-          graphicWrapper.init(Object.assign({}, graphicMeta.graphic, {configOption: this._configOption}));
+          graphicWrapper.init(Object.assign({}, graphicMeta.graphic, {configOption: JSON.parse(JSON.stringify(this._configOption))}));
         } else {
-          graphicWrapper.init(graphicMeta.graphic);
+          graphicWrapper.init(JSON.parse(JSON.stringify(graphicMeta.graphic)));
         }
 
 

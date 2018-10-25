@@ -11,7 +11,6 @@ export class ModelEventTarget {
   private _map = new Map();
 
   /**
-   *
    * @param {string} eventType  "color color.add color.delete"
    * @param {KeyValueListener} listener
    * @returns {this}
@@ -31,22 +30,25 @@ export class ModelEventTarget {
 
 
   protected _trigger(item: ChangedItem) {
-    if (this._map.has(item.key)) {
-      console.log('handle: ', item.key);
-      const listener = this._map.get(item.key);
-      listener(item.key, item.oldValue, item.newValue, item.option);
+    const {key, oldValue, newValue, option} = item;
+    if (this._map.has(key)) {
+      const listener = this._map.get(key);
+      listener(key, oldValue, newValue, option);
     }
   }
 
   protected _batchTrigger(changedItemArray: Array<ChangedItem>) {
-    changedItemArray.forEach((value, index, array) => {
+    changedItemArray.forEach((value) => {
       this._trigger(value);
     });
   }
 
   destroy() {
-    this._map.clear();
-    this._map = null;
+    if (this._map) {
+      this._map.clear();
+      this._map = null;
+    }
+
   }
 
 }

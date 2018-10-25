@@ -1,5 +1,5 @@
 import {RegionView} from '../region.view';
-import {IRegionModel, RegionState} from '../region.model';
+import {RegionState} from '../region.model';
 import {fromEvent, Subscription} from 'rxjs';
 import {BarChartGraphic} from '../../graphic/chart/bar.chart.graphic';
 import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
@@ -40,7 +40,7 @@ export class CommentRegionView extends RegionView {
     height: 30
   };
 
-  constructor(protected _controller: RegionController, protected _model: IRegionModel) {
+  constructor(protected _controller: RegionController, protected _model: RegionModel) {
     super();
 
     this.$element = $(template);
@@ -89,7 +89,7 @@ export class CommentRegionView extends RegionView {
     // ]);
   }
 
-  private _listenToModel(model: IRegionModel) {
+  private _listenToModel(model: RegionModel) {
     model.register('state', (key, oldValue, newValue, option) => {
       console.log(key, oldValue, newValue, option);
       switch (oldValue) {

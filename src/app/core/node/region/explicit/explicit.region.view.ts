@@ -1,19 +1,6 @@
 import {RegionView} from '../region.view';
-import {IRegionModel, RegionModel, RegionState} from '../region.model';
+import {RegionModel, RegionState} from '../region.model';
 import {RegionController} from '../region.controller';
-import {fromEvent, Subscription} from 'rxjs';
-import {BarChartGraphic} from '../../graphic/chart/bar.chart.graphic';
-import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
-import {LinesChartGraphic} from '../../graphic/chart/lines.chart.graphic';
-import {LineChartGraphic} from '../../graphic/chart/line.chart.graphic';
-import {TextGraphic} from '../../graphic/auxiliary/text.graphic';
-import {CoordinatesAndDimensions} from '../../interface';
-import {clipboard} from '../../clipboard';
-import {filter, throttleTime} from 'rxjs/internal/operators';
-import {closestNum} from '../../../../utils/common';
-import {PieChartGraphic} from '../../graphic/chart/pie.chart.graphic';
-import {resizeTipHelper} from '../../helper/resize.tip.helper';
-import {contextMenuHelper} from '../../../../utils/contextMenu';
 
 const template = `
 <div class="m-dashbox">
@@ -34,7 +21,7 @@ const template = `
 
 export class ExplicitRegionView extends RegionView {
 
-  constructor(protected _controller: RegionController, protected _model: IRegionModel) {
+  constructor(protected _controller: RegionController, protected _model: RegionModel) {
     super();
 
     this.$element = $(template);
@@ -46,125 +33,34 @@ export class ExplicitRegionView extends RegionView {
     this._bindEvent();
   }
 
-  private _initContextMenu() {
-    // this.addContextMenu([
-    //   {
-    //     displayName: '创建bar Echart',
-    //     callback: () => {
-    //       // const _graphic = new BarChartGraphic(this);
-    //       //
-    //       // _graphic.init();
-    //       // // 使用刚指定的配置项和数据显示图表。
-    //       // // content.init({});
-    //       //
-    //       // contextMenuHelper.close();
-    //     }
-    //   },
-    //   {
-    //     displayName: '创建line Echart',
-    //     callback: () => {
-    //       // const _graphic = new LineChartGraphic(this);
-    //       //
-    //       // _graphic.init();
-    //       // // 使用刚指定的配置项和数据显示图表。
-    //       // // content.init({});
-    //       //
-    //       // contextMenuHelper.close();
-    //     }
-    //   },
-    //   {
-    //     displayName: '创建pie Echart',
-    //     callback: () => {
-    //       // const _graphic = new PieChartGraphic(this);
-    //       //
-    //       // _graphic.init();
-    //       // // 使用刚指定的配置项和数据显示图表。
-    //       // // content.init({});
-    //       //
-    //       // contextMenuHelper.close();
-    //     }
-    //   }, {
-    //     displayName: '创建Header',
-    //     callback: () => {
-    //       // var content = this._content = new HeaderHtml(this.$frame[0]);
-    //       // console.log(content);
-    //       // var option = {
-    //       //   text: '英特尔 Xeon(至强)'
-    //       // };
-    //       //
-    //       // // 使用刚指定的配置项和数据显示图表。
-    //       // content.init(option);
-    //     }
-    //   }, {
-    //     displayName: '创建Paragraph',
-    //     callback: () => {
-    //       // const _graphic = this._graphic = new TextGraphic(this);
-    //       // const option = {
-    //       //   text: '英特尔 Xeon(至强)'
-    //       // };
-    //       //
-    //       // // 使用刚指定的配置项和数据显示图表。
-    //       // _graphic.init(TextAuxiliary);
-    //       // contextMenuHelper.close();
-    //     }
-    //   }, {
-    //     displayName: '创建Comment',
-    //     callback: () => {
-    //       // var content = this._content = new CommentContent(this.$frame[0]);
-    //       // console.log(content);
-    //       // var option = {
-    //       //   text: '英特尔 Xeon(至强)'
-    //       // };
-    //       //
-    //       // // 使用刚指定的配置项和数据显示图表。
-    //       // content.init(option);
-    //     }
-    //   }, {
-    //     displayName: '创建Lines',
-    //     callback: () => {
-    //       // const _graphic = new LinesChartGraphic(this);
-    //       //
-    //       // _graphic.init();
-    //       // // 使用刚指定的配置项和数据显示图表。
-    //       // // content.init({});
-    //       //
-    //       // contextMenuHelper.close();
-    //       // // var content = this._content = new TextContent(this.$frame[0]);
-    //       // //
-    //       // // // 使用刚指定的配置项和数据显示图表。
-    //       // // content.init(option);
-    //     }
-    //   }
-    // ]);
-  }
-
-  private _listenToModel(model: IRegionModel) {
+  private _listenToModel(model: RegionModel) {
     model
       .register('state', (key, oldValue, newValue, option) => {
-        console.log(key, oldValue, newValue);
-        switch (oldValue) {
-          case RegionState.selected:
-            this.$element.removeClass('selected');
-            break;
-          case RegionState.multiSelected:
-            this.$element.removeClass('multi-selected');
-            break;
-          case RegionState.activated:
-            this.$element.removeClass('activated');
-        }
-        switch (newValue) {
-          case RegionState.default:
-            this.$element.removeClass('selected multi-selected activated');
-            break;
-          case RegionState.selected:
-            this.$element.addClass('selected');
-            break;
-          case RegionState.multiSelected:
-            this.$element.addClass('multi-selected');
-            break;
-          case RegionState.activated:
-            this.$element.addClass('activated');
-            break;
+        if (oldValue !== newValue) {
+          switch (oldValue) {
+            case RegionState.selected:
+              this.$element.removeClass('selected');
+              break;
+            case RegionState.multiSelected:
+              this.$element.removeClass('multi-selected');
+              break;
+            case RegionState.activated:
+              this.$element.removeClass('activated');
+          }
+          switch (newValue) {
+            case RegionState.default:
+              this.$element.removeClass('selected multi-selected activated');
+              break;
+            case RegionState.selected:
+              this.$element.addClass('selected');
+              break;
+            case RegionState.multiSelected:
+              this.$element.addClass('multi-selected');
+              break;
+            case RegionState.activated:
+              this.$element.addClass('activated');
+              break;
+          }
         }
       })
       .register('left top width height', (key, oldValue, newValue, option) => {
@@ -184,6 +80,7 @@ export class ExplicitRegionView extends RegionView {
       left: this._model.left,
       top: this._model.top
     });
+    // 激活状态下需要更新辅助元素mask的状态
     if (this._model.state === RegionState.activated) {
       this._controller.regionResize();
     }
@@ -196,6 +93,6 @@ export class ExplicitRegionView extends RegionView {
   }
 
   destroy() {
-    this.$element.remove();
+    super.destroy();
   }
 }

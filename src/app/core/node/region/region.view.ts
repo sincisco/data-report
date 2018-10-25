@@ -3,16 +3,16 @@ import {fromEvent, Subscription} from 'rxjs';
 import {throttleTime} from 'rxjs/internal/operators';
 import {resizeTipHelper} from '@core/node/helper/resize.tip.helper';
 import {RegionController} from '@core/node/region/region.controller';
-import {IRegionModel} from '@core/node/region/region.model';
 import {CoordinatesAndDimensions} from '@core/node/interface';
 import {closestNum} from '../../../utils/common';
 import {contextMenuHelper, ContextMenuItem} from '../../../utils/contextMenu';
+import {RegionModel} from '@core/node/region/region.model';
 
 type IContextMenuGenerator = () => Array<ContextMenuItem | 'split'>;
 
 export abstract class RegionView extends View {
   protected _controller: RegionController;
-  protected _model: IRegionModel;
+  protected _model: RegionModel;
 
   $fill: JQuery;
   protected _$mover: JQuery;
@@ -33,88 +33,88 @@ export abstract class RegionView extends View {
       subscription: Subscription;
 
     // 进行缩放转换
-    const getReal = (num) => Math.round(num / this._controller.scale);
-
-    const handleResize = (pageX, pageY) => {
-      const model = this._model;
-      switch (which) {
-        case 'resize-left':
-          if (pageX < (offset.left + snapshot.width)) {
-            offsetX = closestNum(getReal(pageX - offset.left));
-            model.left = snapshot.left + offsetX;
-            model.width = snapshot.width - offsetX;
-          }
-          break;
-        case 'resize-top':
-          if (pageY < (offset.top + snapshot.height)) {
-            offsetY = closestNum(getReal(pageY - offset.top));
-            model.top = snapshot.top + offsetY;
-            model.height = snapshot.height - offsetY;
-          }
-          break;
-        case 'resize-right':
-          if (pageX > offset.left) {
-            model.width = closestNum(getReal(pageX - offset.left));
-            // this.zoom(closestNum(pageX - offset.left), 0, true);
-          }
-          break;
-        case 'resize-topLeft':
-          if (pageY < (offset.top + snapshot.height) && pageX < (offset.left + snapshot.width)) {
-            offsetX = closestNum(getReal(pageX - offset.left)),
+    const
+      getReal = (num) => Math.round(num / this._controller.scale),
+      handleResize = (pageX, pageY) => {
+        const model = this._model;
+        switch (which) {
+          case 'resize-left':
+            if (pageX < (offset.left + snapshot.width)) {
+              offsetX = closestNum(getReal(pageX - offset.left));
+              model.left = snapshot.left + offsetX;
+              model.width = snapshot.width - offsetX;
+            }
+            break;
+          case 'resize-top':
+            if (pageY < (offset.top + snapshot.height)) {
               offsetY = closestNum(getReal(pageY - offset.top));
-            model.left = snapshot.left + offsetX;
-            model.width = snapshot.width - offsetX;
-            model.top = snapshot.top + offsetY;
-            model.height = snapshot.height - offsetY;
-          }
-          break;
-        case 'resize-topRight':
-          if (pageY < (offset.top + snapshot.height)) {
-            offsetY = closestNum(getReal(pageY - offset.top));
-            model.top = snapshot.top + offsetY;
-            model.height = snapshot.height - offsetY;
-          }
-          if (pageX > offset.left) {
-            model.width = closestNum(getReal(pageX - offset.left));
-          }
-          break;
-        case 'resize-bottomRight':
-          if (pageX > offset.left) {
-            model.width = getReal(pageX - offset.left);
-          }
-          if (pageY > offset.top) {
-            model.height = getReal(pageY - offset.top);
-          }
-          break;
-        case 'resize-bottomLeft':
-          if (pageX < (offset.left + snapshot.width)) {
-            offsetX = closestNum(getReal(pageX - offset.left));
-            model.left = snapshot.left + offsetX;
-            model.width = snapshot.width - offsetX;
-          }
-          if (pageY > offset.top) {
-            model.height = getReal(pageY - offset.top);
-          }
-          break;
-        case 'resize-bottom':
-          if (pageY > offset.top) {
-            model.height = getReal(pageY - offset.top);
-          }
-          break;
+              model.top = snapshot.top + offsetY;
+              model.height = snapshot.height - offsetY;
+            }
+            break;
+          case 'resize-right':
+            if (pageX > offset.left) {
+              model.width = closestNum(getReal(pageX - offset.left));
+              // this.zoom(closestNum(pageX - offset.left), 0, true);
+            }
+            break;
+          case 'resize-topLeft':
+            if (pageY < (offset.top + snapshot.height) && pageX < (offset.left + snapshot.width)) {
+              offsetX = closestNum(getReal(pageX - offset.left)),
+                offsetY = closestNum(getReal(pageY - offset.top));
+              model.left = snapshot.left + offsetX;
+              model.width = snapshot.width - offsetX;
+              model.top = snapshot.top + offsetY;
+              model.height = snapshot.height - offsetY;
+            }
+            break;
+          case 'resize-topRight':
+            if (pageY < (offset.top + snapshot.height)) {
+              offsetY = closestNum(getReal(pageY - offset.top));
+              model.top = snapshot.top + offsetY;
+              model.height = snapshot.height - offsetY;
+            }
+            if (pageX > offset.left) {
+              model.width = closestNum(getReal(pageX - offset.left));
+            }
+            break;
+          case 'resize-bottomRight':
+            if (pageX > offset.left) {
+              model.width = getReal(pageX - offset.left);
+            }
+            if (pageY > offset.top) {
+              model.height = getReal(pageY - offset.top);
+            }
+            break;
+          case 'resize-bottomLeft':
+            if (pageX < (offset.left + snapshot.width)) {
+              offsetX = closestNum(getReal(pageX - offset.left));
+              model.left = snapshot.left + offsetX;
+              model.width = snapshot.width - offsetX;
+            }
+            if (pageY > offset.top) {
+              model.height = getReal(pageY - offset.top);
+            }
+            break;
+          case 'resize-bottom':
+            if (pageY > offset.top) {
+              model.height = getReal(pageY - offset.top);
+            }
+            break;
 
-      }
-    };
-    const dragEndHandler = (event: MouseEvent) => {
-      if (subscription) {
-        subscription.unsubscribe();
-        subscription = null;
-        document.removeEventListener('mouseup', dragEndHandler);
-        this.$element.removeClass('no-transition');
-        resizeTipHelper.hide();
-        handleResize(event.pageX, event.pageY);
-        this._eventTarget.dispatchEvent('resizeEnd');
-      }
-    };
+        }
+      },
+      dragEndHandler = (event: MouseEvent) => {
+        if (subscription) {
+          subscription.unsubscribe();
+          subscription = null;
+          document.removeEventListener('mouseup', dragEndHandler);
+          this.$element.removeClass('no-transition');
+          resizeTipHelper.hide();
+          handleResize(event.pageX, event.pageY);
+          this._eventTarget.dispatchEvent('resizeEnd');
+        }
+      };
 
     this.$element.find('div.u-resize>.draggable')
       .on('dragstart', ($event: JQuery.Event) => {
@@ -125,13 +125,14 @@ export abstract class RegionView extends View {
         this.$element.addClass('no-transition');
 
         // 监听鼠标移动
-        subscription = fromEvent(document, 'mousemove')
-          .pipe(throttleTime(30))
-          .subscribe((mouseEvent: MouseEvent) => {
-            handleResize(mouseEvent.pageX, mouseEvent.pageY);
-            resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._model.width, this._model.height);
-            this.refresh();
-          });
+        subscription =
+          fromEvent(document, 'mousemove')
+            .pipe(throttleTime(30))
+            .subscribe((mouseEvent: MouseEvent) => {
+              handleResize(mouseEvent.pageX, mouseEvent.pageY);
+              resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._model.width, this._model.height);
+              this.refresh();
+            });
         // 解除对伸缩事件的监听
         document.addEventListener('mouseup', dragEndHandler);
 
@@ -174,21 +175,19 @@ export abstract class RegionView extends View {
         resizeTipHelper.show(originPageX, originPageY, snapshot.left, snapshot.top);
 
         subscription = fromEvent(document, 'mousemove')
-          .pipe(throttleTime(30))
+          .pipe(throttleTime(20))
           .subscribe((mouseEvent: MouseEvent) => {
             const offsetLeft = mouseEvent.pageX - originPageX,
               offsetTop = mouseEvent.pageY - originPageY;
             this._model.left = snapshot.left + Math.round(offsetLeft / this._controller.scale);
             this._model.top = snapshot.top + Math.round(offsetTop / this._controller.scale);
-            console.log(this._model.left, this._model.top);
-            resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._model.left, this._model.top);
             this.refresh();
+            resizeTipHelper.refresh(mouseEvent.pageX, mouseEvent.pageY, this._model.left, this._model.top);
           });
         document.addEventListener('mouseup', dragEndHandler);
         return false;
       })
       .on('click', ($event: JQuery.Event) => {
-        // console.log('click');
         if (timeoutHandle) {
           clearTimeout(timeoutHandle);
           timeoutHandle = null;
@@ -201,9 +200,7 @@ export abstract class RegionView extends View {
         $event.stopPropagation();
       })
       .on('singleClick', ($event: JQuery.Event, $singleClickEvent: JQuery.Event) => {
-        console.log('singleClick');
         if ($singleClickEvent.ctrlKey) {
-          console.log('ctrl');
           this._eventTarget.dispatchEvent('ctrlSelect');
         } else {
           this._eventTarget.dispatchEvent('select');
@@ -211,7 +208,6 @@ export abstract class RegionView extends View {
 
       })
       .on('dblclick', ($event: JQuery.Event) => {
-        console.log('dblclick');
         this._eventTarget.dispatchEvent('activateRegion');
       });
   }
@@ -221,5 +217,12 @@ export abstract class RegionView extends View {
       contextMenuHelper.open(this._contextMenuGenerator(), $event.pageX, $event.pageY, $event);
       return false;
     });
+  }
+
+  destroy() {
+    this.$element.find('div.u-resize>.draggable').off('dragstart');
+    this._$mover.off('dragstart click singleClick dblclick contextmenu');
+    this.$element.remove();
+    super.destroy();
   }
 }

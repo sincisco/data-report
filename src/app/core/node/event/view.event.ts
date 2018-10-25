@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import {IEventTarget} from '@core/node/event/event';
 
 /**
  * 只能先“订阅”再“发布”
@@ -10,12 +11,8 @@ import * as _ from 'lodash';
  它应用广泛，但是也有缺点
  创建这个函数同样需要内存，过度使用会导致难以跟踪维护
  * */
-export class ViewEventTarget {
+export class ViewEventTarget implements IEventTarget {
   private _map: Map<string, Array<Function>> = new Map();
-
-  constructor() {
-
-  }
 
   addEventListener(eventName: string, callback: Function) {
     if (!this._map.has(eventName)) {
@@ -26,14 +23,13 @@ export class ViewEventTarget {
 
   }
 
-  dispatchEvent(eventName1: string, param1?: any, param2?: any, param3?: any, param4?: any) {
-    const params = arguments,
-      eventName = Array.prototype.shift.call(params); // 第一个参数指定“键”
+  dispatchEvent(...args: Array<any>) {
+    const eventName = args.shift(); // 第一个参数指定“键”
     if (!this._map.has(eventName)) {
       return false; // 如果回调数组不存在或为空则返回false
     }
     this._map.get(eventName).forEach((value) => {
-      value.apply(this, params); // 循环回调数组执行回调函数
+      value.apply(this, args); // 循环回调数组执行回调函数
     });
   }
 

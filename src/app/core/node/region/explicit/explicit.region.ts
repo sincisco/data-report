@@ -143,6 +143,7 @@ export class ExplicitRegion extends RegionController {
       },
       graphic: this._graphicWrapper.getOption()
     };
+    console.log('XXXXXX ', JSON.stringify(retObj));
     return retObj;
   }
 }
