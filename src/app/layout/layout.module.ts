@@ -19,6 +19,7 @@ import {MeasureAreaComponent} from './sider/model/measure.area.component';
 import {DesignerComponent} from './designer.component';
 import {DesignerBodyLeftComponent} from './designer.body.left.component';
 import {PaletteComponent} from './part/palette.component';
+import {OutlineComponent} from './part/outline.component';
 
 const COMPONENTS = [
   DesignerComponent,
@@ -26,6 +27,7 @@ const COMPONENTS = [
   DesignerBodyComponent,
   DesignerBodyLeftComponent,
   PaletteComponent,
+  OutlineComponent,
   SiderLeftComponent,
   SiderRightComponent,
   // SchemaPillsComponent,

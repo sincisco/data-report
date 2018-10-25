@@ -1,6 +1,7 @@
 import {ReportPageInner} from '@core/node/page/report/page.inner';
 import {IReportPage} from '@core/node/page/report/page.interface';
 import {RegionController} from '@core/node/region/region.controller';
+import {Observable} from 'rxjs';
 
 
 export class ReportPage implements IReportPage {
@@ -10,6 +11,14 @@ export class ReportPage implements IReportPage {
 
   get scale(): number {
     return this._pageInner.view.scale;
+  }
+
+  get regionArray(): Array<RegionController> {
+    return this._pageInner.regionManager.regionArray;
+  }
+
+  get regionArrayAsObservable(): Observable<Array<RegionController>> {
+    return this._pageInner.regionManager.regionArrayAsObservable;
   }
 
   get selectedArray(): Array<RegionController> {

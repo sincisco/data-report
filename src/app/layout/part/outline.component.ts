@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {session} from '@core/node/utils/session';
 import {Subscription} from 'rxjs';
 import {IReportPage} from '@core/node/page/report/page.interface';
@@ -7,14 +7,11 @@ import {delay} from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-designer-body-left',
-  templateUrl: './designer.body.left.component.html',
-  styleUrls: ['./designer.body.left.component.less']
+  selector: 'app-outline',
+  templateUrl: './outline.component.html',
+  styleUrls: ['./outline.component.less']
 })
-export class DesignerBodyLeftComponent implements AfterViewInit {
-
-  report;
-
+export class OutlineComponent implements AfterViewInit {
   private _pageChangeSubscription: Subscription;
   private _regionArrayChangeSubscription: Subscription;
 

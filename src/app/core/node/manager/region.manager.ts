@@ -1,10 +1,10 @@
 import {RegionController} from '../region/region.controller';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 export class RegionManager {
 
   private _children: Array<RegionController> = [];
-  private _subject = new BehaviorSubject(null);
+  private _subject: Subject<Array<RegionController>> = new Subject();
 
   constructor() {
 
@@ -36,7 +36,7 @@ export class RegionManager {
     return this._children.slice(0);
   }
 
-  get regionArrayAsOberserve() {
+  get regionArrayAsObservable(): Observable<Array<RegionController>> {
     return this._subject.asObservable();
   }
 

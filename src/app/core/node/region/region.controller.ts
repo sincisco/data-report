@@ -20,6 +20,8 @@ export abstract class RegionController {
   protected _view: RegionView;
   protected _graphicWrapper: GraphicWrapper;
 
+  private _methodMap: Map<string, Function> = new Map();
+
   get $element() {
     return this._view.$element;
   }
@@ -38,6 +40,17 @@ export abstract class RegionController {
 
   init(regionOption: any) {
 
+  }
+
+  addMethod(name: string, method: Function) {
+    this._methodMap.set(name, method);
+  }
+
+  invoke(...args: Array<any>) {
+    const name = args.shift();
+    if (this._methodMap.has(name)) {
+      return this._methodMap.get(name)(...args);
+    }
   }
 
   /**

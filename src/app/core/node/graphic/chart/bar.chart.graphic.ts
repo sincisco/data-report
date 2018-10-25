@@ -22,4 +22,12 @@ export class BarChartGraphic extends ChartGraphic {
   constructor(region: RegionController) {
     super(region);
   }
+
+  init(region: RegionController) {
+    super.init();
+    region.addMethod('desc', () => {
+      console.log('invoke desc');
+      return '柱状图';
+    });
+  }
 }

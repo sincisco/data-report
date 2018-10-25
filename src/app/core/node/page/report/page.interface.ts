@@ -1,4 +1,5 @@
 import {RegionController} from '@core/node/region/region.controller';
+import {Observable} from 'rxjs';
 
 /**
  *
@@ -8,6 +9,11 @@ export interface IReportPage {
    * region根据scale计算位移和伸缩
    */
   scale: number;
+
+  regionArray: Array<RegionController>;
+
+  regionArrayAsObservable: Observable<Array<RegionController>>;
+
   selectedArray: Array<RegionController>;
 
   addChild(region: RegionController);
