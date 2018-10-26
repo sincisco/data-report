@@ -9,6 +9,9 @@ export abstract class FilterNode implements IGraphicView {
 
   abstract update(option: any);
 
+  updateConfig(config: any) {
+  }
+
   updateData(data) {
 
   }

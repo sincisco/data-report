@@ -1,5 +1,5 @@
-import {AuxiliaryView} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {IGraphic} from '@core/node/graphic/graphic';
+import {DefaultGraphicView} from '@core/node/graphic.view/default.graphic.view';
 
 interface CommentOption {
   text?: string;
@@ -19,7 +19,7 @@ const CommentTemplate = `
 `;
 
 
-export class CommentAuxiliary extends AuxiliaryView {
+export class CommentAuxiliary extends DefaultGraphicView {
   $element: JQuery;
   private _$editor: JQuery;
   private _option: CommentOption;

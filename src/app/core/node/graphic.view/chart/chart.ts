@@ -1,15 +1,14 @@
 import {ChartGraphic} from '../../graphic/chart/chart.graphic';
 import {ViewEventTarget} from '@core/node/event/view.event';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
+import {DefaultGraphicView} from '@core/node/graphic.view/default.graphic.view';
 
 enum ChartState {
   uninitialized, initialized, normal, destroyed
 }
 
 // chartNode
-export class Chart implements IGraphicView {
-  private _event: ViewEventTarget = new ViewEventTarget();
-
+export class Chart extends DefaultGraphicView implements IGraphicView {
   $element: JQuery;
   protected _echart: Echart;
 
@@ -18,6 +17,7 @@ export class Chart implements IGraphicView {
   private _state = ChartState.uninitialized;
 
   constructor(private _graphic: ChartGraphic) {
+    super();
     this.$element = $('<div style="width: 100%;height: 100%;"></div>');
 
     // 初始化之前  确保host已经挂载到document中
@@ -122,16 +122,6 @@ export class Chart implements IGraphicView {
     delete this._graphic;
 
     this._state = ChartState.destroyed;
-  }
-
-  addEventListener(eventName: string, callback: Function) {
-    this._event.addEventListener(eventName, callback);
-    return this;
-  }
-
-  removeEventListener(eventName: string, fn?: Function) {
-    this._event.removeEventListener(eventName, fn);
-    return this;
   }
 
   /**

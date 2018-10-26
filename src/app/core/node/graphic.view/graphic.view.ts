@@ -23,6 +23,8 @@ export interface IGraphicView {
    */
   update(option: any);
 
+  updateConfig(config: any);
+
   updateData(data: any);
 
   updateTheme(theme: string);

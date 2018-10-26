@@ -1,5 +1,5 @@
-import {AuxiliaryView} from '@core/node/graphic.view/auxiliary/auxiliary';
 import {IGraphic} from '@core/node/graphic/graphic';
+import {DefaultGraphicView} from '@core/node/graphic.view/default.graphic.view';
 
 interface ImageOption {
   alt?: string;
@@ -8,7 +8,7 @@ interface ImageOption {
 }
 
 
-export class ImageAuxiliary extends AuxiliaryView {
+export class ImageAuxiliary extends DefaultGraphicView {
   $element: JQuery;
   private _image: HTMLImageElement;
 

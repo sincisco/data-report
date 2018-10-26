@@ -1,18 +1,22 @@
 import {ViewEventTarget} from '@core/node/event/view.event';
 import {IGraphicView} from '@core/node/graphic.view/graphic.view';
 
-export abstract class AuxiliaryView implements IGraphicView {
+export abstract class DefaultGraphicView implements IGraphicView {
   $element: JQuery;
 
   protected _event: ViewEventTarget = new ViewEventTarget();
 
   abstract update(option: any);
 
-  updateData() {
+  updateConfig(config: any) {
 
   }
 
-  updateTheme() {
+  updateData(data: any) {
+
+  }
+
+  updateTheme(theme: string) {
   }
 
   resize() {
