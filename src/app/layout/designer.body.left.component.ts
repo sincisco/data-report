@@ -16,7 +16,6 @@ export class DesignerBodyLeftComponent implements AfterViewInit {
   report;
 
   private _pageChangeSubscription: Subscription;
-  private _regionArrayChangeSubscription: Subscription;
 
   list: Array<any> = [];
 

@@ -14,7 +14,7 @@ import {ReportPageOuter} from '@core/node/page/report/page.outer';
 })
 export class DesignerBodyComponent implements AfterViewInit {
 
-  report;
+  report: ReportPageOuter;
 
   leftPanelState = false;
 
@@ -78,8 +78,7 @@ export class DesignerBodyComponent implements AfterViewInit {
   }
 
   scaleChange(event) {
-    console.log('****', event);
-    this.report.scale = event;
+    this.report.reportPage.scale = event;
   }
 
 }

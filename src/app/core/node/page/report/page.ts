@@ -12,6 +12,10 @@ export class ReportPage implements IReportPage {
 
   }
 
+  set scale(value: number) {
+    this._pageInner.view.scale = value;
+  }
+
   get scale(): number {
     return this._pageInner.view.scale;
   }
