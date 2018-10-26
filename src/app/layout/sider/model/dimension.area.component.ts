@@ -17,11 +17,9 @@ import {fromEvent} from 'rxjs';
   templateUrl: './dimension.area.component.html',
   styleUrls: ['./dimension.area.component.less']
 })
-export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class DimensionAreaComponent implements AfterViewInit, OnDestroy {
   private _$element: JQuery;
   dataModel: DataModel;
-
-  @Input() modelName: string;
 
   @HostBinding('class.dimension-area') dimensionArea = true;
 
@@ -30,17 +28,10 @@ export class DimensionAreaComponent implements AfterViewInit, OnChanges, OnDestr
     this.dataModel = dataModelManager.getDefaultDataset();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    for (const propName in changes) {
-      const changedItem = changes[propName];
-      if (propName === 'modelName' && dataModelManager.getDataModel(changedItem.currentValue)) {
-        this.dataModel = dataModelManager.getDataModel(changedItem.currentValue);
-        console.log(this.dataModel);
-      }
-    }
-  }
-
   ngAfterViewInit() {
+    dataModelManager.currentDataModelObservable.subscribe((dataModel) => {
+      this.dataModel = dataModel;
+    });
   }
 
   doDragStart(event: DragEvent, item) {

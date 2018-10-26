@@ -69,6 +69,7 @@ export class DataSourceFactory {
     return ticker
       .pipe(
         map((value, index) => {
+          console.log('***');
           return dataGenerator();
         }),
         publishBehavior(dataGenerator()),

@@ -10,6 +10,8 @@ export interface IReportPage {
    */
   scale: number;
 
+  focusRegion: RegionController;
+
   regionArray: Array<RegionController>;
 
   regionArrayAsObservable: Observable<Array<RegionController>>;

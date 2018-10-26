@@ -9,6 +9,8 @@ import {contextMenuHelper} from '../../../../utils/contextMenu';
 import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 import {OuterModelEventTarget} from '../../event/model.event';
 
+import * as _ from 'lodash';
+
 
 const template = `
 <div class="graphic m-graphic m-graphic-auto z-mode-edit">
@@ -66,17 +68,22 @@ export abstract class ChartGraphic implements IGraphic {
   }
 
   accept(model: Observable<any>) {
-    console.log('accept invoke');
-
     let lastConfig, lastData;
     return model.subscribe((modelArray: Array<any>) => {
       console.log('model change');
       const [config, data] = modelArray;
-      if (config !== lastConfig) {
-        this._modelEventTarget.trigger(config);
+      if (!!config && config !== lastConfig) {
+        console.log('config change', JSON.stringify(config));
+        if (_.isArray(config)) {
+          this._modelEventTarget.batchTrigger(config);
+        } else {
+          this._modelEventTarget.trigger(config);
+        }
         lastConfig = config;
       }
+
       if (data !== lastData) {
+        console.log('data change', JSON.stringify(data));
         this.updateDate(data);
         lastData = data;
       }

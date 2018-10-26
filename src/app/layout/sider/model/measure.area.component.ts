@@ -1,9 +1,7 @@
 import {
   AfterViewInit,
   Component, ElementRef, HostBinding,
-  Input, OnChanges, OnDestroy,
-  SimpleChanges,
-  ViewChild,
+  Input, OnDestroy,
   ViewEncapsulation
 } from '@angular/core';
 import {draggableHeler} from '../../../utils/draggable.helper';
@@ -17,7 +15,7 @@ import {dataModelManager} from '@core/data/data.model.manager';
   templateUrl: './measure.area.component.html',
   styleUrls: ['./measure.area.component.less']
 })
-export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy {
+export class MeasureAreaComponent implements AfterViewInit, OnDestroy {
   private _$element: JQuery;
   // schema: TableSchema = new TableSchema(demo);
   dataModel: DataModel;
@@ -31,21 +29,10 @@ export class MeasureAreaComponent implements AfterViewInit, OnChanges, OnDestroy
     this.dataModel = dataModelManager.getDefaultDataset();
   }
 
-
-  ngOnChanges(changes: SimpleChanges) {
-    for (let propName in changes) {
-      let chng = changes[propName];
-      let cur = JSON.stringify(chng.currentValue);
-      let prev = JSON.stringify(chng.previousValue);
-      console.log('hhaahahahahhahah', prev, cur);
-      if (dataModelManager.getDataModel(chng.currentValue)) {
-        this.dataModel = dataModelManager.getDataModel(chng.currentValue);
-        console.log(this.dataModel);
-      }
-    }
-  }
-
   ngAfterViewInit() {
+    dataModelManager.currentDataModelObservable.subscribe((dataModel) => {
+      this.dataModel = dataModel;
+    });
   }
 
   doDragStart(event: DragEvent, item) {

@@ -37,10 +37,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
   };
 
   modelID: string;
-
-  get modelName() {
-    return dataModelManager.getDataModel(this.modelID) ? dataModelManager.getDataModel(this.modelID).displayName : '未选择任何model';
-  }
+  modelName: string;
 
   private _differ: KeyValueDiffer<any, any>;
 
@@ -64,6 +61,11 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
     dataModelManager.dataOptionSet = DataOptionManager.getInstance().getDataOptionSet('space1');
 
     modelPlugin = this;
+
+    dataModelManager.modelNameObservable.subscribe((modelName) => {
+      console.log('modelName Changed');
+      this.modelName = modelName;
+    });
     /*
         this.http.get('http://10.2.78.207:8080/table/total')
           .subscribe((data: any) => console.log(data));
@@ -115,7 +117,7 @@ export class SiderRightComponent implements AfterViewInit, OnInit {
    */
   switchDataModel($event: MouseEvent) {
     dataModelList.open($event, (modelID: string) => {
-      this.modelID = modelID;
+      dataModelManager.switchDataModel(this.modelID = modelID);
     });
   }
 

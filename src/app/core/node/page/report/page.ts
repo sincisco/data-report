@@ -5,6 +5,9 @@ import {Observable} from 'rxjs';
 
 
 export class ReportPage implements IReportPage {
+
+  focusRegion: RegionController;
+
   constructor(private _pageInner: ReportPageInner) {
 
   }

@@ -34,8 +34,12 @@ export abstract class RegionController {
     return this._model.state;
   }
 
-  get page() {
+  get page(): IReportPage {
     return this._page;
+  }
+
+  get graphicWrapper(): GraphicWrapper {
+    return this._graphicWrapper;
   }
 
   init(regionOption: any) {

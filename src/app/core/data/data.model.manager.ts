@@ -1,5 +1,7 @@
 import {Dataset, DataModel} from './data.model.interface';
 import {DataOptionSet} from '@core/data/data.option.set';
+import {Observable, Subject} from 'rxjs';
+import {session} from '@core/node/utils/session';
 
 /**
  * 该类不可以跟DataSourceManager合并 DataModelPlugin只认DataModelManager说话
@@ -10,6 +12,8 @@ class DataModelManager {
   private _currentDataModel: DataModel;
 
   private _dataOptionSet: DataOptionSet;
+  private _modelNameSubject = new Subject<string>();
+  private _dataModelSubject = new Subject<DataModel>();
 
   set dataOptionSet(value: DataOptionSet) {
     if (value) {
@@ -18,6 +22,14 @@ class DataModelManager {
       });
       this._dataOptionSet = value;
     }
+  }
+
+  get modelNameObservable(): Observable<string> {
+    return this._modelNameSubject.asObservable();
+  }
+
+  get currentDataModelObservable(): Observable<DataModel> {
+    return this._dataModelSubject.asObservable();
   }
 
   updateState(dataModelType: string, dataModelID: string) {
@@ -50,7 +62,20 @@ class DataModelManager {
   }
 
   getDataModel(id: string): DataModel {
-    return this._currentDataModel = this._map.get(id);
+    return this._map.get(id);
+  }
+
+  switchDataModel(id: string, updateGraphic: boolean = true): DataModel {
+    const ret = this._currentDataModel = this._map.get(id);
+    if (ret) {
+      this._modelNameSubject.next(ret ? ret.displayName : '未选择任何model');
+      this._dataModelSubject.next(ret);
+    }
+    if (updateGraphic) {
+      console.log('switchDataSource:' + id);
+      session.currentPage.reportPage.focusRegion.graphicWrapper.switchDataSource(id);
+    }
+    return ret;
   }
 
   clear() {
