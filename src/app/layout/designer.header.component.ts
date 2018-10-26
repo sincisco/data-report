@@ -3,7 +3,6 @@ import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {session} from '@core/node/utils/session';
 import * as FileSaver from 'file-saver';
 import * as moment from 'moment';
-import {graphicMap} from '@core/node/config/graphic.map';
 import {customGraphicMeta, graphicMetaMap, totalGraphicMetaMap} from '@core/node/config/default.graphic.meta.map';
 
 @Component({
@@ -293,7 +292,7 @@ class PopupWrapper {
         document.addEventListener('mouseup', mouseUp);
         componentName = (<HTMLElement>$event.target).dataset.componentName;
 
-        grabHelper.show($event.pageX, $event.pageY);
+        grabHelper.show($event.pageX, $event.pageY, totalGraphicMetaMap[componentName].grabOption);
         return false;
       });
 
@@ -305,8 +304,8 @@ class PopupWrapper {
       console.log('document mouseup', event, session.currentPage.offset());
 
       graphicFactory.createByName(componentName, session.currentPage,
-        event.pageX - session.currentPage.offset().left - 150,
-        event.pageY - session.currentPage.offset().top - 100);
+        event.pageX - session.currentPage.offset().left - grabHelper.offsetX,
+        event.pageY - session.currentPage.offset().top - grabHelper.offsetY);
       grabHelper.hidden();
       document.removeEventListener('mousemove', mouseMove);
       document.removeEventListener('mouseup', mouseUp);
