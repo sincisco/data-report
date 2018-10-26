@@ -71,9 +71,6 @@ export class TableGraphic extends DefaultGraphic {
     });
   }
 
-  addChild(chart: Chart) {
-  }
-
 
   update(option: any) {
 

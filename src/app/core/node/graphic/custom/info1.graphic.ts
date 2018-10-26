@@ -61,10 +61,6 @@ export class Info1Graphic implements IGraphic {
 
   }
 
-  addChild(chart: Chart) {
-  }
-
-
   update(option: any) {
 
   }

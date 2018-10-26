@@ -41,10 +41,6 @@ export class ClockGraphic extends DefaultGraphic {
     }, 1000);
   }
 
-  addChild(chart: Chart) {
-  }
-
-
   update(option: any) {
 
   }

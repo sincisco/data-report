@@ -1,5 +1,4 @@
 import {CommentAuxiliary} from '../../graphic.view/auxiliary/comment.auxiliary';
-import {IGraphicView} from '../../graphic.view/graphic.view';
 import {RegionController} from '../../region/region.controller';
 import {DefaultGraphic} from '../default.graphic';
 import {Observable, Subscription} from 'rxjs';
@@ -21,18 +20,13 @@ export class CommentGraphic extends DefaultGraphic {
     this._$frame = this.$element.find('.frame');
   }
 
-
-  addChild(view: IGraphicView) {
-    this._view = view;
-    this._$frame.append(view.$element);
-  }
-
   /**
    * 初始化graphic内容
    * @param option
    */
   init(option?: any) {
     this._view = new CommentAuxiliary(this);
+    this._$frame.append(this._view.$element);
   }
 
   accept(modelSource: Observable<any>): Subscription {

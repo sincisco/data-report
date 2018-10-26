@@ -9,8 +9,6 @@ export abstract class DefaultGraphic implements IGraphic {
   protected _view: IGraphicView;
   protected _modelEventTarget = new OuterModelEventTarget();
 
-  abstract addChild(child);
-
   /**
    * 一般用于初始化  新建Graphic的时候调用
    * 如果有content的，则创建相应的content；负责配置面板的创建

@@ -112,9 +112,6 @@ export class FlipNumberGraphic extends DefaultGraphic {
     return _.flatten(aa).reverse();
   }
 
-  addChild(chart: Chart) {
-  }
-
 
   update(option: any) {
 

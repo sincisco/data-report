@@ -31,8 +31,6 @@ export class CommentAuxiliary extends AuxiliaryView {
     super();
     this.$element = $(CommentTemplate);
     this._$editor = this.$element.find('.medium-editor-element');
-
-    graphic.addChild(this);
   }
 
 

@@ -60,6 +60,7 @@ export abstract class ChartGraphic implements IGraphic {
   init(...params: Array<any>) {
     // 步骤1
     this._chart = new Chart(this);
+    this._$frame.append(this._chart.$element);
 
     this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
@@ -90,12 +91,6 @@ export abstract class ChartGraphic implements IGraphic {
       console.log(config, data);
     });
   }
-
-  addChild(chart: Chart) {
-    this._chart = chart;
-    this._$frame.append(chart.$element);
-  }
-
 
   update(option: any) {
     if (this._chart) {

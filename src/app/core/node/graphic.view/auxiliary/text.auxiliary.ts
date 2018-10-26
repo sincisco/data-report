@@ -28,7 +28,6 @@ export class TextAuxiliary extends AuxiliaryView {
     super();
     this.$element = $(TextTemplate);
     this._$editor = this.$element.find('.medium-editor-element');
-    _graphic.addChild(this);
   }
 
 

@@ -15,8 +15,6 @@ export class ImageAuxiliary extends AuxiliaryView {
   constructor(private graphic: IGraphic) {
     super();
     this.$element = $(`<div class="m-image"></div>`);
-
-    graphic.addChild(this);
   }
 
   update(option: ImageOption) {

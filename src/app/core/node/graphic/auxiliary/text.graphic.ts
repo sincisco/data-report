@@ -21,13 +21,9 @@ export class TextGraphic extends DefaultGraphic {
     this.$element = $(template);
   }
 
-  addChild(view: IGraphicView) {
-    this._view = view;
-    this.$element.find('.frame').append(view.$element);
-  }
-
   init(wrapper: GraphicWrapper) {
     this._view = new TextAuxiliary(this);
+    this.$element.find('.frame').append(this._view.$element);
     this._modelEventTarget.register('option', (key, oldValue, newValue) => {
       this.update(newValue);
     });

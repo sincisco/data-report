@@ -25,7 +25,6 @@ export class HeaderHtml extends HtmlNode {
   constructor(private _host: HTMLElement) {
     super();
     this._$host = $(_host);
-    console.log(123);
   }
 
   init(option: HeaderOption) {

@@ -20,7 +20,6 @@ export class Chart implements IGraphicView {
   constructor(private _graphic: ChartGraphic) {
     this.$element = $('<div style="width: 100%;height: 100%;"></div>');
 
-    _graphic.addChild(this);
     // 初始化之前  确保host已经挂载到document中
     this._innerReInit();
   }

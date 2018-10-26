@@ -21,13 +21,9 @@ export class ImageGraphic extends DefaultGraphic {
     this.$element = $(template);
   }
 
-  addChild(view: IGraphicView) {
-    this._view = view;
-    this.$element.find('.frame').append(view.$element);
-  }
-
   init(region: RegionController) {
     this._view = new ImageAuxiliary(this);
+    this.$element.find('.frame').append(this._view.$element);
 
     const $frame = this.$element.find('.frame');
     this._modelEventTarget
