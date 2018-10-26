@@ -30,6 +30,7 @@ export class ImageAuxiliary extends AuxiliaryView {
   }
 
   destroy() {
+    super.destroy();
     this.graphic = null;
     this.$element.remove();
     this.$element = null;

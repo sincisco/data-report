@@ -141,7 +141,9 @@ export class TextAuxiliary extends AuxiliaryView {
       this._editor.destroy();
       this._editor = null;
     }
-    this.$element.remove();
-    this.$element = null;
+    if (this.$element) {
+      this.$element.remove();
+      this.$element = null;
+    }
   }
 }
