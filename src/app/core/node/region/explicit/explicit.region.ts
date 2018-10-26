@@ -1,23 +1,7 @@
 import {RegionController} from '../region.controller';
-import {closestNum} from '../../../../utils/common';
-import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {fromEvent, Subscription} from 'rxjs';
-import {throttleTime} from 'rxjs/internal/operators';
-import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
-import {CoordinatesAndDimensions, Dimensions} from '../../interface';
-import {IGraphic} from '../../graphic/graphic';
-import {TextGraphic} from '../../graphic/auxiliary/text.graphic';
 import {clipboard} from '../../clipboard';
-import {BarChartGraphic} from '../../graphic/chart/bar.chart.graphic';
-import {LineChartGraphic} from '../../graphic/chart/line.chart.graphic';
-import {PieChartGraphic} from '../../graphic/chart/pie.chart.graphic';
-import {LinesChartGraphic} from '../../graphic/chart/lines.chart.graphic';
-import {reportGlobal} from '../region.controller';
-import {ReportPageInner} from '../../page/report/page.inner';
 import {RegionModel, RegionState} from '../region.model';
-import {RegionView} from '../region.view';
 import {ExplicitRegionView} from './explicit.region.view';
-import {graphicMap} from '@core/node/config/graphic.map';
 import {IReportPage} from '@core/node/page/report/page.interface';
 
 /**
@@ -124,10 +108,8 @@ export class ExplicitRegion extends RegionController {
    */
   set state(param: RegionState) {
     if (param === RegionState.selected && this._graphicWrapper) {
-      reportGlobal.instance = this._graphicWrapper;
       this._graphicWrapper.activateConfig();
     } else if (param === RegionState.activated && this._graphicWrapper) {
-      reportGlobal.instance = this._graphicWrapper;
       this._graphicWrapper.activate();
     } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphicWrapper) {
       (<any>this._graphicWrapper).deactivate();

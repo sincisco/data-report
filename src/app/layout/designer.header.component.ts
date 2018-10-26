@@ -3,6 +3,8 @@ import {graphicFactory} from '@core/node/factory/graphic.factory';
 import {session} from '@core/node/utils/session';
 import * as FileSaver from 'file-saver';
 import * as moment from 'moment';
+import {graphicMap} from '@core/node/config/graphic.map';
+import {customGraphicMeta, graphicMetaMap, totalGraphicMetaMap} from '@core/node/config/default.graphic.meta.map';
 
 @Component({
   selector: 'app-designer-header',
@@ -18,10 +20,6 @@ export class DesignerHeaderComponent implements AfterViewInit {
 
   mouseEnter(event: MouseEvent, popupWrapper: PopupWrapper, offsetLeft: number) {
     popupWrapper.show($(event.currentTarget).offset().left - offsetLeft);
-  }
-
-  mouseLeave() {
-    console.log('mouseLeave');
   }
 
   preview() {
@@ -103,8 +101,8 @@ export class DesignerHeaderComponent implements AfterViewInit {
       console.log('document mouseup', event, session.currentPage.offset());
 
       graphicFactory.createByName(componentName, session.currentPage,
-        event.pageX - session.currentPage.offset().left - 150,
-        event.pageY - session.currentPage.offset().top - 100);
+        event.pageX - session.currentPage.offset().left - grabHelper.offsetX,
+        event.pageY - session.currentPage.offset().top - grabHelper.offsetY);
       grabHelper.hidden();
       document.removeEventListener('mousemove', mouseMove);
       document.removeEventListener('mouseup', mouseUp);
@@ -113,7 +111,8 @@ export class DesignerHeaderComponent implements AfterViewInit {
     document.addEventListener('mousemove', mouseMove);
     document.addEventListener('mouseup', mouseUp);
     componentName = (<HTMLElement>event.target).dataset.componentName;
-    grabHelper.show(dragEvent.pageX, dragEvent.pageY);
+    grabHelper.show(dragEvent.pageX, dragEvent.pageY,
+      totalGraphicMetaMap[componentName].grabOption);
     return false;
   }
 
@@ -288,16 +287,19 @@ class PopupWrapper {
     this._$element.mouseleave(() => {
       this._$element.hide();
     });
-    this._$element.find('.btn-item.draggable').on('dragstart', ($event: JQuery.Event) => {
-      document.addEventListener('mousemove', mouseMove);
-      document.addEventListener('mouseup', mouseUp);
-      componentName = (<HTMLElement>$event.target).dataset.componentName;
-      return false;
-    });
+    this._$element.find('.btn-item.draggable')
+      .on('dragstart', ($event: JQuery.Event) => {
+        document.addEventListener('mousemove', mouseMove);
+        document.addEventListener('mouseup', mouseUp);
+        componentName = (<HTMLElement>$event.target).dataset.componentName;
+
+        grabHelper.show($event.pageX, $event.pageY);
+        return false;
+      });
 
     const mouseMove = (event: MouseEvent) => {
       console.log('mouseMove');
-      grabHelper.show(event.pageX - 150, event.pageY - 100);
+      grabHelper.refresh(event.pageX, event.pageY);
     };
     const mouseUp = (event: MouseEvent) => {
       console.log('document mouseup', event, session.currentPage.offset());

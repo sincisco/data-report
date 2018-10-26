@@ -281,7 +281,7 @@ export const customGraphicMeta: GraphicMetaMap = {
   }
 };
 
-const totalGraphicMetaMap = Object.assign({}, stdGraphicMeta, customGraphicMeta);
+export const totalGraphicMetaMap = Object.assign({}, stdGraphicMeta, customGraphicMeta);
 
 _.keys(totalGraphicMetaMap).forEach((key) => {
   defaultGraphicMetaMap.set(key, totalGraphicMetaMap[key]);

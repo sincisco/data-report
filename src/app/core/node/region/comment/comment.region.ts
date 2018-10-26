@@ -1,18 +1,5 @@
-import {RegionController, reportGlobal} from '../region.controller';
-import {closestNum} from '../../../../utils/common';
-import {contextMenuHelper} from '../../../../utils/contextMenu';
-import {fromEvent, Subscription} from 'rxjs';
-import {throttleTime} from 'rxjs/internal/operators';
-import {TextAuxiliary} from '../../graphic.view/auxiliary/text.auxiliary';
-import {CoordinatesAndDimensions, Dimensions} from '../../interface';
-import {IGraphic} from '../../graphic/graphic';
-import {TextGraphic} from '../../graphic/auxiliary/text.graphic';
-import {CommentGraphic} from '../../graphic/auxiliary/comment.graphic';
-import {CommentAuxiliary} from '../../graphic.view/auxiliary/comment.auxiliary';
-import {ReportPageInner} from '../../page/report/page.inner';
+import {RegionController} from '../region.controller';
 import {RegionModel, RegionState} from '../region.model';
-import {RegionView} from '../region.view';
-import {ExplicitRegionView} from '../explicit/explicit.region.view';
 import {CommentRegionView} from './comment.region.view';
 import {clipboard} from '@core/node/clipboard';
 import {IReportPage} from '@core/node/page/report/page.interface';
@@ -72,10 +59,8 @@ export class CommentRegion extends RegionController {
    */
   set state(param: RegionState) {
     if (param === RegionState.selected && this._graphicWrapper) {
-      reportGlobal.instance = this._graphicWrapper;
       this._graphicWrapper.activateConfig();
     } else if (param === RegionState.activated && this._graphicWrapper) {
-      reportGlobal.instance = this._graphicWrapper;
       this._graphicWrapper.activate();
     } else if (this._model.state === RegionState.activated && param === RegionState.default && this._graphicWrapper) {
       (<any>this._graphicWrapper).deactivate();

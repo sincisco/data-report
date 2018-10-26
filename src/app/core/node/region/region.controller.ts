@@ -6,12 +6,6 @@ import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
 import {IReportPage} from '@core/node/page/report/page.interface';
 
 
-export const reportGlobal: {
-  instance: GraphicWrapper
-} = {
-  instance: null
-};
-
 export abstract class RegionController {
 
   // 模型层
@@ -105,6 +99,8 @@ export abstract class RegionController {
     }
     this._page.removeChild(this);
     this._page = null;
+
+    this._methodMap.clear();
 
     this._view.destroy();
   }

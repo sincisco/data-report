@@ -24,7 +24,8 @@ export class GraphicWrapper {
   private _dataSource: Observable<any>;
 
   private _configSubject = new Subject();
-  private _subscription: Subscription;
+  private _configSubscription: Subscription;
+  private _modelSubscription: Subscription;
 
   private _optionAccessor: Function;
 
@@ -33,6 +34,10 @@ export class GraphicWrapper {
 
   get uuid(): string {
     return this._uuid;
+  }
+
+  get $element() {
+    return this._graphic.$element;
   }
 
   /**
@@ -47,8 +52,7 @@ export class GraphicWrapper {
     console.log(graphicOption);
     const {graphicId, graphicKey, dataOptionId, configOption} = graphicOption;
     if (graphicMap.has(graphicKey)) {
-      const _graphicClass = graphicMap.get(graphicKey);
-      this._graphic = new _graphicClass();
+      this._graphic = new (graphicMap.get(graphicKey))();
       const paramNameArray = getParameterName(this._graphic.init), map = {
         region: this._region,
         wrapper: this
@@ -59,14 +63,15 @@ export class GraphicWrapper {
       this._region.addChild(this);
     }
 
-    this._configSubject.pipe(distinctUntilChanged()).subscribe((model: Array<ChangedItem> | ChangedItem) => {
-      console.log('model changed');
-      if (_.isArray(model)) {
-        this._graphicOption.configOption = Object.assign({}, model[0].option);
-      } else if (!_.isNull(model)) {
-        this._graphicOption.configOption = Object.assign({}, model.option);
-      }
-    });
+    this._configSubscription = this._configSubject
+      .pipe(distinctUntilChanged())
+      .subscribe((model: Array<ChangedItem> | ChangedItem) => {
+        if (_.isArray(model)) {
+          this._graphicOption.configOption = Object.assign({}, model[0].option);
+        } else if (!_.isNull(model)) {
+          this._graphicOption.configOption = Object.assign({}, model.option);
+        }
+      });
 
     this._uuid = graphicId || guid(10, 16);
 
@@ -90,23 +95,24 @@ export class GraphicWrapper {
     this._dataSource = this._region.page.getDataSource(dataOptionId);
 
     // 两个组件必须同时打开  不然收不到信息
-    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
-      .pipe(tap((modelArray: Array<any>) => {
-        const [model, data] = modelArray;
-        this._configSubject.next(model);
-      })));
+    this._modelSubscription = this._graphic
+      .accept(combineLatest(this._configSource, this._dataSource)
+        .pipe(tap((modelArray: Array<any>) => {
+          const [model, data] = modelArray;
+          this._configSubject.next(model);
+        })));
   }
 
   switchConfigSource() {
-    if (this._subscription) {
-      this._subscription.unsubscribe();
+    if (this._modelSubscription) {
+      this._modelSubscription.unsubscribe();
     }
     this._configSource = this._region.page.getConfigSource({
       graphicId: this._uuid,
       graphicKey: this._graphicOption.graphicKey,
       configOption: this._graphicOption.configOption
     });
-    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
+    this._modelSubscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => {
         const [model, data] = modelArray;
         this._configSubject.next(model);
@@ -115,11 +121,11 @@ export class GraphicWrapper {
 
   switchDataSource(dataOptionId: string) {
     this._graphicOption.dataOptionId = dataOptionId;
-    if (this._subscription) {
-      this._subscription.unsubscribe();
+    if (this._modelSubscription) {
+      this._modelSubscription.unsubscribe();
     }
     this._dataSource = this._region.page.getDataSource(dataOptionId);
-    this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
+    this._modelSubscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => {
         const [model, data] = modelArray;
         this._configSubject.next(model);
@@ -149,9 +155,6 @@ export class GraphicWrapper {
     return this.optionAccessor();
   }
 
-  get $element() {
-    return this._graphic.$element;
-  }
 
   /**
    * 更新全局样式 目前只有Echart图表使用的到
@@ -184,9 +187,17 @@ export class GraphicWrapper {
   }
 
   destroy() {
-    if (this._subscription) {
-      this._subscription.unsubscribe();
-      this._subscription = null;
+    if (this._configSubscription) {
+      this._configSubscription.unsubscribe();
+      this._configSubscription = null;
+    }
+    if (this._modelSubscription) {
+      this._modelSubscription.unsubscribe();
+      this._modelSubscription = null;
+    }
+    if (this._graphic) {
+      this._graphic.destroy();
+      this._graphic = null;
     }
   }
 }
