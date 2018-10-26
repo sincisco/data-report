@@ -268,7 +268,7 @@ export const customGraphicMeta: GraphicMetaMap = {
     graphic: {
       graphicKey: 'wordCloud.chart.graphic',
       configOption: null,
-      dataOptionId: 'num1'
+      dataOptionId: 'num4'
     }
   },
   dashboard: {

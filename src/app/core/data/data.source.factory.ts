@@ -53,7 +53,7 @@ export class DataSourceFactory {
    * @private
    */
   private _createMockStaticDataSource(config: MockStaticDataSourceConfig) {
-    return new BehaviorSubject(config);
+    return new BehaviorSubject(config.data);
   }
 
   /**

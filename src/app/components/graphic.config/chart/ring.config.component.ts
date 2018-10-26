@@ -10,8 +10,6 @@ import {NgForm} from '@angular/forms';
 
 import {NzModalService} from 'ng-zorro-antd';
 import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
-
-import {removeUndefined} from '../../../utils/common';
 import {debounceTime} from 'rxjs/operators';
 import * as _ from 'lodash';
 
@@ -357,7 +355,6 @@ export class RingConfigComponent extends DesignGraphicConfig implements AfterVie
 
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
-      value = removeUndefined(value);
       this._subject.next({
         key: 'option',
         oldValue: this._innerOption,

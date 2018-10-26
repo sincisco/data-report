@@ -7,8 +7,6 @@ import {
   ViewChild
 } from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {dataModelManager} from '../../../core/data/data.model.manager';
-
 import {NzModalService} from 'ng-zorro-antd';
 import {DesignGraphicConfig} from '../../../core/source/config.source/design.config.source';
 
@@ -162,13 +160,6 @@ export class WordCloudConfigComponent extends DesignGraphicConfig implements Aft
   ngAfterViewInit() {
     this.ngForm.valueChanges.pipe(debounceTime(100)).subscribe((value) => {
       value = removeUndefined(value);
-      this._trigger({
-        key: 'option',
-        oldValue: this._innerOption,
-        newValue: this.option,
-        option: this.option
-      });
-
       this._subject.next({
         key: 'option',
         oldValue: this._innerOption,
