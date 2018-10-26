@@ -1,12 +1,13 @@
 import {IGraphic, IGraphicOption} from '@core/node/graphic/graphic';
-import {combineLatest, Observable, Subscription} from 'rxjs';
+import {combineLatest, Observable, Subject, Subscription} from 'rxjs';
 import {RegionController} from '@core/node/region/region.controller';
 import {getParameterName, guid} from '@core/node/utils/tools';
 import {graphicMap} from '@core/node/config/graphic.map';
 import {GraphicConfigManager} from '@core/config/design/graphic.config.manager';
-import {tap} from 'rxjs/operators';
+import {distinctUntilChanged, tap} from 'rxjs/operators';
 import * as _ from 'lodash';
 import {dataModelManager} from '@core/data/data.model.manager';
+import {ChangedItem} from '@core/node/event/model.event';
 
 
 /**
@@ -22,9 +23,16 @@ export class GraphicWrapper {
   private _configSource: Observable<any>;
   private _dataSource: Observable<any>;
 
+  private _configSubject = new Subject();
   private _subscription: Subscription;
 
+  private _optionAccessor: Function;
+
   constructor(private _region: RegionController) {
+  }
+
+  get uuid(): string {
+    return this._uuid;
   }
 
   /**
@@ -45,24 +53,32 @@ export class GraphicWrapper {
         region: this._region,
         wrapper: this
       };
-      console.log(paramNameArray);
       this._graphic.init(...paramNameArray.map((paramName) => {
         return map[paramName];
       }));
       this._region.addChild(this);
     }
 
+    this._configSubject.pipe(distinctUntilChanged()).subscribe((model: Array<ChangedItem> | ChangedItem) => {
+      console.log('model changed');
+      if (_.isArray(model)) {
+        this._graphicOption.configOption = Object.assign({}, model[0].option);
+      } else if (!_.isNull(model)) {
+        this._graphicOption.configOption = Object.assign({}, model.option);
+      }
+    });
+
     this._uuid = graphicId || guid(10, 16);
 
+    // 有configOption一般粘贴，或者打开新的文件时 会走这条路
     if (configOption) {
-      console.log(configOption, 'create mock');
       this._configSource = this._region.page
         .getMockConfigSource({
           graphicId: this._uuid,
           graphicKey,
           configOption
         });
-    } else {
+    } else { // 如果是新建 则肯定是调用设计时的configFactory
       console.log(configOption, 'create 根据实际情况');
       this._configSource = this._region.page
         .getConfigSource({
@@ -73,22 +89,11 @@ export class GraphicWrapper {
     }
     this._dataSource = this._region.page.getDataSource(dataOptionId);
 
-    let lastModel;
     // 两个组件必须同时打开  不然收不到信息
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => {
         const [model, data] = modelArray;
-        if (_.isArray(model)) {
-          this._graphicOption.configOption = Object.assign({}, model[0].option);
-        } else if (!_.isNull(model)) {
-          console.log(this._uuid + '!!!!!!!!!!!!!!!!!!!!!!!!!!!!', model.option);
-          if (lastModel !== model.option) {
-            console.log('model changed');
-            this._graphicOption.configOption = Object.assign({}, model.option);
-            lastModel = model.option;
-          }
-
-        }
+        this._configSubject.next(model);
       })));
   }
 
@@ -101,21 +106,10 @@ export class GraphicWrapper {
       graphicKey: this._graphicOption.graphicKey,
       configOption: this._graphicOption.configOption
     });
-    let lastModel;
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => {
         const [model, data] = modelArray;
-        if (_.isArray(model)) {
-          this._graphicOption.configOption = Object.assign({}, model[0].option);
-        } else {
-          console.log(this._uuid + '********************', model.option);
-          if (lastModel !== model.option) {
-            console.log('model changed');
-            this._graphicOption.configOption = Object.assign({}, model.option);
-            lastModel = model.option;
-          }
-
-        }
+        this._configSubject.next(model);
       })));
   }
 
@@ -125,26 +119,10 @@ export class GraphicWrapper {
       this._subscription.unsubscribe();
     }
     this._dataSource = this._region.page.getDataSource(dataOptionId);
-    let lastModel;
-    console.log(this._dataSource);
-    this._dataSource.subscribe(() => {
-      console.log('hahahah');
-    });
     this._subscription = this._graphic.accept(combineLatest(this._configSource, this._dataSource)
       .pipe(tap((modelArray: Array<any>) => {
-        console.log('tab');
         const [model, data] = modelArray;
-        if (_.isArray(model)) {
-          this._graphicOption.configOption = Object.assign({}, model[0].option);
-        } else {
-          console.log(this._uuid + '********************', model.option);
-          if (lastModel !== model.option) {
-            console.log('model changed');
-            this._graphicOption.configOption = Object.assign({}, model.option);
-            lastModel = model.option;
-          }
-
-        }
+        this._configSubject.next(model);
       })));
   }
 
@@ -159,8 +137,16 @@ export class GraphicWrapper {
     GraphicConfigManager.getInstance().activate(this._uuid);
   }
 
+  get optionAccessor() {
+    return this._optionAccessor || (() => Object.assign({}, this._graphicOption));
+  }
+
+  set optionAccessor(value: Function) {
+    this._optionAccessor = value;
+  }
+
   getOption() {
-    return Object.assign({}, this._graphicOption);
+    return this.optionAccessor();
   }
 
   get $element() {

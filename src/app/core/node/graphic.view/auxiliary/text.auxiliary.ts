@@ -34,12 +34,13 @@ export class TextAuxiliary extends AuxiliaryView {
 
   update(option: any) {
     if (option.text) {
+      // 被激活过
       if (this._editor) {
         this._editor.setData(option.text);
-      } else if (!this._creating) {
-        this._$editor.html(option.text);
-      } else {
+      } else if (this._creating) {
         this._cache = option;
+      } else {
+        this._$editor.html(option.text);
       }
     }
   }
@@ -136,12 +137,12 @@ export class TextAuxiliary extends AuxiliaryView {
   }
 
   destroy() {
+    super.destroy();
     if (this._editor) {
       this._editor.destroy();
       this._editor = null;
     }
     this.$element.remove();
     this.$element = null;
-    this._$editor = null;
   }
 }

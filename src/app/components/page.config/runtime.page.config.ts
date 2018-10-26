@@ -1,8 +1,8 @@
 import * as _ from 'lodash';
 import {KeyValueDiffer} from '@angular/core';
 import {session} from '@core/node/utils/session';
-import {ChangeItem} from '@core/config/design/graphic.config';
 import {PageConfig} from './page.config';
+import {ChangedItem} from '@core/node/event/model.event';
 
 export class RuntimePageConfig extends PageConfig {
   option: any;
@@ -63,7 +63,7 @@ export class RuntimePageConfig extends PageConfig {
     return _.cloneDeep(this.option);
   }
 
-  private _update(changeItemArray: Array<ChangeItem>) {
+  private _update(changeItemArray: Array<ChangedItem>) {
     changeItemArray.forEach((value, index, array) => {
       this._trigger(value);
     });

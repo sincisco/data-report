@@ -5,6 +5,7 @@ import {Grid} from '../../graphic.view/chart/echart.interface/grid';
 import {BarSeriesConfig} from '../../graphic.view/chart/echart.interface/series/bar.series';
 import {Axis} from '../../graphic.view/chart/echart.interface/axis';
 import {Title} from '../../graphic.view/chart/echart.interface/title';
+import {GraphicWrapper} from '@core/node/graphic/graphic.wrapper';
 
 
 export interface ChartBarOption {
@@ -23,11 +24,14 @@ export class BarChartGraphic extends ChartGraphic {
     super(region);
   }
 
-  init(region: RegionController) {
+  init(region: RegionController, wrapper: GraphicWrapper) {
     super.init();
     region.addMethod('desc', () => {
-      console.log('invoke desc');
-      return '柱状图';
+      return {
+        id: wrapper.uuid,
+        displayName: `柱状图 ${wrapper.uuid}`,
+        icon: 'u-icn-chart-bar'
+      };
     });
   }
 }

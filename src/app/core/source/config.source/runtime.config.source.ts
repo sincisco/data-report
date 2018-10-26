@@ -1,6 +1,7 @@
 import {KeyValueDiffer} from '@angular/core';
-import {ChangeItem, GraphicConfig} from '../../config/design/graphic.config';
+import {GraphicConfig} from '../../config/design/graphic.config';
 import {session} from '../../node/utils/session';
+import {ChangedItem} from '@core/node/event/model.event';
 
 export class RuntimeConfigSource extends GraphicConfig {
   private _option: any;
@@ -57,7 +58,7 @@ export class RuntimeConfigSource extends GraphicConfig {
 
   }
 
-  private _update(changeItemArray: Array<ChangeItem>) {
+  private _update(changeItemArray: Array<ChangedItem>) {
     changeItemArray.forEach((value, index, array) => {
       this._trigger(value);
     });

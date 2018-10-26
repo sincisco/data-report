@@ -67,7 +67,7 @@ export const stdGraphicMeta: GraphicMetaMap = {
     graphic: {
       graphicKey: 'text.graphic',
       configOption: null,
-      dataOptionId: 'num1'
+      dataOptionId: 'num2'
     }
   },
   commentAuxiliary: {

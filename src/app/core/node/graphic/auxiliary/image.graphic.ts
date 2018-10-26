@@ -3,6 +3,7 @@ import {ImageAuxiliary} from '../../graphic.view/auxiliary/image.auxiliary';
 import {IGraphicView} from '../../graphic.view/graphic.view';
 import {DefaultGraphic} from '../default.graphic';
 import {RegionController} from '@core/node/region/region.controller';
+import * as _ from 'lodash';
 
 const template = `
 <div class="graphic m-graphic m-graphic-image z-mode-edit">
@@ -59,9 +60,19 @@ export class ImageGraphic extends DefaultGraphic {
   }
 
   accept(modelSource: Observable<any>): Subscription {
+    let lastConfig;
     return modelSource.subscribe((modelArray: Array<any>) => {
+      console.log('model change');
       const [config, data] = modelArray;
-      this._modelEventTarget.batchTrigger(config);
+      if (!!config && config !== lastConfig) {
+        console.log('config change', JSON.stringify(config));
+        if (_.isArray(config)) {
+          this._modelEventTarget.batchTrigger(config);
+        } else {
+          this._modelEventTarget.trigger(config);
+        }
+        lastConfig = config;
+      }
     });
   }
 

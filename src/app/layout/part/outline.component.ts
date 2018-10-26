@@ -33,7 +33,6 @@ export class OutlineComponent implements AfterViewInit {
           this.list = regionArray.map((region: RegionController) => {
             return region.invoke('desc');
           });
-          console.log(JSON.stringify(this.list));
         });
     });
   }

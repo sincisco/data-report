@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 import {BehaviorSubject, Subject} from 'rxjs';
-import {ChangeItem, GraphicConfig} from '../../config/design/graphic.config';
+import {GraphicConfig} from '../../config/design/graphic.config';
+import {ChangedItem} from '@core/node/event/model.event';
 
 
 export class DesignGraphicConfig extends GraphicConfig {
@@ -17,7 +18,7 @@ export class DesignGraphicConfig extends GraphicConfig {
     }
   }
 
-  protected _update(changeItemArray: Array<ChangeItem>) {
+  protected _update(changeItemArray: Array<ChangedItem>) {
     changeItemArray.forEach((value, index, array) => {
       this._trigger(value);
     });

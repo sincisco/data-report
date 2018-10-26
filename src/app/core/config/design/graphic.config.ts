@@ -1,14 +1,8 @@
 import * as _ from 'lodash';
 import {Observable, Subject} from 'rxjs';
+import {ChangedItem} from '@core/node/event/model.event';
 
 type KeyValueListener = (key: string, oldValue: any, newValue: any, option?: any) => void;
-
-export interface ChangeItem {
-  key: string;
-  oldValue: any;
-  newValue: any;
-  option: any;
-}
 
 export abstract class GraphicConfig {
   private _destroyed = false;
@@ -29,7 +23,7 @@ export abstract class GraphicConfig {
     return this._destroyed;
   }
 
-  protected _trigger(item: ChangeItem) {
+  protected _trigger(item: ChangedItem) {
     if (this._map && this._map.has(item.key)) {
       console.log('handle: ', item.key);
       const listener = this._map.get(item.key);

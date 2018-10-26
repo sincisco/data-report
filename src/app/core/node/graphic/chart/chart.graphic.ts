@@ -1,5 +1,6 @@
 import {Type} from '@angular/core';
 import {Observable} from 'rxjs';
+import * as _ from 'lodash';
 import {RegionController} from '../../region/region.controller';
 import {IGraphic} from '../graphic';
 import {Chart} from '../../graphic.view/chart/chart';
@@ -8,8 +9,6 @@ import {contextMenuHelper} from '../../../../utils/contextMenu';
 
 import {DesignGraphicConfig} from '../../../source/config.source/design.config.source';
 import {OuterModelEventTarget} from '../../event/model.event';
-
-import * as _ from 'lodash';
 
 
 const template = `
@@ -58,7 +57,7 @@ export abstract class ChartGraphic implements IGraphic {
    * @param option
    * @private
    */
-  init(option?: any) {
+  init(...params: Array<any>) {
     // 步骤1
     this._chart = new Chart(this);
 
@@ -79,6 +78,7 @@ export abstract class ChartGraphic implements IGraphic {
         } else {
           this._modelEventTarget.trigger(config);
         }
+        this.updateDate(data);
         lastConfig = config;
       }
 

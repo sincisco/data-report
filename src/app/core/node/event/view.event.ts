@@ -50,6 +50,9 @@ export class ViewEventTarget implements IEventTarget {
   }
 
   destroy() {
-    this._map.clear();
+    if (this._map) {
+      this._map.clear();
+      this._map = null;
+    }
   }
 }

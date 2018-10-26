@@ -1,6 +1,6 @@
-import {interval, Observable, of} from 'rxjs';
+import {BehaviorSubject, interval, Observable, of} from 'rxjs';
 import {map, publishBehavior, refCount} from 'rxjs/operators';
-import {MockDynamicDataSourceConfig} from './data.source.interface';
+import {MockDynamicDataSourceConfig, MockStaticDataSourceConfig} from './data.source.interface';
 import {DataOption} from '@core/data/data.option';
 import {dataModelManager} from '@core/data/data.model.manager';
 import {array} from '@core/data/test';
@@ -52,8 +52,8 @@ export class DataSourceFactory {
    * @returns {Observable<any>}
    * @private
    */
-  private _createMockStaticDataSource(config: any) {
-    return of(config);
+  private _createMockStaticDataSource(config: MockStaticDataSourceConfig) {
+    return new BehaviorSubject(config);
   }
 
   /**

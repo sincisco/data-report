@@ -34,5 +34,7 @@ export abstract class AuxiliaryView implements IGraphicView {
     return this;
   }
 
-  abstract destroy();
+  destroy() {
+    this._event.destroy();
+  }
 }
